@@ -1,0 +1,344 @@
+.test{
+     border: 1px solid red;
+}
+
+.hide{
+     display: none;
+}
+
+.mt-10{
+     margin-top: 10px;
+}
+
+.mt-20{
+     margin-top: 20px;
+}
+
+.mt-30{
+     margin-top: 30px;
+}
+
+.mt-40{
+     margin-top: 40px;
+}
+
+.mt-50{
+     margin-top: 50px;
+}
+
+.mb-10{
+     margin-bottom: 10px;
+}
+
+.mb-20{
+     margin-bottom: 20px;
+}
+
+.mb-30{
+     margin-bottom: 30px;
+}
+
+.mb-40{
+     margin-bottom: 40px;
+}
+
+.mb-50{
+     margin-bottom: 50px;
+}
+
+.pt-10{
+     margin-top: 10px;
+}
+
+.pt-20{
+     margin-top: 20px;
+}
+
+.pt-30{
+     margin-top: 30px;
+}
+
+.pt-40{
+     margin-top: 40px;
+}
+
+.pt-50{
+     margin-top: 50px;
+}
+
+.pb-10{
+     margin-bottom: 10px;
+}
+
+.pb-20{
+     margin-bottom: 20px;
+}
+
+.pb-30{
+     margin-bottom: 30px;
+}
+
+.pb-40{
+     margin-bottom: 40px;
+}
+
+.pb-50{
+     margin-bottom: 50px;
+}
+
+.to-left{
+     text-align: left;
+}
+
+.to-right{
+     text-align: right;
+}
+
+.ml-auto{
+     margin-left: auto;
+}
+
+.mr-auto{
+     margin-right: auto;
+}
+
+th{
+     text-align: center;
+}
+
+td{
+     text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+     .scroller{
+          overflow-x: scroll;
+     }
+     .to-center{
+          justify-content: center !important;
+     }
+}
+
+/********************************************* image picker *********************************************************/
+.bgColor {
+     max-width: 440px;
+     height: 400px;
+     background-color: #c3e8cb;
+     padding: 30px;
+     border-radius: 4px;
+     text-align: center;
+}
+#targetOuter{
+     position:relative;
+     text-align: center;
+     background-color: #F0E8E0;
+     margin: 20px auto;
+     width: 250px;
+     height: 200px;
+     border-radius: 4px;
+}
+.btnSubmit {
+     background-color: #565656;
+     border-radius: 4px;
+     padding: 10px;
+     border: #333 1px solid;
+     color: #FFFFFF;
+     width: 200px;
+     cursor:pointer;
+}
+.inputFile {
+     padding: 5px 0px;
+     margin-top:8px;
+     background-color: #FFFFFF;
+     width: 48px;
+     overflow: hidden;
+     opacity: 0;
+     cursor:pointer;
+}
+.icon-choose-image {
+     position: absolute;
+     opacity: 0.1;
+     top: 50%;
+     left: 50%;
+     margin-top: -24px;
+     margin-left: -24px;
+     width: 48px;
+     height: 48px;
+}
+.upload-preview {
+     border-radius:4px;
+     background-position: center;
+     background-size: cover;
+}
+#body-overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
+#body-overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
+
+
+/********************************************* Comments *********************************************************/
+.comment-main{
+     height: 300px;
+}
+
+.comment-main ul{
+	list-style: none;
+     overflow-x: hidden;
+     overflow-y: auto;
+     height: 200px;
+}
+.sub-cmt-img{
+	width: 55px !important;
+    height: 55px !important;
+    border-radius: 50%;
+}
+.main-cmt-img{
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50%;
+}
+
+.user-comment{
+	background-color: #f3f3f3 !important;
+    box-shadow: 0px 5px 8px -4px #c1c1c1;
+}
+.user-comment-desc, .user-comment span{
+	color: #a0a0a0;
+}
+.user-comment-desc p{
+	font-size: 12px;
+	display: inline-block;
+	float: left;
+}
+.user-comment:before{
+    content: "";
+    height: 0;
+    width: 0;
+    top: 0;
+    left: -10px;
+    position: absolute;
+    border-style: solid;
+    border-width: 13px 0 0 13px;
+	border-color: #f3f3f3 transparent transparent transparent;
+}
+
+/********************************************* Preloader *********************************************************/
+
+body.preloader-site {
+    overflow: hidden;
+}
+
+.preloader-wrapper {
+    height: 100%;
+    width: 100%;
+    background: #FFF;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+}
+
+.preloader-wrapper .preloader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 120px;
+}
+
+/************************************/
+
+.bootstrap-select.show>.dropdown-menu>.dropdown-menu {
+    display: block;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden{
+    display:none;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li a{
+    display: block;
+    width: 100%;
+    padding: 3px 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #292b2c;
+    text-align: inherit;
+    white-space: nowrap;
+    background: 0 0;
+    border: 0;
+}
+
+.dropdown-toggle.btn-default {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #ccc;
+}
+
+.dropdown-menu > li.active > a {
+  color: #fff !important;
+  background-color: #337ab7 !important;
+}
+
+.bootstrap-select .check-mark::after {
+  content: "✓";
+}
+
+.bootstrap-select button {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ------------------------------ */
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+
+/* Make filled out selects be the same size as empty selects */
+/* .bootstrap-select.btn-group .dropdown-toggle .filter-option {
+  display: inline !important;
+} */
+
+.bootstrap-select.show > .dropdown-menu > .dropdown-menu {
+  display: block;
+}
+.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden {
+  display: none;
+}
+
+
+/* -----------------------------------------------------*/
+
+.img-hover {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Centered text */
+.img-hover-centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
