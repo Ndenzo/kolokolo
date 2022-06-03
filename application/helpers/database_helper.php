@@ -114,6 +114,25 @@ if (!function_exists('config')) {
     }
 }
 
+if (!function_exists('sim_meta')) {
+    function sim_meta($key = null,$value = null) {
+        $CI = &get_instance();
+        $data = array();
+        if(is_null($value))
+        {
+            $rs = @$CI->db->get('sim_metas')->result_array();
+            foreach($rs as $k=>$v)
+            {
+                $data[$v['sim_meta_code']] = $v['sim_meta_value'];
+            }
+            return is_null($key) ? @$data : @$data[$key];
+        }else{
+            $data['sim_meta_code'] = $key;
+            $data['sim_meta_value'] = $value;
+            $rs = @$CI->db->replace('sim_metas',$data);
+        }
+    }
+}
 
 if (!function_exists('handle_db_error')) {
     function handle_db_error($error)

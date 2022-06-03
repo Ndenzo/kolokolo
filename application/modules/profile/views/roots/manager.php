@@ -14,18 +14,24 @@
 }
 </style>
 
-<div class="container-fluid">
+<div class="container-fluid mb-5">
      <form class="validatedForm" method="post" action="<?= _url($module_base.'update') ?>" autocomplete="off" enctype="multipart/form-data">
           <div class="row clearfix">
                <div class="col-xl-8 box-col-12">
                     <div class="card">
                          <div class="card-body">
-                              <h5 class="card-title">Your profile </h5>
+                              <div class="card-title mb-5">
+                                   <h5><?= $this->lang->line('profile-header-profil') ?></h5>
+                              </div>
                               <?php show_notification();?>
                               <div class="row">
                                    <div class="col-md-4 text-center">
                                         <label class="label row" id="img-hover" data-toggle="tooltip" title="Change your avatar">
-                                             <img class="rounded ml-auto mr-auto" id="avatar"  src="<?= _url(@$profile->person_picture); ?>" alt="No image" style="width: 200px; height: 200px;">
+                                             <?php if (@$profile->person_picture == null): ?>
+                                                  <img class="rounded ml-auto mr-auto" id="avatar"  src="<?= _url('assets/custom/img/default/boy.png') ?>" alt="No image"  style="width: 200px; height: 200px;">
+                                             <?php else: ?>
+                                                  <img class="rounded ml-auto mr-auto" id="avatar"  src="<?= _url(@$profile->person_picture); ?>" alt="No image" style="width: 200px; height: 200px;">
+                                             <?php endif; ?>
                                              <input type="file" class="sr-only" id="input" name="picture" accept="image/*">
                                              <div id="picture_data"></div>
                                              <div id="img-hover-centered"><i data-feather="image"></i></div>
@@ -34,8 +40,8 @@
                                    <div class="col-md-8">
                                         <div class="theme-form mega-form">
                                              <div class="form-group mb-3">
-                                                  <label>Gender</label>
-                                                  <?php dropDown('SELECT settings_gender_id, settings_gender_name FROM settings_genders', array(
+                                                  <label><?= $this->lang->line('profile-form-label-gender') ?></label>
+                                                  <?php dropDown('SELECT settings_gender_id, settings_gender_name FROM settings_genders',array(
                                                        'name'=>'person_gender_id',
                                                        'id'=>"settings_gender_id_form",
                                                        'class' => 'form-control select_custom',
@@ -45,21 +51,21 @@
                                              </div>
                                              <div class="row">
                                                   <div class="form-group mb-3 col-7">
-                                                       <label>First name</label>
-                                                       <input type="text" class="form-control" placeholder="First name .." name="person_first_name" value="<?= @$profile->person_first_name ?>" required>
+                                                       <label><?= $this->lang->line('profile-form-label-firstName') ?></label>
+                                                       <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-firstName') ?>" name="person_first_name" value="<?= @$profile->person_first_name ?>" required>
                                                   </div>
                                                   <div class="form-group mb-3 col-5">
-                                                       <label>Last name</label>
-                                                       <input type="text" class="form-control" placeholder="Last name .." name="person_last_name" value="<?= @$profile->person_last_name ?>" required>
+                                                       <label><?= $this->lang->line('profile-form-label-lastName') ?></label>
+                                                       <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-lastName') ?>" name="person_last_name" value="<?= @$profile->person_last_name ?>" required>
                                                   </div>
                                              </div>
                                              <div class="row">
                                                   <div class="form-group mb-3 col-7">
-                                                       <label>Birth place</label>
-                                                       <input type="text" class="form-control" placeholder="Birth place .." name="person_birth_place" value="<?= @$profile->person_birth_place ?>" required>
+                                                       <label><?= $this->lang->line('profile-form-label-birthPlace') ?></label>
+                                                       <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-birthPlace') ?>" name="person_birth_place" value="<?= @$profile->person_birth_place ?>" required>
                                                   </div>
                                                   <div class="form-group mb-3 col-5">
-                                                       <label>Birth date</label>
+                                                       <label><?= $this->lang->line('profile-form-label-birthDate') ?></label>
                                                        <input type="date" class="form-control digits" name="person_birth_date" value="<?= @$profile->person_birth_date ?>" required>
                                                   </div>
                                              </div>
@@ -72,29 +78,28 @@
                <div class="col-xl-4 box-col-12">
                     <div class="card">
                          <div class="card-body">
-                              <h5 class="card-title">Authentication </h5>
+                              <div class="card-title mb-5">
+                                   <h5><?= $this->lang->line('profile-header-auth') ?> </h5>
+                              </div>
                               <div class="row">
                                    <div class="col-12">
                                         <div class="theme-form mega-form">
                                              <div class="form-group mb-3">
-                                                  <label>Your email and login</label>
-                                                  <input type="text" class="form-control" placeholder="Email .." name="user_email" value="<?= @$profile->user_email ?>" required>
+                                                  <label><?= $this->lang->line('profile-form-label-login') ?></label>
+                                                  <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-login') ?>" name="user_email" value="<?= @$profile->user_email ?>" required>
                                              </div>
-                                             <div class="alert alert-warning inverse alert-dismissible fade show mt-2" role="alert"><i class="icon-bell"></i>
-                                                  <p style="font-size: 12px;">
-                                                       Only if you want to change your password !
+                                             <div class="alert alert-warning inverse alert-dismissible fade show" role="alert">
+                                                  <p class="mt-2" style="font-size: 12px;">
+                                                       <?= $this->lang->line('profile-message-password') ?>
                                                   </p>
-                                                  <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-                                                       <span aria-hidden="true">×</span>
-                                                  </button>
                                              </div>
                                              <div class="form-group mb-3">
-                                                  <label>New password</label>
-                                                  <input type="password" class="form-control" placeholder="Your password .." name="password" id="password">
+                                                  <label><?= $this->lang->line('profile-form-label-password') ?></label>
+                                                  <input type="password" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-password') ?>" name="password" id="password">
                                              </div>
                                              <div class="form-group mb-3">
-                                                  <label>Rewrite new password</label>
-                                                  <input type="password" class="form-control" placeholder="Rewrite your password .." name="password_confirm">
+                                                  <label><?= $this->lang->line('profile-form-label-passwordConfirm') ?></label>
+                                                  <input type="password" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-passwordConfirm') ?>" name="password_confirm">
                                              </div>
                                         </div>
                                    </div>
@@ -108,17 +113,19 @@
                <div class="col-xl-8 box-col-12">
                     <div class="card">
                          <div class="card-body">
-                              <h5 class="card-title">Contacts </h5>
+                              <div class="card-title mb-5">
+                                   <h5><?= $this->lang->line('profile-header-contact') ?> </h5>
+                              </div>
                               <div class="row">
                                    <div class="col-12">
                                         <div class="theme-form mega-form">
                                              <div class="form-group mb-3">
-                                                  <label>Address</label>
-                                                  <input type="text" class="form-control" placeholder="Address .." name="person_address" value="<?= @$profile->person_address ?>" required>
+                                                  <label><?= $this->lang->line('profile-form-label-address') ?></label>
+                                                  <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-address') ?>" name="person_address" value="<?= @$profile->person_address ?>" required>
                                              </div>
                                              <div class="row">
                                                   <div class="form-group mb-3 col-6">
-                                                       <label>Country</label>
+                                                       <label><?= $this->lang->line('profile-form-label-country') ?></label>
                                                        <?php dropDown('SELECT iso2, short_name FROM settings_countries',array(
                                                             'name'=>'person_country',
                                                             'id'=>"person_country_form",
@@ -127,18 +134,28 @@
                                                        ));?>
                                                   </div>
                                                   <div class="form-group mb-3 col-6">
-                                                       <label>City</label>
-                                                       <input type="text" class="form-control" placeholder="City .." name="person_city" value="<?= @$profile->person_city ?>" required>
+                                                       <label><?= $this->lang->line('profile-form-label-city') ?></label>
+                                                       <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-city') ?>" name="person_city" value="<?= @$profile->person_city ?>" required>
                                                   </div>
                                              </div>
                                              <div class="row">
                                                   <div class="form-group mb-3 col-6">
-                                                       <label>Phone number 1</label>
-                                                       <input type="text" class="form-control" placeholder="Number 1 .." name="person_phone_1" value="<?= @$profile->person_phone_1 ?>" required>
+                                                       <label><?= $this->lang->line('profile-form-label-phone1') ?></label>
+                                                       <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                 <select name="person_country_phone_1"></select>
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-phone1') ?>" name="person_phone_1" value="<?= @$profile->person_phone_1 ?>" required>
+                                                       </div>
                                                   </div>
                                                   <div class="form-group mb-3 col-6">
-                                                       <label>Phone number 2</label>
-                                                       <input type="text" class="form-control" placeholder="Number 2 .." name="person_phone_2" value="<?= @$profile->person_phone_2 ?>" >
+                                                       <label><?= $this->lang->line('profile-form-label-phone2') ?></label>
+                                                       <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                 <select name="person_country_phone_2"></select>
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="<?= $this->lang->line('profile-form-placeholder-phone2') ?>" name="person_phone_2" value="<?= @$profile->person_phone_2 ?>" >
+                                                       </div>
                                                   </div>
                                              </div>
                                         </div>
@@ -150,12 +167,14 @@
                <div class="col-xl-4 box-col-12">
                     <div class="card">
                          <div class="card-body">
-                              <h5 class="card-title">Configuration </h5>
+                              <div class="card-title mb-5">
+                                   <h5><?= $this->lang->line('profile-header-config') ?> </h5>
+                              </div>
                               <div class="row">
                                    <div class="col-12">
                                         <div class="theme-form mega-form">
                                              <div class="form-group mb-3">
-                                                  <label>Timezone</label>
+                                                  <label><?= $this->lang->line('profile-form-label-timezone') ?></label>
                                                   <?php dropDown('SELECT settings_timezone_id, settings_timezone_name FROM settings_timezones',array(
                                                        'name'=>'settings_timezone_id',
                                                        'id'=>"settings_timezone_id_form",
@@ -164,15 +183,12 @@
                                                        'selected' => @$profile->settings_timezone_id,
                                                   ));?>
                                              </div>
-                                             <div class="alert alert-info inverse alert-dismissible fade show mt-2" role="alert"><i class="icon-info-alt"></i>
-                                                  <p style="font-size: 12px;">
+                                             <div class="alert alert-info inverse alert-dismissible fade show" role="alert">
+                                                  <p class="mt-2" style="font-size: 12px;">
                                                        <?php $datetime = new DateTime(gmdate('Y-m-d H:i'), new DateTimeZone('Africa/Dakar')); ?>
                                                        <?php $datetime->setTimezone(new DateTimeZone(get_timezone()));  ?>
-                                                       <b> Your time : </b> <?= $datetime->format('H:i') ?>
+                                                       <b> <?= $this->lang->line('profile-message-timezone') ?> : </b> <?= $datetime->format('H:i') ?>
                                                   </p>
-                                                  <button class="close" type="button" data-dismiss="alert" aria-label="Close">
-                                                       <span aria-hidden="true">×</span>
-                                                  </button>
                                              </div>
                                         </div>
                                    </div>
@@ -184,7 +200,7 @@
                     <input type="hidden" name="person_id" value="<?= @$profile->person_id ?>">
                     <input type="hidden" name="user_id" value="<?= @$profile->user_id ?>">
                     <input type="hidden" name="is_profile" value="<?= @$is_profile ?>">
-                    <button type="submit" class="btn btn-success btn-lg" title="submit" style="width: 70px; height: 70px;"> <h1><span class="fa fa-check"></span></h1> </button>
+                    <button type="submit" class="btn btn-success btn-lg" title="submit"> <h1><span class="fa fa-check"></span></h1> </button>
                </div>
           </div>
      </form>
@@ -223,7 +239,6 @@ document.getElementById("img-hover").addEventListener("mouseover", function( eve
 document.getElementById("img-hover").addEventListener("mouseout", function( event ) {
      document.getElementById("img-hover-centered").style.visibility = "hidden";
 }, false);
-
 
 window.addEventListener('DOMContentLoaded', function () {
      var avatar = document.getElementById('avatar');
@@ -297,5 +312,74 @@ window.addEventListener('DOMContentLoaded', function () {
           }
      });
 });
+
+(function($) {
+     $(function() {
+          var isoCountries1 = [
+               <?php if (is_array(get_countries())): ?>
+               {
+                    id : '',
+                    text : '',
+               },
+               <?php foreach (get_countries() as $key => $country): ?>
+               {
+                    id : '<?= $country->iso2 ?>',
+                    text : '+<?= $country->calling_code ?>',
+                    <?php if ($profile->person_country_phone_1 == $country->iso2 ): ?>
+                    selected : true
+                    <?php endif; ?>
+
+               },
+               <?php endforeach; ?>
+               <?php endif; ?>
+          ];
+
+          var isoCountries2 = [
+               <?php if (is_array(get_countries())): ?>
+               {
+                    id : '',
+                    text : '',
+               },
+               <?php foreach (get_countries() as $key => $country): ?>
+               {
+                    id : '<?= $country->iso2 ?>',
+                    text : '+<?= $country->calling_code ?>',
+                    <?php if ($profile->person_country_phone_2 == $country->iso2 ): ?>
+                    selected : true
+                    <?php endif; ?>
+
+               },
+               <?php endforeach; ?>
+               <?php endif; ?>
+          ];
+
+
+
+          function formatCountry (country) {
+               if (!country.id) { return country.text; }
+               var $country = $(
+                    '<span class="flag-icon flag-icon-'+ country.id.toLowerCase() +' flag-icon-squared"></span>' +
+                    '<span class="flag-text pl-2">  '+ country.text+"</span>"
+               );
+               return $country;
+          };
+
+          //Assuming you have a select element with name country
+          // e.g. <select name="name"></select>
+
+          $("[name='person_country_phone_1']").select2({
+               placeholder: "Select a country",
+               templateResult: formatCountry,
+               data: isoCountries1
+          });
+
+          $("[name='person_country_phone_2']").select2({
+               placeholder: "Select a country",
+               templateResult: formatCountry,
+               data: isoCountries2
+          });
+
+     });
+})(jQuery);
 
 </script>

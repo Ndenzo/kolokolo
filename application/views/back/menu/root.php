@@ -1,145 +1,128 @@
-<div class="menu">
-     <div class="main-menu">
-          <div class="scroll">
-               <ul class="list-unstyled">
-                    <li>
-                         <a href="<?= _url('dashboard') ?>">
-                              <i class="iconsminds-shop-4"></i>
-                              <span>Dashboards</span>
-                         </a>
-                    </li>
-                    <li>
-                         <a href="<?= _url('profile/root') ?>">
-                              <i class="iconsminds-profile"></i>
-                              <span>Profile</span>
-                         </a>
-                    </li>
-                    <li>
-                         <a href="<?= _url('meet') ?>">
-                              <i class="iconsminds-affiliate"></i>
-                              <span>Rendez-vous</span>
-                         </a>
-                    </li>
-                    <li>
-                         <a href="<?= _url('contact') ?>">
-                              <i class="simple-icon-notebook"></i>
-                              <span>Contact</span>
-                         </a>
-                    </li>
-                    <li>
-                         <a href="#layouts">
-                              <i class="iconsminds-digital-drawing"></i> Contenues
-                         </a>
-                    </li>
-                    <li>
-                         <a href="#securite">
-                              <i class="iconsminds-security-settings"></i> Securité
-                         </a>
-                    </li>
-                    <li>
-                         <a href="#parametre">
-                              <i class="simple-icon-settings"></i> Paramètres
-                         </a>
-                    </li>
-                    <li>
-                         <a href="<?= _url('auth/logout') ?>">
-                              <i class="iconsminds-power"></i> Deconnexion
-                         </a>
-                    </li>
-               </ul>
-          </div>
-     </div>
-
-     <div class="sub-menu">
-          <div class="scroll">
-
-               <ul class="list-unstyled" data-link="layouts">
-                    <li class="active">
-                         <a href="<?= _url('illustration') ?>">
-                              <i class="iconsminds-office-lamp"></i> <span class="d-inline-block">Illustrations</span>
-                         </a>
-                    </li>
-                    <li>
-                         <a href="<?= _url('blog') ?>">
-                              <i class="iconsminds-office-lamp"></i> <span class="d-inline-block">Blogs</span>
-                         </a>
-                    </li>
-                    <li>
-                         <a href="<?= _url('realisation') ?>">
-                              <i class="iconsminds-office-lamp"></i> <span class="d-inline-block">Realisations</span>
-                         </a>
-                    </li>
-                    <li>
-                         <a href="<?= _url('tag') ?>">
-                              <i class="iconsminds-office-lamp"></i> <span class="d-inline-block">Tags</span>
-                         </a>
-                    </li>
-               </ul>
-
-               <ul class="list-unstyled" data-link="securite">
-                    <li>
-                         <a href="#" data-toggle="collapse" data-target="#collapseForms" aria-expanded="true" aria-controls="collapseForms" class="rotate-arrow-icon opacity-50">
-                              <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">Securite</span>
-                         </a>
-                         <div id="collapseForms" class="collapse show">
-                              <ul class="list-unstyled inner-level-menu">
-                                   <li>
-                                        <a href="<?= _url('securite/roles') ?>">
-                                             <i class="simple-icon-event"></i> <span class="d-inline-block">Roles</span>
-                                        </a>
-                                   </li>
-                                   <li>
-                                        <a href="<?= _url('securite/users') ?>">
-                                             <i class="simple-icon-doc"></i> <span class="d-inline-block">Users</span>
-                                        </a>
-                                   </li>
-                              </ul>
-                         </div>
-                    </li>
-               </ul>
-
-               <ul class="list-unstyled" data-link="parametre">
-                    <li>
-                         <a href="#" data-toggle="collapse" data-target="#collapseForms" aria-expanded="true" aria-controls="collapseForms" class="rotate-arrow-icon opacity-50">
-                              <i class="simple-icon-arrow-down"></i> <span class="d-inline-block">General</span>
-                         </a>
-                         <div id="collapseForms" class="collapse show">
-                              <ul class="list-unstyled inner-level-menu">
-                                   <li>
-                                        <a href="<?= _url('settings/settings_config') ?>">
-                                             <i class="simple-icon-event"></i> <span class="d-inline-block">Configuration</span>
-                                        </a>
-                                   </li>
-                                   <li>
-                                        <a href="<?= _url('settings/settings_gender') ?>">
-                                             <i class="simple-icon-doc"></i> <span class="d-inline-block">Genre</span>
-                                        </a>
-                                   </li>
-                                   <li>
-                                        <a href="<?= _url('settings/settings_country') ?>">
-                                             <i class="simple-icon-check"></i> <span class="d-inline-block">Pays</span>
-                                        </a>
-                                   </li>
-                                   <li>
-                                        <a href="<?= _url('settings/settings_timezone') ?>">
-                                             <i class="simple-icon-check"></i> <span class="d-inline-block">Timezones</span>
-                                        </a>
-                                   </li>
-                                   <li>
-                                        <a href="<?= _url('settings/settings_rx_link') ?>">
-                                             <i class="simple-icon-check"></i> <span class="d-inline-block">Réseaux sociaux</span>
-                                        </a>
-                                   </li>
-                                   <li>
-                                        <a href="<?= _url('settings/settings_meet') ?>">
-                                             <i class="simple-icon-check"></i> <span class="d-inline-block">Status Rendez-vous</span>
-                                        </a>
-                                   </li>
-                              </ul>
-                         </div>
-                    </li>
-               </ul>
-
-          </div>
-     </div>
-</div>
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+     <ul class="nav">
+          <li class="nav-item nav-profile" style="border-bottom: 1px solid #fff;">
+               <a href="<?= _url("profile/".me("role_code")); ?>" class="nav-link d-block text-center">
+                    <div class="profile-image">
+                         <?php if (me('person_picture') != null): ?>
+                              <img class="img-sm rounded-circle" src="<?= _url(me('person_picture')) ?>" alt="profile image">
+                         <?php else: ?>
+                              <img class="img-sm rounded-circle" src="<?= _url(); ?>assets/custom/img/default/boy.png" alt="profile image">
+                         <?php endif; ?>
+                    </div>
+                    <div class="text-wrapper">
+                         <p class="profile-name"><?= me("user_nicename") ?></p>
+                         <p class="text-center" style="font-weight: bold;"><?= me("role_name") ?></p>
+                    </div>
+               </a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php _url("dashboard"); ?>">
+                    <i class="mdi mdi-view-dashboard menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_dashboard') ?></span>
+               </a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" data-toggle="collapse" href="#actor" aria-expanded="false" aria-controls="ui-advanced">
+                    <i class="mdi mdi-account-multiple menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_actors') ?></span>
+                    <?php if (@count(get_investor_notif()) > 0): ?>
+                         <span class="badge badge-warning" style="width: 25px; height: 25px; padding: 8px;"><?= @count(get_investor_notif()) ?></span>
+                    <?php endif; ?>
+                    <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="actor">
+                    <ul class="nav flex-column sub-menu">
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?= _url('actor/investor') ?>" style="height: 50px!important;"><?= $this->lang->line('sub_menu_investors') ?>
+                                   <?php if (@count(get_investor_notif()) > 0): ?>
+                                        <span class="badge badge-success" style="width: 25px; height: 25px; padding: 8px;"><?= @count(get_investor_notif()) ?></span>
+                                   <?php endif; ?>
+                              </a>
+                         </li>
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('actor/contact') ?>" style="height: 50px!important;"><?= $this->lang->line('sub_menu_contacts') ?></a></li>
+                    </ul>
+               </div>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" data-toggle="collapse" href="#project" aria-expanded="false" aria-controls="ui-advanced">
+                    <i class="mdi mdi-book-open menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_projects') ?></span>
+                    <?php if (@count(get_investor_request()) > 0): ?>
+                         <span class="badge badge-warning" style="width: 25px; height: 25px; padding: 8px;"><?= @count(get_investor_request()) ?></span>
+                    <?php endif; ?>
+                    <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="project">
+                    <ul class="nav flex-column sub-menu">
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('content/project') ?>" style="height: 50px!important;"><?= $this->lang->line('main_menu_projects') ?></a></li>
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('content/convenience') ?>" style="height: 50px!important;"><?= $this->lang->line('sub_menu_conveniences') ?></a></li>
+                         <li class="nav-item">
+                              <a class="nav-link" href="<?= _url('content/request') ?>" style="height: 50px!important;"><?= $this->lang->line('sub_menu_investments') ?>
+                                   <?php if (@count(get_investor_request()) > 0): ?>
+                                        <span class="badge badge-success" style="width: 25px; height: 25px; padding: 8px;"><?= @count(get_investor_request()) ?></span>
+                                   <?php endif; ?>
+                              </a>
+                         </li>
+                    </ul>
+               </div>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php _url("studie"); ?>">
+                    <i class="mdi mdi-file-document menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_studies') ?></span>
+               </a>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" data-toggle="collapse" href="#simulator" aria-expanded="false" aria-controls="ui-advanced">
+                    <i class="mdi mdi-matrix menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_simulator') ?></span>
+                    <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="simulator">
+                    <ul class="nav flex-column sub-menu">
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('simulator/specification') ?>"><?= $this->lang->line('sub_menu_specs') ?></a></li>
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('simulator/param') ?>"><?= $this->lang->line('sub_menu_params') ?></a></li>
+                         <div class="dropdown-divider"></div>
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('simulator/demo') ?>"><?= $this->lang->line('sub_menu_demo') ?></a></li>
+                    </ul>
+               </div>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" data-toggle="collapse" href="#security" aria-expanded="false" aria-controls="ui-advanced">
+                    <i class="mdi mdi-security menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_security') ?></span>
+                    <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="security">
+                    <ul class="nav flex-column sub-menu">
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('securite/roles') ?>"><?= $this->lang->line('sub_menu_roles') ?></a></li>
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('securite/users') ?>"><?= $this->lang->line('sub_menu_users') ?></a></li>
+                    </ul>
+               </div>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" data-toggle="collapse" href="#settings" aria-expanded="false" aria-controls="ui-advanced">
+                    <i class="mdi mdi-settings menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_settings') ?></span>
+                    <i class="menu-arrow"></i>
+               </a>
+               <div class="collapse" id="settings">
+                    <ul class="nav flex-column sub-menu">
+                         <!-- <li class="nav-item"> <a class="nav-link" href="<?= _url('settings/settings_config') ?>"><?= $this->lang->line('sub_menu_config') ?></a> </li> -->
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('settings/settings_gender') ?>"><?= $this->lang->line('sub_menu_gender') ?></a> </li>
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('settings/settings_country') ?>"><?= $this->lang->line('sub_menu_country') ?></a> </li>
+                         <!-- <li class="nav-item"> <a class="nav-link" href="<?= _url('settings/settings_timezone') ?>">Timezones</a> </li> -->
+                         <!-- <div class="dropdown-divider"></div> -->
+                         <li class="nav-item"> <a class="nav-link" href="<?= _url('settings/settings_payment_method') ?>"><?= $this->lang->line('sub_menu_payment') ?></a> </li>
+                         <!-- <li class="nav-item"> <a class="nav-link" href="<?= _url('settings/settings_gallery_type') ?>"><?= $this->lang->line('sub_menu_gallery') ?></a> </li> -->
+                    </ul>
+               </div>
+          </li>
+          <li class="nav-item">
+               <a class="nav-link" href="<?php _url('auth/logout'); ?>">
+                    <i class="mdi mdi-power menu-icon"></i>
+                    <span class="menu-title"><?= $this->lang->line('main_menu_logout') ?></span>
+               </a>
+          </li>
+     </ul>
+</nav>

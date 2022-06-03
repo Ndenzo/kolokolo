@@ -2,168 +2,168 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-if(!function_exists('get_indicator_credit')){
-     function get_indicator_credit(){
+if(!function_exists('get_project_investments')){
+     function get_project_investments($project_id){
           $CI = &get_instance();
-          $CI->db->select('sum(customer_credit_value) as nb_credit, sum(customer_credits.customer_credit_value * pricings.pricing_value) as val_credit');
-          $CI->db->from('customer_credits');
-          $CI->db->join('pricings', "pricings.pricing_id = customer_credits.pricing_id");
-          $customer_credits = $CI->db->get()->row();
-          return $customer_credits;
+          $CI->db->select('sum(project_invest_value) as total_invest');
+          $CI->db->from('project_invests');
+          $CI->db->where('project_invests.project_id', $project_id);
+          $project_invest = $CI->db->get()->row();
+          return $project_invest->total_invest;
      }
 }
 
-if(!function_exists('get_indicator_credit_spec')){
-     function get_indicator_credit_spec($type){
+if(!function_exists('get_project_tx')){
+     function get_project_tx($project_id){
+          $total_invest = get_project_investments($project_id);
+
           $CI = &get_instance();
-          $CI->db->select('sum(customer_credit_value) as nb_credit, sum(customer_credits.customer_credit_value * pricings.pricing_value) as val_credit');
-          $CI->db->from('customer_credits');
-          $CI->db->join('pricings', "pricings.pricing_id = customer_credits.pricing_id");
-          $CI->db->join('settings_credits', "settings_credits.settings_credit_id = customer_credits.settings_credit_id");
-          $CI->db->where('settings_credits.settings_credit_code', $type);
-          $customer_credits = $CI->db->get()->row();
-          return $customer_credits;
+          $CI->db->select('project_value');
+          $CI->db->from('projects');
+          $CI->db->where('projects.project_id', $project_id);
+          $project = $CI->db->get()->row();
+          $tx = $total_invest/$project->project_value*100;
+          return round($tx, 0);
      }
 }
 
-
-if(!function_exists('get_nbCustomer')){
-     function get_nbCustomer(){
+if(!function_exists('get_project_investors')){
+     function get_project_investors($project_id){
 
           $CI = &get_instance();
-          $CI->db->SELECT('count(customers.customer_id) as customers_nb');
-          $CI->db->FROM('customers');
-          $qry = $CI->db->get();
-          $result = $qry->row()->customers_nb;
-          return ($result);
+
+          $CI->db->select('*');
+          $CI->db->from('project_invests');
+          $CI->db->join('investors','investors.investor_id = project_invests.investor_id');
+          $CI->db->join('users_2_persons','users_2_persons.user_id = investors.user_id');
+          $CI->db->join('persons','persons.person_id = users_2_persons.person_id');
+          $CI->db->where('project_invests.project_id', $project_id);
+
+          $projects = $CI->db->get()->result();
+
+          return $projects;
      }
 }
 
-if(!function_exists('get_nbTeacher')){
-     function get_nbTeacher(){
+if(!function_exists('decaissement_code_generator')){
+     function decaissement_code_generator(){
           $CI = &get_instance();
-          $CI->db->SELECT('count(teachers.teacher_id) as teachers_nb');
-          $CI->db->FROM('teachers');
-          $qry = $CI->db->get();
-          $result = $qry->row()->teachers_nb;
-          return ($result);
+          $CI->db->select("decaissement_bon_id");
+          $CI->db->from("decaissement_bons");
+          $CI->db->order_by("decaissement_bon_id", "desc");
+          $result = $CI->db->get();
+          $decaissement_bon_id = @$result->row()->decaissement_bon_id;
+          $num = sprintf("%05d",  (int)@$result->num_rows()+1);
+          $timer = date("m-y");
+          $num = "D-".$num."-".$timer;
+          return($num);
      }
 }
 
-if(!function_exists('get_teachers_unpaid')){
-     function get_teachers_unpaid(){
+if(!function_exists('get_investor_nb')){
+     function get_investor_nb($role_code = "all"){
+          $to_consider = array('potentiel', 'investisseur', 'partenaire');
           $CI = &get_instance();
-          $sum = 0;
 
-          $CI->db->select('sum(teacher_payment_amount) as amount');
-          $CI->db->from('teacher_payments');
-          $CI->db->join('settings_payments','settings_payments.settings_payment_id = teacher_payments.settings_payment_id');
-          $CI->db->where('settings_payments.settings_payment_code','!paid');
-          $payment = $CI->db->get()->row();
+          $CI->db->select('count(user_id) as nb_investor');
+          $CI->db->from('users');
+          $CI->db->join('users_roles','users_roles.role_id = users.role_id');
+          if($role_code != "all"){
+               $CI->db->where('users_roles.role_code', $role_code);
+          }else{
+               $CI->db->where_in('users_roles.role_code', $to_consider);
+          }
+          $users = $CI->db->get()->row();
 
-          return((float)$payment->amount);
+          return thousand($users->nb_investor);
      }
 }
 
-if(!function_exists('get_balance_amount')){
-     function get_balance_amount(){
+if(!function_exists('get_last_investments')){
+     function get_last_investments(){
+
           $CI = &get_instance();
-          $sum = 0;
 
-          $CI->db->select('sum(teacher_payment_amount) as amount');
-          $CI->db->from('teacher_payments');
-          $CI->db->join('settings_payments','settings_payments.settings_payment_id = teacher_payments.settings_payment_id');
-          $payment = $CI->db->get()->row();
+          $CI->db->limit('5');
+          $CI->db->select('*');
+          $CI->db->from('project_invests');
+          $CI->db->join('investors','investors.investor_id = project_invests.investor_id');
+          $CI->db->join('users','users.user_id = investors.user_id');
+          $CI->db->join('users_roles','users_roles.role_id = users.role_id');
 
-          $sales_value = get_indicator_credit_spec("paid")->val_credit;
+          $CI->db->join('users_2_persons','users_2_persons.user_id = investors.user_id');
+          $CI->db->join('persons','persons.person_id = users_2_persons.person_id');
+          $CI->db->join('projects','projects.project_id = project_invests.project_id');
 
-          $balance = (float)$sales_value - (float)$payment->amount;
+          $CI->db->order_by('project_invests.project_invest_id', 'desc');
 
-          return($balance);
+          $Investments = $CI->db->get()->result();
+
+          return $Investments;
      }
 }
 
-if(!function_exists('get_teacher_salary')){
-     function get_teacher_salary($teacher_id, $type, $settings_language_id=0){
+if(!function_exists('get_active_projects')){
+     function get_active_projects(){
 
           $CI = &get_instance();
+
+          $CI->db->limit('10');
+          $CI->db->distinct('project_invests.project_id');
+
+          $CI->db->select('project_invests.project_id');
+          $CI->db->from('project_invests');
+          $CI->db->order_by('project_invests.project_invest_id', 'desc');
+
+          $projects = $CI->db->get()->result();
 
           $data = array();
-          $sum = 0;
-          $cpt = 0;
 
-          if($type == "month"){
-               $month = gmdate('m');
-               $year = gmdate('Y');
+          foreach ($projects as $key => $project) {
 
-               $end = $year."-".$month."-31";
-               $first = $year."-".$month."-1";
-          }else{
-               $end = gmdate("Y-m-d", strtotime('sunday this week'));
-               $first = gmdate("Y-m-d", strtotime('monday this week'));
+               $CI->db->select('*');
+               $CI->db->from('projects','projects.project_id = project_invests.project_id');
+               $CI->db->where('projects.project_id', $project->project_id);
+
+               $result = $CI->db->get()->row();
+
+               $result->total_invest = get_project_investments($project->project_id);
+               $result->tx = get_project_tx($project->project_id);
+
+               array_push($data, $result);
+
           }
 
-          $CI->db->select('*');
-          $CI->db->from('customer_schedules');
-          $CI->db->join('schedules','schedules.schedule_id = customer_schedules.schedule_id');
-          $CI->db->join('customer_credits','customer_credits.customer_credit_id = customer_schedules.customer_credit_id');
-          $CI->db->join('pricings','pricings.pricing_id = customer_credits.pricing_id');
-          $CI->db->where('customer_schedules.customer_schedule_date <=', $end);
-          $CI->db->where('customer_schedules.customer_schedule_date >=', $first);
-          $CI->db->where('customer_schedules.customer_schedule_date <=', gmdate('Y-m-d'));
-          $CI->db->where('schedules.teacher_id', $teacher_id);
-
-          $courses = $CI->db->get()->result();
-
-          foreach ($courses as $key => $course) {
-               $sum += @get_com_value($course->teacher_id, $course->settings_language_id, $course->customer_schedule_id);
-               $cpt ++;
-          }
-
-          $data['sum'] = $sum;
-          $data['cpt'] = $cpt;
-
-          return($data);
+          return $data;
      }
-}
 
-
-if(!function_exists('get_nbCourses')){
-     function get_nbCourses($categorie, $type = null){
-          $CI = &get_instance();
-
-          if ($type != null) {
-               if($type == "month"){
-                    $month = gmdate('m');
-                    $year = gmdate('Y');
-
-                    $end = $year."-".$month."-31";
-                    $first = $year."-".$month."-1";
-               }else{
-                    if($type == "week"){
-                         $end = gmdate("Y-m-d", strtotime('sunday this week'));
-                         $first = gmdate("Y-m-d", strtotime('monday this week'));
-                    }else{
-                         $year = gmdate('Y');
-
-                         $end = $year."-12-31";
-                         $first = $year."-1-1";
-                    }
-               }
+     if(!function_exists('get_studies_nb')){
+          function get_studies_nb(){
+               $CI = &get_instance();
+               $CI->db->select('count(studie_id) as nb_studies');
+               $CI->db->from('studies');
+               $studies = $CI->db->get()->row();
+               return $studies->nb_studies;
           }
+     }
 
-          $CI->db->select('*');
-          $CI->db->from('customer_schedules');
-          $CI->db->join('schedules','schedules.schedule_id = customer_schedules.schedule_id');
-          if($categorie == 'done') {
-               $CI->db->where('customer_schedules.customer_schedule_date <=', gmdate('Y-m-d'));
-               $CI->db->where('customer_schedules.customer_schedule_date <=', $end);
-               $CI->db->where('customer_schedules.customer_schedule_date >=', $first);
-          }else{
-               $CI->db->where('customer_schedules.customer_schedule_date >', gmdate('Y-m-d'));
+     if(!function_exists('get_states_nb')){
+          function get_states_nb(){
+               $CI = &get_instance();
+               $CI->db->select('count(sim_state_id) as nb_states');
+               $CI->db->from('sim_states');
+               $states = $CI->db->get()->row();
+               return $states->nb_states;
           }
-          $courses = $CI->db->get()->result();
+     }
 
-          return(count($courses));
+     if(!function_exists('get_towns_nb')){
+          function get_towns_nb(){
+               $CI = &get_instance();
+               $CI->db->select('count(sim_town_id) as nb_towns');
+               $CI->db->from('sim_towns');
+               $towns = $CI->db->get()->row();
+               return $towns->nb_towns;
+          }
      }
 }

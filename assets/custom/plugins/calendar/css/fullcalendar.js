@@ -14875,7 +14875,7 @@ Bootstrap4Theme.prototype.classes = {
     stateDisabled: 'disabled',
     today: 'alert alert-info',
     popover: 'card card-primary',
-    popoverHeader: 'card-title',
+    popoverHeader: 'card-header',
     popoverContent: 'card-body',
     // day grid
     // for left/right border color when border is inset from edges (all-day in agenda view)

@@ -36,7 +36,9 @@ class Profile_model extends IBEMS_Model
 
           $user_id = $this->input->post('user_id');
           $data = IBEMS_Model::sanitize_for('users');
-          $data['user_login'] = $this->input->post('user_email');
+          if(get_user_info('role_code') != 'root'){
+               $data['user_login'] = $this->input->post('user_email');
+          }
           $data['modified'] = time();
           if(@$this->input->post('password') != null){
                $data['hash'] = crypt($this->input->post('password'),salt(32));
@@ -50,20 +52,11 @@ class Profile_model extends IBEMS_Model
                $this->update_photo($person_id);
           }
 
-          if(get_user_info('role_code') == 'teacher'){
-               $teacher_id = $this->input->post('teacher_id');
-               $data = IBEMS_Model::sanitize_for('teachers');
-               $data['teacher_modified'] = time();
-               $this->db->where('teacher_id', $teacher_id);
-               $this->db->update('teachers', $data);
-          }
-
-          if(get_user_info('role_code') == 'customer'){
-               $customer_id = $this->input->post('customer_id');
-               $data = IBEMS_Model::sanitize_for('customers');
-               $data['customer_modified'] = time();
-               $this->db->where('customer_id', $customer_id);
-               $this->db->update('customers', $data);
+          if(get_user_info('role_code') != 'root'){
+               $data = IBEMS_Model::sanitize_for('investors');
+               $data['investor_modified'] = time();
+               $this->db->where('user_id', $user_id);
+               $this->db->update('investors', $data);
           }
 
           $this->db->trans_complete();
@@ -82,11 +75,8 @@ class Profile_model extends IBEMS_Model
           $this->db->from('users');
           $this->db->join('users_2_persons', 'users_2_persons.user_id = users.user_id');
           $this->db->join('persons', 'persons.person_id = users_2_persons.person_id');
-          if (get_user_info('role_code') == 'teacher') {
-               $this->db->join('teachers', 'teachers.user_id = users_2_persons.user_id');
-          }
-          if (get_user_info('role_code') == 'customer') {
-               $this->db->join('customers', 'customers.user_id = users_2_persons.user_id');
+          if (get_user_info('role_code') != 'root') {
+               $this->db->join('investors', 'investors.user_id = users.user_id');
           }
           $this->db->where('users.user_id', $this->__user_id);
           return ($this->db->get()->row());
@@ -99,6 +89,7 @@ class Profile_model extends IBEMS_Model
           $this->db->join('users_2_persons', 'users_2_persons.user_id = users.user_id');
           $this->db->join('persons', 'persons.person_id = users_2_persons.person_id');
           $this->db->join('teachers', 'teachers.user_id = users_2_persons.user_id');
+          $this->db->join('settings_timezones', 'settings_timezones.settings_timezone_id = users.settings_timezone_id');
           $this->db->where('users.user_id', $teacher_id);
           return ($this->db->get()->row());
      }

@@ -1,537 +1,275 @@
+
+
 <div class="row">
-               <div class="col-12">
+     <div class="col-lg-8">
+          <div class="d-lg-flex align-items-baseline">
+               <h5 class="text-dark mb-0">
+                    <?= $this->lang->line('label-welcome-dash') ?>
+               </h5>
+               <!-- <p class="ml-md-3 font-weight-light mb-0 mt-1">Last login was 23 hours ago. View details</p> -->
+          </div>
+     </div>
+     <div class="col-lg-4 text-lg-right">
+          <div class="d-lg-flex d-none justify-content-end  pageheader-icons">
+               <a href="#" class="btn d-flex align-items-center"><i class="mdi mdi-heart-outline"></i></a>
+               <a href="#" class="btn d-flex align-items-center"><i class="mdi mdi-calendar-blank"></i></a>
+               <a href="#" class="btn d-flex align-items-center"><i class="mdi mdi-bookmark-outline"></i></a>
+               <a href="#" class="btn d-flex align-items-center"><i class="mdi mdi-settings"></i></a>
+          </div>
+     </div>
+</div>
 
-                   <h1>Dashboard</h1>
-                   <div class="separator mb-5"></div>
-
-
-               </div>
-               <div class="col-lg-12 col-xl-6">
-
-                   <div class="icon-cards-row">
-                       <div class="glide dashboard-numbers">
-                          <div class="glide__track" data-glide-el="track">
-                               <ul class="glide__slides">
-                                   <li class="glide__slide">
-                                       <a href="#" class="card">
-                                           <div class="card-body text-center">
-                                               <i class="iconsminds-clock"></i>
-                                               <p class="card-text mb-0">Pending Posts</p>
-                                               <p class="lead text-center">16</p>
-                                           </div>
-                                       </a>
-                                   </li>
-                                   <li class="glide__slide">
-                                       <a href="#" class="card">
-                                           <div class="card-body text-center">
-                                               <i class="iconsminds-basket-coins"></i>
-                                               <p class="card-text mb-0">Completed Posts</p>
-                                               <p class="lead text-center">32</p>
-                                           </div>
-                                       </a>
-                                   </li>
-                                   <li class="glide__slide">
-                                       <a href="#" class="card">
-                                           <div class="card-body text-center">
-                                               <i class="iconsminds-arrow-refresh"></i>
-                                               <p class="card-text mb-0">Categories</p>
-                                               <p class="lead text-center">2</p>
-                                           </div>
-                                       </a>
-                                   </li>
-                                   <li class="glide__slide">
-                                       <a href="#" class="card">
-                                           <div class="card-body text-center">
-                                               <i class="iconsminds-mail-read"></i>
-                                               <p class="card-text mb-0">New Comments</p>
-                                               <p class="lead text-center">25</p>
-                                           </div>
-                                       </a>
-                                   </li>
-                               </ul>
-                          </div>
-                       </div>
-                   </div>
-
-                   <div class="row">
-                       <div class="col-md-12 mb-4">
-                          <div class="card">
-                               <div class="position-absolute card-top-buttons">
-                                   <button class="btn btn-header-light icon-button" type="button"
-                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                       <i class="simple-icon-refresh"></i>
-                                   </button>
-
-                                   <div class="dropdown-menu dropdown-menu-right mt-3">
-                                       <a class="dropdown-item" href="#">Sales</a>
-                                       <a class="dropdown-item" href="#">Orders</a>
-                                       <a class="dropdown-item" href="#">Refunds</a>
-                                   </div>
-                               </div>
-
-                               <div class="card-body">
-                                   <h5 class="card-title">Quick Post</h5>
-                                   <div class="dashboard-quick-post">
-                                       <form>
-                                           <div class="form-group row">
-                                               <label class="col-sm-3 col-form-label">Title</label>
-                                               <div class="col-sm-9">
-                                                   <input type="email" class="form-control" placeholder="">
-                                               </div>
-                                           </div>
-                                           <div class="form-group row">
-                                               <label class="col-sm-3 col-form-label">Content</label>
-                                               <div class="col-sm-9">
-                                                   <textarea class="form-control" rows="3"></textarea>
-                                               </div>
-                                           </div>
-                                           <div class="form-group row">
-                                               <label class="col-sm-3 col-form-label">Category</label>
-                                               <div class="col-sm-9">
-                                                   <label class="w-100">
-                                                       <select class="form-control select2-single" data-width="100%">
-                                                           <option label="&nbsp;">&nbsp;</option>
-                                                           <option>Cakes</option>
-                                                           <option>Cupcakes</option>
-                                                           <option>Desserts</option>
-                                                       </select>
-                                                   </label>
-                                               </div>
-                                           </div>
-
-                                           <div class="form-group row mb-0">
-                                               <div class="col-sm-12">
-                                                   <button type="submit"
-                                                       class="btn btn-primary float-right">Submit</button>
-                                               </div>
-                                           </div>
-                                       </form>
-                                   </div>
-                               </div>
-                          </div>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="col-xl-6 col-lg-12 mb-4">
-                   <div class="card h-100">
-                       <div class="card-body">
-                          <h5 class="card-title">Top Viewed Posts</h5>
-                          <table class="data-table data-table-standard responsive nowrap"
-                               data-order="[[ 1, &quot;desc&quot; ]]">
-                               <thead>
-                                   <tr>
-                                       <th>Name</th>
-                                       <th>Views</th>
-                                   </tr>
-                               </thead>
-                               <tbody>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Wedding Cake with Flowers Macarons</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">1452</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Cheesecake with Chocolate Cookies</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">1420</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Homemade Cheesecake with Fresh Berries</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">1360</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Cheesecake with Fresh Berries</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">1310</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Tea Loaf with Fresh Oranges</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">1245</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Cheesecake with Chocolate Cookies</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">1100</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Homemade Cheesecake with Fresh Berries</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">1003</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Homemade Cheesecake with Fresh Berries</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">952</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Cheesecake with Fresh Berries</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">924</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Tea Loaf with Fresh Oranges</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">842</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Cheesecake with Chocolate Cookies</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">810</p>
-                                       </td>
-                                   </tr>
-                                   <tr>
-                                       <td>
-                                           <p class="list-item-heading">Homemade Cheesecake with Fresh Berries</p>
-                                       </td>
-                                       <td>
-                                           <p class="text-muted">605</p>
-                                       </td>
-                                   </tr>
-                               </tbody>
-                          </table>
-                       </div>
-                   </div>
-
-
-
+<div class="row mt-4">
+     <div class="col-12 col-sm-6 col-md-6 col-xl-3 grid-margin stretch-card">
+          <div class="card bg-info hoverable card-xl-stretch mb-xl-8">
+               <div class="card-body">
+                    <i class="mdi mdi-account-multiple text-white" style="font-size: 50px;"></i>
+                    <h3 class="text-white fw-bolder fs-2 mb-2 mt-3 font-weight-bold"><?= get_investor_nb('potentiel') ?></h3>
+                    <div class="fw-bold text-white text-uppercase"><?= $this->lang->line('label-potential-dash') ?></div>
                </div>
           </div>
-          <div class="row">
-               <div class="col-md-12 col-lg-4 mb-4">
-                   <div class="card dashboard-link-list">
-                       <div class="card-body">
-                          <h5 class="card-title">Categories</h5>
-                          <div class="d-flex flex-row">
-                               <div class="w-50">
-                                   <ul class="list-unstyled mb-0">
-                                       <li class="mb-1">
-                                           <a href="#">Marble Cake</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Fruitcake</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Chocolate Cake</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Fat Rascal</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Financier</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Genoise</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Gingerbread</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Goose Breast</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Parkin</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Petit Gâteau</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Salzburger Nockerl</a>
-                                       </li>
-                                       <li>
-                                           <a href="#">Soufflé</a>
-                                       </li>
-                                   </ul>
-                               </div>
-
-                               <div class="w-50">
-                                   <ul class="list-unstyled mb-0">
-                                       <li class="mb-1">
-                                           <a href="#">Streuselkuchen</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Tea Loaf</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Napoleonshat</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Merveilleux</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Magdalena</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Cremeschnitte</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Cheesecake</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Bebinca</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Fruitcake</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Chocolate Cake</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Fat Rascal</a>
-                                       </li>
-                                       <li class="mb-1">
-                                           <a href="#">Financier</a>
-                                       </li>
-                                   </ul>
-                               </div>
-                          </div>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="col-md-12 col-lg-8 mb-4">
-                   <div class="card">
-                       <div class="card-body">
-                          <h5 class="card-title">Comments</h5>
-
-                          <div class="scroll dashboard-list-with-user">
-                               <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                   <a href="#">
-                                       <img alt="Profile Picture" src="<?php _url(); ?>assets/back/img/profiles/l-1.jpg"
-                                           class="<?php _url(); ?>assets/back/img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                   </a>
-                                   <div class="pl-3">
-                                       <a href="#">
-                                           <p class="font-weight-medium mb-0">Very informative content, thank you. </p>
-                                           <p class="text-muted mb-0 text-small">Mayra Sibley | Tea Loaf with Fresh
-                                               Oranges | 17.09.2018 - 04:45</p>
-                                       </a>
-                                   </div>
-                               </div>
-                               <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                   <a href="#">
-                                       <img alt="Profile Picture" src="<?php _url(); ?>assets/back/img/profiles/l-7.jpg"
-                                           class="<?php _url(); ?>assets/back/img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                   </a>
-                                   <div class="pl-3">
-                                       <a href="#">
-                                           <p class="font-weight-medium mb-0">This article was delightful to read.
-                                               Please keep them coming.</p>
-                                           <p class="text-muted mb-0 text-small">Barbera Castiglia | Cheesecake with
-                                               Chocolate Cookies | 15.08.2018 - 01:18</p>
-                                       </a>
-                                   </div>
-                               </div>
-                               <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                   <a href="#">
-                                       <img alt="Profile Picture" src="<?php _url(); ?>assets/back/img/profiles/l-6.jpg"
-                                           class="<?php _url(); ?>assets/back/img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                   </a>
-                                   <div class="pl-3">
-                                       <a href="#">
-                                           <p class="font-weight-medium mb-0">Your post is bad and you should feel
-                                               bad.</p>
-                                           <p class="text-muted mb-0 text-small">Bao Hathaway | Homemade Cheesecake |
-                                               26.07.2018 - 11:14</p>
-                                       </a>
-                                   </div>
-                               </div>
-                               <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                   <a href="#">
-                                       <img alt="Profile Picture" src="<?php _url(); ?>assets/back/img/profiles/l-3.jpg"
-                                           class="<?php _url(); ?>assets/back/img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                   </a>
-                                   <div class="pl-3">
-                                       <a href="#">
-                                           <p class="font-weight-medium mb-0">Very original idea!</p>
-                                           <p class="text-muted mb-0 text-small">Lenna Majeed | Tea Loaf with Fresh
-                                               Oranges | 17.06.2018 - 09:20</p>
-                                       </a>
-                                   </div>
-                               </div>
-                               <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                   <a href="#">
-                                       <img alt="Profile Picture" src="<?php _url(); ?>assets/back/img/profiles/l-5.jpg"
-                                           class="<?php _url(); ?>assets/back/img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                   </a>
-                                   <div class="pl-3">
-                                       <a href="#">
-                                           <p class="font-weight-medium mb-0">This article was delightful to read.
-                                               Please keep them coming.</p>
-                                           <p class="text-muted mb-0 text-small">Esperanza Lodge | Cheesecake with
-                                               Fresh Berries | 16.06.2018 - 16:45</p>
-                                       </a>
-                                   </div>
-                               </div>
-                               <div class="d-flex flex-row mb-3 pb-3 border-bottom">
-                                   <a href="#">
-                                       <img alt="Profile Picture" src="<?php _url(); ?>assets/back/img/profiles/l-4.jpg"
-                                           class="<?php _url(); ?>assets/back/img-thumbnail border-0 rounded-circle list-thumbnail align-self-center xsmall" />
-                                   </a>
-                                   <div class="pl-3">
-                                       <a href="#">
-                                           <p class="font-weight-medium mb-0">Nah, did not like it.</p>
-                                           <p class="text-muted mb-0 text-small">Brynn Bragg | Wedding Cake with
-                                               Flowers | 12.04.2018 - 12:45</p>
-                                       </a>
-                                   </div>
-                               </div>
-                          </div>
-                       </div>
-                   </div>
+     </div>
+     <div class="col-12 col-sm-6 col-md-6 col-xl-3 grid-margin stretch-card">
+          <div class="card bg-success hoverable card-xl-stretch mb-xl-8">
+               <div class="card-body">
+                    <i class="mdi mdi-briefcase-check text-white" style="font-size: 50px;"></i>
+                    <h3 class="text-white fw-bolder fs-2 mb-2 mt-3 font-weight-bold"><?= get_investor_nb('investisseur') ?></h3>
+                    <div class="fw-bold text-white text-uppercase"><?= $this->lang->line('label-investor-dash') ?></div>
                </div>
           </div>
-
-          <div class="row">
-               <div class="col-md-6 col-sm-12 mb-4">
-                   <div class="card dashboard-filled-line-chart">
-                       <div class="card-body ">
-                          <div class="float-left float-none-xs">
-                               <div class="d-inline-block">
-                                   <h5 class="d-inline">Website Visits</h5>
-                                   <span class="text-muted text-small d-block">Unique Visitors</span>
-                               </div>
-                          </div>
-                          <div class="btn-group float-right float-none-xs mt-2">
-                               <button class="btn btn-outline-primary btn-xs dropdown-toggle" type="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   This Week
-                               </button>
-                               <div class="dropdown-menu">
-                                   <a class="dropdown-item" href="#">Last Week</a>
-                                   <a class="dropdown-item" href="#">This Month</a>
-                               </div>
-                          </div>
-                       </div>
-                       <div class="chart card-body pt-0">
-                          <canvas id="visitChart"></canvas>
-                       </div>
-                   </div>
-               </div>
-
-               <div class="col-md-6 col-sm-12 mb-4">
-                   <div class="card dashboard-filled-line-chart">
-                       <div class="card-body ">
-                          <div class="float-left float-none-xs">
-                               <div class="d-inline-block">
-                                   <h5 class="d-inline">Pages Viewed</h5>
-                                   <span class="text-muted text-small d-block">Per Session</span>
-                               </div>
-                          </div>
-                          <div class="btn-group float-right mt-2 float-none-xs">
-                               <button class="btn btn-outline-secondary btn-xs dropdown-toggle" type="button"
-                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                   This Week
-                               </button>
-                               <div class="dropdown-menu">
-                                   <a class="dropdown-item" href="#">Last Week</a>
-                                   <a class="dropdown-item" href="#">This Month</a>
-                               </div>
-                          </div>
-                       </div>
-                       <div class="chart card-body pt-0">
-                          <canvas id="conversionChart"></canvas>
-                       </div>
-                   </div>
+     </div>
+     <div class="col-12 col-sm-6 col-md-6 col-xl-3 grid-margin stretch-card">
+          <div class="card bg-warning hoverable card-xl-stretch mb-xl-8">
+               <div class="card-body">
+                    <i class="mdi mdi-link-variant text-white" style="font-size: 50px;"></i>
+                    <h3 class="text-white fw-bolder fs-2 mb-2 mt-3 font-weight-bold"><?= get_investor_nb('partenaire') ?></h3>
+                    <div class="fw-bold text-white text-uppercase"><?= $this->lang->line('label-partner-dash') ?></div>
                </div>
           </div>
-
-
-
-          <div class="row">
-               <div class="col-lg-4">
-                   <div class="card mb-4 progress-banner">
-                       <div class="card-body justify-content-between d-flex flex-row align-items-center">
-                          <div>
-                               <i class="iconsminds-clock mr-2 text-white align-text-bottom d-inline-block"></i>
-                               <div>
-                                   <p class="lead text-white">5 Posts</p>
-                                   <p class="text-small text-white">Pending for publish</p>
-                               </div>
-                          </div>
-
-                          <div>
-                               <div role="progressbar"
-                                   class="progress-bar-circle progress-bar-banner position-relative" data-color="white"
-                                   data-trail-color="rgba(255,255,255,0.2)" aria-valuenow="5" aria-valuemax="12"
-                                   data-show-percent="false">
-                               </div>
-                          </div>
-                       </div>
-                   </div>
-               </div>
-               <div class="col-lg-4">
-                   <div class="card mb-4 progress-banner">
-                       <div class="card-body justify-content-between d-flex flex-row align-items-center">
-                          <div>
-                               <i class="iconsminds-male mr-2 text-white align-text-bottom d-inline-block"></i>
-                               <div>
-                                   <p class="lead text-white">4 Users</p>
-                                   <p class="text-small text-white">On approval process</p>
-                               </div>
-                          </div>
-                          <div>
-                               <div role="progressbar"
-                                   class="progress-bar-circle progress-bar-banner position-relative" data-color="white"
-                                   data-trail-color="rgba(255,255,255,0.2)" aria-valuenow="4" aria-valuemax="6"
-                                   data-show-percent="false">
-                               </div>
-                          </div>
-                       </div>
-                   </div>
-               </div>
-               <div class="col-lg-4">
-                   <div class="card mb-4 progress-banner">
-                       <a href="#" class="card-body justify-content-between d-flex flex-row align-items-center">
-                          <div>
-                               <i class="iconsminds-bell mr-2 text-white align-text-bottom d-inline-block"></i>
-                               <div>
-                                   <p class="lead text-white">8 Alerts</p>
-                                   <p class="text-small text-white">Waiting for notice</p>
-                               </div>
-                          </div>
-                          <div>
-                               <div role="progressbar"
-                                   class="progress-bar-circle progress-bar-banner position-relative" data-color="white"
-                                   data-trail-color="rgba(255,255,255,0.2)" aria-valuenow="8" aria-valuemax="10"
-                                   data-show-percent="false">
-                               </div>
-                          </div>
-                       </a>
-                   </div>
+     </div>
+     <div class="col-12 col-sm-6 col-md-6 col-xl-3 grid-margin stretch-card">
+          <div class="card bg-dark hoverable card-xl-stretch mb-xl-8">
+               <div class="card-body">
+                    <i class="mdi mdi-counter text-white" style="font-size: 50px;"></i>
+                    <h3 class="text-white fw-bolder fs-2 mb-2 mt-3 font-weight-bold"><?= get_investor_nb() ?></h3>
+                    <div class="fw-bold text-white text-uppercase"><?= $this->lang->line('label-investors-dash') ?></div>
                </div>
           </div>
+     </div>
+</div>
+
+<div class="row">
+     <div class="col-xl-6 w-100 grid-margin stretch-card">
+          <div class="card">
+               <div class="card-body">
+                    <h4 class="card-title text-uppercase font-weight-bold mb-5"><?= $this->lang->line('label-invest-chart-dash') ?></h4>
+                    <div id="morris-line-investements"></div>
+               </div>
+          </div>
+     </div>
+
+     <div class="col-xl-6 grid-margin stretch-card">
+          <div class="card">
+               <div class="card-body">
+                    <h4 class="card-title text-uppercase font-weight-bold mb-5"><?= $this->lang->line('label-invest-list-dash') ?></h4>
+                    <div class="table-responsive">
+                         <table class="table">
+                              <thead>
+                                   <tr>
+                                        <th class="pt-1 pl-0 font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-investor') ?>
+                                        </th>
+                                        <th class="pt-1 font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-date') ?>
+                                        </th>
+                                        <th class="pt-1 font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-investment') ?>
+                                        </th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <?php if (is_array(get_last_investments())): ?>
+                                        <?php foreach (get_last_investments() as $key => $investment): ?>
+                                             <tr>
+                                                  <td class="py-1 pl-0">
+                                                       <div class="d-flex align-items-center">
+                                                            <div class="ml-0">
+                                                                 <p class="mb-0"  style="font-size: 12px;"><?= $investment->user_nicename ?></p>
+                                                                 <p class="mb-0 text-muted text-small" style="font-size: 12px;"><?= $investment->role_name ?></p>
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td>
+                                                       <div class="d-flex align-items-center">
+                                                            <div class="ml-0">
+                                                                 <p class="mb-0"  style="font-size: 12px;"><?= gmdate('d-m-Y', $investment->project_invest_modified) ?></p>
+                                                                 <p class="mb-0 text-muted" style="font-size: 12px;"><?= gmdate('H:i', $investment->project_invest_modified) ?></p>
+                                                            </div>
+                                                       </div>
+                                                  </td>
+                                                  <td>
+                                                       <div class="d-flex align-items-center">
+                                                            <div class="ml-0">
+                                                                 <p class="mb-0"  style="font-size: 12px;"><?= thousand($investment->project_invest_value) ?> F</p>
+                                                                 <p class="mb-0 text-warning text-small" style="font-size: 12px;"><?= $investment->project_name ?></p>
+                                                            </div>
+                                                       </div>
+
+                                                  </td>
+                                             </tr>
+                                        <?php endforeach; ?>
+                                   <?php endif; ?>
+                              </tbody>
+                         </table>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
+
+<div class="row">
+     <div class="col-md-4 grid-margin">
+          <div class="card d-flex align-items-center">
+               <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                         <i class="mdi mdi-file-document text-info icon-lg"></i>
+                         <div class="ml-3">
+                              <h4 class="text-info font-weight-bold"><?= @get_studies_nb() ?></h4>
+                              <p class="mt-2 text-muted card-text font-weight-bold"><?= $this->lang->line('label-studies-dash') ?></p>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <div class="col-md-4 grid-margin">
+          <div class="card d-flex align-items-center">
+               <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                         <i class="mdi mdi-call-merge text-warning icon-lg"></i>
+                         <div class="ml-3">
+                              <h4 class="text-warning font-weight-bold"><?= @get_states_nb() ?></h4>
+                              <p class="mt-2 text-muted card-text font-weight-bold"><?= $this->lang->line('label-states-dash') ?></p>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <div class="col-md-4 grid-margin">
+          <div class="card d-flex align-items-center">
+               <div class="card-body">
+                    <div class="d-flex flex-row align-items-center">
+                         <i class="mdi mdi-call-split text-twitter icon-lg"></i>
+                         <div class="ml-3">
+                              <h4 class="text-twitter font-weight-bold"><?= @get_towns_nb() ?></h4>
+                              <p class="mt-2 text-muted card-text font-weight-bold"><?= $this->lang->line('label-town-dash') ?></p>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
+
+<div class="row">
+     <div class="col-lg-12 grid-margin stretch-card">
+          <div class="card">
+               <div class="card-body">
+                    <h4 class="card-title text-uppercase font-weight-bold mb-5"><?= $this->lang->line('label-project-active-dash') ?></h4>
+                    <div class="table-responsive">
+                         <table class="table table-striped">
+                              <thead>
+                                   <tr>
+                                        <th class="font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-project') ?>
+                                        </th>
+                                        <th class="font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-progress') ?>
+                                        </th>
+                                        <th class="font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-investment') ?>
+                                        </th>
+                                        <th class="font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-total') ?>
+                                        </th>
+                                        <th class="font-weight-bold">
+                                             <?= $this->lang->line('header-dashboard-deadline') ?>
+                                        </th>
+                                   </tr>
+                              </thead>
+                              <tbody>
+                                   <?php if (count(@get_active_projects()) > 0): ?>
+                                        <?php foreach (get_active_projects() as $key => $project): ?>
+                                             <tr>
+                                                  <td class="py-1">
+                                                       <?= $project->project_name ?> - <?= $project->project_address  ?>
+                                                  </td>
+                                                  <td>
+                                                       <div class="progress">
+                                                            <div class="progress-bar bg-warning" role="progressbar" style="width: <?= $project->tx ?>%" aria-valuenow="<?= $project->tx ?>" aria-valuemin="0" aria-valuemax="100"></div>
+                                                       </div>
+                                                  </td>
+                                                  <td>
+                                                       <?= thousand($project->total_invest) ?> F
+                                                  </td>
+                                                  <td>
+                                                       <?= thousand($project->project_value) ?> F
+                                                  </td>
+                                                  <td>
+
+                                                       <?= gmdate('d-m-Y', strtotime('+'. $project->project_invest_term .' months', strtotime($project->project_invest_debut))) ?>
+                                                  </td>
+                                             </tr>
+                                        <?php endforeach; ?>
+                                   <?php endif; ?>
+                              </tbody>
+                         </table>
+                    </div>
+               </div>
+          </div>
+     </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+     if ($('#morris-line-investements').length) {
+          month_graph();
+     }
+});
+
+function month_graph(){
+     $.get(BASE_URL + "api/script/get_month_data").done(function (json) {
+          var obj = JSON.parse(json) || {};
+          var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+          console.log(obj.data);
+          Morris.Line({
+               element: "morris-line-investements",
+               data: obj.data,
+               xkey: "y",
+               ykeys: ["a"],
+               labels: ["Encaissement"],
+               fillOpacity: ["0.1"],
+               pointFillColors: ["#ffffff"],
+               pointStrokeColors: ["#999999"],
+               behaveLikeLine: !0,
+               gridLineColor: "#2717c9",
+               hideHover: "auto",
+               lineWidth: "3px",
+               pointSize: 0,
+               postUnits: " F",
+               resize: !0,
+               lineColors: ["#2717c9"],
+               xLabelFormat: function(x) {
+                    var cpt = x.getMonth();
+                    var month = months[cpt];
+                    return month;
+               },
+               dateFormat: function(x) {
+                    var cpt = new Date(x).getMonth();
+                    var month = months[cpt];
+                    return month;
+               },
+          });
+     }).fail(function (jqxhr, textStatus, error) {
+          return [];
+     });
+}
+</script>

@@ -18,21 +18,21 @@ error_reporting(-1);
 |
 */
 $config['site'] = array(
-     'title'=>"Fashion",
-     'description'=>"fashion, mode, culture, afrique",
+     'title'=>"ACS-CAPITAL",
+     'description'=>"yoyo",
      'author'=>'Ndenzo Ndeez',
-     'compagny'=>'Reff'
+     'compagny'=>'KOLOKOLO'
 );
-$config['google_map_key'] = 'AIzaSyDbSHcfjumboXTYELqdhTLPimhQj1nFtmw';
+$config['google_map_key'] = 'AIzaSyDbSHcfjumboXTYELqdhTdqfsLPimhQj1nFtmw';
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
 |--------------------------------------------------------------------------
 |
 */
-$config['base_url'] = HTTP."ava/kolokolo/";
+$config['base_url'] = HTTP."ava/intersip/";
 
-if($_SERVER['HTTP_HOST']==DOMAIN_NAME)
+if(HTTP_HOST==DOMAIN_NAME)
 {
      $config['base_url'] = HTTP.$_SERVER['HTTP_HOST'];
 }

@@ -8,7 +8,7 @@ class Root extends IBEMS_Controller {
           is_protected(array('root'));
           $this->load->model('profile_model');
 
-          $this->set_data('title', 'Profile');
+          $this->set_data('title', $this->lang->line('profile-title'));
           $this->add_data('menu', $this->load->view('back/menu/'.get_user_info('role_code'), $this->get_data(), true));
      }
 
@@ -21,7 +21,7 @@ class Root extends IBEMS_Controller {
                $this->set_data('profile', $this->profile_model->get_user());
                $this->set_data('is_profile', 0);
           }
-          
+
           add_css(null,'assets/custom/plugins/cropper/css/cropper.css');
           add_css(null,'assets/custom/plugins/cropper/css/main.css');
           add_js(null,'assets/custom/plugins/cropper/js/cropper.js');
@@ -42,12 +42,12 @@ class Root extends IBEMS_Controller {
                if($this->profile_model->update()){
                     set_notification(array(
                          'type'=>'success',
-                         'message'=>"Well done !"
+                         'message'=>$this->lang->line('profile-update-done')
                     ));
                }else{
                     set_notification(array(
                          'type'=>'danger',
-                         'message'=>"Error !"
+                         'message'=>$this->lang->line('profile-update-error')
                     ));
                }
           }

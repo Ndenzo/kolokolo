@@ -1,0 +1,458 @@
+
+<!-- Product -->
+<section class="bg0 p-t-23 p-b-140">
+	<div class="container">
+		<div class="flex-w flex-sb-m p-b-52">
+			<div class="flex-w flex-l-m filter-tope-group m-tb-10">
+				<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
+					Tous les produits
+				</button>
+
+				<?php if(is_array(@$targets)):?>
+					<?php foreach(@$targets as $target):?>
+						<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".<?= @$target->target_libelle ?>">
+							<?= @$target->target_libelle ?>
+						</button>
+					<?php endforeach;?>
+				<?php endif;?>
+			</div>
+
+			<div class="flex-w flex-c-m m-tb-10">
+				<div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
+					<i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
+					<i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+					Filtrer
+				</div>
+
+				<div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
+					<i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
+					<i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
+					Chercher
+				</div>
+			</div>
+
+			<!-- Search product -->
+			<div class="dis-none panel-search w-full p-t-10 p-b-15">
+				<div class="bor8 dis-flex p-l-15">
+					<button class="size-113 flex-c-m fs-16 cl2 hov-cl1 trans-04">
+						<i class="zmdi zmdi-search"></i>
+					</button>
+
+					<input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+				</div>
+			</div>
+
+			<!-- Filter -->
+			<div class="dis-none panel-filter w-full p-t-10">
+				<div class="wrap-filter flex-w bg6 w-full p-lr-40 p-t-27 p-lr-15-sm">
+					<div class="filter-col1 p-r-15 p-b-27">
+						<div class="mtext-102 cl2 p-b-15">
+							Sort By
+						</div>
+
+						<ul>
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Default
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Popularity
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Average rating
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04 filter-link-active">
+									Newness
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Price: Low to High
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Price: High to Low
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="filter-col2 p-r-15 p-b-27">
+						<div class="mtext-102 cl2 p-b-15">
+							Price
+						</div>
+
+						<ul>
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04 filter-link-active">
+									All
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									$0.00 - $50.00
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									$50.00 - $100.00
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									$100.00 - $150.00
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									$150.00 - $200.00
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									$200.00+
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="filter-col3 p-r-15 p-b-27">
+						<div class="mtext-102 cl2 p-b-15">
+							Color
+						</div>
+
+						<ul>
+							<li class="p-b-6">
+								<span class="fs-15 lh-12 m-r-6" style="color: #222;">
+									<i class="zmdi zmdi-circle"></i>
+								</span>
+
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Black
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<span class="fs-15 lh-12 m-r-6" style="color: #4272d7;">
+									<i class="zmdi zmdi-circle"></i>
+								</span>
+
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04 filter-link-active">
+									Blue
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<span class="fs-15 lh-12 m-r-6" style="color: #b3b3b3;">
+									<i class="zmdi zmdi-circle"></i>
+								</span>
+
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Grey
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<span class="fs-15 lh-12 m-r-6" style="color: #00ad5f;">
+									<i class="zmdi zmdi-circle"></i>
+								</span>
+
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Green
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<span class="fs-15 lh-12 m-r-6" style="color: #fa4251;">
+									<i class="zmdi zmdi-circle"></i>
+								</span>
+
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									Red
+								</a>
+							</li>
+
+							<li class="p-b-6">
+								<span class="fs-15 lh-12 m-r-6" style="color: #aaa;">
+									<i class="zmdi zmdi-circle-o"></i>
+								</span>
+
+								<a href="<?php _url(); ?>assets/front/#" class="filter-link stext-106 trans-04">
+									White
+								</a>
+							</li>
+						</ul>
+					</div>
+
+					<div class="filter-col4 p-b-27">
+						<div class="mtext-102 cl2 p-b-15">
+							Tags
+						</div>
+
+						<div class="flex-w p-t-4 m-r--5">
+							<a href="<?php _url(); ?>assets/front/#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+								Fashion
+							</a>
+
+							<a href="<?php _url(); ?>assets/front/#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+								Lifestyle
+							</a>
+
+							<a href="<?php _url(); ?>assets/front/#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+								Denim
+							</a>
+
+							<a href="<?php _url(); ?>assets/front/#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+								Streetstyle
+							</a>
+
+							<a href="<?php _url(); ?>assets/front/#" class="flex-c-m stext-107 cl6 size-301 bor7 p-lr-15 hov-tag1 trans-04 m-r-5 m-b-5">
+								Crafts
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row isotope-grid">
+			<?php if(is_array(@$datagrid)):?>
+				<?php foreach(@$datagrid as $rows):?>
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item <?= @$rows->target_libelle ?>">
+						<!-- Block2 -->
+						<div class="block2">
+							<div class="block2-pic hov-img0">
+								<center>
+									<img src="<?php _url(@$rows->produit_image);?>" alt="IMG-PRODUCT" class="product" style="width: 200px;">
+								</center>
+
+								<button type="button" name="button" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" onclick="show_modal(<?=@$rows->produit_id?>)">
+									Aperçu
+								</button>
+
+								<!-- <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 " onclick="show_modal(<?=@$rows->produit_id?>)">
+								Aperçu
+							</a> -->
+						</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="<?php _url(); ?>assets/front/product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									<?=@$rows->produit_libelle?>
+								</a>
+
+								<span class="stext-105 cl3">
+									<?=thousand(@$rows->produit_prix)?> F CFA
+								</span>
+							</div>
+
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="<?php _url(); ?>assets/front/#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="<?php _url(); ?>assets/front/images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="<?php _url(); ?>assets/front/images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endforeach;?>
+		<?php endif;?>
+	</div>
+</div>
+</section>
+
+
+<!-- Back to top -->
+<div class="btn-back-to-top" id="myBtn">
+	<span class="symbol-btn-back-to-top">
+		<i class="zmdi zmdi-chevron-up"></i>
+	</span>
+</div>
+
+<!-- modal -->
+
+<?php if(is_array(@$datagrid)):?>
+	<?php foreach(@$datagrid as $rows):?>
+		<div class="wrap-modal js-modal<?=@$rows->produit_id?> p-t-60 p-b-20">
+			<div class="overlay-modal js-hide-modal<?=@$rows->produit_id?>"></div>
+
+			<div class="container">
+				<div class="bg0 p-t-60 p-b-30 p-lr-15-lg how-pos3-parent">
+					<button class="how-pos3 hov3 trans-04"  onclick="hide_modal(<?=@$rows->produit_id?>)">
+						<img src="<?php _url(); ?>assets/front/images/icons/icon-close.png" alt="CLOSE">
+					</button>
+
+					<div class="row">
+						<div class="col-md-6 col-lg-7 p-b-30">
+							<div class="p-l-25 p-r-30 p-lr-0-lg">
+								<div class="wrap-slick3 flex-sb flex-w">
+									<div class="wrap-slick3-dots"></div>
+									<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
+
+									<div class="slick3 gallery-lb">
+										<div class="item-slick3" data-thumb="<?php _url(@$rows->produit_image);?>">
+											<div class="wrap-pic-w pos-relative">
+												<center>
+													<img src="<?php _url(@$rows->produit_image);?>" alt="IMG-PRODUCT" class="modal_img">
+												</center>
+
+												<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php _url(@$rows->produit_image);?>">
+													<i class="fa fa-expand"></i>
+												</a>
+											</div>
+										</div>
+
+
+										<!-- <div class="item-slick3" data-thumb="assets/front/images/product-detail-02.jpg">
+										<div class="wrap-pic-w pos-relative">
+										<img src="<?php _url(); ?>assets/front/images/product-detail-02.jpg" alt="IMG-PRODUCT">
+
+										<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php _url(); ?>assets/front/images/product-detail-02.jpg">
+										<i class="fa fa-expand"></i>
+									</a>
+								</div>
+							</div>
+
+							<div class="item-slick3" data-thumb="assets/front/images/product-detail-03.jpg">
+							<div class="wrap-pic-w pos-relative">
+							<img src="<?php _url(); ?>assets/front/images/product-detail-03.jpg" alt="IMG-PRODUCT">
+
+							<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="<?php _url(); ?>assets/front/images/product-detail-03.jpg">
+							<i class="fa fa-expand"></i>
+						</a>
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-md-6 col-lg-5 p-b-30">
+	<div class="p-r-50 p-t-5 p-lr-0-lg">
+		<h4 class="mtext-105 cl2 js-name-detail p-b-14">
+			<?=@$rows->produit_libelle?>
+		</h4>
+
+		<span class="mtext-106 cl2">
+			<?=thousand(@$rows->produit_prix)?> F CFA
+		</span>
+
+		<p class="stext-102 cl3 p-t-23">
+			<?=@$rows->produit_desc?>
+		</p>
+
+		<!--  -->
+		<div class="p-t-33">
+			<div class="flex-w flex-r-m p-b-10">
+				<div class="size-203 flex-c-m respon6">
+					Size
+				</div>
+
+				<div class="size-204 respon6-next">
+					<div class="rs1-select2 bor8 bg0">
+						<?php dropDown('SELECT mensuration_id, mensuration_libelle FROM mensurations',array(
+							'name'=>'mensuration_id',
+							'id'=>"mensuration_id",
+							'class' => 'js-select2',
+							'attr' => 'title="Taille" data-size="7" data-live-search="true" required',
+							'selected'=>''
+						));?>
+						<!-- <select class="js-select2" name="time">
+						<option>Choose an option</option>
+						<option>Size S</option>
+						<option>Size M</option>
+						<option>Size L</option>
+						<option>Size XL</option>
+					</select> -->
+					<div class="dropDownSelect2"></div>
+				</div>
+			</div>
+		</div>
+
+		<!-- <div class="flex-w flex-r-m p-b-10">
+		<div class="size-203 flex-c-m respon6">
+		Couleurs
+	</div>
+
+	<div class="size-204 respon6-next">
+	<div class="rs1-select2 bor8 bg0">
+	<select class="js-select2" name="time">
+	<option>Choose an option</option>
+	<option></option>
+	<option>Blue</option>
+	<option>White</option>
+	<option>Grey</option>
+</select>
+<div class="dropDownSelect2"></div>
+</div>
+</div>
+</div> -->
+
+<div class="flex-w flex-r-m p-b-10">
+	<div class="size-204 flex-w flex-m respon6-next">
+		<div class="wrap-num-product flex-w m-r-20 m-tb-10">
+			<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+				<i class="fs-16 zmdi zmdi-minus"></i>
+			</div>
+
+			<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+
+			<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+				<i class="fs-16 zmdi zmdi-plus"></i>
+			</div>
+		</div>
+
+		<p class="text-success"> <?=@$rows->produit_quantite?> En stock !</p>
+
+		<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+			Ajouter au panier
+		</button>
+	</div>
+</div>
+</div>
+
+<!--  -->
+<!-- <div class="flex-w flex-m p-l-100 p-t-40 respon7">
+<div class="flex-m bor9 p-r-10 m-r-11">
+<a href="<?php _url(); ?>assets/front/#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
+<i class="zmdi zmdi-favorite"></i>
+</a>
+</div>
+
+<a href="<?php _url(); ?>assets/front/#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+<i class="fa fa-facebook"></i>
+</a>
+
+<a href="<?php _url(); ?>assets/front/#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+<i class="fa fa-twitter"></i>
+</a>
+
+<a href="<?php _url(); ?>assets/front/#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+<i class="fa fa-google-plus"></i>
+</a>
+</div>-->
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<?php endforeach;?>
+<?php endif;?>

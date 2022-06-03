@@ -1,5 +1,7 @@
 <?php
-require('Rotator.php');
+namespace setasign\Fpdi;
+
+// require('Rotator.php');
 
 class Methods extends Rotator
 {

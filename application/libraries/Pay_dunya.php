@@ -7,31 +7,31 @@ require_once APPPATH.'third_party/paydunya/paydunya.php';
 class Pay_dunya extends paydunya{
 
      public function config($path){
-          Paydunya_Setup::setMasterKey("SlfssKGM-ASQ2-uFn5-9jil-VC8aO5qbGBhL");
+          Paydunya_Setup::setMasterKey("ImXS0hIV-C0RD-xUc7-FARL-N7fUQgnoZXsu");
 
-          $mode = "test";
+          $mode = "live";
           if($mode == "live"){
-               Paydunya_Setup::setPublicKey("live_public_Sep3AQ2vnM9Ps68iQdGHPkIC081");
-               Paydunya_Setup::setPrivateKey("live_private_qY7umTKQ6T6XRJtPUykeAaZrynu");
-               Paydunya_Setup::setToken("wDbVdQp5I0syXLQZwjik");
+               Paydunya_Setup::setPublicKey("live_public_HI9I8TWjQYvYmFLpTiZoZKNPY3A");
+               Paydunya_Setup::setPrivateKey("live_private_vOzqJcUxYRFCFajEhomivQP9OuC");
+               Paydunya_Setup::setToken("GS5APV1YO7dUbC4P47KZ");
           }else{
-               Paydunya_Setup::setPublicKey("test_public_A7jqNzyRkSoLLEOxbGaO3C8raHJ");
-               Paydunya_Setup::setPrivateKey("test_private_h5IYzopZ1UqC3ongXT23GGLWPiL");
-               Paydunya_Setup::setToken("S2mpZlCBUqo7ro0H082e");
+               Paydunya_Setup::setPublicKey("test_public_9lb5eTLVHKfpOfXaNTgS6MtTSLG");
+               Paydunya_Setup::setPrivateKey("test_private_5Jmr593BI08hCWpXZFk3zc2vmT8");
+               Paydunya_Setup::setToken("jdhF5e7Cj27KbxUkcXbB");
           }
 
 
 
-          Paydunya_Setup::setMode($mode);
+          Paydunya_Setup::setMode("live");
           //Configuration des informations de votre service/entreprise
-          Paydunya_Checkout_Store::setName("ArmandKoffi"); // Seul le nom est requis
-          Paydunya_Checkout_Store::setTagline("Mon site");
-          Paydunya_Checkout_Store::setPhoneNumber("78 478 35 10");
-          Paydunya_Checkout_Store::setPostalAddress("OUAKAM CITE AVION, Dakar");
-          Paydunya_Checkout_Store::setWebsiteUrl("https://www.armandkoffi.com");
-          Paydunya_Checkout_Store::setLogoUrl("https://www.armandkoffi.com/assets/front/img/main/logo.png");
-          Paydunya_Checkout_Store::setReturnUrl("https://www.armandkoffi.com/site/".$path);
-          Paydunya_Checkout_Store::setCancelUrl("https://www.armandkoffi.com/site/".$path);
+          Paydunya_Checkout_Store::setName("APRIL Africa"); // Seul le nom est requis
+          Paydunya_Checkout_Store::setTagline("L'assurance en plus facile");
+          Paydunya_Checkout_Store::setPhoneNumber("33 864 27 00");
+          Paydunya_Checkout_Store::setPostalAddress("N°2118, Liberté 3 - Avenue Bourguiba, Dakar");
+          Paydunya_Checkout_Store::setWebsiteUrl("https://april-sn.com");
+          Paydunya_Checkout_Store::setLogoUrl("http://april-africa.com/sites/default/files/domain_logo/header_logo/logo-april-africa.png");
+          Paydunya_Checkout_Store::setReturnUrl("https://april-sn.com/site/".$path);
+          Paydunya_Checkout_Store::setCancelUrl("https://april-sn.com/site/".$path);
 
      }
 
@@ -69,8 +69,8 @@ class Pay_dunya extends paydunya{
           // Definition du montant total de la facture
           $invoice->setTotalAmount($total_fact);
 
-          $Return_url = "https://www.armandkoffi.com/site/".$path;
-          $Cancel_url = "https://www.armandkoffi.com/site/".$path;
+          $Return_url = "https://april-sn.com/site/".$path;
+          $Cancel_url = "https://april-sn.com/site/".$path;
 
           // URL en cas de confirmation
           $invoice->setReturnUrl($Return_url);
@@ -93,8 +93,11 @@ class Pay_dunya extends paydunya{
 
      public function token_checker($token){
           $invoice = new Paydunya_Checkout_Invoice();
+          $invoice->confirm($token);
           if ($invoice->confirm($token)) {
+
                return true;
+
           }else{
                return false;
           }

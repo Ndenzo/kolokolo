@@ -4,11 +4,6 @@ $(document).ready(function() {
      $("input.mask-phone").inputmask({"mask":"99-999-99-99"});
      $("input.mask-phone-sn").inputmask({"mask":"99-999-99-99"});
      $("input.mask-phone-ci").inputmask({"mask":"99-99-99-99"});
-
-     // $("#settings_niveau_id").chained("#settings_cycle_id");
-
-     // $('.selectpicker').selectpicker('refresh');
-
 } );
 
 check_online();
@@ -53,6 +48,8 @@ function define_edit(id, link){
                     } else if ($("#"+column).is("img")){
                          if(obj.record[column] != null){
                               $("#"+column).attr("src", BASE_URL+obj.record[column]);
+                         }else{
+                              $("#"+column).attr("src", BASE_URL+'assets/custom/img/default/default.png');
                          }
                     }
                });
@@ -77,4 +74,20 @@ function check_online(){
                console.log("Request Failed: " + err);
           });
      }, 5000)
+}
+
+function update_user_lang(lang){
+     $.post(BASE_URL + "api/script/update_user_lang/?lang="+lang)
+     .done(function (json) {
+          var obj = JSON.parse(json) || {}
+          if (obj.hasOwnProperty('status')) {
+               console.log(obj.status);
+               location.reload(true);
+          }
+     })
+
+     .fail(function (jqxhr, textStatus, error) {
+          var err = textStatus + ", " + error;
+          console.log("Request Failed: " + err);
+     });
 }

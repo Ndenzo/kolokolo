@@ -1,7 +1,8 @@
 <?php
-require('Fpdi.php');
 
-class Rotator extends FPDI
+namespace setasign\Fpdi;
+
+class Rotator extends Fpdi
 {
 var $angle=0;
 

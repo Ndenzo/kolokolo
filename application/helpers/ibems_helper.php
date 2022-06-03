@@ -233,6 +233,21 @@ if(!function_exists('canProcessForm')){
           return false;
      }
 }
+if(!function_exists('show_custom_alert')){
+     function show_custom_alert()
+     {
+          $CI = &get_instance();
+          $alert = $CI->session->flashdata('.php');
+          if(isset($alert))
+          {
+               echo '<div id="custom_alert_'.$alert['class'].'">';
+               echo '<input type="hidden" id="custom_alert_message" value="'.$alert['message'].'">';
+               echo '<input type="hidden" id="custom_alert_btn" value="'.$CI->lang->line('btn-cls').'">';
+               echo '</div>';
+          }
+     }
+}
+
 if(!function_exists('flash_message')){
      function show_notification()
      {
@@ -240,24 +255,10 @@ if(!function_exists('flash_message')){
           $alert = $CI->session->flashdata('.php');
           if(isset($alert))
           {
-               echo '<div class="alert alert-'.$alert['class'].' dark alert-dismissible fade show" role="alert">';
-               // switch ($alert['class']) {
-               //      case 'success':
-               //      echo '<i data-feather="thumbs-up"></i>';
-               //      break;
-               //      case 'warning':
-               //      echo '<i data-feather="bell"></i>';
-               //      break;
-               //      case 'danger':
-               //      echo '<i data-feather="thumbs-down"></i>';
-               //      break;
-               //
-               //      default:
-               //      echo '<i data-feather="help-circle"></i>';
-               //      break;
-               // }
-               echo '<p> '.$alert['message'].'</p>';
-               echo '<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>';
+               echo '<div class="alert alert-'.$alert['class'].' alert-dismissible fade show mb-4" role="alert">'.$alert['message'];
+               echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close">';
+               echo '<span aria-hidden="true">&times;</span>';
+               echo '</button>';
                echo '</div>';
           }
      }
@@ -479,9 +480,9 @@ if(!function_exists('set_flash_message')){
                     $fields = array_keys($rows[0]);
                     if(count($fields)<=1)$fields[1] = $fields[0];
                     echo "<select name=\"$name\" id=\"$id\" class=\"$class\" $attr>";
-                    if($other == 'true'){
-                         echo '<option value=""></option>';
-                    }
+                    // if($other == 'true'){
+                         echo '<option value="">'.var_dump($rows).'</option>';
+                    // }
                     foreach ($rows as $keys => $values)
                     {
                          $selected = 'selected="selected"';
@@ -665,10 +666,10 @@ if(!function_exists('set_flash_message')){
                $config['file_ext_tolower']     = true;
                $config['overwrite']            = true;
                $config['encrypt_name']         = false;
-               $config['max_size']             = 2000;
-               $config['max_width']            = 2000;
-               $config['max_height']           = 2000;
-               $config = array_merge($config,$cfg);
+               $config['max_size']             = 500000;
+               $config['max_width']            = 500000;
+               $config['max_height']           = 500000;
+               $config = array_merge($config, $cfg);
                $CI->load->library('upload', $config);
                if (!is_dir($config['upload_path'])) {
                     mkdir($config['upload_path'], 0755, true);

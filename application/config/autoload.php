@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Packages
@@ -15,16 +15,15 @@ $autoload['packages'] = array();
 |  Auto-load Libraries
 | -------------------------------------------------------------------
 */
-$autoload['libraries'] = array('database','session','form_validation','user_agent');
+$autoload['libraries'] = array('database', 'session', 'form_validation', 'user_agent');
 /*
 | -------------------------------------------------------------------
 |  Auto-load Helper Files
 | -------------------------------------------------------------------
 */
 $autoload['helper'] = array(
-    'html','url','form','file','language','ibems','api','menu',
-	'cron','database','user','sql','widget',
-    'auto','moto','objetco'
+    'html', 'url', 'form', 'file', 'language', 'ibems', 'api', 'menu',
+    'cron', 'database', 'user', 'sql', 'widget', 'indicator'
 );
 /*
 | -------------------------------------------------------------------
@@ -73,10 +72,24 @@ $autoload['config'] = array();
 |
 */
 $autoload['language'] = array(
-    'sidebar',
-    'layout',
+    'menu',
     'page',
-    'error_messages'
+    'dashboard',
+    'modules',
+    'investor_module',
+    'contact_module',
+    'project_module',
+    'convenience_module',
+    'request_module',
+    'studie_module',
+    'specification_module',
+    'params_module',
+    'profile_module',
+    'specification_module',
+    'role_module',
+    'settingsGender_module',
+    'settingsPayment_module',
+    'settingsCountry_module',
 );
 /*
 | -------------------------------------------------------------------
@@ -91,5 +104,4 @@ $autoload['language'] = array(
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array(
-);
+$autoload['model'] = array();

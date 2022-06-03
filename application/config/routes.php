@@ -2,14 +2,17 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'site';
-$route['show_biographie'] = 'site/biographie';
-$route['show_blog'] = 'site/blogs';
-$route['show_blog/(:num)'] = 'site/blog';
-$route['show_evenement'] = 'site/evenement';
-$route['show_media'] = 'site/media';
-$route['show_contact'] = 'site/contact';
-$route['download/(:any)'] = 'site/download';
+$route['about'] = 'site/about';
+$route['pricing'] = 'site/pricing';
+$route['blog'] = 'site/blogs';
+$route['marketplace'] = 'site/market';
+$route['sms'] = 'site/sms';
+$route['ivr'] = 'site/ivr';
+$route['airtime'] = 'site/airtime';
+$route['transfer'] = 'site/transfer';
+$route['collection'] = 'site/collection';
+$route['lang'] = 'site/change_lang';
+$route['blog_detail/(:num)'] = 'site/blog_detail';
 
-//$route['admin'] = 'admin';
 $route['404_override'] = 'help';
 $route['translate_uri_dashes'] = FALSE;

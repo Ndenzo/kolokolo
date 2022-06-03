@@ -5,25 +5,27 @@ class ChiffreEnLettre extends IBEMS_Controller
 {
 	private $leChiffreSaisi;
 	private $enLettre = '';
-  private $chiffre = array(1=>"un",2=>"deux",3=>"trois",4=>"quatre",5=>"cinq",
-                             6=>"six",7=>"sept",8=>"huit",9=>"neuf",10=>"dix",
-                             11=>"onze",12=>"douze",13=>"treize",14=>"quatorze",
-                             15=>"quinze",16=>"seize",17=>"dix-sept",18=>"dix-huit",
-                             19=>"dix-neuf",20=>"vingt",30=>"trente",40=>"quarante",
-                             50=>"cinquante",60=>"soixante",70=>"soixante-dix",
-                             80=>"quatre-vingt",90=>"quatre-vingt-dix");
+	private $chiffre = array(1=>"un",2=>"deux",3=>"trois",4=>"quatre",5=>"cinq",
+	6=>"six",7=>"sept",8=>"huit",9=>"neuf",10=>"dix",
+	11=>"onze",12=>"douze",13=>"treize",14=>"quatorze",
+	15=>"quinze",16=>"seize",17=>"dix-sept",18=>"dix-huit",
+	19=>"dix-neuf",20=>"vingt",30=>"trente",40=>"quarante",
+	50=>"cinquante",60=>"soixante",70=>"soixante-dix",
+	80=>"quatre-vingt",90=>"quatre-vingt-dix");
 
 	public  $config;
-  function __construct()
-  {
-  }
-  function isLogin()
-  {
-  	return (isset($_SESSION['HASH']));
-  }
-	#Fonction de conversion appel�e dans la feuille principale
+	function __construct()
+	{
+
+	}
+	function isLogin()
+	{
+		return (isset($_SESSION['HASH']));
+	}
+	#Fonction de conversion appelée dans la feuille principale
 	function Conversion($sasie)
 	{
+		$this->enLettre = '';
 		$sasie = trim($sasie);
 		#suppression des espaces qui pourraient exister dans la saisie
 		$nombre = '';
@@ -31,51 +33,51 @@ class ChiffreEnLettre extends IBEMS_Controller
 		foreach ($laSsasie as $partie)
 		$nombre.=$partie;
 
-		#suppression des z�ros qui pr�c�deraient la saisie
+		#suppression des zéros qui précéderaient la saisie
 		$nb=strlen($nombre);
 		for ($i=0;$i<=$nb;)
 		{
 			if(substr($nombre,$i,1)==0)
 			{
-			$nombre=substr($nombre,$i+1);
-			$nb=$nb-1;
+				$nombre=substr($nombre,$i+1);
+				$nb=$nb-1;
 			}
 			elseif(substr($nombre,$i,1)<>0)
 			{
-			$nombre=substr($nombre,$i);
-			break;
+				$nombre=substr($nombre,$i);
+				break;
 			}
 		}
-	#echo $nombre;
+		#echo $nombre;
 		#$this->SupZero($nombre);
-		#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au d�but
+		#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au début
 		$nb=strlen($nombre);
 		#echo $nb.'<br/ >';
 		#$this->leChiffreSaisi=$nombre;
 		#conversion du chiffre saisi en lettre selon les cas
 		switch ($nb)
 		{
-		case 0:
-			$this->enLettre='z�ro';
-		case 1:
+			case 0:
+			$this->enLettre='zéro';
+			case 1:
 			if ($nombre==0)
 			{
-			 $this->enLettre='z�ro';
-			break;
+				$this->enLettre='zéro';
+				break;
 			}
 			elseif($nombre<>0)
 			{
-			$this->Unite($nombre);
-			break;
+				$this->Unite($nombre);
+				break;
 			}
 
-		case 2:
+			case 2:
 			$unite=substr($nombre,1);
 			$dizaine=substr($nombre,0,1);
 			$this->Dizaine($nombre,$unite,$dizaine);
 			break;
 
-		case 3:
+			case 3:
 			$unite=substr($nombre,2);
 			$dizaine=substr($nombre,1,1);
 			$centaine=substr($nombre,0,1);
@@ -83,7 +85,7 @@ class ChiffreEnLettre extends IBEMS_Controller
 			break;
 
 			#cas des milles
-		case ($nb>3 and $nb<=6):
+			case ($nb>3 and $nb<=6):
 			$unite=substr($nombre,$nb-1);
 			$dizaine=substr($nombre,($nb-2),1);
 			$centaine=substr($nombre,($nb-3),1);
@@ -92,7 +94,7 @@ class ChiffreEnLettre extends IBEMS_Controller
 			break;
 
 			#cas des millions
-		case ($nb>6 and $nb<=9):
+			case ($nb>6 and $nb<=9):
 			$unite=substr($nombre,$nb-1);
 			$dizaine=substr($nombre,($nb-2),1);
 			$centaine=substr($nombre,($nb-3),1);
@@ -102,7 +104,7 @@ class ChiffreEnLettre extends IBEMS_Controller
 			break;
 
 			#cas des milliards
-		case ($nb>9 and $nb<=12):
+			case ($nb>9 and $nb<=12):
 			$unite=substr($nombre,$nb-1);
 			$dizaine=substr($nombre,($nb-2),1);
 			$centaine=substr($nombre,($nb-3),1);
@@ -113,8 +115,8 @@ class ChiffreEnLettre extends IBEMS_Controller
 			break;
 
 		}
-	if (!empty($this->enLettre))
-	return strtoupper($this->enLettre);
+		if (!empty($this->enLettre))
+		return strtoupper($this->enLettre);
 	}
 
 	#Gestion des miiliards
@@ -139,64 +141,64 @@ class ChiffreEnLettre extends IBEMS_Controller
 
 		if (strlen($million)==1)
 		{
-		$mille=substr($nombre,1,3);
-		$this->enLettre.=$this->chiffre[$million];
+			$mille=substr($nombre,1,3);
+			$this->enLettre.=$this->chiffre[$million];
 		}
 		elseif (strlen($million)==2)
 		{
-		$mille=substr($nombre,2,3);
-		$nombre=substr($nombre,0,2);
-		//echo $nombre;
-		$this->Dizaine($nombre,$unite,$dizaine);
+			$mille=substr($nombre,2,3);
+			$nombre=substr($nombre,0,2);
+			//echo $nombre;
+			$this->Dizaine($nombre,$unite,$dizaine);
 		}
 		elseif (strlen($million)==3)
 		{
-		$mille=substr($nombre,3,3);
-		$nombre=substr($nombre,0,3);
-		$this->Centaine($nombre,$unite,$dizaine,$centaine);
+			$mille=substr($nombre,3,3);
+			$nombre=substr($nombre,0,3);
+			$this->Centaine($nombre,$unite,$dizaine,$centaine);
 		}
 
-			$this->enLettre.=' million ';
-			#recuperation des cens dans nombre
+		$this->enLettre.=' million ';
+		#recuperation des cens dans nombre
 
-			#suppression des z�ros qui pr�c�deraient le $reste
-			$nb=strlen($reste);
-			for ($i=0;$i<=$nb;)
+		#suppression des zéros qui précéderaient le $reste
+		$nb=strlen($reste);
+		for ($i=0;$i<=$nb;)
+		{
+			if(substr($reste,$i,1)==0)
 			{
-				if(substr($reste,$i,1)==0)
-				{
 				$reste=substr($reste,$i+1);
 				$nb=$nb-1;
-				}
-				elseif(substr($reste,$i,1)<>0)
-				{
+			}
+			elseif(substr($reste,$i,1)<>0)
+			{
 				$reste=substr($reste,$i);
 				break;
-				}
 			}
-			$nb=strlen($reste);
-			#si tous les chiffres apres les milions =000000 on affiche x million
-			if ($nb==0)
-			;
-			else
-			{
+		}
+		$nb=strlen($reste);
+		#si tous les chiffres apres les milions =000000 on affiche x million
+		if ($nb==0)
+		;
+		else
+		{
 			#Gestion des milles
-			#suppression des z�ros qui pr�c�deraient les milles dans $mille
+			#suppression des zéros qui précéderaient les milles dans $mille
 			$nb=strlen($mille);
 			for ($i=0;$i<=$nb;)
 			{
 				if(substr($mille,$i,1)==0)
 				{
-				$mille=substr($mille,$i+1);
-				$nb=$nb-1;
+					$mille=substr($mille,$i+1);
+					$nb=$nb-1;
 				}
 				elseif(substr($mille,$i,1)<>0)
 				{
-				$mille=substr($mille,$i);
-				break;
+					$mille=substr($mille,$i);
+					break;
 				}
 			}
-		#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au d�but
+			#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au début
 			$nb=strlen($mille);
 			#echo '<br />nb='.$nb.'<br />';
 			if ($nb==0)
@@ -204,41 +206,41 @@ class ChiffreEnLettre extends IBEMS_Controller
 			#AffichageResultat($enLettre);
 			elseif ($nb==1)
 			{
-			if ($mille==1)
+				if ($mille==1)
 				$this->enLettre.=' mille ';
 				else
 				{
-				$this->Unite($mille);
-				$this->enLettre.=' mille ';
+					$this->Unite($mille);
+					$this->enLettre.=' mille ';
 				}
 			}
 			elseif ($nb==2)
 			{
-			$this->Dizaine($mille,$unite,$dizaine);
-			$this->enLettre.=' mille ';
+				$this->Dizaine($mille,$unite,$dizaine);
+				$this->enLettre.=' mille ';
 			}
 			elseif ($nb==3)
 			{
-			$this->Centaine($mille,$unite,$dizaine,$centaine);
-			$this->enLettre.=' mille ';
+				$this->Centaine($mille,$unite,$dizaine,$centaine);
+				$this->enLettre.=' mille ';
 			}
 			#Gestion des cents
-			#suppression des z�ros qui pr�c�deraient les cents dans $cent
+			#suppression des zéros qui précéderaient les cents dans $cent
 			$nb=strlen($cent);
 			for ($i=0;$i<=$nb;)
 			{
 				if(substr($cent,$i,1)==0)
 				{
-				$cent=substr($cent,$i+1);
-				$nb=$nb-1;
+					$cent=substr($cent,$i+1);
+					$nb=$nb-1;
 				}
 				elseif(substr($cent,$i,1)<>0)
 				{
-				$cent=substr($cent,$i);
-				break;
+					$cent=substr($cent,$i);
+					break;
 				}
 			}
-		#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au d�but
+			#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au début
 			$nb=strlen($cent);
 			#echo '<br />nb='.$nb.'<br />';
 			if ($nb==0)
@@ -250,7 +252,7 @@ class ChiffreEnLettre extends IBEMS_Controller
 			$this->Dizaine($cent,$unite,$dizaine);
 			elseif ($nb==3)
 			$this->Centaine($cent,$unite,$dizaine,$centaine);
-			}
+		}
 	}
 
 	#Gestion des milles
@@ -273,48 +275,48 @@ class ChiffreEnLettre extends IBEMS_Controller
 		{
 			if (strlen($mille)==2)
 			{
-			$cent=substr($nombre,2);
-			$nombre=substr($nombre,0,2);
-			#echo $nombre;
-			$this->Dizaine($nombre,$unite,$dizaine);
+				$cent=substr($nombre,2);
+				$nombre=substr($nombre,0,2);
+				#echo $nombre;
+				$this->Dizaine($nombre,$unite,$dizaine);
 			}
 			if (strlen($mille)==3)
 			{
-			$cent=substr($nombre,3);
-			$nombre=substr($nombre,0,3);
-			#echo $nombre;
-			$this->Centaine($nombre,$unite,$dizaine,$centaine);
+				$cent=substr($nombre,3);
+				$nombre=substr($nombre,0,3);
+				#echo $nombre;
+				$this->Centaine($nombre,$unite,$dizaine,$centaine);
 			}
 		}
 
-				$this->enLettre.=' mille ';
-				#recuperation des cens dans nombre
-				#suppression des z�ros qui pr�c�deraient la saisie
-				$nb=strlen($cent);
-				for ($i=0;$i<=$nb;)
-				{
-					if(substr($cent,$i,1)==0)
-					{
-					$cent=substr($cent,$i+1);
-					$nb=$nb-1;
-					}
-					elseif(substr($cent,$i,1)<>0)
-					{
-					$cent=substr($cent,$i);
-					break;
-					}
-				}
-				#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au d�but
-				$nb=strlen($cent);
-				#echo '<br />nb='.$nb.'<br />';
-				if ($nb==0)
-				;//AffichageResultat($enLettre);
-				elseif ($nb==1)
-				$this->Unite($cent);
-				elseif ($nb==2)
-				$this->Dizaine($cent,$unite,$dizaine);
-				elseif ($nb==3)
-				$this->Centaine($cent,$unite,$dizaine,$centaine);
+		$this->enLettre.=' mille ';
+		#recuperation des cens dans nombre
+		#suppression des zéros qui précéderaient la saisie
+		$nb=strlen($cent);
+		for ($i=0;$i<=$nb;)
+		{
+			if(substr($cent,$i,1)==0)
+			{
+				$cent=substr($cent,$i+1);
+				$nb=$nb-1;
+			}
+			elseif(substr($cent,$i,1)<>0)
+			{
+				$cent=substr($cent,$i);
+				break;
+			}
+		}
+		#le nombre de caract que comporte le nombre saisi de sa forme sans espace et sans 0 au début
+		$nb=strlen($cent);
+		#echo '<br />nb='.$nb.'<br />';
+		if ($nb==0)
+		;//AffichageResultat($enLettre);
+		elseif ($nb==1)
+		$this->Unite($cent);
+		elseif ($nb==2)
+		$this->Dizaine($cent,$unite,$dizaine);
+		elseif ($nb==3)
+		$this->Centaine($cent,$unite,$dizaine,$centaine);
 
 	}
 
@@ -345,18 +347,18 @@ class ChiffreEnLettre extends IBEMS_Controller
 		//comme 750
 		elseif ($unite==0 and $dizaine<>0)
 		{
-			#recup�ration des dizaines
+			#recupération des dizaines
 			$nombre=substr($nombre,1);
 			//echo '<br />nombre='.$nombre.'<br />';
 			if ($centaine==1)
 			{
-			$this->enLettre.='cent ';
-			$this->Dizaine($nombre,$unite,$dizaine).' ';
+				$this->enLettre.='cent ';
+				$this->Dizaine($nombre,$unite,$dizaine).' ';
 			}
 			elseif ($centaine<>1)
 			{
-			$this->enLettre.=$this->chiffre[$centaine].' cent ';
-			$this->Dizaine($nombre,$unite,$dizaine).' ';
+				$this->enLettre.=$this->chiffre[$centaine].' cent ';
+				$this->Dizaine($nombre,$unite,$dizaine).' ';
 
 			}
 
@@ -368,14 +370,14 @@ class ChiffreEnLettre extends IBEMS_Controller
 
 			if ($centaine==1)
 			{
-			$this->enLettre.='cent ';
-			$this->Dizaine($nombre,$unite,$dizaine).' ';
+				$this->enLettre.='cent ';
+				$this->Dizaine($nombre,$unite,$dizaine).' ';
 			}
 
 			elseif ($centaine<>1)
 			{
-			$this->enLettre.=($this->chiffre[$centaine].' cent ');
-			$this->Dizaine($nombre,$unite,$dizaine).' ';
+				$this->enLettre.=($this->chiffre[$centaine].' cent ');
+				$this->Dizaine($nombre,$unite,$dizaine).' ';
 			}
 		}
 
@@ -392,8 +394,8 @@ class ChiffreEnLettre extends IBEMS_Controller
 		#comme 70
 		if ($unite==0)
 		{
-		 $val=$dizaine.'0';
-		 $this->enLettre.=$this->chiffre[$val].' ';
+			$val=$dizaine.'0';
+			$this->enLettre.=$this->chiffre[$val].' ';
 		}
 		#comme 71
 		elseif ($unite<>0)
@@ -402,232 +404,232 @@ class ChiffreEnLettre extends IBEMS_Controller
 		{
 			if ($dizaine==1)
 			{
-			$val=$dizaine.$unite;
-			$this->enLettre.=$this->chiffre[$val].' ';
+				$val=$dizaine.$unite;
+				$this->enLettre.=$this->chiffre[$val].' ';
 			}
 			else
 			{
-			$val=$dizaine.'0';
-			$this->enLettre.=($this->chiffre[$val].' '.$this->chiffre[$unite]).' ';
+				$val=$dizaine.'0';
+				$this->enLettre.=($this->chiffre[$val].' '.$this->chiffre[$unite]).' ';
 			}
 		}
 		#dizaine =9
 		elseif ($dizaine==9)
-			$this->enLettre.=($this->chiffre[80].' '.$this->chiffre['1'.$unite]).' ';
+		$this->enLettre.=($this->chiffre[80].' '.$this->chiffre['1'.$unite]).' ';
 		elseif ($dizaine==7)
-			$this->enLettre.=($this->chiffre[60].' '.$this->chiffre['1'.$unite]).' ';
+		$this->enLettre.=($this->chiffre[60].' '.$this->chiffre['1'.$unite]).' ';
 
 	}
 
-	#Gestion des unit�s
+	#Gestion des unités
 
 	function Unite($unite)
 	{
-	$this->enLettre.=($this->chiffre[$unite]).' ';
+		$this->enLettre.=($this->chiffre[$unite]).' ';
 	}
 
 
 
-/* *******************************************************************/
+	/* *******************************************************************/
 
-function convertir($Montant)
-{
-	$grade = array(0 => "zero ",1=>" milliards ",2=>" millions ",3=>" mille ");
-   // $Mon = array(0=>" Franc Cfa",1=>" Franc Cfca",2=>" Cent",3=>" Cents");
-
-    // Mise au format pour les ch�ques et le SWI
-    $Montant = number_format($Montant,2,".","");
-
-    if ($Montant == 0)
+	function convertir($Montant)
 	{
-        $result = $grade[0].$Montant[0];
-    }else
-	{
-        $result = "";
+		$grade = array(0 => "zero ",1=>" milliards ",2=>" millions ",3=>" mille ");
+		// $Mon = array(0=>" Franc Cfa",1=>" Franc Cfca",2=>" Cent",3=>" Cents");
 
-        // Calcule des Unit�s
-        $montant = intval($Montant);
+		// Mise au format pour les chéques et le SWI
+		$Montant = number_format($Montant,2,".","");
 
-        // Calcul des centimes
-        $centime = round(($Montant * 100) - ($montant * 100),0);
-
-        // Traitement pour les Milliards
-        $nombre = $montant / 1000000000;
-        $nombre = intval($nombre);
-        if ($nombre > 0)
+		if ($Montant == 0)
 		{
-            if ($nombre > 1)
-			{
-                $result = $result.$this->cenvtir($nombre).$grade[1];
-            }else
-			{
-                $result = $result." Un ".$grade[1];
-                $result = substr($result,0,13)." ";
-            }
-            $montant = $montant - ($nombre * 1000000000);
-        }
+			$result = $grade[0].$Montant[0];
+		}else
+		{
+			$result = "";
 
-        // Traitement pour les Millions
-        $nombre = $montant / 1000000;
-        $nombre = intval($nombre);
-        if ($nombre > 0)
-		{
-            if ($nombre > 1)
-			{
-                $result = $result.$this->cenvtir($nombre).$grade[2];
-            }else
-			{
-                $result = $result." Un ".$grade[2];
-                $result = substr($result,0,12)." ";
-            }
-            $montant = $montant - ($nombre * 1000000);
-        }
+			// Calcule des Unités
+			$montant = intval($Montant);
 
-        // Traitement pour les Milliers
-        $nombre = $montant / 1000;
-        $nombre = intval($nombre);
-        if ($nombre > 0)
-		{
-            if ($nombre > 1)
-			{
-                $result = $result.$this->cenvtir($nombre).$grade[3];
-            }else
-			{
-                $result = $result.$grade[3];
-            }
-            $montant = $montant - ($nombre * 1000);
-        }
+			// Calcul des centimes
+			$centime = round(($Montant * 100) - ($montant * 100),0);
 
-        // Traitement pour les Centaines & centimes
-        $nombre = $montant;
-        if ($nombre>0)
-		{
-            $result = $result.$this->cenvtir($nombre);
-        }
-        // Traitement si le montant = 1
-        if ((substr($result,0,7) == " et un " and strlen($result) == 7))
-		{
-            $result = substr($result,3,3);
-            $result = $result.@$Mon[0];
-            if (intval($centime) != 0)
+			// Traitement pour les Milliards
+			$nombre = $montant / 1000000000;
+			$nombre = intval($nombre);
+			if ($nombre > 0)
 			{
-                $differ = cenvtir(intval($centime));
-                if (substr($differ,0,7) == " et un ")
+				if ($nombre > 1)
 				{
-                    if ($result == "")
-					{
-                            $differ = substr($differ,3);
-                    }
-                    $result = $result." ".$differ.$Mon[2];
-                }else
+					$result = $result.$this->cenvtir($nombre).$grade[1];
+				}else
 				{
-                        $result = $result." et ".$differ.$Mon[3];
-                }
-            }
-        // Traitement si le montant > 1 ou = 0
-        }else
-		{
-            if ($result != "")
-			{
-                $result = $result.@$Mon[1];
-            }
-            if (intval($centime) != 0)
-			{
-                $differ = cenvtir(intval($centime));
-                if (substr($differ,0,7) == " et un ")
-				{
-                    if ($result == "")
-					{
-                    	$differ = substr($differ,3);
-                    }
-                    $result = $result." ".$differ.$Mon[2];
-                }else
-				{
-                    if ($result != "")
-					{
-                    	$result = $result." et ".$differ.$Mon[3];
-                    }else
-					{
-                        $result = $differ.$Mon[3];
-                    }
-                }
-            }
-        }
-    }
-    return $result;
-}
-
-// fonction de convertion d'un chiffre � 3 digits en lettre
-function cenvtir($Valeur)
-{
-
-    $code = "";
-    //texte en clair
-	$SUnit = array(1=>"et un ", 2=>"deux ", 3=>"trois ", 4=>"quatre ", 5=>"cinq ", 6=>"six ", 7=>"sept ", 8=>"huit ", 9=>"neuf ", 10=>"dix ", 11=>"onze ", 12=>"douze ", 13=>"treize ", 14=>"quatorze ", 15=>"quinze ", 16=>"seize ", 17=>"dix-sept ", 18=>"dix-huit ", 19=>"dix-neuf ");
-	$sDiz = array(20=> "vingt ", 30=> "trente ", 40=>"quarante ", 50=>"cinquante ", 60=>"soixante ", 70=>"soixante dix ", 80=>"quatre vingt ", 90=>"quatre vingt dix ");
-
-    if ($Valeur>99)
-	{
-		$N1= intval($Valeur/100);
-		if ($N1>1)
-		{
-        	$code = $code.$SUnit[$N1];
-		}
-		$Valeur = $Valeur - ($N1*100);
-        if ($code != "")
-		{
-			if ($Valeur == 0)
-			{
-	    		$code = $code." cents ";
-			}else
-			{
-	            $code = $code." cent ";
+					$result = $result." Un ".$grade[1];
+					$result = substr($result,0,13)." ";
+				}
+				$montant = $montant - ($nombre * 1000000000);
 			}
-        }else
-		{
-            $code = " cent ";
-        }
-    }
-    if ($Valeur != 0)
-	{
-       /* if ($Valeur > 19)
-		{
-            $N1 = intval($Valeur/10)*10;
-            $code = $code.$sDiz[$N1];
-            if (($Valeur>=70) and($Valeur<80)or($Valeur>=90))
+
+			// Traitement pour les Millions
+			$nombre = $montant / 1000000;
+			$nombre = intval($nombre);
+			if ($nombre > 0)
 			{
-                $Valeur = $Valeur + 10;
-            }
-            $Valeur = $Valeur - $N1;
-        } */
+				if ($nombre > 1)
+				{
+					$result = $result.$this->cenvtir($nombre).$grade[2];
+				}else
+				{
+					$result = $result." Un ".$grade[2];
+					$result = substr($result,0,12)." ";
+				}
+				$montant = $montant - ($nombre * 1000000);
+			}
 
-		/*-------------------REMPLACEMENT*******************/
+			// Traitement pour les Milliers
+			$nombre = $montant / 1000;
+			$nombre = intval($nombre);
+			if ($nombre > 0)
+			{
+				if ($nombre > 1)
+				{
+					$result = $result.$this->cenvtir($nombre).$grade[3];
+				}else
+				{
+					$result = $result.$grade[3];
+				}
+				$montant = $montant - ($nombre * 1000);
+			}
 
-		if ($Valeur > 19)
-		 {
-			$N1 = intval($Valeur/10)*10;
-			if ( (($Valeur>70) and($Valeur<80)or($Valeur>90)) && $Valeur-$N1!=0 ) {
-			  $code = $code.$sDiz[$N1-10];
-			  if ( $Valeur>70 && $Valeur<80 && $Valeur-$N1==1 )
-				$code = $code." et ";
+			// Traitement pour les Centaines & centimes
+			$nombre = $montant;
+			if ($nombre>0)
+			{
+				$result = $result.$this->cenvtir($nombre);
+			}
+			// Traitement si le montant = 1
+			if ((substr($result,0,7) == " et un " and strlen($result) == 7))
+			{
+				$result = substr($result,3,3);
+				$result = $result.@$Mon[0];
+				if (intval($centime) != 0)
+				{
+					$differ = cenvtir(intval($centime));
+					if (substr($differ,0,7) == " et un ")
+					{
+						if ($result == "")
+						{
+							$differ = substr($differ,3);
+						}
+						$result = $result." ".$differ.$Mon[2];
+					}else
+					{
+						$result = $result." et ".$differ.$Mon[3];
+					}
+				}
+				// Traitement si le montant > 1 ou = 0
 			}else
-			  $code = $code.$sDiz[$N1];
-			if (($Valeur>70) and($Valeur<80)or($Valeur>90))
-			  $Valeur = $Valeur + 10;
-			$Valeur = $Valeur - $N1;
-		  }
-		/* FIN ********************************/
-        if ($Valeur > 0)
+			{
+				if ($result != "")
+				{
+					$result = $result.@$Mon[1];
+				}
+				if (intval($centime) != 0)
+				{
+					$differ = cenvtir(intval($centime));
+					if (substr($differ,0,7) == " et un ")
+					{
+						if ($result == "")
+						{
+							$differ = substr($differ,3);
+						}
+						$result = $result." ".$differ.$Mon[2];
+					}else
+					{
+						if ($result != "")
+						{
+							$result = $result." et ".$differ.$Mon[3];
+						}else
+						{
+							$result = $differ.$Mon[3];
+						}
+					}
+				}
+			}
+		}
+		return $result;
+	}
+
+	// fonction de convertion d'un chiffre é 3 digits en lettre
+	function cenvtir($Valeur)
+	{
+
+		$code = "";
+		//texte en clair
+		$SUnit = array(1=>"et un ", 2=>"deux ", 3=>"trois ", 4=>"quatre ", 5=>"cinq ", 6=>"six ", 7=>"sept ", 8=>"huit ", 9=>"neuf ", 10=>"dix ", 11=>"onze ", 12=>"douze ", 13=>"treize ", 14=>"quatorze ", 15=>"quinze ", 16=>"seize ", 17=>"dix-sept ", 18=>"dix-huit ", 19=>"dix-neuf ");
+		$sDiz = array(20=> "vingt ", 30=> "trente ", 40=>"quarante ", 50=>"cinquante ", 60=>"soixante ", 70=>"soixante dix ", 80=>"quatre vingt ", 90=>"quatre vingt dix ");
+
+		if ($Valeur>99)
 		{
-            $code = $code." ".$SUnit[$Valeur];
-        }
-    }
-    return $code;
-}
-/*  *//**********************************************************/
-}
+			$N1= intval($Valeur/100);
+			if ($N1>1)
+			{
+				$code = $code.$SUnit[$N1];
+				}
+				$Valeur = $Valeur - ($N1*100);
+				if ($code != "")
+				{
+					if ($Valeur == 0)
+					{
+						$code = $code." cents ";
+						}else
+						{
+							$code = $code." cent ";
+							}
+							}else
+							{
+								$code = " cent ";
+								}
+								}
+								if ($Valeur != 0)
+								{
+									/* if ($Valeur > 19)
+									{
+									$N1 = intval($Valeur/10)*10;
+									$code = $code.$sDiz[$N1];
+									if (($Valeur>=70) and($Valeur<80)or($Valeur>=90))
+									{
+									$Valeur = $Valeur + 10;
+									}
+									$Valeur = $Valeur - $N1;
+									} */
 
-/*$var=new ChiffreEnLettre();
-$var->Conversion(0);*/
+									/*-------------------REMPLACEMENT*******************/
 
-?>
+									if ($Valeur > 19)
+									{
+										$N1 = intval($Valeur/10)*10;
+										if ( (($Valeur>70) and($Valeur<80)or($Valeur>90)) && $Valeur-$N1!=0 ) {
+											$code = $code.$sDiz[$N1-10];
+											if ( $Valeur>70 && $Valeur<80 && $Valeur-$N1==1 )
+											$code = $code." et ";
+											}else
+											$code = $code.$sDiz[$N1];
+											if (($Valeur>70) and($Valeur<80)or($Valeur>90))
+											$Valeur = $Valeur + 10;
+											$Valeur = $Valeur - $N1;
+											}
+											/* FIN ********************************/
+											if ($Valeur > 0)
+											{
+												$code = $code." ".$SUnit[$Valeur];
+												}
+												}
+												return $code;
+												}
+												/*  *//**********************************************************/
+												}
+
+												/*$var=new ChiffreEnLettre();
+												$var->Conversion(0);*/
+
+												?>
