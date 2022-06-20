@@ -1,0 +1,194 @@
+/*
+*****
+14. contact
+*************************
+*/
+.hire-area {
+	padding-top: 185px;
+	padding-bottom: 185px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-size: cover;
+	@media #{$sm,$xs} {
+		padding-top: 130px;
+		padding-bottom: 130px;
+	}
+	&:before {
+		position: absolute;
+		content: "";
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background: #01001e;
+		opacity: 0.75;
+	}
+}
+.hire-area.pd-hire-area {
+	padding-top: 0;
+	padding-bottom: 115px;
+	@media #{$xs} {
+		padding-bottom: 60px;
+	}
+}
+.hire-content {
+	padding: 0px 20px;
+	position: relative;
+	@media #{$sm} {
+		padding: 0px 60px;
+	}
+	@media #{$xs} {
+		padding: 10px;
+	}
+	z-index: 5;
+	& .section-title {
+		@media #{$sm,$xs} {
+			margin-bottom: 35px;
+		}
+		& h2 {
+			@media #{$xs} {
+				font-size: 23px;
+			}
+		}
+	}
+}
+.hire-btn {
+	& .grb-btn {
+		font-size: 16px;
+		font-weight: 500;
+		min-width: 180px;
+	}
+}
+// contact styles
+.contact-area {
+	@media #{$xs} {
+		padding-top: 90px;
+		padding-bottom: 60px;
+	}
+}
+.contact-address {
+}
+.contact-heading {
+	margin-bottom: 46px;
+	& h4 {
+		font-size: 24px;
+		text-transform: uppercase;
+		margin-bottom: 0;
+		line-height: 1;
+	}
+}
+.contact-address-list {
+	& li {
+		margin-bottom: 30px;
+		display: flex;
+		align-items: center;
+	}
+}
+.contact-list-icon {
+	height: 70px;
+	width: 70px;
+	text-align: center;
+	border-radius: 3px;
+	background: #f5f2ff;
+	margin-right: 30px;
+	& i {
+		font-size: 30px;
+		line-height: 70px;
+		color: $theme-color;
+	}
+}
+.contact-list-icon.st-3 {
+	background: #fffbee;
+	& i {
+		color: $theme-color-3;
+	}
+}
+.contact-list-text {
+	& span {
+		font-size: 15px;
+		line-height: 25px;
+		font-weight: 500;
+		color: $heading-color;
+		display: block;
+	}
+}
+
+// contact form style
+.contact-form {
+	& input {
+		background: #f8f8f8;
+		color: $heading-color;
+		height: 60px;
+		width: 100%;
+		border: 0;
+		line-height: 40px;
+		padding: 10px 20px;
+		font-size: 16px;
+		line-height: 26px;
+		border: 1px solid transparent;
+		&:focus {
+			border-color: $theme-color;
+		}
+	}
+	& textarea {
+		background: #f8f8f8;
+		padding: 20px 20px;
+		width: 100%;
+		border: 0;
+		resize: none;
+		font-size: 16px;
+		line-height: 26px;
+		height: 285px;
+		border: 1px solid transparent;
+		&:focus {
+			border-color: $theme-color;
+		}
+	}
+	& button {
+		color: $white;
+		padding: 0 35px;
+		height: 60px;
+		line-height: 60px;
+		background: $theme-color;
+		font-size: 16px;
+		font-weight: 500;
+		display: inline-block;
+		border: 0;
+		position: relative;
+		overflow: hidden;
+		& i {
+			margin-right: 10px;
+		}
+		&:before {
+			background-color: #fff;
+			content: "";
+			height: 150px;
+			left: -75px;
+			position: absolute;
+			top: -35px;
+			transform: rotate(35deg);
+			transition: all 1600ms cubic-bezier(0.19, 1, 0.22, 1);
+			width: 40px;
+			opacity: 0;
+		}
+		&:hover:before {
+			left: 120%;
+			transition: all 1300ms cubic-bezier(0.19, 1, 0.22, 1);
+			opacity: 0.25;
+		}
+	}
+}
+
+.contact-map-area {
+	height: 620px;
+	@media #{$md} {
+		height: 500px;
+	}
+	@media #{$xs} {
+		height: 400px;
+	}
+	& iframe {
+		height: 100%;
+		width: 100%;
+	}
+}

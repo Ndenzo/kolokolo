@@ -1,0 +1,527 @@
+<main>
+     <!-- hero area start  -->
+     <section class="hero-area p-relative">
+          <div class="slider-active swiper-container" >
+               <div class="swiper-wrapper">
+                    <div class="single-slider slider-height st-2 swiper-slide slider-overlay" data-swiper-autoplay="8000">
+                         <div class="slide-bg" data-background="<?php _url(); ?>assets/front/img/hero/banner2.jpg"></div>
+                         <div class="banner3-shape">
+                              <img src="<?php _url(); ?>assets/front/img/shape/banner3-shape.png" alt="">
+                         </div>
+                         <div class="container">
+                              <div class="row justify-content-center">
+                                   <div class="col-lg-9">
+                                        <div class="hero-content text-center">
+                                             <h1 data-animation="fadeInUp" data-delay=".5s" style="font-size: 55px;" class="text-secondary">Une véritable agence web !</h1>
+                                             <p data-animation="fadeInUp" data-delay=".3s" class="bg-white" style="padding:20px; border-radius: 5px;">Vos projets digital en deux temps trois mouvements</p>
+                                             <div class="hero-content-btn st-2" data-animation="fadeInUp" data-delay=".7s">
+                                                  <a href="contact.html" class="grb-btn text-white fw-bolder">Get Started</a>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="single-slider slider-height st-2 swiper-slide slider-overlay" data-swiper-autoplay="8000">
+                         <div class="slide-bg" data-background="<?php _url(); ?>assets/front/img/hero/banner3.jpg" ></div>
+                         <div class="banner3-shape">
+                              <img src="<?php _url(); ?>assets/front/img/shape/banner3-shape.png" alt="">
+                         </div>
+                         <div class="container">
+                              <div class="row justify-content-center">
+                                   <div class="col-lg-9">
+                                        <div class="hero-content text-center">
+                                             <h1 data-animation="fadeInUp" data-delay=".5s" style="font-size: 55px;" class="text-secondary">#Kolokolo</h1>
+                                             <p data-animation="fadeInUp" data-delay=".3s" class="bg-white" style="padding:20px; border-radius: 5px;">L'équipe du petit oiseau rouge du digital à vos côtés pour vous éclairer et vous accompagner dans tous vos projets.</p>
+                                             <div class="hero-content-btn st-2" data-animation="fadeInUp" data-delay=".7s">
+                                                  <a href="contact.html" class="grb-btn text-white fw-bolder">Get Started</a>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="single-slider slider-height st-2 swiper-slide slider-overlay" data-swiper-autoplay="8000">
+                         <div class="slide-bg" data-background="<?php _url(); ?>assets/front/img/hero/banner1.jpg" ></div>
+                         <div class="banner3-shape">
+                              <img src="<?php _url(); ?>assets/front/img/shape/banner3-shape.png" alt="">
+                         </div>
+                         <div class="container">
+                              <div class="row justify-content-center">
+                                   <div class="col-lg-9">
+                                        <div class="hero-content text-center">
+                                             <h1 data-animation="fadeInUp" data-delay=".5s" style="font-size: 55px;" class="text-secondary">Paré au décollage ?</h1>
+                                             <p data-animation="fadeInUp" data-delay=".3s" class="bg-white" style="padding:20px; border-radius: 5px;">Demandez conseil et posez vos questions à nos experts gratuitement.</p>
+                                             <div class="hero-content-btn st-2" data-animation="fadeInUp" data-delay=".7s">
+                                                  <a href3="contact.html" class="grb-btn text-white fw-bolder">Get Started</a>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <!-- If we need navigation buttons -->
+               <div class="slider-nav">
+                    <div class="swiper-button-prev"><i class="far fa-arrow-left"></i></div>
+                    <div class="swiper-button-next"><i class="far fa-arrow-right"></i></div>
+               </div>
+          </div>
+     </section>
+     <!-- hero area end -->
+     <!-- about area start  -->
+     <section class="about__area st-2">
+          <div class="container">
+               <div class="row wow fadeInUp">
+                    <div class="col-xl-6 col-lg-5">
+                         <div class="about__img p-relative mb-30">
+                              <div class="about__img-inner st-2">
+                                   <img src="<?php _url(); ?>assets/front/img/about/about-2.png" alt="" style="float: right!important;">
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-7">
+                         <div class="about__content mb-30 st-2">
+                              <div class="section-title mb-30">
+                                   <div class="border-left st-2">
+                                        <p>#Kolokolo</p>
+                                   </div>
+                                   <h2>Qui sommes-nous ?</h2>
+                              </div>
+                              <p>Nous sommes une agence digitale basée à Dakar au Sénégal, spécialisée dans la conception et la réalisation de projets web.</p>
+                              <br>
+                              <p>Web Apps ou Mobile App n’ont plus de secret pour nous. Nos process sont simple, pour que vos projets sur le Digital soit menées à bien dans les meilleurs délais.</p>
+                              <br>
+                              <p>Kolokolo autre nom de l’oiseau Ibis Rouge qui est notre emblème, arbore son jolie plumage pour donner des couleurs à tous vos projets digitales.</p>
+
+                              <ul class="about-points st-2">
+                                   <li>
+                                        <div class="points-heading">
+                                             <div class="p-icon">
+                                                  <i class="flaticon-team"></i>
+                                             </div>
+                                             <h5>Garantie Qualité</h5>
+                                        </div>
+                                        <p>There are many variations of passages of Lorem Ipsum available.</p>
+                                   </li>
+                                   <li>
+                                        <div class="points-heading">
+                                             <div class="p-icon">
+                                                  <i class="flaticon-creative-team"></i>
+                                             </div>
+                                             <h5>Innovation Permanente</h5>
+                                        </div>
+                                        <p>There are many variations of passages of Lorem Ipsum available.</p>
+                                   </li>
+                              </ul>
+
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+     <!-- service box area  -->
+     <section class="service-box-area grey-bg pt-120 pb-80">
+          <div class="container">
+               <div class="row wow fadeInUp">
+                    <div class="col-lg-12">
+                         <div class="section-title mb-55 text-center">
+                              <div class="border-c-bottom st-2">
+                                   <p>Services</p>
+                              </div>
+                              <h2>Nos Services</h2>
+                         </div>
+                    </div>
+               </div>
+               <div class="row wow fadeInUp">
+                    <div class="col-lg-6 col-md-6">
+                         <div class="service-box-single mb-40">
+                              <div class="service-box-content" style="height:260px!important;">
+                                   <div class="service-box-content-icon">
+                                        <i class="flaticon-idea"></i>
+                                   </div>
+                                   <div class="service-box-content-text">
+                                        <h4><a href="service-details.html">Site Web</a></h4>
+                                        <p>
+                                             Nous créons des site web qui reflètent votre véritable image de marque ou des Site E-Commerce pour vous aider à faire du business en ligne.
+                                        </p>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                         <div class="service-box-single mb-40">
+                              <div class="service-box-content" style="height:260px!important;">
+                                   <div class="service-box-content-icon">
+                                        <i class="flaticon-consultation"></i>
+                                   </div>
+                                   <div class="service-box-content-text">
+                                        <h4><a href="service-details.html">Mobile App</a></h4>
+                                        <p>
+                                             Osez enfin lancer ce projet d'application mobile que vous avez en tête.
+                                        </p>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                         <div class="service-box-single mb-40">
+                              <div class="service-box-content" style="height:260px!important;">
+                                   <div class="service-box-content-icon">
+                                        <i class="flaticon-healthcare"></i>
+                                   </div>
+                                   <div class="service-box-content-text">
+                                        <h4><a href="service-details.html">Publicité Digitale</a></h4>
+                                        <p>
+                                             Nous vous affichons partout sur internet que ça soit sur Google, Youtube ou sur Facebook, Twitter et Linkedin. Nous prenons les commandes de votre notoriété sur le digital.
+                                        </p>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                         <div class="service-box-single mb-40">
+                              <div class="service-box-content" style="height:260px!important;">
+                                   <div class="service-box-content-icon">
+                                        <i class="flaticon-analytics"></i>
+                                   </div>
+                                   <div class="service-box-content-text">
+                                        <h4><a href="service-details.html">Social Media Marketing</a></h4>
+                                        <p>
+                                             Nous assurons la gestion de vos pages sur les réseaux sociaux avec création de contenus inclus. Nous vous enlevons une épine du pied.
+                                        </p>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+     <!-- service box end -->
+     <!-- choosing area start  -->
+     <div class="choosing-fl-area">
+          <div class="container-fluid choosing-container-2">
+               <div class="row wow fadeInUp align-items-center">
+                    <div class="col-lg-6">
+                         <div class="choosing-fl-img p-relative">
+                              <img src="<?php _url(); ?>assets/front/img/about/choosing-fl.jpg" alt="">
+                              <div class="choosing-video play_btn">
+                                   <a class="grb-video st-3 popup-video"
+                                   href="https://www.youtube.com/watch?v=pNje3bWz7V8"><i class="fas fa-play"></i></a>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-6">
+                         <div class="choosing-fl-right mt-40 mb-40">
+                              <div class="section-title mb-30">
+                                   <div class="border-left st-3">
+                                        <p>Pourquoi nous choisir ?</p>
+                                   </div>
+                                   <h3 class="white-color">3 bonnes raisons de travailler avec nous !</h3>
+                              </div>
+                              <div class="choosing__information st-2">
+                                   <ul>
+                                        <li>
+                                             <div class="choosing__number">
+                                                  <span>01</span>
+                                             </div>
+                                             <div class="choosing__text">
+                                                  <!-- <h5>Gathering Information</h5> -->
+                                                  <p>
+                                                       Nos process sont simples, le plus simple possible, pour vous aider au maximum à être opérationnelle très vite.
+                                                  </p>
+                                             </div>
+                                        </li>
+                                        <li>
+                                             <div class="choosing__number">
+                                                  <span>02</span>
+                                             </div>
+                                             <div class="choosing__text">
+                                                  <!-- <h5>Research, Ideas & Sketch</h5> -->
+                                                  <p>
+                                                       Nous vous offrons une assistance et vous formons à l'usage des plateformes que nous créons pour vous. Mains dans la main, nous sommes vos accompagnateur.
+                                                  </p>
+                                             </div>
+                                        </li>
+                                        <li>
+                                             <div class="choosing__number">
+                                                  <span>03</span>
+                                             </div>
+                                             <div class="choosing__text">
+                                                  <!-- <h5>Ideas, Research & Sketch</h5> -->
+                                                  <p>
+                                                       Nous avons pleins d'idées pour accompagner vos besoins en plus de cela, nous sommes fan de café, avec une collection des meilleurs graines du monde dans nos locaux.
+                                                  </p>
+                                             </div>
+                                        </li>
+                                   </ul>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <!-- choosing area end -->
+     <!-- testimonial area start  -->
+     <div class="testimonial-area st-2">
+          <div class="container">
+               <div class="row wow fadeInUp align-items-center">
+                    <div class="col-lg-6">
+                         <div class="section-title mb-30">
+                              <div class="border-left st-2">
+                                   <p>Témoignage</p>
+                              </div>
+                              <h2>Nos clients sont ravi d'avoir collaboré avec nous</h2>
+                         </div>
+                         <div class="swiper-container testimonial-active-2 st-3">
+                              <div class="swiper-wrapper">
+                                   <div class="swiper-slide">
+                                        <div class="testimonial-single st-2">
+                                             <p class="mb-30">
+                                                  L'équipe de Kolokolo est super, surtout dynamique, on y arrive avec un projet fou en tête et il vous aide à mettre de l'ordre dans tout ça
+                                             </p>
+                                             <div class="testimonial-name">
+                                                  <h5>Omar Diallo, Seattle</h5>
+                                                  <!-- <p>Sr. Manager, Wood Bazar</p> -->
+                                             </div>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="testimonial-single st-2">
+                                             <p class="mb-30">
+                                                  J'ai travaillé avec Kolokolo dans le cadre de la mise en place de notre plateforme investisseur, le travail est propre et bien fait, l'accompagnement est continue, je recommande
+                                             </p>
+                                             <div class="testimonial-name">
+                                                  <h5>Ousmane Diouf</h5>
+                                                  <!-- <p>CEO, CodeXpand</p> -->
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                              <div class="testimonial-nav-2">
+                                   <div class="testimonial2-btn-prev st-2"><i class="fal fa-angle-left"></i></div>
+                                   <div class="testimonial2-btn-next st-2"><i class="fal fa-angle-right"></i></div>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-6 d-none d-lg-block">
+                         <div class="testimonial-right p-relative">
+                              <div class="test-i-img">
+                                   <img src="<?php _url(); ?>assets/front/img/testimonial/test-i-img.jpg" alt="">
+                              </div>
+                              <div class="testimonial-right-img p-relative">
+                                   <img src="<?php _url(); ?>assets/front/img/testimonial/test-r-img.jpg" alt="">
+                                   <div class="testimonial-quote pos-2 st-2">
+                                        <i class="fal fa-quote-left"></i>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <!-- testimonial area end -->
+     <!-- hire area start  -->
+     <section class="hire-area" data-background="<?php _url(); ?>assets/front/img/bg/hire-bg.jpg">
+          <div class="container">
+               <div class="row wow fadeInUp justify-content-center">
+                    <div class="col-lg-8 col-md-11">
+                         <div class="hire-content text-center">
+                              <div class="section-title mb-55">
+                                   <h2 class="white-color">AVEZ-VOUS DES PROJETS EN TÊTE ?</h2>
+                              </div>
+                              <div class="hire-btn">
+                                   <a href="contact.html" class="btn btn-primary btn-lg st-3">Parlons-en !</a>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+     <!-- hire area end  -->
+
+     <!-- blog area start  -->
+     <section class="blog-area grey-bg blog-area-2 pt-120 pb-120">
+          <div class="container">
+               <div class="row wow fadeInUp justify-content-center counter-head">
+                    <div class="col-lg-6 col-md-8">
+                         <div class="blog-left">
+                              <div class="section-title mb-55 text-center">
+                                   <div class="border-c-bottom st-2">
+                                        <p>Blog Post</p>
+                                   </div>
+                                   <h2>Read Our Blog</h2>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+               <div class="row wow fadeInUp">
+                    <div class="col-lg-4 col-md-6">
+                         <div class="blog-single mb-30 p-relative st-2">
+                              <div class="blog-date st-2">
+                                   <i class="fal fa-calendar-alt"></i>
+                                   <span>22</span>
+                                   <p>Jan 2020</p>
+                              </div>
+                              <div class="blog-img">
+                                   <a href="blog-details.html"><img src="<?php _url(); ?>assets/front/img/blog/blog1.jpg" alt=""></a>
+                              </div>
+                              <div class="blog-content st-2">
+                                   <ul class="blog-meta pl-100">
+                                        <li>
+                                             <i class="fal fa-user"></i>
+                                             <span class="author"><a href="#">Admin</a></span>
+                                        </li>
+                                        <li>
+                                             <i class="fal fa-comments"></i>
+                                             <span><a href="blog-details.html">03 Comments</a></span>
+                                        </li>
+                                   </ul>
+                                   <h4><a href="blog-details.html">There Is a Risk On Investing Money For Finance Business</a></h4>
+                                   <p class="d-none">All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as
+                                        [……]
+                                   </p>
+                                   <a href="blog-details.html" class="read-btn">Read More</a>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                         <div class="blog-single mb-30 p-relative st-2">
+                              <div class="blog-date st-2">
+                                   <i class="fal fa-calendar-alt"></i>
+                                   <span>16</span>
+                                   <p>Dec 2020</p>
+                              </div>
+                              <div class="blog-img">
+                                   <a href="blog-details.html"><img src="<?php _url(); ?>assets/front/img/blog/blog2.jpg" alt=""></a>
+                              </div>
+                              <div class="blog-content st-2">
+                                   <ul class="blog-meta pl-100">
+                                        <li>
+                                             <i class="fal fa-user"></i>
+                                             <span class="author"><a href="#">Admin</a></span>
+                                        </li>
+                                        <li>
+                                             <i class="fal fa-comments"></i>
+                                             <span><a href="blog-details.html">03 Comments</a></span>
+                                        </li>
+                                   </ul>
+                                   <h4><a href="blog-details.html">Seven Operational Tips & Tricks For Constriction Business</a></h4>
+                                   <p class="d-none">All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as
+                                        [……]
+                                   </p>
+                                   <a href="blog-details.html" class="read-btn">Read More</a>
+                              </div>
+                         </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                         <div class="blog-single mb-30 p-relative st-2">
+                              <div class="blog-date st-2">
+                                   <i class="fal fa-calendar-alt"></i>
+                                   <span>07</span>
+                                   <p>Nov 2020</p>
+                              </div>
+                              <div class="blog-img">
+                                   <a href="blog-details.html"><img src="<?php _url(); ?>assets/front/img/blog/blog3.jpg" alt=""></a>
+                              </div>
+                              <div class="blog-content st-2">
+                                   <ul class="blog-meta pl-100">
+                                        <li>
+                                             <i class="fal fa-user"></i>
+                                             <span class="author"><a href="#">Admin</a></span>
+                                        </li>
+                                        <li>
+                                             <i class="fal fa-comments"></i>
+                                             <span><a href="blog-details.html">03 Comments</a></span>
+                                        </li>
+                                   </ul>
+                                   <h4><a href="blog-details.html">Forging Relationships Between Multi-national Corporations</a></h4>
+                                   <p class="d-none">All the Lorem Ipsum generators on the Internet tend to repeat
+                                        predefined chunks as
+                                        [……]
+                                   </p>
+                                   <a href="blog-details.html" class="read-btn">Read More</a>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </section>
+     <!-- blog area end -->
+     <!-- brand area start  -->
+     <div class="brand-area pt-70 pb-100">
+          <div class="container">
+               <div class="row wow fadeInUp">
+                    <div class="col-12">
+                         <div class="swiper-container brand-active">
+                              <div class="swiper-wrapper">
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand1.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand1-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand2.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand2-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand3.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand3-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand4.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand4-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand5.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand5-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand1.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand1-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand2.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand2-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand3.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand3-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand4.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand4-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                                   <div class="swiper-slide">
+                                        <div class="single-brand">
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand5.png" alt=""></a>
+                                             <a href="#"><img src="<?php _url(); ?>assets/front/img/brand/brand5-wc.png" alt=""></a>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <!-- brand area end -->
+</main>

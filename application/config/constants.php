@@ -19,7 +19,7 @@ defined('SHOW_DEBUG_BACKTRACE') OR define('SHOW_DEBUG_BACKTRACE', TRUE);
 |
 */
 define('HTTP',((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off'))? 'https://' : 'http://');
-define('DOMAIN_NAME',"preprod.intersip.io");
+define('DOMAIN_NAME',"test.kolokolo.tech");
 define('HTTP_HOST',str_replace('www.','',$_SERVER['HTTP_HOST']));
 define('ADMIN_EMAIL',"jitender2@tekshapers.com");
 define('ADMIN_NAME',"Admin");
@@ -27,16 +27,16 @@ define('API_KEY','A4646gth5674');
 
 if(HTTP_HOST!=DOMAIN_NAME)
 {
-     define('DB_HOST','localhost');
-     define('DB_USER_ID','root');
-     define('DB_USER_PWD','inhale');
-     define('DB_NAME','intersip_web');
+    define('DB_HOST','localhost');
+    define('DB_USER_ID','root');
+    define('DB_USER_PWD','inhale');
+    define('DB_NAME','kolokolo');
 
 }else{
-     define('DB_HOST','localhost');
-     define('DB_USER_ID','u108978907_preprod');
-     define('DB_USER_PWD','Intersip00-');
-     define('DB_NAME','u108978907_preprod');
+    define('DB_HOST','185.98.131.176');
+    define('DB_USER_ID','kolok1828069');
+    define('DB_USER_PWD','hz6bzv822g');
+    define('DB_NAME','kolok1828069');
 
 }
 /*

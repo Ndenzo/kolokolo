@@ -1,0 +1,113 @@
+<!-- header area start  -->
+<header>
+     <div class="header__top d-none d-md-block header__top-2" style="background-color: #0C0B22;">
+          <div class="container">
+               <div class="row d-flex align-items-center">
+                    <div class="col-lg-9 col-md-8">
+                         <div class="grb__cta header-cta st-2">
+                              <ul>
+                                   <li>
+                                        <div class="cta__icon">
+                                             <span><i class="fas fa-envelope text-white"></i></span>
+                                        </div>
+                                        <div class="cta__content">
+                                             <p class="text-white">Ecrivez-nous:</p>
+                                             <span><a href="mailto:contact@kolokolo.tech" class="text-white">contact@kolokolo.tech</a></span>
+                                        </div>
+                                   </li>
+                                   <li>
+                                        <div class="cta__icon">
+                                             <span><i class="fas fa-clock text-white"></i></span>
+                                        </div>
+                                        <div class="cta__content">
+                                             <p class="text-white">Lundi au Vendredi</p>
+                                             <span class="text-white">08:00 - 18:30</span>
+                                        </div>
+                                   </li>
+                              </ul>
+                         </div>
+                    </div>
+                    <div class="col-lg-3 col-md-4">
+                         <div class="grb__social f-right st-2">
+                              <ul>
+                                   <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                   <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                   <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                   <li><a href="#"><i class="fab fa-linkedin"></i></a></li>
+                              </ul>
+                              <svg class="social-bg-1" xmlns="http://www.w3.org/2000/svg" width="280.537" height="70.101" viewBox="0 0 280.537 70.101">
+                                   <path id="Path_2990" data-name="Path 2990"
+                                   d="M-2528,1049.1v-45a25,25,0,0,1,25-25h195v70Zm220-70.063h53.591c-49.1,1.284-53.591,35.063-53.591,35.063Zm60.5.026h0Zm0,0h0Zm-.009,0h0Zm-.017,0h0Zm-.009,0h0Zm0,0h0Zm0,0h0Zm-.016,0h0Zm-.025,0h0Zm-.01,0h0Zm-.047,0h0Zm-.005,0h0Zm-.015,0h0Zm-.01,0h0Zm0,0h0Zm-.132,0,.132,0Zm0,0h0Zm-.094,0,.094,0Zm-.013,0h0Zm-.061,0,.061,0Zm-.039,0h0Zm-.038,0h0Zm-.245-.006h-.251c-.412-.011-.125,0,.163,0l.373.01Zm-.011,0h0Zm-.024,0h0Zm-.115,0h0Zm.335.008h0Zm-.087,0,.087,0Zm-.013,0h0Zm-.084,0,.084,0Zm0,0h0Zm-.085,0h0Zm-.12,0h0Zm-.046,0h-5.863c1.889-.049,3.839-.051,5.863,0Z"
+                                   transform="translate(2528 -979)" fill="#FF0A08" />
+                              </svg>
+
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+     <div class="header__main header-sticky header-main-2" style="background-color: white!important;">
+          <div class="container">
+               <div class="row">
+                    <div class="col-xl-2 col-lg-3 col-8">
+                         <div class="logo">
+                              <a class="logo-text-white" href="index.html"><img src="<?php _url(); ?>assets/custom/img/logo/logoh.png" alt="" style="width: 300px;"></a>
+                              <a class="logo-text-black" href="index.html"><img src="<?php _url(); ?>assets/custom/img/logo/logoh.png" alt="" style="width: 300px;"></a>
+                         </div>
+                    </div>
+                    <div class="col-xl-10 col-lg-9 col-4">
+                         <div class="header__menu-area f-right">
+                              <div class="main-menu">
+                                   <nav id="mobile-menu">
+                                        <ul>
+                                             <li><a href="<?= _url("/") ?>" class="text-secondary">Accueil</a></li>
+                                             <li><a href="about.html" class="text-secondary">Services</a></li>
+                                             <li><a href="services.html" class="text-secondary">Portfolio</a></li>
+                                             <li><a href="services.html" class="text-secondary">Blog</a></li>
+                                             <li><a href="services.html" class="text-secondary">Contact</a></li>
+                                        </ul>
+                                   </nav>
+                              </div>
+                              <div class="header__search">
+                                   <a class="search-btn nav-search search-trigger d-none d-sm-inline-block" href="#">
+                                        <i class="fal fa-search text-secondary"></i>
+                                   </a>
+                                   <a class="side-toggle d-lg-none" href="javascript:void(0)">
+                                        <i class="fal fa-bars"></i>
+                                   </a>
+                              </div>
+                              <div class="header__btn d-none">
+                                   <a href="#" class="grb-btn">Get Reserved<i class="fas fa-arrow-right"></i></a>
+                              </div>
+                              <ul class="menu-cta-2 d-none d-xl-inline-block">
+                                   <li class="">
+                                        <div class="cta__icon">
+                                             <span><i class="fas fa-phone-alt"></i></span>
+                                        </div>
+                                        <div class="cta__content">
+                                             <p class="text-white">Devis Gratuit</p>
+                                             <span><a href="tel:+221761903030"  class="text-white" style="font-size: 17px;">+221 76 190 30 30</a></span>
+                                        </div>
+                                   </li>
+                              </ul>
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</header>
+
+<!-- Fullscreen search -->
+<div class="search-wrap">
+     <div class="search-inner">
+          <i class="fal fa-times search-close" id="search-close"></i>
+          <div class="search-cell">
+               <form method="get">
+                    <div class="search-field-holder">
+                         <input type="search" class="main-search-input" placeholder="Search Your Keyword...">
+                    </div>
+               </form>
+          </div>
+     </div>
+</div>
+<!-- end fullscreen search -->

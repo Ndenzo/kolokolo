@@ -1,0 +1,148 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title><?= @$title ?></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="shortcut icon" type="image/x-icon" href="<?php _url(); ?>assets/custom/img/logo/favicon.png">
+	<!-- Place favicon.ico in the root directory -->
+
+	<!-- CSS here -->
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/swiper-bundle.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/animate.min.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/custom-animation.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/magnific-popup.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/odometer-theme-default.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/meanmenu.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/flaticon.css">
+	<link rel="stylesheet" href="<?php _url(); ?>assets/front/css/main.css">
+</head>
+
+<body>
+
+	<style media="screen">
+	.slide-bg::before{
+		background-color: white!important;
+		z-index: 100;
+	}
+	</style>
+
+	<?= $menu ?>
+
+	<?= $content ?>
+
+	<!-- footer area start  -->
+	<footer>
+		<section class="footer-area pt-100 pb-60">
+			<div class="container">
+				<div class="row wow fadeInUp">
+					<div class="col-lg-4 col-md-6">
+						<div class="footer-widget mb-40">
+							<div class="footer-logo">
+								<a href="index.html">
+									<img src="<?php _url(); ?>assets/custom/img/logo/logo.png" alt="" style="width: 100px;">
+								</a>
+							</div>
+							<p>
+								There are many variations of passages of Lorem Ipsum available, but the majority have
+								suffered alteration in some form,
+								by injected humour
+							</p>
+							<div class="grb__social footer-social-2">
+								<ul>
+									<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+									<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+									<li><a href="#"><i class="fab fa-instagram"></i></a></li>
+									<li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6">
+						<div class="footer-widget mb-40">
+							<div class="footer-widget-title">
+								<h4>Liens Utiles</h4>
+							</div>
+							<ul class="footer-list st-2">
+								<li><a href="#">Services</a></li>
+								<li><a href="#">Portfolio</a></li>
+								<li><a href="#">Blog</a></li>
+								<li><a href="#">Contact</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-2 col-md-6">
+						<div class="footer-widget mb-40 fw3">
+							<div class="footer-widget-title">
+								<h4>Notre Compagnie</h4>
+							</div>
+							<ul class="footer-list st-2">
+								<li><a href="#">Terms & Conditions</a></li>
+								<li><a href="#">Privacy Policy</a></li>
+								<li><a href="#">Mission & Vision</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-4 col-md-6">
+						<div class="footer-widget mb-40">
+							<div class="footer-widget-title">
+								<h4>Newsletter</h4>
+							</div>
+							<p>There are many variations of passages of Lorem Ipsum available, but the majority.</p>
+							<form class="subscribe-form mb-30 st-2">
+								<input type="text" placeholder="Enter your email...">
+								<button type="submit"><i class="fas fa-paper-plane"></i>Souscrire</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<div class="copyright-area st-2">
+			<div class="container">
+				<div class="row wow fadeInUp align-items-center">
+					<div class="col-lg-6 col-md-6">
+						<div class="copyright-text st-2">
+							<p>Copyrighted by <a href="<?= _url('/') ?>" class="text-primary">kolokolo</a> | All Right Reserved</p>
+						</div>
+					</div>
+					<div class="col-lg-6 col-md-6">
+						<ul class="copyright-list f-right st-2">
+							<li><a href="#">Terms & Conditions</a></li>
+							<li><a href="#">Privacy Policy</a></li>
+							<li><a href="about.html">About Us</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer area end -->
+
+
+
+	<!-- JS here -->
+	<script src="<?php _url(); ?>assets/front/js/vendor/jquery-3.6.0.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/bootstrap.bundle.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/swiper-bundle.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/isotope.pkgd.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/jquery.meanmenu.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/ajax-form.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/wow.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/jquery.scrollUp.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/odometer.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/appair.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/imagesloaded.pkgd.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/jquery.magnific-popup.min.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/plugins.js"></script>
+	<script src="<?php _url(); ?>assets/front/js/main.js"></script>
+</body>
+
+</html>

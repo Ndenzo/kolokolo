@@ -1,0 +1,85 @@
+/*
+*****
+16. page-title
+*************************
+*/
+.page-title-area {
+	padding-top: 230px;
+	padding-bottom: 160px;
+	position: relative;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	z-index: 1;
+	&:before {
+		position: absolute;
+		content: "";
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background: $heading-color;
+		opacity: 0.8;
+		z-index: -1;
+	}
+}
+// .page-title-content {
+// 	position: relative;
+// 	z-index: 5;
+// }
+.page-title-heading {
+	& h1 {
+		font-size: 48px;
+		color: $white;
+		text-transform: uppercase;
+		line-height: 50px;
+		margin-bottom: 10px;
+		@media #{$xs} {
+			font-size: 36px;
+		}
+	}
+}
+.grb-breadcrumb {
+	position: absolute;
+	z-index: 5;
+	bottom: -30px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	display: inline-block;
+}
+.breadcrumb {
+	background: $white;
+	padding: 19px 5px;
+	margin-bottom: 0;
+	box-shadow: 0px 5px 10px rgba(16, 0, 71, 0.1);
+	display: inline-flex;
+}
+.breadcrumb-item {
+	font-size: 15px;
+	font-weight: 500;
+	text-transform: uppercase;
+	color: $theme-color;
+	padding: 0 25px;
+	& a {
+		&:hover {
+			color: $heading-color;
+		}
+	}
+	&.active {
+		color: $heading-color;
+	}
+}
+.breadcrumb-item + .breadcrumb-item::before {
+	float: left;
+	padding-right: 0px;
+	content: ("");
+	width: 2px;
+	height: 20px;
+	background: $theme-color;
+	margin-right: 25px;
+	margin-top: 1px;
+}
+.breadcrumb-item + .breadcrumb-item {
+	padding-left: 0;
+}

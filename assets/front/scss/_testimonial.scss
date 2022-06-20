@@ -1,0 +1,337 @@
+/*
+*****
+10. testimonial
+*************************
+*/
+.testimonial-wrapper {
+}
+// .testimonial-content-inner {
+// 	border: 2px solid $theme-color;
+// 	border-radius: 20px;
+// 	padding: 77px 87px 45px;
+// 	margin-top: 50px;
+// 	margin-bottom: 30px;
+// }
+.testimonial-area.st-1 {
+	padding-top: 395px;
+	background-repeat: no-repeat;
+	@media #{$laptop} {
+		padding-top: 420px;
+	}
+	@media #{$lg} {
+		padding-top: 330px;
+	}
+	@media #{$md} {
+		padding-top: 120px;
+		background-image: none !important;
+	}
+	@media #{$xs} {
+		padding-top: 60px;
+		background-image: none !important;
+	}
+}
+.testimonial-area.st-2 {
+	padding-top: 120px;
+	padding-bottom: 120px;
+	@media #{$xs} {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+}
+.testimonial-area.st-3 {
+	padding-top: 120px;
+	padding-bottom: 70px;
+	@media #{$xs} {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+}
+.testimonial-right-img {
+	padding-left: 100px;
+}
+.test-i-img {
+	position: absolute;
+	height: 296px;
+	width: 216px;
+	border-radius: 189px;
+	border-bottom-left-radius: 0;
+	z-index: 2;
+	overflow: hidden;
+	box-shadow: -30px -10px 30px rgba(16, 0, 71, 0.1);
+	bottom: 63px;
+	left: 30px;
+	animation-name: test-i-img-move;
+	animation-duration: 5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+.testimonial-single.st-1 {
+	border: 2px solid $theme-color;
+	border-radius: 20px;
+	padding: 60px 87px 45px;
+	margin-bottom: 20px;
+	@media #{$md} {
+		padding: 60px 50px 45px;
+	}
+	@media #{$xs} {
+		padding: 40px 15px 45px;
+	}
+}
+.testimonial-single.st-3 {
+	max-width: 570px;
+	background: $white;
+	padding: 30px 30px;
+	box-shadow: 0px 20px 40px rgba(16, 0, 71, 0.1);
+	position: relative;
+	margin-top: 35px;
+	&:hover {
+		& .testimonial-name.st-3 {
+			& h5 a {
+				color: $theme-color-3;
+			}
+		}
+	}
+	& > p {
+		margin-bottom: 25px;
+	}
+}
+.testimonial-name {
+	& h5 {
+		margin-bottom: 0;
+	}
+}
+.testimonial-name.st-3 {
+	display: inline-block;
+	padding-top: 5px;
+}
+.testimonial-img {
+	margin-bottom: 18px;
+	width: 89px;
+	height: 89px;
+	display: inline-block;
+	border-radius: 50%;
+}
+.testimonial-img.st-3 {
+	height: 54px;
+	width: 54px;
+	margin-right: 20px;
+	float: left;
+}
+.testimonial-quote {
+	width: 90px;
+	height: 90px;
+	text-align: center;
+	line-height: 90px;
+	font-size: 40px;
+	color: $theme-color;
+	background: $white;
+	border-radius: 50%;
+	box-shadow: 0px 10px 30px rgba(16, 0, 71, 0.1);
+	position: absolute;
+	right: 68px;
+	bottom: -20px;
+	z-index: 5;
+	@media #{$xs} {
+		display: none;
+	}
+	& i {
+		font-weight: 700;
+	}
+}
+.testimonial-quote.pos-2 {
+	box-shadow: none;
+	font-size: 100px;
+	background: none;
+	top: 35px;
+	right: 10px;
+	@media #{$laptop} {
+		font-size: 80px;
+		top: 45px;
+		right: -15px;
+	}
+	@media #{$lg} {
+		font-size: 60px;
+		top: 26px;
+		right: -25px;
+	}
+}
+.testimonial-quote.st-2 {
+	color: $theme-color-2;
+}
+.testimonial-quote.st-3 {
+	height: 80px;
+	width: 80px;
+	border: 7px solid #f5f5f5;
+	box-shadow: none;
+	right: 30px;
+	top: -42px;
+	bottom: auto;
+	line-height: 66px;
+	color: $heading-color;
+	background: $theme-color-3;
+	& i {
+		font-weight: 700;
+		font-size: 35px;
+	}
+}
+.testimonial-review {
+	height: 40px;
+	width: 150px;
+	text-align: center;
+	border: 1px solid $theme-color;
+	border-radius: 30px;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	position: absolute;
+	bottom: 0;
+	background: $white;
+	transform: scale(0.7);
+	@include transition(0.5s);
+	& li {
+		font-size: 15px;
+		line-height: 38px;
+		color: $theme-color-3;
+		display: inline-block;
+		margin: 0 1px;
+	}
+}
+.swiper-slide-active .testimonial-review {
+	transform: scale(1);
+}
+.testimonial-review.st-3 {
+	position: static;
+	transform: none;
+	border: none;
+	text-align: left;
+	margin-bottom: 20px;
+	height: auto;
+	margin-left: 0;
+	& li {
+		line-height: 1;
+		&:first-child {
+			margin-left: 0;
+		}
+	}
+}
+
+// slider style
+.testimonial-nav-1 {
+	display: inline-block;
+	padding: 0 5px;
+	background: white;
+	position: absolute;
+	right: -70px;
+	top: 50%;
+	transform: translateY(-50%) rotate(90deg);
+	z-index: 5;
+	@media #{$xs} {
+		position: static;
+		transform: none;
+		padding-top: 40px;
+		display: flex;
+		justify-content: center;
+	}
+	& .testimonial1-button-prev,
+	& .testimonial1-button-next {
+		font-size: 20px;
+		color: #b4b4b4;
+		height: 48px;
+		width: 54px;
+		text-align: center;
+		line-height: 46px;
+		border: 1px solid #f2f2f2;
+		display: inline-block;
+		@include transition(0.3s);
+		position: static;
+		margin: 0 5px;
+		&:after {
+			display: none;
+		}
+	}
+	& .testimonial1-button-prev {
+		border-radius: 55% 45% 45% 55% / 50% 50% 50% 50%;
+		&:hover {
+			background: $white;
+			border-color: $white;
+			box-shadow: -7px 0 15px rgba(16, 0, 71, 0.1);
+			color: $heading-color;
+		}
+	}
+	& .testimonial1-button-next {
+		border-radius: 45% 55% 55% 45% / 50% 50% 50% 50%;
+		&:hover {
+			background: $white;
+			border-color: $white;
+			box-shadow: 7px 0 15px rgba(16, 0, 71, 0.1);
+			color: $heading-color;
+		}
+	}
+}
+
+// slider style
+.testimonial-nav-2 {
+	display: inline-block;
+	margin-left: -5px;
+	padding-bottom: 20px;
+	padding-top: 34px;
+	& .testimonial2-btn-prev,
+	& .testimonial2-btn-next {
+		font-size: 28px;
+		color: #ababab;
+		height: 40px;
+		width: 40px;
+		text-align: center;
+		line-height: 40px;
+		background: #e9e9e9;
+		display: inline-block;
+		@include transition(0.3s);
+		position: static;
+		margin: 0 5px;
+		border-radius: 50%;
+		&:hover {
+			background: $theme-color;
+			color: $white;
+		}
+		&:after {
+			display: none;
+		}
+		&.st-2:hover {
+			background: $theme-color-2;
+			color: $white;
+		}
+	}
+}
+// slider style
+.testimonial-nav-3 {
+	display: inline-block;
+	margin-left: -5px;
+	padding-bottom: 20px;
+	padding-top: 62px;
+	float: right;
+	@media #{$xs} {
+		padding-top: 0px;
+		float: none;
+	}
+	& .testimonial-btn-prev,
+	& .testimonial-btn-next {
+		font-size: 30px;
+		color: #565656;
+		height: 50px;
+		width: 50px;
+		text-align: center;
+		line-height: 50px;
+		background: #e1e1e1;
+		display: inline-block;
+		@include transition(0.3s);
+		position: static;
+		margin: 0 5px;
+		&:hover {
+			background: $theme-color-3;
+			color: $heading-color;
+		}
+		&:after {
+			display: none;
+		}
+	}
+}

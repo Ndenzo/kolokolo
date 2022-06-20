@@ -30,7 +30,7 @@ $config['google_map_key'] = 'AIzaSyDbSHcfjumboXTYELqdhTdqfsLPimhQj1nFtmw';
 |--------------------------------------------------------------------------
 |
 */
-$config['base_url'] = HTTP."ava/intersip/";
+$config['base_url'] = HTTP."ava/kolokolo/";
 
 if(HTTP_HOST==DOMAIN_NAME)
 {
