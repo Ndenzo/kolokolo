@@ -15,7 +15,7 @@
                </div>
                <div class="col-lg-7" style="z-index: 21;">
                     <div class="header-inner" style=" margin-top : -150px ;">
-                         <h1 class="title wow fadeInDown text-right">CONDUIRE VOTRE PROPRE IMPACT</h1>
+                         <h1 class="title wow fadeInDown text-right">MENEZ VOTRE PROPRE IMPACT</h1>
                          <h3 class="wow fadeInDown text-right text-white">ET ALLEZ AU-DELÀ DE VOS ATTENTES !</h3>
                          <div class="btn-wrapper wow fadeInUp">
                               <a href="#" class="btn float-right boxed-btn btn-rounded" style="width: auto;">
@@ -31,9 +31,171 @@
 </header>
 <!-- header area end  -->
 
-<!-- about us area start -->
+<div class="about-app-area padding-bottom-120" id="about">
+    <div class="container">
+         <div class="row justify-content-center">
+              <div class="col-lg-10">
+                   <div class="section-title"><!-- section title -->
+                        <h3 class="title text-primary">Nos Services</h3>
+                        <p>
+                             Nous utilisons la technologie mobile pour créer des campagnes évolutives avec un retour d'information immédiat.
+                             A partir de notre plateforme centralisée, les bénéficiaires sont formés, financés et évalué avec un système de suivi en temps réel adapté aux besoins des organisations.
+                        </p>
+                   </div>
+              </div>
+         </div>
+       <div class="row">
+            <div class="col-lg-12 padding-top-80">
+                <ul class="feature-list style-03">
+                    <li class="single-feature-list col-lg-3 col-12" style="border-right: 2px solid #ededed">
+                        <div class="icon icon-bg-1">
+                            <i class="flaticon-chat-1"></i>
+                        </div>
+                        <div class="content">
+                            <h4 class="title"><a href="#">SMS</a></h4>
+                            <p>Campagne SMS d’alerte, de notification ou de sensibilisation à grande échelle </p>
+                        </div>
+                    </li>
+                    <li class="single-feature-list col-lg-3 col-12" style="border-right: 2px solid #ededed">
+                        <div class="icon icon-bg-2">
+                            <i class="flaticon-speech-bubble"></i>
+                        </div>
+                        <div class="content">
+                            <h4 class="title"><a href="#">IVR</a></h4>
+                            <p>Système vocal interactif dans les langues locales des communautés ciblés </p>
+                        </div>
+                    </li>
+                    <li class="single-feature-list col-lg-3 col-12" style="border-right: 2px solid #ededed">
+                        <div class="icon icon-bg-3">
+                            <i class="flaticon-checked"></i>
+                        </div>
+                        <div class="content">
+                            <h4 class="title"><a href="#">TRANSFERT</a></h4>
+                            <p>Campagne d’envoi de crédit téléphonique et de transfert d'argent en masse </p>
+                        </div>
+                    </li>
+                    <li class="single-feature-list col-lg-3 col-12">
+                        <div class="icon icon-bg-4">
+                            <i class="flaticon-database" style="margin-top: -20px!important;"></i>
+                        </div>
+                        <div class="content">
+                            <h4 class="title"><a href="#">COLLECTION</a></h4>
+                            <p>Application de collecte et d'analyse de données </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+       </div>
+    </div>
+</div>
 
-<section class="about-us-area style-two" style="margin-top: -200px;">
+<section class="full-width-feature-area-03 gradient-bg padding-top-120 padding-bottom-120">
+    <div class="container">
+         <div class="row justify-content-center">
+              <div class="col-lg-10">
+                   <div class="section-title"><!-- section title -->
+                        <h3 class="title text-primary">Que faisons-nous ?</h3>
+                        <!-- <p>
+                             Nous utilisons la technologie mobile pour créer des campagnes évolutives avec un retour d'information immédiat.
+                             A partir de notre plateforme centralisée, les bénéficiaires sont formés, financés et évalué avec un système de suivi en temps réel adapté aux besoins des organisations.
+                        </p> -->
+                   </div>
+              </div>
+         </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="full-width-feature-style-03 padding-top-100">
+                    <div class="row reorder-xs">
+                        <div class="col-lg-6">
+                            <div class="content-area">
+                                <div class="section-title left-aligned">
+                                     <span class="subtitle">Un impact positif sur la vie des bénéficiaires</span>
+                                    <p>
+                                         Nous utilisons la technologie mobile pour créer des campagnes évolutives avec un retour d'information immédiat.
+                                         A partir de notre plateforme centralisée, les bénéficiaires sont formés, financés et évalué avec un système de suivi en temps réel adapté aux besoins des organisations.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="img-wrapper  d-none d-sm-block">
+                                <img src="<?php _url(); ?>assets/front/img/bg/Image_1.png" alt="how it works image" style="width:500px; float: right;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="full-width-feature-style-03 bg-cover padding-top-100">
+                    <div class="row">
+                         <div class="col-lg-6">
+                             <div class="img-wrapper  d-none d-sm-block">
+                                 <img src="<?php _url(); ?>assets/front/img/bg/Image_2.png" alt="how it works image" style="width:500px">
+                             </div>
+                         </div>
+                         <div class="col-lg-6">
+                             <div class="content-area">
+                                 <div class="section-title left-aligned">
+                                      <span class="subtitle">Atteindre les cibles difficiles à joindre en Afrique</span>
+                                     <p>
+                                          La plateforme Intersip donne une approche simpliste des partages d’informations et la communication
+                                          à double sens entre les populations bénéficiaires et les projets de développement. Elle permet les
+                                          échanges d’informations pertinantes qui ont un impact positif sur la vie des bénéficiares à travers
+                                          un simple téléphone portable, en offrant des services pour les secteurs du développement international et des affaires.
+                                     </p>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="full-width-feature-style-03 bg-cover padding-top-100">
+                    <div class="row">
+                         <div class="col-lg-6">
+                             <div class="content-area">
+                                 <div class="section-title left-aligned">
+                                      <span class="subtitle">Aider les cibles à bénéficier de liquidités indépendamment de leur localisation, de leur opérateur et de leur opérateur télécom.</span>
+                                     <p>
+                                          La plateforme Intersip permet aux organisations et particulier de transferer du cash et du crédit téléphonique en masse aux
+                                          bénéficiaires instantannément dans une très grande sécurité et rapidité.
+                                     </p>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-lg-6">
+                             <div class="img-wrapper  d-none d-sm-block">
+                                 <img src="<?php _url(); ?>assets/front/img/bg/Image_3.png" alt="how it works image" style="width:500px; float: right;">
+                             </div>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="full-width-feature-style-03 bg-cover padding-top-100">
+                    <div class="row">
+                         <div class="col-lg-6">
+                             <div class="img-wrapper  d-none d-sm-block">
+                                 <img src="<?php _url(); ?>assets/front/img/bg/Image_4.png" alt="how it works image" style="width:500px">
+                             </div>
+                         </div>
+                         <div class="col-lg-6">
+                             <div class="content-area">
+                                 <div class="section-title left-aligned">
+                                      <span class="subtitle">Collectez, contrôlez et sécurisez vos données d'enquête.</span>
+                                     <p>
+                                          La collecte des données sur le terrain, le suivi des indicateurs, le suivi des enqueteurs sur le terrain, la géolocalisation
+                                          des réponses et le controle qualité automatique et immédiat n’ont jamais été aussi facile qu’avec Intersip data collection APP.
+                                          Un travail de qualité pour des résultats sans faille.
+                                     </p>
+                                 </div>
+                             </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- about us area start -->
+<section class="about-us-area style-two">
      <div class="container">
           <div class="row justify-content-center">
                <div class="col-lg-10">
@@ -129,50 +291,75 @@
 </section>
 
 <!-- why choose area start -->
-<section class="why-choose-area why-choose-us-bg d-none d-sm-block" style="height: 1200px;">
+<section class="why-choose-area why-choose-us-bg d-none d-sm-block" style="height: 100%;">
      <div class="container-fluid">
           <div class="row">
                <div class="col-lg-6">
                     <div class="section-title white" style="margin-bottom:0px;"><!-- section title -->
-                         <h3 class="title extra" style="margin-top: 120px;">NOS RECORDS</h3>
+                         <h3 class="title extra" style="margin-top: 20px;">OUR RECORDS</h3>
                     </div><!-- //. section title -->
 
                     <div class="row">
-                         <div class="container">
-                              <div class="row">
-                                   <div class="col-lg-6 col-md-12 why-object margin-top-60 wow zoomIn">
-                                        <div class="inditxt">
-                                             +<span class="count-num">12,000</span>
+                         <!-- <div class="container"> -->
+                         <div class="col-md-6">
+                              <div class="single-why-us-item margin-top-40 wow zoomIn" style="height: 260px"><!-- single why us item -->
+                                   <div class="single-discover-item">
+                                        <div class="custom-icon">
+                                             <i class="flaticon-chat-1"></i>
+                                        </div>
+                                        <div class="content">
+                                             <h4 class="title">
+                                                  <span class="coun">193,000</span>
+                                             </h4>
+                                             <p>Messages texte par seconde envoyés dans le monde</p>
                                         </div>
                                    </div>
-                                   <div class="col-lg-6 col-md-12 why-object margin-top-60 wow zoomIn">
-                                        <div class="inditxt">
-                                             +<span class="count-num">19,000</span>
+                              </div><!-- //. single why us item -->
+                         </div>
+                         <div class="col-md-6">
+                              <div class="single-why-us-item margin-top-40 wow zoomIn" style="height: 260px"><!-- single why us item -->
+                                   <div class="single-discover-item">
+                                        <div class="custom-icon">
+                                             <i class="flaticon-email-1"></i>
+                                        </div>
+                                        <div class="content">
+                                             <h4 class="title">
+                                                  <span class="coun">98</span> %
+                                             </h4>
+                                             <p>Taux d'ouverture des SMS et WhatsApp </p>
                                         </div>
                                    </div>
-                                   <div class="col-lg-6 col-md-12 wow zoomIn">
-                                        <div class="indi text-white">Contacts formé dans l’éducation financière</div>
-                                   </div>
-                                   <div class="col-lg-6 col-md-12 wow zoomIn">
-                                        <div class="indi text-white">Bénéficiaires de cash transfer</div>
-                                   </div>
-                                   <div class="col-lg-6 col-md-12 why-object margin-top-60 wow zoomIn">
-                                        <div class="inditxt">
-                                             +<span class="count-num">100</span>
+                              </div><!-- //. single why us item -->
+                         </div>
+                         <div class="col-md-6">
+                              <div class="single-why-us-item wow zoomIn" style="height: 260px"><!-- single why us item -->
+                                   <div class="single-discover-item">
+                                        <div class="custom-icon">
+                                             <i class="flaticon-trophy"></i>
+                                        </div>
+                                        <div class="content">
+                                             <h4 class="title">
+                                                  <span class="coun">6,000,000,000</span>
+                                             </h4>
+                                             <p>Les gens enverront et recevront des SMS d'ici 2025 </p>
                                         </div>
                                    </div>
-                                   <div class="col-lg-6 col-md-12 why-object margin-top-60 wow zoomIn">
-                                        <div class="inditxt">
-                                             +<span class="count-num">20</span>
+                              </div><!-- //. single why us item -->
+                         </div>
+                         <div class="col-md-6">
+                              <div class="single-why-us-item wow zoomIn" style="height: 260px"><!-- single why us item -->
+                                   <div class="single-discover-item">
+                                        <div class="custom-icon">
+                                             <i class="flaticon-analytics"></i>
+                                        </div>
+                                        <div class="content">
+                                             <h4 class="title">
+                                                  <span class="coun">33</span> %
+                                             </h4>
+                                             <p>des ménages possédaient plus de 3 smartphones en 2017</p>
                                         </div>
                                    </div>
-                                   <div class="col-lg-6 col-md-12 wow zoomIn">
-                                        <div class="indi text-white">Sondages IVR</div>
-                                   </div>
-                                   <div class="col-lg-6 col-md-12 wow zoomIn">
-                                        <div class="indi text-white">Lignes de redevabilité</div>
-                                   </div>
-                              </div>
+                              </div><!-- //. single why us item -->
                          </div>
                     </div>
                </div>
@@ -182,43 +369,43 @@
 <!-- why choose area end -->
 
 <!-- screenshort area start -->
-<section class="screenshort-area" style="margin-top: 50px;">
-     <div class="row">
-          <div class="col-10 ml-auto mr-auto" style="border: 1px solid grey; -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); border-radius: 10px;">
-               <div class="row justify-content-center">
-                    <div class="col-lg-10">
-                         <div class="bg-primary" style="margin-top: -15px; margin-bottom: 30px; ">
-                              <h3 class="text-white text-center">NOS PARTENAIRES</h3>
-                         </div>
-                    </div>
-               </div>
-               <div class="row">
-                    <div class="col-lg-12">
-                         <div class="screenshort-carousel"><!-- screenshort carousel -->
-                              <div class="single-screenshort-item"><!-- single screenshort item -->
-                                   <img src="<?php _url(); ?>assets/front/img/bg/o1.png" alt="" style="max-width: 150px!important; vertical-align:middle!important;">
-                              </div><!-- //.single screenshort item -->
-                              <div class="single-screenshort-item"><!-- single screenshort item -->
-                                   <img src="<?php _url(); ?>assets/front/img/bg/o2.png" alt="" style="max-width: 150px!important;">
-                              </div><!-- //.single screenshort item -->
-                              <div class="single-screenshort-item"><!-- single screenshort item -->
-                                   <img src="<?php _url(); ?>assets/front/img/bg/o3.png" alt="" style="max-width: 150px!important;">
-                              </div><!-- //.single screenshort item -->
-                              <div class="single-screenshort-item"><!-- single screenshort item -->
-                                   <img src="<?php _url(); ?>assets/front/img/bg/o4.png" alt="" style="max-width: 150px!important;">
-                              </div><!-- //.single screenshort item -->
-                              <div class="single-screenshort-item"><!-- single screenshort item -->
-                                   <img src="<?php _url(); ?>assets/front/img/bg/o5.jpg" alt="" style="max-width: 150px!important; vertical-align:middle!important;">
-                              </div><!-- //.single screenshort item -->
-                              <div class="single-screenshort-item"><!-- single screenshort item -->
-                                   <img src="<?php _url(); ?>assets/front/img/bg/o6.jpg" alt="" style="max-width: 150px!important;">
-                              </div><!-- //.single screenshort item -->
-                         </div><!-- //. screenshort carousel -->
-                    </div>
-               </div>
-          </div>
-     </div>
-</section>
+<!-- <section class="screenshort-area" style="margin-top: 50px;">
+<div class="row">
+<div class="col-10 ml-auto mr-auto" style="border: 1px solid grey; -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); border-radius: 10px;">
+<div class="row justify-content-center">
+<div class="col-lg-10">
+<div class="bg-primary" style="margin-top: -15px; margin-bottom: 30px; ">
+<h3 class="text-white text-center">OUR PARTNERS</h3>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-12">
+<div class="screenshort-carousel">
+<div class="single-screenshort-item">
+<img src="<?php _url(); ?>assets/front/img/bg/o1.png" alt="" style="max-width: 150px!important; vertical-align:middle!important;">
+</div>
+<div class="single-screenshort-item">
+<img src="<?php _url(); ?>assets/front/img/bg/o2.png" alt="" style="max-width: 150px!important;">
+</div>
+<div class="single-screenshort-item">
+<img src="<?php _url(); ?>assets/front/img/bg/o3.png" alt="" style="max-width: 150px!important;">
+</div>
+<div class="single-screenshort-item">
+<img src="<?php _url(); ?>assets/front/img/bg/o4.png" alt="" style="max-width: 150px!important;">
+</div>
+<div class="single-screenshort-item">
+<img src="<?php _url(); ?>assets/front/img/bg/o5.jpg" alt="" style="max-width: 150px!important; vertical-align:middle!important;">
+</div>
+<div class="single-screenshort-item">
+<img src="<?php _url(); ?>assets/front/img/bg/o6.jpg" alt="" style="max-width: 150px!important;">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section> -->
 <!-- screenshort area end -->
 
 <div id="product-sms" class="modal fade bs-example-modal-center show" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-modal="true">

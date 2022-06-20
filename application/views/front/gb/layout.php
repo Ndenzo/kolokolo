@@ -68,6 +68,12 @@
 			background-size:auto;
 		}
 	}
+	.custom-icon{
+		font-size: 60px;
+		line-height: 70px;
+		margin-bottom: 18px;
+		color: var(--main-color-one);
+	}
 	.product-object{
 		background-image: url(<?= _url('assets/front') ?>/img/bg/product_object_primary.png);
 		background-repeat: no-repeat;
@@ -81,7 +87,7 @@
 		margin: 25px;
 	}
 	.desc-object:hover{
-	     margin-top: -20px;
+		margin-top: -20px;
 	}
 	.product-icon{
 		/* margin-top: -20px; */
@@ -129,7 +135,7 @@
 				<div class="logo-wrapper">
 					<a href="<?= _url('/') ?>" class="logo">
 						<?php if ($style == "default"): ?>
-							<img src="<?php _url(); ?>assets/custom/img/logo/logow.png" alt="logo" class="header_logo">
+							<img src="<?php _url(); ?>assets/custom/img/logo/logow.svg" alt="logo" class="header_logo">
 						<?php else: ?>
 							<img src="<?php _url(); ?>assets/custom/img/logo/logo.png" alt="logo" class="header_logo">
 						<?php endif; ?>
@@ -171,216 +177,255 @@
 
 	<?= $content ?>
 
-	<!-- footer area start -->
-	<footer class="footer-area">
-		<div class="border-bottom">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-4 col-md-6">
-						<div class="footer-widget nav_menus_widget">
-							<h2 class=" text-primary mt-1">CONTACT US</h2>
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-widget nav_menus_widget">
-							<input class="form-control mt-4" type="text" name="" placeholder="Name">
-						</div>
-					</div>
-					<div class="col-lg-3 col-md-6">
-						<div class="footer-widget nav_menus_widget">
-							<input class="form-control mt-4" type="email" name="" placeholder="Email">
-						</div>
-					</div>
-					<div class="col-lg-2 col-md-6">
-						<div class="footer-widget nav_menus_widget">
-							<a href="#" class="btn btn-primary mt-4 col-12">SUBSCRIBE</a>
-						</div>
+	<div class="contact-form-area-02 contact-bg padding-bottom-120" id="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="contact-area-wrapper" id="contact"><!-- contact area wrapper -->
+						<span class="subtitle">Contact us</span>
+						<h3 class="title">Get In Touch</h3>
+						<form action="index.html" id="contact_form_submit" class="contact-form sec-margin">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" class="form-control" id="uname" placeholder="Your Name">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" class="form-control" id="email" placeholder="Your Email">
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group textarea">
+										<textarea name="message" id="message" class="form-control" cols="30" rows="10" placeholder="Message"></textarea>
+									</div>
+									<button class="submit-btn-02" type="submit">Submit Now</button>
+								</div>
+							</div>
+						</form>
+					</div><!-- //. contact area wrapper -->
+				</div>
+				<div class="col-lg-6">
+					<div class="img-wrapper mt-5">
+						<img class="mt-5" src="<?php _url(); ?>assets/front/img/bg/Image_2.png" alt="">
 					</div>
 				</div>
 			</div>
-		</div><!-- //. copyright area -->
-		<div class="footer-top">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10">
-						<div class="row">
-							<div class="col-lg-3 col-md-6">
-								<div class="footer-widget nav_menus_widget">
-									<h4 class="widget-title text-primary">PRODUCTS</h4>
-									<ul>
-										<li><a href="index.html"> SMS</a></li>
-										<li><a href="#"> IVR</a></li>
-										<li><a href="#"> Airtime & Cash Transfer</a></li>
-										<li><a href="#"> Data Collection App</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6">
-								<div class="footer-widget nav_menus_widget">
-									<h4 class="widget-title text-primary">RESOURCES</h4>
-									<ul>
-										<li><a href="index.html"> Support</a></li>
-										<li><a href="#"> Developers</a></li>
-										<li><a href="#"> Github</a></li>
-										<li><a href="#"> Status</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6">
-								<div class="footer-widget nav_menus_widget">
-									<h4 class="widget-title text-primary">COMPANY</h4>
-									<ul>
-										<li><a href="#"> Our Story</a></li>
-										<li><a href="#"> Contact US</a></li>
-										<li><a href="#"> Career</a></li>
-									</ul>
-								</div>
-							</div>
-							<div class="col-lg-3 col-md-6">
-								<div class="footer-widget nav_menus_widget">
-									<h4 class="widget-title text-primary">LEGAL</h4>
-									<ul>
-										<li><a href="#"> Term of Service </a></li>
-										<li><a href="#"> Privacy Policy</a></li>
-										<li><a href="#"> Service Level Agreement</a></li>
-										<li><a href="#"> Code of Product</a></li>
-										<li><a href="#"> Marketplace Terms of Service</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
+		</div>
+	</div>
 
+
+	<!-- footer area start -->
+	<footer class="footer-area">
+		<!-- <div class="border-bottom">
+		<div class="container">
+		<div class="row">
+		<div class="col-lg-4 col-md-6">
+		<div class="footer-widget nav_menus_widget">
+		<h2 class=" text-primary mt-1">CONTACT US</h2>
+	</div>
+</div>
+<div class="col-lg-3 col-md-6">
+<div class="footer-widget nav_menus_widget">
+<input class="form-control mt-4" type="text" name="" placeholder="Name">
+</div>
+</div>
+<div class="col-lg-3 col-md-6">
+<div class="footer-widget nav_menus_widget">
+<input class="form-control mt-4" type="email" name="" placeholder="Email">
+</div>
+</div>
+<div class="col-lg-2 col-md-6">
+<div class="footer-widget nav_menus_widget">
+<a href="#" class="btn btn-primary mt-4 col-12">SUBSCRIBE</a>
+</div>
+</div>
+</div>
+</div>
+</div> -->
+<div class="footer-top">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
+				<div class="row">
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-widget nav_menus_widget">
+							<h4 class="widget-title text-primary">PRODUCTS</h4>
+							<ul>
+								<li><a href="index.html"> SMS</a></li>
+								<li><a href="#"> IVR</a></li>
+								<li><a href="#"> Airtime & Cash Transfer</a></li>
+								<li><a href="#"> Data Collection App</a></li>
+							</ul>
+						</div>
 					</div>
-					<div class="col-12 col-md-2">
-						<div class="footer-widget about_widget">
-							<h4 class="widget-title text-primary">Follow US</h4>
-							<ul class="social-icon">
-								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-								<li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-widget nav_menus_widget">
+							<h4 class="widget-title text-primary">RESOURCES</h4>
+							<ul>
+								<li><a href="index.html"> Support</a></li>
+								<li><a href="#"> Developers</a></li>
+								<li><a href="#"> Github</a></li>
+								<li><a href="#"> Status</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-widget nav_menus_widget">
+							<h4 class="widget-title text-primary">COMPANY</h4>
+							<ul>
+								<li><a href="#"> Our Story</a></li>
+								<li><a href="#"> Contact US</a></li>
+								<li><a href="#"> Career</a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="footer-widget nav_menus_widget">
+							<h4 class="widget-title text-primary">LEGAL</h4>
+							<ul>
+								<li><a href="#"> Term of Service </a></li>
+								<li><a href="#"> Privacy Policy</a></li>
+								<li><a href="#"> Service Level Agreement</a></li>
+								<li><a href="#"> Code of Product</a></li>
+								<li><a href="#"> Marketplace Terms of Service</a></li>
 							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-		<div class="copyright-area"><!-- copyright area -->
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="copyright-inner"><!-- copyright inner wrapper -->
-							<div class="text-center text-primary"><!-- left content area -->
-								InterSIP International.All rights reserved.
-							</div><!-- //. left content aera -->
-						</div><!-- //.copyright inner wrapper -->
-					</div>
-				</div>
-			</div>
-		</div><!-- //. copyright area -->
-	</footer>
-	<!-- footer area end -->
 
-	<!-- preloader area start -->
-	<div class="preloader-wrapper" id="preloader">
-		<div class="preloader" >
-			<div class="sk-circle">
-				<div class="sk-circle1 sk-child"></div>
-				<div class="sk-circle2 sk-child"></div>
-				<div class="sk-circle3 sk-child"></div>
-				<div class="sk-circle4 sk-child"></div>
-				<div class="sk-circle5 sk-child"></div>
-				<div class="sk-circle6 sk-child"></div>
-				<div class="sk-circle7 sk-child"></div>
-				<div class="sk-circle8 sk-child"></div>
-				<div class="sk-circle9 sk-child"></div>
-				<div class="sk-circle10 sk-child"></div>
-				<div class="sk-circle11 sk-child"></div>
-				<div class="sk-circle12 sk-child"></div>
+			</div>
+			<div class="col-12 col-md-2">
+				<div class="footer-widget about_widget">
+					<h4 class="widget-title text-primary">Follow US</h4>
+					<ul class="social-icon">
+						<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+						<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+						<li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+						<li><a href="#"><i class="fab fa-pinterest-p"></i></a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>
+</div>
+<div class="copyright-area"><!-- copyright area -->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="copyright-inner"><!-- copyright inner wrapper -->
+					<div class="text-center text-primary"><!-- left content area -->
+						InterSIP International.All rights reserved.
+					</div><!-- //. left content aera -->
+				</div><!-- //.copyright inner wrapper -->
+			</div>
+		</div>
+	</div>
+</div><!-- //. copyright area -->
+</footer>
+<!-- footer area end -->
 
-	<div id="lang_selector" class="modal fade bs-example-modal-center show" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-modal="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myCenterModalLabel">Select your language</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				</div>
-				<div class="modal-body">
-					<div class="feature-area">
-						<div class="row wow fadeInUp">
-							<a href="<?= _url('lang/?lang=fr') ?>">
-								<div class="single-feature-list col-md-3 col-4 ml-auto mr-auto">
-									<div class="icon icon-bg-4" style="background-image: url(<?= _url('assets/front') ?>/img/bg/icon.png)">
-										<i class="flag-icon flag-icon-fr"></i>
-									</div>
-									<div class="content">
-										<h4 class="title"><a href="#">Français</a></h4>
-									</div>
-								</div>
-							</a>
+<!-- preloader area start -->
+<div class="preloader-wrapper" id="preloader">
+	<div class="preloader" >
+		<div class="sk-circle">
+			<div class="sk-circle1 sk-child"></div>
+			<div class="sk-circle2 sk-child"></div>
+			<div class="sk-circle3 sk-child"></div>
+			<div class="sk-circle4 sk-child"></div>
+			<div class="sk-circle5 sk-child"></div>
+			<div class="sk-circle6 sk-child"></div>
+			<div class="sk-circle7 sk-child"></div>
+			<div class="sk-circle8 sk-child"></div>
+			<div class="sk-circle9 sk-child"></div>
+			<div class="sk-circle10 sk-child"></div>
+			<div class="sk-circle11 sk-child"></div>
+			<div class="sk-circle12 sk-child"></div>
+		</div>
+	</div>
+</div>
 
-							<a href="<?= _url('lang/?lang=gb') ?>">
-								<div class="single-feature-list col-md-3 col-4 ml-auto mr-auto">
-									<div class="icon icon-bg-4" style="background-image: url(<?= _url('assets/front') ?>/img/bg/icon.png)">
-										<i class="flag-icon flag-icon-gb"></i>
-									</div>
-									<div class="content">
-										<h4 class="title"><a href="#">English</a></h4>
-									</div>
+<div id="lang_selector" class="modal fade bs-example-modal-center show" tabindex="-1" role="dialog" aria-labelledby="myCenterModalLabel" aria-modal="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myCenterModalLabel">Select your language</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			</div>
+			<div class="modal-body">
+				<div class="feature-area">
+					<div class="row wow fadeInUp">
+						<a href="<?= _url('lang/?lang=fr') ?>">
+							<div class="single-feature-list col-md-3 col-4 ml-auto mr-auto">
+								<div class="icon icon-bg-4" style="background-image: url(<?= _url('assets/front') ?>/img/bg/icon.png)">
+									<i class="flag-icon flag-icon-fr"></i>
 								</div>
-							</a>
-						</div>
+								<div class="content">
+									<h4 class="title"><a href="#">Français</a></h4>
+								</div>
+							</div>
+						</a>
+
+						<a href="<?= _url('lang/?lang=gb') ?>">
+							<div class="single-feature-list col-md-3 col-4 ml-auto mr-auto">
+								<div class="icon icon-bg-4" style="background-image: url(<?= _url('assets/front') ?>/img/bg/icon.png)">
+									<i class="flag-icon flag-icon-gb"></i>
+								</div>
+								<div class="content">
+									<h4 class="title"><a href="#">English</a></h4>
+								</div>
+							</div>
+						</a>
 					</div>
 				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
 
-	<!-- preloader area end -->
+<!-- preloader area end -->
 
-	<!-- back to top area start -->
-	<div class="back-to-top">
-		<i class="fas fa-angle-up"></i>
-	</div>
-	<!-- back to top area end -->
+<!-- back to top area start -->
+<div class="back-to-top">
+	<i class="fas fa-angle-up"></i>
+</div>
+<!-- back to top area end -->
 
-	<!-- jquery -->
-	<script src="<?php _url(); ?>assets/front/js/jquery.js"></script>
-	<!-- popper -->
-	<script src="<?php _url(); ?>assets/front/js/popper.min.js"></script>
-	<!-- bootstrap -->
-	<script src="<?php _url(); ?>assets/front/js/bootstrap.min.js"></script>
-	<!-- owl carousel -->
-	<script src="<?php _url(); ?>assets/front/js/owl.carousel.min.js"></script>
-	<!-- magnific popup -->
-	<script src="<?php _url(); ?>assets/front/js/jquery.magnific-popup.js"></script>
-	<!-- contact js-->
-	<script src="<?php _url(); ?>assets/front/js/contact.js"></script>
-	<!-- wow js-->
-	<script src="<?php _url(); ?>assets/front/js/wow.min.js"></script>
-	<!-- way points js-->
-	<script src="<?php _url(); ?>assets/front/js/waypoints.min.js"></script>
-	<!-- counterup js-->
-	<script src="<?php _url(); ?>assets/front/js/jquery.counterup.min.js"></script>
-	<script src="<?php _url(); ?>assets/custom/js/paginate/jquery.paginate.min.js"></script>
-	<script src="<?php _url(); ?>assets/custom/plugins/particle/js/particles.min.js"></script>
-	<script src="<?php _url(); ?>assets/custom/plugins/particle/js/app.js"></script>
-	<!-- main -->
-	<script src="<?php _url(); ?>assets/front/js/main.js"></script>
-	<script type="text/javascript">
-	$('#example3').paginate({itemsPerPage: 6});
-	$.getJSON('data.json', function(data) {
-		var items = [];
-		$.each(data.items, function(i, item) {
-			items.push('<li>' + item + '</li>');
-		});
-		$('#example4').append(items.join(''));
-		$('#example4').paginate({itemsPerPage: 10});
+<!-- jquery -->
+<script src="<?php _url(); ?>assets/front/js/jquery.js"></script>
+<!-- popper -->
+<script src="<?php _url(); ?>assets/front/js/popper.min.js"></script>
+<!-- bootstrap -->
+<script src="<?php _url(); ?>assets/front/js/bootstrap.min.js"></script>
+<!-- owl carousel -->
+<script src="<?php _url(); ?>assets/front/js/owl.carousel.min.js"></script>
+<!-- magnific popup -->
+<script src="<?php _url(); ?>assets/front/js/jquery.magnific-popup.js"></script>
+<!-- contact js-->
+<script src="<?php _url(); ?>assets/front/js/contact.js"></script>
+<!-- wow js-->
+<script src="<?php _url(); ?>assets/front/js/wow.min.js"></script>
+<!-- way points js-->
+<script src="<?php _url(); ?>assets/front/js/waypoints.min.js"></script>
+<!-- counterup js-->
+<script src="<?php _url(); ?>assets/front/js/jquery.counterup.min.js"></script>
+<script src="<?php _url(); ?>assets/custom/js/paginate/jquery.paginate.min.js"></script>
+<script src="<?php _url(); ?>assets/custom/plugins/particle/js/particles.min.js"></script>
+<script src="<?php _url(); ?>assets/custom/plugins/particle/js/app.js"></script>
+<!-- main -->
+<script src="<?php _url(); ?>assets/front/js/main.js"></script>
+<script type="text/javascript">
+$('#example3').paginate({itemsPerPage: 6});
+$.getJSON('data.json', function(data) {
+	var items = [];
+	$.each(data.items, function(i, item) {
+		items.push('<li>' + item + '</li>');
 	});
-	</script>
+	$('#example4').append(items.join(''));
+	$('#example4').paginate({itemsPerPage: 10});
+});
+</script>
 </body>
 
 </html>

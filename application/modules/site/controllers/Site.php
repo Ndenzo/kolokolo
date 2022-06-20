@@ -13,14 +13,41 @@ class Site extends IBEMS_Controller {
 
      public function index()
      {
+          // $products_fr = array(
+          //      "sms" => "Nos services SMS vous permettront d’avoir des communications textuelles efficaces à vos clients ou à vos bénéficiaires quand ils en ont le plus besoin.
+          //      Nous vous permettons d’accompagner vos cibles en leur donnant les meilleures informations via SMS.
+          //      Nos API SMS, faciles à utiliser et fiables, vous offrent une grande variété de moyens pour ajouter des messages texte à vos applications mobiles et web.",
+          //      "ivr" => "La voix programmable vous permet d'enrichir votre expérience d'appel en ajoutant des fonctionnalités qui auraient été inaccessibles en utilisant les lignes physiques normales.
+          //      Notre service IVR complet vous offre un grand nombre d'actions que vous pouvez utiliser ensemble pour créer des solutions intuitives et atteindre des cibles lointaines à travers un simple téléphone.",
+          //      "airtime" => "Nous offrons des services de distribution de temps d'antenne ou crédit téléphonique instantanément aux abonnés mobiles ou bénéficiaires avec des notifications instantanées en cas de livraison ou d'échec.
+          //      L'utilisation de nos API de temps d'antenne permet d'obtenir des remises sur chaque transaction, ce qui vous permet de réaliser des économies.",
+          //      "cash" => "Le transfert d’argent rapide, efficace et sans intermédiaire est l'un des canaux les plus efficaces pour effectuer des micro paiements à un grand nombre de personnes sur les marchés émergents.
+          //      Elle permet aussi aux bénéficiaires de ne pas subir un cas d’escroquerie, de fraude ou de rétention de fonds. Notre plateforme permet de créer facilement une solution de ce type et de bénéficier de remises.",
+          //      "data" => "La collecte de données sur le terrain, le partage d’informations importantes et la formation en ligne effective sont des moyens pour veiller sur la qualités des politiques d’interventions mais aussi apporter un système de gestion participative des populations.
+          //      Notre plateforme permet d’avoir des données de qualité sur le terrain même dans les zones de haute tension avec un système de suivi très efficace.",
+          // );
+          //
+          // $products_gb = array(
+          //      "sms" => "Our SMS services will allow you to have effective text communications to your customers or beneficiaries when they need it most.
+          //      We allow you to support your targets by giving them the best information by SMS.
+          //      Our easy-to-use and reliable SMS APIs allow you a wide variety of ways to add text messages to your mobile and web applications.",
+          //      "ivr" => "Programmable voice allows you to enrich your calling experience by adding features that would have been inaccessible using normal physical lines.
+          //      Our comprehensive IVR service gives you a large number of actions that you can use together to create intuitive solutions and reach distant targets through a simple phone.",
+          //      "airtime" => "We offer airtime or airtime distribution services instantly to mobile subscribers or beneficiaries with instant notifications in case of delivery or failure.
+          //      Using our airtime APIs results in discounts on every transaction, saving you money.",
+          //      "cash" => "Fast, efficient, no-middleman money transfer is one of the most effective channels for making micro payments to large numbers of people in emerging markets.
+          //      It also allows beneficiaries to avoid a case of fraud, fraud or withholding of funds. Our platform makes it easy to create such a solution and benefit from discounts.",
+          //      "data" => "The collection of data in the field, the sharing of important information and effective online training are ways to ensure the quality of intervention policies but also to provide a participatory management system for populations.
+          //      Our platform makes it possible to have quality data in the field even in high voltage areas with a very efficient monitoring system.",
+          // );
+
           $products_fr = array(
-               "sms" => "Nos services SMS vous permettront d’avoir des communications textuelles efficaces à vos clients ou à vos bénéficiaires quand ils en ont le plus besoin.
-               Nous vous permettons d’accompagner vos cibles en leur donnant les meilleures informations via SMS.
-               Nos API SMS, faciles à utiliser et fiables, vous offrent une grande variété de moyens pour ajouter des messages texte à vos applications mobiles et web.",
-               "ivr" => "La voix programmable vous permet d'enrichir votre expérience d'appel en ajoutant des fonctionnalités qui auraient été inaccessibles en utilisant les lignes physiques normales.
-               Notre service IVR complet vous offre un grand nombre d'actions que vous pouvez utiliser ensemble pour créer des solutions intuitives et atteindre des cibles lointaines à travers un simple téléphone.",
-               "airtime" => "Nous offrons des services de distribution de temps d'antenne ou crédit téléphonique instantanément aux abonnés mobiles ou bénéficiaires avec des notifications instantanées en cas de livraison ou d'échec.
-               L'utilisation de nos API de temps d'antenne permet d'obtenir des remises sur chaque transaction, ce qui vous permet de réaliser des économies.",
+               "sms" => "L’API SMS est une solution d’envoi de messages groupés à des utilisateurs nationaux et internationaux.
+               L’utilisateur peut télécharger sa propre liste de contacts et/ou d’abonnés puis envoyer des messages programmés, automatisés et des alertes.",
+               "ivr" => "L’API Voice est une solution d’envoi d’appels groupés à des utilisateurs nationaux et internationaux. L’utilisateur peut télécharger sa propre
+               liste de contacts et/ou d’abonnés puis envoyer des messages vocaux programmés, automatisés et des alertes.",
+               "airtime" => "L’API Airtime est une solution d’envoi de crédit téléphonique à des utilisateurs nationaux
+               et internationaux selon les collaborations avec les opérateurs téléphoniques. L’utilisateur peut télécharger sa propre liste de contacts et/ou d’abonnés puis envoyer des messages vocaux programmés, automatisés et des alertes.",
                "cash" => "Le transfert d’argent rapide, efficace et sans intermédiaire est l'un des canaux les plus efficaces pour effectuer des micro paiements à un grand nombre de personnes sur les marchés émergents.
                Elle permet aussi aux bénéficiaires de ne pas subir un cas d’escroquerie, de fraude ou de rétention de fonds. Notre plateforme permet de créer facilement une solution de ce type et de bénéficier de remises.",
                "data" => "La collecte de données sur le terrain, le partage d’informations importantes et la formation en ligne effective sont des moyens pour veiller sur la qualités des politiques d’interventions mais aussi apporter un système de gestion participative des populations.

@@ -1,9 +1,9 @@
 <!-- header area start  -->
-<header class="header-area header-bg-2 style-two" id="home" style="background-image: url(<?= _url('assets/front') ?>/img/bg/degra_collection.png), url(<?= _url('assets/front') ?>/img/bg/back_collection.png);">
+<header class="header-area header-bg-2 style-two" id="home" style="height: calc((100vw * 376) / 830)!important; background-image: url(<?= _url('assets/front') ?>/img/bg/degracenter_data.png);">
 	<!-- <div class="header-right-image  wow zoomIn"></div> -->
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-7 offset-lg-5">
+			<div class="col-lg-7">
 				<div class="header-inner" style="margin-top: -50px;">
 					<h3 class="wow fadeInDown text-left text-white">DATA APP</h3>
 					<p class="wow fadeInDown text-left text-white" style="font-size: 17px;">
@@ -22,7 +22,7 @@
 
 <!-- about us area start -->
 
-<section class="about-us-area style-two product-desc" style="margin-top: -200px; background-color: #EAF5F9;">
+<section class="about-us-area style-two product-desc" style="margin-top: -20px; background-color: #EAF5F9;">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-12">

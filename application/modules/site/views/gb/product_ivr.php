@@ -1,7 +1,7 @@
 
 
 <!-- header area start  -->
-<header class="header-area header-bg-2 style-two" id="home" style="background-image: url(<?= _url('assets/front') ?>/img/bg/degra_ivr.png), url(<?= _url('assets/front') ?>/img/bg/back_ivr.png);">
+<header class="header-area header-bg-2 style-two" id="home" style="height: calc((100vw * 376) / 830)!important; background-image: url(<?= _url('assets/front') ?>/img/bg/degracenter_ivr.png);">
 	<!-- <div class="header-right-image  wow zoomIn"></div> -->
 	<div class="container">
 		<div class="row">
@@ -25,7 +25,7 @@
 
 <!-- about us area start -->
 
-<section class="about-us-area style-two product-desc" style="margin-top: -200px; background-color: #EAF5F9;">
+<section class="about-us-area style-two product-desc" style="margin-top: -20px; background-color: #EAF5F9;">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-lg-12">

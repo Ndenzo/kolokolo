@@ -32,7 +32,7 @@
 	                                <!-- <li class="cat"><i class="fas fa-tags"></i> <a href="#">Lifestyle</a> <a href="#">Travel</a><a href="#">Music</a></li> -->
 	                            </ul>
 	                            <h4 class="title"><?= $article->article_name ?> </h4>
-	                            <p><?= $article->article_content ?></p>
+	                            <p style="text-align: justify;"><?= $article->article_content ?></p>
 	                        </div>
 
 	                        <!-- <div class="entry-footer">

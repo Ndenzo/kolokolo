@@ -68,6 +68,12 @@
 			background-size:auto;
 		}
 	}
+	.custom-icon{
+		font-size: 60px;
+		line-height: 70px;
+		margin-bottom: 18px;
+		color: var(--main-color-one);
+	}
 	.product-object{
 		background-image: url(<?= _url('assets/front') ?>/img/bg/product_object_primary.png);
 		background-repeat: no-repeat;
@@ -129,7 +135,7 @@
 				<div class="logo-wrapper">
 					<a href="<?= _url('/') ?>" class="logo">
 						<?php if ($style == "default"): ?>
-							<img src="<?php _url(); ?>assets/custom/img/logo/logow.png" alt="logo" class="header_logo">
+							<img src="<?php _url(); ?>assets/custom/img/logo/logow.svg" alt="logo" class="header_logo">
 						<?php else: ?>
 							<img src="<?php _url(); ?>assets/custom/img/logo/logo.png" alt="logo" class="header_logo">
 						<?php endif; ?>
@@ -171,9 +177,47 @@
 
 	<?= $content ?>
 
+	<div class="contact-form-area-02 contact-bg padding-bottom-120" id="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="contact-area-wrapper" id="contact"><!-- contact area wrapper -->
+						<span class="subtitle">Contactez-nous</span>
+						<h3 class="title">Ecrivez-nous</h3>
+						<form action="index.html" id="contact_form_submit" class="contact-form sec-margin">
+							<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" class="form-control" id="uname" placeholder="Votre Nom Complet">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" class="form-control" id="email" placeholder="Votre Email">
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group textarea">
+										<textarea name="message" id="message" class="form-control" cols="30" rows="10" placeholder="Message"></textarea>
+									</div>
+									<button class="submit-btn-02" type="submit">Envoyez</button>
+								</div>
+							</div>
+						</form>
+					</div><!-- //. contact area wrapper -->
+				</div>
+				<div class="col-lg-6">
+					<div class="img-wrapper mt-5">
+						<img class="mt-5" src="<?php _url(); ?>assets/front/img/bg/Image_2.png" alt="">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- footer area start -->
 	<footer class="footer-area">
-		<div class="border-bottom">
+		<!-- <div class="border-bottom">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-4 col-md-6">
@@ -198,7 +242,7 @@
 					</div>
 				</div>
 			</div>
-		</div><!-- //. copyright area -->
+		</div> -->
 		<div class="footer-top">
 			<div class="container">
 				<div class="row">

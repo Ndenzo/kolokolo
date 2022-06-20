@@ -2252,9 +2252,9 @@ ul {
       top: 0;
       width: 100%;
       height: 5px;
-      background-image: -moz-linear-gradient(-177deg, #0250c5 0%, #d43f8d 100%);
-      background-image: -webkit-linear-gradient(-177deg, #0250c5 0%, #d43f8d 100%);
-      background-image: -ms-linear-gradient(-177deg, #0250c5 0%, #d43f8d 100%);
+      background-image: -moz-linear-gradient(-177deg, #EA2700 0%, #EA2700 100%);
+      background-image: -webkit-linear-gradient(-177deg, #EA2700 0%, #EA2700 100%);
+      background-image: -ms-linear-gradient(-177deg, #EA2700 0%, #EA2700 100%);
       content: '';
       -ms-transform: translateX(-105%);
       /* IE 9 */
@@ -2659,7 +2659,7 @@ ul {
   border-radius: 6px;
   padding: 40px 30px 15px 30px;
   margin-bottom: 30px;
-  background-color: rgba(118, 70, 233, 0.2);
+  background-color: rgba(12, 41, 58, 0.2);
   -webkit-transition: all 0.3s ease-in;
   -moz-transition: all 0.3s ease-in;
   -o-transition: all 0.3s ease-in;
