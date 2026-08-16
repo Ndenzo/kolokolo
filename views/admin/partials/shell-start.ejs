@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= title %> - Kolokolo</title>
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/custom/img/logo/favicon.png">
+	<link rel="stylesheet" href="/assets/front/css/fontawesome-all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+	<link rel="stylesheet" href="/assets/admin/css/admin.css">
+</head>
+<body class="admin-body">
+	<div class="toast-stack">
+		<% if (flash) { %>
+			<div class="toast <%= flash.type === 'error' ? 'toast-error' : 'toast-success' %>" data-toast><%= flash.message %></div>
+		<% } %>
+	</div>
+	<div class="admin-shell">
+		<aside class="sidebar">
+			<div class="sidebar-brand">
+				<img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo">
+				<span>
+					<small>Espace</small>
+					CMS
+				</span>
+			</div>
+			<nav class="nav-list">
+				<a class="nav-item <%= active === 'dashboard' ? 'is-active' : '' %>" href="/admin"><i class="fas fa-th-large"></i><span>Tableau de bord</span></a>
+				<a class="nav-item <%= active === 'blog' ? 'is-active' : '' %>" href="/admin/blog"><i class="fas fa-pen-nib"></i><span>Blog</span></a>
+				<a class="nav-item <%= active === 'portfolio' ? 'is-active' : '' %>" href="/admin/portfolio"><i class="fas fa-project-diagram"></i><span>Portfolio</span></a>
+				<a class="nav-item <%= active === 'testimonials' ? 'is-active' : '' %>" href="/admin/testimonials"><i class="fas fa-quote-right"></i><span>Témoignages</span></a>
+				<a class="nav-item <%= active === 'quotes' ? 'is-active' : '' %>" href="/admin/quotes"><i class="fas fa-clipboard-list"></i><span>Devis</span></a>
+				<a class="nav-item <%= active === 'contacts' ? 'is-active' : '' %>" href="/admin/contacts"><i class="fas fa-envelope"></i><span>Messages</span></a>
+				<a class="nav-item <%= active === 'jobs' ? 'is-active' : '' %>" href="/admin/jobs"><i class="fas fa-briefcase"></i><span>Carrières</span></a>
+				<a class="nav-item <%= active === 'settings' ? 'is-active' : '' %>" href="/admin/settings"><i class="fas fa-sliders-h"></i><span>Infos du site</span></a>
+			</nav>
+			<div class="sidebar-foot">
+				<div class="sidebar-user">
+					<span class="user-avatar"><%= currentUser && currentUser.email ? currentUser.email.charAt(0).toUpperCase() : 'K' %></span>
+					<span class="user-meta">
+						<small>Connecté</small>
+						<%= currentUser ? currentUser.email : '' %>
+					</span>
+				</div>
+				<form action="/auth/logout" method="post">
+					<button class="btn btn-logout btn-block" type="submit"><i class="fas fa-sign-out-alt"></i> <span>Déconnexion</span></button>
+				</form>
+			</div>
+		</aside>
+		<main class="admin-main">

@@ -1,0 +1,9 @@
+<%
+	const s = typeof settings !== 'undefined' ? settings : {};
+	const isHeader = typeof variant !== 'undefined' && variant === 'header';
+	const extra = (url) => url ? ' target="_blank" rel="noopener noreferrer"' : '';
+%>
+<li><a<%- isHeader ? ' class="fb"' : '' %> href="<%= s.facebook || '#' %>"<%- extra(s.facebook) %>><i class="fab fa-facebook-f"></i></a></li>
+<li><a<%- isHeader ? ' class="twt"' : '' %> href="<%= s.twitter || '#' %>"<%- extra(s.twitter) %>><i class="fab fa-x-twitter"></i></a></li>
+<li><a<%- isHeader ? ' class="insta"' : '' %> href="<%= s.instagram || '#' %>"<%- extra(s.instagram) %>><i class="fab fa-instagram"></i></a></li>
+<li><a<%- isHeader ? ' class="pint"' : '' %> href="<%= s.linkedin || '#' %>"<%- extra(s.linkedin) %>><i class="fab fa-linkedin"></i></a></li>

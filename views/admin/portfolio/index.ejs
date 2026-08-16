@@ -1,0 +1,101 @@
+<%- include('../partials/shell-start') %>
+<%
+	const total = projects.length;
+	const activeCount = projects.filter((item) => helpers.isActive(item.is_active)).length;
+	const hiddenCount = total - activeCount;
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Portfolio</p>
+		<h1>Portfolio</h1>
+		<p>Seuls les projets actifs apparaissent dans la section Portfolio de l’accueil.</p>
+	</div>
+	<a class="btn btn-primary" href="/admin/portfolio/new"><i class="fas fa-plus"></i> Nouveau projet</a>
+</div>
+<div class="stat-grid">
+	<div class="stat-card">
+		<div class="stat-icon"><i class="fas fa-project-diagram"></i></div>
+		<div><span>Total</span><strong><%= total %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-green"><i class="fas fa-eye"></i></div>
+		<div><span>Visibles</span><strong><%= activeCount %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-amber"><i class="fas fa-eye-slash"></i></div>
+		<div><span>Masqués</span><strong><%= hiddenCount %></strong></div>
+	</div>
+</div>
+<div class="panel" data-table>
+	<% if (!total) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-project-diagram"></i></div>
+			<h3>Aucun projet</h3>
+			<p>Ajoutez un projet pour l’afficher dans le portfolio de l’accueil une fois activé.</p>
+		</div>
+	<% } else { %>
+		<div class="table-toolbar">
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th></th>
+						<th data-sort>Projet</th>
+						<th data-sort>Catégorie</th>
+						<th data-sort data-sort-dir="asc">Ordre</th>
+						<th data-sort>Statut</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% projects.forEach((project) => { %>
+						<tr data-search="<%= project.title %> <%= project.category || '' %> <%= helpers.isActive(project.is_active) ? 'actif visible' : 'masqué inactif' %>">
+							<td><span class="table-thumb"><img src="<%= project.image || '/assets/front/img/portfolio/port1.jpg' %>" alt=""></span></td>
+							<td><strong><%= project.title %></strong></td>
+							<td><%= project.category || '—' %></td>
+							<td data-sort-value="<%= project.sort_order %>"><%= project.sort_order %></td>
+							<td data-sort-value="<%= helpers.isActive(project.is_active) ? '1' : '0' %>">
+								<span class="badge <%= helpers.isActive(project.is_active) ? 'badge-on' : 'badge-off' %>">
+									<span class="badge-dot"></span><%= helpers.isActive(project.is_active) ? 'Actif' : 'Masqué' %>
+								</span>
+							</td>
+							<td>
+								<div class="row-actions">
+									<a class="btn-icon" href="/admin/portfolio/<%= project.id %>/edit" title="Modifier"><i class="fas fa-pen"></i></a>
+									<form action="/admin/portfolio/<%= project.id %>/toggle" method="post">
+										<button class="btn-icon is-warn" type="submit" title="<%= helpers.isActive(project.is_active) ? 'Désactiver' : 'Activer' %>">
+											<i class="fas <%= helpers.isActive(project.is_active) ? 'fa-eye-slash' : 'fa-eye' %>"></i>
+										</button>
+									</form>
+									<form action="/admin/portfolio/<%= project.id %>/delete" method="post" data-confirm>
+										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-empty" data-table-empty>Aucun résultat pour cette recherche.</div>
+		<div class="table-footer">
+			<label class="table-pagesize">
+				Afficher
+				<select data-page-size>
+					<option value="10" selected>10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+				</select>
+				lignes
+			</label>
+			<div class="pager" data-pager></div>
+		</div>
+	<% } %>
+</div>
+<%- include('../partials/shell-end') %>

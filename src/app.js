@@ -1,42 +1,56 @@
-const path = require('path');
+require('dotenv').config();
+
+const path = require('node:path');
 const express = require('express');
+const { boot } = require('./db');
+const { port } = require('./config');
+const { sessionMiddleware } = require('./middleware/session');
+const { flash, loadSettings } = require('./middleware/locals');
+const { quoteServices, quoteBudgets, quoteTimelines, contactSubjects } = require('./data/services');
+const helpers = require('./lib/helpers');
+const publicRoutes = require('./routes/public');
+const authRoutes = require('./routes/auth');
+const adminRoutes = require('./routes/admin');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+async function start() {
+	await boot();
 
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, '..', 'views'));
+	const app = express();
+	app.set('view engine', 'ejs');
+	app.set('views', path.join(__dirname, '..', 'views'));
+	app.locals.helpers = helpers;
+	app.locals.quoteServices = quoteServices;
+	app.locals.quoteBudgets = quoteBudgets;
+	app.locals.quoteTimelines = quoteTimelines;
+	app.locals.contactSubjects = contactSubjects;
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use(express.urlencoded({ extended: true }));
+	app.use(express.urlencoded({ extended: true, limit: '5mb' }));
+	app.use(express.json({ limit: '5mb' }));
+	app.use(express.static(path.join(__dirname, '..', 'public')));
+	app.use(sessionMiddleware());
+	app.use(flash);
+	app.use(loadSettings);
 
-function renderHome(_req, res) {
-  res.render('layout', {
-    title: 'Kolokolo',
-    page: 'home',
-  });
+	app.use(authRoutes);
+	app.use('/admin', adminRoutes);
+	app.use(publicRoutes);
+
+	app.use((req, res) => {
+		res.status(404).render('layout', { title: 'Page introuvable - Kolokolo', page: '404' });
+	});
+
+	app.use((err, req, res, _next) => {
+		console.error(err);
+		res.status(500).send('Une erreur est survenue.');
+	});
+
+	app.listen(port, () => {
+		console.log(`Kolokolo server running on http://localhost:${port}`);
+	});
 }
 
-function renderComing(_req, res) {
-  res.render('coming', {
-    title: 'KoloKolo - Maintenance',
-  });
-}
-
-app.get('/', renderHome);
-app.get('/site', renderHome);
-app.get('/site/site', renderHome);
-
-app.get('/coming', renderComing);
-app.get('/site/coming', renderComing);
-
-app.use((req, res) => {
-  res.status(404).render('layout', {
-    title: 'Page introuvable — Kolokolo',
-    page: '404',
-  });
-});
-
-app.listen(PORT, () => {
-  console.log(`Kolokolo disponible sur http://localhost:${PORT}`);
+start().catch((err) => {
+	console.error('Impossible de démarrer (base de données) :', err.message);
+	console.error('Vérifiez DB_HOST, DB_PORT, DB_NAME, DB_USER et DB_PASSWORD dans le fichier .env, puis créez la base MySQL si besoin : CREATE DATABASE kolokolo CHARACTER SET utf8mb4;');
+	process.exit(1);
 });

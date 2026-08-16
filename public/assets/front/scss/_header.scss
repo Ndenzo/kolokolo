@@ -6,6 +6,38 @@
 .header__top {
 	padding-top: 10px;
 	padding-bottom: 6px;
+	background: $black;
+	& .grb__cta ul li:before {
+		background: rgba(255, 255, 255, 0.16);
+	}
+	& .cta__icon span {
+		background: $theme-color;
+		& i {
+			color: $white;
+		}
+	}
+	& .cta__content {
+		& p {
+			color: rgba(255, 255, 255, 0.72);
+		}
+		& span {
+			color: $white;
+			& a:hover {
+				color: $theme-color;
+			}
+		}
+	}
+	& .grb__social ul li a {
+		background: transparent;
+		border: 1px solid rgba(255, 255, 255, 0.22);
+		color: $white;
+		box-shadow: none;
+		&:hover {
+			background: $theme-color;
+			border-color: $theme-color;
+			color: $white;
+		}
+	}
 }
 .logo {
 	line-height: 100px;
@@ -43,17 +75,7 @@
 		top: 0;
 	}
 	&::after {
-		position: absolute;
-		content: "";
-		width: 400px;
-		height: 100px;
-		background: white;
-		right: 0;
-		top: 12px;
-		z-index: -1;
-		@media #{$md,$xs} {
-			display: none;
-		}
+		display: none;
 	}
 	& .logo {
 		position: relative;
@@ -81,11 +103,23 @@
 .header-main-1 .logo-text-black {
 	display: block;
 }
+.header-main-1 .logo a img {
+	width: 170px;
+	height: auto;
+	max-width: none;
+	vertical-align: middle;
+}
 .header-main-1 .main-menu ul li a {
 	color: $heading-color;
 }
 .header-main-1 .header__search a {
 	color: $heading-color;
+	border-color: rgba(12, 11, 34, 0.18);
+	&:hover {
+		color: $theme-color;
+		border-color: $theme-color;
+		font-weight: 500;
+	}
 }
 .header-main-1.sticky {
 	padding-bottom: 0;
@@ -173,7 +207,7 @@
 		height: 47px;
 		bottom: -47px;
 		left: -34px;
-		background: #9C0A08;
+		background: #ff8800;
 		clip-path: polygon(0 0, 100% 0, 100% 100%);
 	}
 }
@@ -423,7 +457,7 @@
 			top: 50%;
 			transform: translateY(-50%);
 			border-radius: 3px;
-			background: #f2eeff;
+			background: rgba(255, 10, 8, 0.12);
 			left: -12px;
 			z-index: -1;
 			opacity: 0;
@@ -487,13 +521,15 @@
 			line-height: 38px;
 		}
 		&:hover {
-			font-weight: 800;
+			color: $theme-color;
+			border-color: $theme-color;
 		}
 	}
 }
 .header__btn {
 	display: inline-block;
 	margin-left: 26px;
+	margin-right: 20px;
 	float: right;
 	margin-top: 20px;
 	@media #{$laptop} {
@@ -501,6 +537,9 @@
 	}
 	@media #{$lg} {
 		display: none;
+	}
+	& .grb-btn i {
+		color: $theme-color;
 	}
 }
 // sticky menu style
@@ -564,7 +603,7 @@
 }
 
 .side-info {
-	background: #0C0B22;
+	background: $black;
 	height: 100%;
 	position: fixed;
 	z-index: 950;

@@ -46,7 +46,7 @@
 		& span {
 			height: 30px;
 			width: 30px;
-			background: #f2eeff;
+			background: rgba(255, 10, 8, 0.12);
 			display: inline-block;
 			text-align: center;
 			line-height: 30px;
@@ -107,16 +107,16 @@
 					color: $theme-color;
 				}
 				&.twt {
-					color: #01b6e5;
+					color: $theme-color;
 				}
 				&.insta {
-					color: #d90b51;
+					color: $theme-color;
 				}
 				&.pint {
-					color: #e20000;
+					color: $theme-color;
 				}
 				&:hover {
-					color: $heading-color;
+					color: $white;
 					background: $theme-color;
 				}
 			}
@@ -344,7 +344,7 @@
 		font-size: 225px;
 		font-weight: 900;
 		line-height: 1;
-		color: #6639ff;
+		color: $theme-color;
 		margin-bottom: 10px;
 		@media #{$lg} {
 			font-size: 150px;

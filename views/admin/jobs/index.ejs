@@ -1,0 +1,99 @@
+<%- include('../partials/shell-start') %>
+<%
+	const total = jobs.length;
+	const activeCount = jobs.filter((job) => helpers.isActive(job.is_active)).length;
+	const hiddenCount = total - activeCount;
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Carrières</p>
+		<h1>Offres d’emploi</h1>
+		<p>Si aucune offre n’est active, la page Carrière l’indique clairement.</p>
+	</div>
+	<a class="btn btn-primary" href="/admin/jobs/new"><i class="fas fa-plus"></i> Nouvelle offre</a>
+</div>
+<div class="stat-grid">
+	<div class="stat-card">
+		<div class="stat-icon"><i class="fas fa-briefcase"></i></div>
+		<div><span>Total</span><strong><%= total %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-green"><i class="fas fa-eye"></i></div>
+		<div><span>Visibles</span><strong><%= activeCount %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-amber"><i class="fas fa-eye-slash"></i></div>
+		<div><span>Masquées</span><strong><%= hiddenCount %></strong></div>
+	</div>
+</div>
+<div class="panel" data-table>
+	<% if (!total) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-briefcase"></i></div>
+			<h3>Aucune offre</h3>
+			<p>Ajoutez une offre pour qu’elle apparaisse sur le site une fois activée.</p>
+		</div>
+	<% } else { %>
+		<div class="table-toolbar">
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-sort>Poste</th>
+						<th data-sort>Contrat</th>
+						<th data-sort>Lieu</th>
+						<th data-sort>Statut</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% jobs.forEach((job) => { %>
+						<tr data-search="<%= job.title %> <%= job.contract_type || '' %> <%= job.location || '' %> <%= helpers.isActive(job.is_active) ? 'actif visible' : 'masqué inactif' %>">
+							<td><strong><%= job.title %></strong></td>
+							<td><%= job.contract_type || '—' %></td>
+							<td><%= job.location || '—' %></td>
+							<td data-sort-value="<%= helpers.isActive(job.is_active) ? '1' : '0' %>">
+								<span class="badge <%= helpers.isActive(job.is_active) ? 'badge-on' : 'badge-off' %>">
+									<span class="badge-dot"></span><%= helpers.isActive(job.is_active) ? 'Actif' : 'Masqué' %>
+								</span>
+							</td>
+							<td>
+								<div class="row-actions">
+									<a class="btn-icon" href="/admin/jobs/<%= job.id %>/edit" title="Modifier"><i class="fas fa-pen"></i></a>
+									<form action="/admin/jobs/<%= job.id %>/toggle" method="post">
+										<button class="btn-icon is-warn" type="submit" title="<%= helpers.isActive(job.is_active) ? 'Désactiver' : 'Activer' %>">
+											<i class="fas <%= helpers.isActive(job.is_active) ? 'fa-eye-slash' : 'fa-eye' %>"></i>
+										</button>
+									</form>
+									<form action="/admin/jobs/<%= job.id %>/delete" method="post" data-confirm>
+										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-empty" data-table-empty>Aucun résultat pour cette recherche.</div>
+		<div class="table-footer">
+			<label class="table-pagesize">
+				Afficher
+				<select data-page-size>
+					<option value="10" selected>10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+				</select>
+				lignes
+			</label>
+			<div class="pager" data-pager></div>
+		</div>
+	<% } %>
+</div>
+<%- include('../partials/shell-end') %>

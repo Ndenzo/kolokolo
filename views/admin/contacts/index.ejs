@@ -1,0 +1,104 @@
+<%- include('../partials/shell-start') %>
+<%
+	const total = messages.length;
+	const newCount = messages.filter((item) => item.status === 'nouveau').length;
+	const readCount = messages.filter((item) => item.status === 'lu').length;
+	const doneCount = messages.filter((item) => item.status === 'traite').length;
+	const labels = typeof quoteStatusLabels !== 'undefined' ? quoteStatusLabels : { nouveau: 'Nouveau', lu: 'Lu', traite: 'Traité' };
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Prospects</p>
+		<h1>Messages de contact</h1>
+		<p>Les messages envoyés depuis la page Contact sont enregistrés ici et transmis par email.</p>
+	</div>
+</div>
+<div class="stat-grid">
+	<div class="stat-card">
+		<div class="stat-icon"><i class="fas fa-envelope"></i></div>
+		<div><span>Total</span><strong><%= total %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-amber"><i class="fas fa-inbox"></i></div>
+		<div><span>Nouveaux</span><strong><%= newCount %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-ink"><i class="fas fa-eye"></i></div>
+		<div><span>Lus</span><strong><%= readCount %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-green"><i class="fas fa-check"></i></div>
+		<div><span>Traités</span><strong><%= doneCount %></strong></div>
+	</div>
+</div>
+<div class="panel" data-table data-sort-index="4" data-sort-dir="desc">
+	<% if (!total) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-envelope"></i></div>
+			<h3>Aucun message</h3>
+			<p>Les messages envoyés depuis le site apparaîtront ici.</p>
+		</div>
+	<% } else { %>
+		<div class="table-toolbar">
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-sort>Expéditeur</th>
+						<th data-sort>Sujet</th>
+						<th data-sort>Statut</th>
+						<th data-sort>Email</th>
+						<th data-sort data-sort-dir="desc">Date</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% messages.forEach((item) => { %>
+						<tr data-search="<%= item.firstname %> <%= item.lastname %> <%= item.email %> <%= item.subject || '' %> <%= labels[item.status] || item.status %>">
+							<td>
+								<strong><%= item.firstname %> <%= item.lastname %></strong>
+								<div class="muted"><%= item.email %></div>
+							</td>
+							<td><%= item.subject || '—' %></td>
+							<td data-sort-value="<%= item.status %>">
+								<span class="badge badge-status badge-<%= item.status %>"><%= labels[item.status] || item.status %></span>
+							</td>
+							<td data-sort-value="<%= item.email_sent ? '1' : '0' %>">
+								<span class="badge <%= item.email_sent ? 'badge-on' : 'badge-off' %>"><%= item.email_sent ? 'Envoyé' : 'Non envoyé' %></span>
+							</td>
+							<td data-sort-value="<%= item.created_at ? new Date(item.created_at).toISOString() : '' %>"><%= helpers.formatDateTime(item.created_at) %></td>
+							<td>
+								<div class="row-actions">
+									<a class="btn-icon" href="/admin/contacts/<%= item.id %>" title="Consulter"><i class="fas fa-eye"></i></a>
+									<form action="/admin/contacts/<%= item.id %>/delete" method="post" data-confirm>
+										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-empty" data-table-empty>Aucun résultat pour cette recherche.</div>
+		<div class="table-footer">
+			<label class="table-pagesize">
+				Afficher
+				<select data-page-size>
+					<option value="10" selected>10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+				</select>
+				lignes
+			</label>
+			<div class="pager" data-pager></div>
+		</div>
+	<% } %>
+</div>
+<%- include('../partials/shell-end') %>

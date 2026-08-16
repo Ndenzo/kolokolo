@@ -1,0 +1,66 @@
+<%- include('../partials/shell-start') %>
+<%
+	const selectedCategory = project.category || '';
+	const allCategories = Array.from(new Set([...(typeof categories !== 'undefined' ? categories : []), selectedCategory].filter(Boolean)));
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Portfolio</p>
+		<h1><%= project.id ? 'Modifier le projet' : 'Nouveau projet' %></h1>
+		<p>Ce projet apparaît dans la section Portfolio de l’accueil une fois activé.</p>
+	</div>
+</div>
+<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate>
+	<div class="panel form-stack">
+		<div class="field" data-field>
+			<label class="admin-label" for="title">Titre du projet <abbr class="req" title="Obligatoire">*</abbr></label>
+			<input class="admin-input" id="title" name="title" value="<%= project.title %>" required data-validate="required">
+			<p class="field-error" data-error></p>
+		</div>
+		<div class="field" data-field>
+			<label class="admin-label" for="category">Catégorie</label>
+			<select class="admin-select" id="category" name="category" data-placeholder="Choisir une catégorie" data-allow-custom>
+				<option value="">Choisir une catégorie</option>
+				<% allCategories.forEach((category) => { %>
+					<option value="<%= category %>" <%= category === selectedCategory ? 'selected' : '' %>><%= category %></option>
+				<% }) %>
+			</select>
+			<p class="field-error" data-error></p>
+		</div>
+		<div class="field" data-field>
+			<label class="admin-label" for="link">Lien externe (optionnel)</label>
+			<input class="admin-input" id="link" type="url" name="link" placeholder="https://..." value="<%= project.link || '' %>" data-validate="url">
+			<p class="field-error" data-error></p>
+		</div>
+	</div>
+	<div class="form-stack">
+		<div class="panel form-stack">
+			<label class="switch">
+				<input type="checkbox" name="is_active" value="1" data-switch <%= helpers.isActive(project.is_active) ? 'checked' : '' %>>
+				<span class="switch-track"><span class="switch-thumb"></span></span>
+				<span>Visible sur le site</span>
+				<span class="switch-state" data-switch-state></span>
+			</label>
+			<div class="field" data-field>
+				<label class="admin-label" for="sort_order">Ordre d’affichage</label>
+				<input class="admin-input" id="sort_order" type="number" name="sort_order" value="<%= project.sort_order || 0 %>">
+				<p class="field-error" data-error></p>
+			</div>
+		</div>
+		<div class="panel">
+			<label class="admin-label">Image du projet</label>
+			<div class="dropzone" data-dropzone>
+				<input type="hidden" name="image" value="<%= project.image || '' %>">
+				<input type="file" accept="image/*">
+				<div data-preview></div>
+				<div data-hint class="hint"><strong>Glissez une image</strong><br>ou cliquez pour parcourir</div>
+				<button class="remove" type="button" data-remove hidden>Retirer</button>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a class="btn btn-ghost" href="/admin/portfolio">Annuler</a>
+			<button class="btn btn-primary js-submit" type="submit">Enregistrer</button>
+		</div>
+	</div>
+</form>
+<%- include('../partials/shell-end') %>

@@ -1,0 +1,51 @@
+<%- include('../partials/shell-start') %>
+<% const labels = typeof quoteStatusLabels !== 'undefined' ? quoteStatusLabels : { nouveau: 'Nouveau', lu: 'Lu', traite: 'Traité' }; %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Prospects</p>
+		<h1><%= item.firstname %> <%= item.lastname %></h1>
+		<p>Demande reçue le <%= helpers.formatDateTime(item.created_at) %>.</p>
+	</div>
+	<a class="btn btn-ghost" href="/admin/quotes">Retour à la liste</a>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Informations du prospect</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Nom</span><strong><%= item.firstname %> <%= item.lastname %></strong></div>
+			<div class="info-row"><span>Email</span><strong><a href="mailto:<%= item.email %>"><%= item.email %></a></strong></div>
+			<div class="info-row"><span>Téléphone</span><strong><a href="tel:<%= helpers.telHref(item.phone) %>"><%= item.phone %></a></strong></div>
+			<div class="info-row"><span>Entreprise</span><strong><%= item.company || '—' %></strong></div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-title"><h2>Suivi</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Statut</span><strong><span class="badge badge-status badge-<%= item.status %>"><%= labels[item.status] || item.status %></span></strong></div>
+			<div class="info-row"><span>Email interne</span><strong><%= item.email_sent ? 'Envoyé' : 'Non envoyé' %></strong></div>
+			<div class="info-row"><span>Formule</span><strong><%= item.offer || '—' %></strong></div>
+			<div class="info-row"><span>Budget</span><strong><%= item.budget || '—' %></strong></div>
+			<div class="info-row"><span>Délai</span><strong><%= item.timeline || '—' %></strong></div>
+		</div>
+		<form class="form-actions" action="/admin/quotes/<%= item.id %>/status" method="post">
+			<select class="admin-select select-inline" name="status">
+				<% Object.keys(labels).forEach((key) => { %>
+					<option value="<%= key %>" <%= item.status === key ? 'selected' : '' %>><%= labels[key] %></option>
+				<% }) %>
+			</select>
+			<button class="btn btn-primary" type="submit">Mettre à jour</button>
+		</form>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-title"><h2>Attentes</h2></div>
+	<p><strong>Services :</strong> <%= item.services %></p>
+	<p class="quote-message"><%= item.message %></p>
+	<div class="form-actions">
+		<a class="btn btn-ghost" href="mailto:<%= item.email %>?subject=Votre demande de devis Kolokolo">Répondre par email</a>
+		<form action="/admin/quotes/<%= item.id %>/delete" method="post" data-confirm>
+			<button class="btn btn-danger" type="submit">Supprimer</button>
+		</form>
+	</div>
+</div>
+<%- include('../partials/shell-end') %>

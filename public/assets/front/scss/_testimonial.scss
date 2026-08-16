@@ -94,10 +94,22 @@
 	& > p {
 		margin-bottom: 25px;
 	}
+	&:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
 }
 .testimonial-name {
 	& h5 {
 		margin-bottom: 0;
+		color: $theme-color-3;
+		& a {
+			color: $theme-color-3;
+			&:hover {
+				color: $theme-color-3;
+			}
+		}
 	}
 }
 .testimonial-name.st-3 {
@@ -156,7 +168,7 @@
 	}
 }
 .testimonial-quote.st-2 {
-	color: $theme-color-2;
+	color: $theme-color;
 }
 .testimonial-quote.st-3 {
 	height: 80px;
@@ -167,8 +179,8 @@
 	top: -42px;
 	bottom: auto;
 	line-height: 66px;
-	color: $heading-color;
-	background: $theme-color-3;
+	color: $white;
+	background: $theme-color;
 	& i {
 		font-weight: 700;
 		font-size: 35px;

@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap");
+
+body {
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+	line-height: 1.8;
+	color: #8f98a8;
+}
+h1, h2, h3, h4, h5, h6 { color: #0c0b22; font-weight: 700; }
+a { color: #ff0a08; }
+blockquote {
+	font-size: 20px;
+	font-style: italic;
+	color: #0c0b22;
+	margin: 1.5em 0;
+}
+img { max-width: 100%; height: auto; }

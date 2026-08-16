@@ -1,0 +1,77 @@
+							<div class="bs-widget mb-30 sidebar-search">
+								<form class="search-form" action="/blog" method="get">
+									<div class="search-input-field bss">
+										<input type="text" name="q" placeholder="Rechercher..." value="<%= typeof q !== 'undefined' ? q : '' %>">
+										<button type="submit"><i class="far fa-search"></i>Chercher</button>
+									</div>
+								</form>
+							</div>
+							<div class="bs-widget mb-30">
+								<div class="bs-widget-title mb-40">
+									<h5>Catégories</h5>
+								</div>
+								<% if (!sidebar.categories.length) { %>
+									<p>Aucune catégorie pour le moment.</p>
+								<% } else { %>
+									<ul class="bs-category-list">
+										<% sidebar.categories.forEach((item) => { %>
+											<li>
+												<a href="/blog?category=<%= encodeURIComponent(item.name) %>">
+													<p><%= item.name %></p><span>(<%= String(item.count).padStart(2, '0') %>)</span>
+												</a>
+											</li>
+										<% }) %>
+									</ul>
+								<% } %>
+							</div>
+							<div class="bs-widget mb-30">
+								<div class="bs-widget-title mb-40">
+									<h5>Articles récents</h5>
+								</div>
+								<% if (!sidebar.recent.length) { %>
+									<p>Aucun article publié.</p>
+								<% } else { %>
+									<ul class="bs-post">
+										<% sidebar.recent.forEach((item) => { %>
+											<li class="bs-post-single">
+												<div class="bs-post-img">
+													<a href="/blog/<%= item.slug %>">
+														<img src="<%= helpers.coverFallback(item.cover_image) %>" alt="">
+													</a>
+												</div>
+												<div class="bs-post-content">
+													<h6><a href="/blog/<%= item.slug %>"><%= item.title %></a></h6>
+													<span><%= helpers.formatLongDate(item.published_at) %></span>
+												</div>
+											</li>
+										<% }) %>
+									</ul>
+								<% } %>
+							</div>
+							<div class="bs-widget mb-30 widget-tag">
+								<div class="bs-widget-title mb-40">
+									<h5>Tags populaires</h5>
+								</div>
+								<% if (!sidebar.tags.length) { %>
+									<p>Aucun tag pour le moment.</p>
+								<% } else { %>
+									<ul class="bs-tags">
+										<% sidebar.tags.forEach((tagName) => { %>
+											<li><a class="grb-tag" href="/blog?tag=<%= encodeURIComponent(tagName) %>"><%= tagName %></a></li>
+										<% }) %>
+									</ul>
+								<% } %>
+							</div>
+							<div class="bs-widget mb-30 bs-ad-container">
+								<div class="bs-ad-inner p-relative">
+									<div class="bs-ad-inner-content">
+										<div class="bs-ad-inner-text">
+											<p>Un projet<br><span>en tête ?</span></p>
+											<span>Parlons-en</span>
+										</div>
+									</div>
+									<a href="/contact">
+										<img src="/assets/front/img/blog/bs-ad.jpg" alt="">
+									</a>
+								</div>
+							</div>

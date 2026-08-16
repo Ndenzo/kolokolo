@@ -1,0 +1,77 @@
+<main>
+	<section class="page-title-area" data-background="/assets/front/img/bg/hire-bg.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="page-title-content text-center">
+						<div class="page-title-heading">
+							<h1>Carrière</h1>
+						</div>
+						<nav class="grb-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Carrière</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="pt-140 pb-90">
+		<div class="container">
+			<div class="row wow fadeInUp align-items-center mb-55">
+				<div class="col-lg-6">
+					<div class="section-title mb-30">
+						<h2>Rejoignez l'équipe Kolokolo</h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<p class="mb-30">Agence digitale basée à Dakar. Sites web, applications mobiles, publicité et social media : on mène vos projets digital dans les meilleurs délais.</p>
+				</div>
+			</div>
+			<% if (!jobs.length) { %>
+				<div class="career-empty wow fadeInUp">
+					<h2>Aucune offre d'emploi pour le moment</h2>
+					<p>Nous n’avons pas de poste ouvert actuellement. Vous pouvez tout de même nous envoyer une candidature spontanée, nous la lirons avec attention.</p>
+					<a href="/contact?sujet=Recrutement" class="grb-btn">Candidature spontanée</a>
+				</div>
+			<% } else { %>
+				<% jobs.forEach((job) => { %>
+					<div class="job-offer-card wow fadeInUp">
+						<h3><a href="/carriere/<%= job.slug %>"><%= job.title %></a></h3>
+						<div class="job-offer-meta">
+							<% if (job.contract_type) { %><span><i class="fas fa-briefcase"></i><%= job.contract_type %></span><% } %>
+							<% if (job.location) { %><span><i class="fas fa-map-marker-alt"></i><%= job.location %></span><% } %>
+							<span><i class="fas fa-calendar-alt"></i><%= helpers.formatLongDate(job.created_at) %></span>
+						</div>
+						<% if (job.description_html) { %>
+							<p><%= helpers.stripHtml(job.description_html).slice(0, 180) %><%= helpers.stripHtml(job.description_html).length > 180 ? '…' : '' %></p>
+						<% } %>
+						<div class="mt-30">
+							<a href="/carriere/<%= job.slug %>" class="grb-border-btn st-1">Voir l'offre</a>
+						</div>
+					</div>
+				<% }) %>
+			<% } %>
+		</div>
+	</section>
+	<div class="newsletter-area">
+		<div class="container">
+			<div class="row wow fadeInUp align-items-center">
+				<div class="col-lg-6">
+					<div class="newsletter-text mb-30">
+						<h4>Inscrivez-vous à la newsletter</h4>
+						<p>Recevez nos actualités et conseils digital, directement dans votre boîte mail.</p>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<form class="subscribe-form mb-30">
+						<input type="email" placeholder="Votre email...">
+						<button type="submit"><i class="fas fa-paper-plane"></i>S'inscrire</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

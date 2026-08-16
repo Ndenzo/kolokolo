@@ -1,0 +1,56 @@
+<%- include('../partials/shell-start') %>
+<%
+	const contractTypes = ['CDI', 'CDD', 'Stage', 'Freelance', 'Alternance', 'Prestataire'];
+	const selectedContract = job.contract_type || '';
+	const allContracts = Array.from(new Set([...contractTypes, selectedContract].filter(Boolean)));
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Carrières</p>
+		<h1><%= job.id ? 'Modifier l’offre' : 'Nouvelle offre' %></h1>
+		<p>Le contenu mis en forme ici s’affiche tel quel sur la fiche du poste.</p>
+	</div>
+</div>
+<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate>
+	<div class="panel form-stack">
+		<div class="field" data-field>
+			<label class="admin-label" for="title">Intitulé du poste <abbr class="req" title="Obligatoire">*</abbr></label>
+			<input class="admin-input" id="title" name="title" value="<%= job.title %>" required data-validate="required">
+			<p class="field-error" data-error></p>
+		</div>
+		<div>
+			<label class="admin-label">Description</label>
+			<textarea class="js-wysiwyg" name="description_html"><%= job.description_html || '' %></textarea>
+		</div>
+	</div>
+	<div class="form-stack">
+		<div class="panel form-stack">
+			<label class="switch">
+				<input type="checkbox" name="is_active" value="1" data-switch <%= helpers.isActive(job.is_active) ? 'checked' : '' %>>
+				<span class="switch-track"><span class="switch-thumb"></span></span>
+				<span>Visible sur le site</span>
+				<span class="switch-state" data-switch-state></span>
+			</label>
+			<div class="field" data-field>
+				<label class="admin-label" for="contract_type">Type de contrat <abbr class="req" title="Obligatoire">*</abbr></label>
+				<select class="admin-select" id="contract_type" name="contract_type" data-placeholder="Choisir un type de contrat" required data-validate="required">
+					<option value="">Choisir un type de contrat</option>
+					<% allContracts.forEach((type) => { %>
+						<option value="<%= type %>" <%= type === selectedContract ? 'selected' : '' %>><%= type %></option>
+					<% }) %>
+				</select>
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="location">Lieu</label>
+				<input class="admin-input" id="location" name="location" value="<%= job.location || '' %>">
+				<p class="field-error" data-error></p>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a class="btn btn-ghost" href="/admin/jobs">Annuler</a>
+			<button class="btn btn-primary js-submit" type="submit">Enregistrer</button>
+		</div>
+	</div>
+</form>
+<%- include('../partials/shell-end') %>

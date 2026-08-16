@@ -1,0 +1,98 @@
+<div class="quote-modal" id="quote-modal" hidden>
+	<div class="quote-modal-backdrop" data-quote-close></div>
+	<div class="quote-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="quote-modal-title">
+		<button class="quote-modal-close" type="button" data-quote-close aria-label="Fermer"><i class="fal fa-times"></i></button>
+		<div class="quote-modal-intro">
+			<p class="quote-kicker">Devis gratuit</p>
+			<h2 id="quote-modal-title">Parlez-nous de votre projet</h2>
+			<p>Indiquez vos coordonnées et vos attentes. Nous revenons vers vous sous 24 heures.</p>
+		</div>
+		<form class="quote-form" id="quote-form" action="/devis" method="post" novalidate>
+			<input type="text" name="website" tabindex="-1" autocomplete="off" class="quote-hp" aria-hidden="true">
+			<input type="hidden" name="offer" id="quote-offer" value="">
+			<div class="quote-grid">
+				<section class="quote-pane">
+					<h3><span>01</span> Vos informations</h3>
+					<div class="quote-fields">
+						<label>
+							<span>Prénom <abbr class="req" title="Obligatoire">*</abbr></span>
+							<input type="text" name="firstname" required maxlength="120" autocomplete="given-name" placeholder="Aminata">
+						</label>
+						<label>
+							<span>Nom <abbr class="req" title="Obligatoire">*</abbr></span>
+							<input type="text" name="lastname" required maxlength="120" autocomplete="family-name" placeholder="Sow">
+						</label>
+						<label>
+							<span>Email <abbr class="req" title="Obligatoire">*</abbr></span>
+							<input type="email" name="email" required maxlength="180" autocomplete="email" placeholder="vous@entreprise.sn">
+						</label>
+						<label>
+							<span>Téléphone <abbr class="req" title="Obligatoire">*</abbr></span>
+							<input type="tel" name="phone" required maxlength="80" autocomplete="tel" placeholder="+221 77 000 00 00">
+						</label>
+						<label class="quote-full">
+							<span>Entreprise</span>
+							<input type="text" name="company" maxlength="180" autocomplete="organization" placeholder="Nom de votre structure">
+						</label>
+					</div>
+				</section>
+				<section class="quote-pane">
+					<h3><span>02</span> Services souhaités <abbr class="req" title="Obligatoire">*</abbr></h3>
+					<div class="quote-services">
+						<% (typeof quoteServices !== 'undefined' ? quoteServices : []).forEach((service) => { %>
+							<label class="quote-switch">
+								<input type="checkbox" name="services" value="<%= service.label %>">
+								<span class="quote-switch-track"><span class="quote-switch-thumb"></span></span>
+								<span class="quote-switch-label"><%= service.label %></span>
+							</label>
+						<% }) %>
+					</div>
+					<div class="quote-fields quote-fields-2">
+						<label>
+							<span>Budget estimé</span>
+							<select name="budget">
+								<option value="">Choisir</option>
+								<% (typeof quoteBudgets !== 'undefined' ? quoteBudgets : []).forEach((item) => { %>
+									<option value="<%= item %>"><%= item %></option>
+								<% }) %>
+							</select>
+						</label>
+						<label>
+							<span>Délai souhaité</span>
+							<select name="timeline">
+								<option value="">Choisir</option>
+								<% (typeof quoteTimelines !== 'undefined' ? quoteTimelines : []).forEach((item) => { %>
+									<option value="<%= item %>"><%= item %></option>
+								<% }) %>
+							</select>
+						</label>
+					</div>
+				</section>
+			</div>
+			<section class="quote-pane quote-pane-wide">
+				<h3><span>03</span> Décrivez vos attentes <abbr class="req" title="Obligatoire">*</abbr></h3>
+				<textarea name="message" rows="5" required maxlength="4000" placeholder="Objectifs, fonctionnalités, délais, contraintes…"></textarea>
+			</section>
+			<p class="quote-form-error" data-quote-error hidden></p>
+			<div class="quote-actions">
+				<button class="quote-btn quote-btn-ghost" type="button" data-quote-close>
+					<i class="fal fa-times"></i>
+					<span>Annuler</span>
+				</button>
+				<button class="quote-btn quote-btn-primary quote-submit" type="submit">
+					<span class="quote-btn-idle"><i class="fas fa-paper-plane"></i> Envoyer la demande</span>
+					<span class="quote-btn-busy" hidden><i class="fas fa-spinner fa-spin"></i> Envoi…</span>
+				</button>
+			</div>
+		</form>
+		<div class="quote-success" data-quote-success hidden>
+			<div class="quote-success-icon"><i class="fas fa-check"></i></div>
+			<h3>Demande envoyée</h3>
+			<p>Merci. Votre demande est enregistrée. Nous vous contactons très vite.</p>
+			<button class="quote-btn quote-btn-primary" type="button" data-quote-close>
+				<i class="fas fa-check"></i>
+				<span>Fermer</span>
+			</button>
+		</div>
+	</div>
+</div>

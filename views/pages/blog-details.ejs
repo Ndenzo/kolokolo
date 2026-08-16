@@ -1,0 +1,158 @@
+<main>
+	<section class="page-title-area" data-background="/assets/front/img/bg/hire-bg.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="page-title-content text-center">
+						<div class="page-title-heading">
+							<h1>Blog</h1>
+						</div>
+						<nav class="grb-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+								<li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+								<li class="breadcrumb-item active" aria-current="page"><%= post.title %></li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<div class="blog-main-area pt-150">
+		<div class="container">
+			<div class="row wow fadeInUp">
+				<div class="col-lg-8">
+					<div class="blog-main">
+						<div class="blog-main-single bm-details">
+							<div class="bms-img mb-30">
+								<img src="<%= helpers.coverFallback(post.cover_image) %>" alt="<%= post.title %>">
+							</div>
+							<div class="bms-content">
+								<div class="fix mb-30">
+									<div class="blog-date bms-date">
+										<i class="fal fa-calendar-alt"></i>
+										<span><%= helpers.formatDay(post.published_at) %></span>
+										<p><%= helpers.formatMonthYear(post.published_at) %></p>
+									</div>
+									<div class="bms-title">
+										<ul class="project-like-view bms-lv bm-details">
+											<li><i class="fas fa-calendar-alt"></i><%= helpers.formatLongDate(post.published_at) %></li>
+											<% if (post.category) { %>
+												<li><i class="fas fa-folder-open"></i><%= post.category %></li>
+											<% } %>
+											<li><i class="fas fa-eye"></i><%= post.views %> vues</li>
+										</ul>
+										<h4><%= post.title %></h4>
+									</div>
+								</div>
+								<% if (post.intro_html) { %>
+									<div class="bm-rich"><%- post.intro_html %></div>
+								<% } %>
+								<% if (post.quote_text) { %>
+									<div class="bm-details-quote p-relative">
+										<div class="bm-details-quote-icon">
+											<i class="fas fa-quote-left i-q-1"></i>
+											<i class="fas fa-quote-right i-q-2"></i>
+										</div>
+										<p><%= post.quote_text %></p>
+										<% if (post.quote_author) { %>
+											<h4><%= post.quote_author %></h4>
+										<% } %>
+									</div>
+								<% } %>
+								<% if (post.secondary_image || post.secondary_html) { %>
+									<div class="row">
+										<% if (post.secondary_image) { %>
+											<div class="col-xl-6">
+												<img class="mb-25" src="<%= post.secondary_image %>" alt="">
+											</div>
+										<% } %>
+										<% if (post.secondary_html) { %>
+											<div class="<%= post.secondary_image ? 'col-xl-6' : 'col-xl-12' %>">
+												<div class="bm-rich"><%- post.secondary_html %></div>
+											</div>
+										<% } %>
+									</div>
+								<% } %>
+								<% if (post.body_html) { %>
+									<div class="bm-rich"><%- post.body_html %></div>
+								<% } %>
+								<hr>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="bms-tags">
+											<span>Tags :</span>
+											<% const tags = helpers.splitTags(post.tags); %>
+											<% if (!tags.length) { %>
+												—
+											<% } else { %>
+												<% tags.forEach((tagName, index) => { %>
+													<a href="/blog?tag=<%= encodeURIComponent(tagName) %>"><%= tagName %><%= index < tags.length - 1 ? ',' : '' %></a>
+												<% }) %>
+											<% } %>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="bms-share f-right">
+											<span><i class="fal fa-share-alt"></i>Partager :</span>
+											<div class="grb__social bms-social">
+												<ul>
+													<%- include('../partials/social-items') %>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="article-nav">
+									<div class="row">
+										<div class="col-md-6">
+											<% if (previous) { %>
+												<div class="article-nav-content pr-100">
+													<span>Article précédent</span>
+													<h6><a href="/blog/<%= previous.slug %>"><%= previous.title %></a></h6>
+												</div>
+											<% } %>
+										</div>
+										<div class="col-md-6">
+											<% if (next) { %>
+												<div class="article-nav-content next-article pl-100">
+													<span>Article suivant</span>
+													<h6><a href="/blog/<%= next.slug %>"><%= next.title %></a></h6>
+												</div>
+											<% } %>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="blog-sidebar">
+						<%- include('../partials/blog-sidebar') %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="newsletter-area">
+		<div class="container">
+			<div class="row wow fadeInUp align-items-center">
+				<div class="col-lg-6">
+					<div class="newsletter-text mb-30">
+						<h4>Inscrivez-vous à la newsletter</h4>
+						<p>Recevez nos actualités et conseils digital, directement dans votre boîte mail.</p>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<form class="subscribe-form mb-30">
+						<input type="email" placeholder="Votre email...">
+						<button type="submit"><i class="fas fa-paper-plane"></i>S'inscrire</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>

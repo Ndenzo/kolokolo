@@ -2,6 +2,7 @@ $(function() {
 
 	// Get the form.
 	var form = $('#contact-form');
+	if (!form.length || form.hasClass('cms-form')) return;
 
 	// Get the messages div.
 	var formMessages = $('.ajax-response');

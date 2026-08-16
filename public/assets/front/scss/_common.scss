@@ -186,17 +186,18 @@ select {
 
 // scroll up
 #scrollUp {
-	background: $theme-color;
-	height: 35px;
-	width: 35px;
+	background: $theme-color-3;
+	height: 48px;
+	width: 48px;
+	border-radius: 50%;
 	right: 50px;
 	bottom: 77px;
 	color: #fff;
 	font-size: 20px;
 	text-align: center;
-	line-height: 34px;
+	line-height: 48px;
 	&:hover {
-		background: $body-text-color;
+		background: $heading-color;
 	}
 }
 

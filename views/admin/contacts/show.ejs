@@ -1,0 +1,47 @@
+<%- include('../partials/shell-start') %>
+<% const labels = typeof quoteStatusLabels !== 'undefined' ? quoteStatusLabels : { nouveau: 'Nouveau', lu: 'Lu', traite: 'Traité' }; %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Prospects</p>
+		<h1><%= item.firstname %> <%= item.lastname %></h1>
+		<p>Message reçu le <%= helpers.formatDateTime(item.created_at) %>.</p>
+	</div>
+	<a class="btn btn-ghost" href="/admin/contacts">Retour à la liste</a>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Expéditeur</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Nom</span><strong><%= item.firstname %> <%= item.lastname %></strong></div>
+			<div class="info-row"><span>Email</span><strong><a href="mailto:<%= item.email %>"><%= item.email %></a></strong></div>
+			<div class="info-row"><span>Téléphone</span><strong><% if (item.phone) { %><a href="tel:<%= helpers.telHref(item.phone) %>"><%= item.phone %></a><% } else { %>—<% } %></strong></div>
+			<div class="info-row"><span>Sujet</span><strong><%= item.subject || '—' %></strong></div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-title"><h2>Suivi</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Statut</span><strong><span class="badge badge-status badge-<%= item.status %>"><%= labels[item.status] || item.status %></span></strong></div>
+			<div class="info-row"><span>Email interne</span><strong><%= item.email_sent ? 'Envoyé' : 'Non envoyé' %></strong></div>
+		</div>
+		<form class="form-actions" action="/admin/contacts/<%= item.id %>/status" method="post">
+			<select class="admin-select select-inline" name="status">
+				<% Object.keys(labels).forEach((key) => { %>
+					<option value="<%= key %>" <%= item.status === key ? 'selected' : '' %>><%= labels[key] %></option>
+				<% }) %>
+			</select>
+			<button class="btn btn-primary" type="submit">Mettre à jour</button>
+		</form>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-title"><h2>Message</h2></div>
+	<p class="quote-message"><%= item.message %></p>
+	<div class="form-actions">
+		<a class="btn btn-ghost" href="mailto:<%= item.email %>?subject=Re%3A%20<%= encodeURIComponent(item.subject || 'votre message') %>">Répondre par email</a>
+		<form action="/admin/contacts/<%= item.id %>/delete" method="post" data-confirm>
+			<button class="btn btn-danger" type="submit">Supprimer</button>
+		</form>
+	</div>
+</div>
+<%- include('../partials/shell-end') %>

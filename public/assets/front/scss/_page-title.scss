@@ -10,7 +10,12 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center center;
+	background-image: url("../img/bg/hire-bg.jpg");
 	z-index: 1;
+	@media #{$xs} {
+		padding-top: 160px;
+		padding-bottom: 100px;
+	}
 	&:before {
 		position: absolute;
 		content: "";

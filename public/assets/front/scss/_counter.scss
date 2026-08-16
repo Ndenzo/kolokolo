@@ -4,7 +4,6 @@
 *************************
 */
 .counter__area {
-	min-height: 585px;
 	position: relative;
 	background-size: cover;
 	background-position: center center;
@@ -60,9 +59,10 @@
 	}
 }
 .counter-content-left {
-	padding: 50px 70px 0px 50px;
+	padding: 50px 50px 0px 50px;
+	text-align: center;
 	@media #{$lg} {
-		padding: 35px 30px 0px 35px;
+		padding: 35px 35px 0px 35px;
 	}
 	@media #{$xs} {
 		padding: 20px 20px 0px 20px;
@@ -76,28 +76,35 @@
 		}
 	}
 	& > p {
-		margin-bottom: 45px;
+		max-width: 620px;
+		margin: 0 auto 45px;
 	}
 }
 .counter-items {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
 }
 .single-counter {
-	width: 50%;
-	float: left;
+	width: 25%;
 	margin-bottom: 40px;
+	padding: 0 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
 	@media #{$lg} {
 		margin-bottom: 35px;
+	}
+	@media #{$md} {
+		width: 50%;
 	}
 	@media #{$xs} {
 		width: 100%;
 		margin-bottom: 20px;
 	}
 	&-icon {
-		float: left;
-		width: 75px;
-		@media #{$lg} {
-			width: 70px;
-		}
+		margin-bottom: 15px;
 		& i {
 			font-size: 58px;
 			color: $theme-color;
@@ -108,11 +115,10 @@
 		}
 	}
 	&-text {
-		overflow: hidden;
 		& h3 {
 			font-size: 36px;
 			line-height: 1;
-			margin-bottom: 0;
+			margin-bottom: 8px;
 		}
 		& p {
 			font-size: 15px;

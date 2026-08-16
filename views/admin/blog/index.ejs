@@ -1,0 +1,99 @@
+<%- include('../partials/shell-start') %>
+<%
+	const total = posts.length;
+	const activeCount = posts.filter((post) => helpers.isActive(post.is_active)).length;
+	const hiddenCount = total - activeCount;
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Blog</p>
+		<h1>Articles</h1>
+		<p>Seuls les articles actifs sont visibles sur le site.</p>
+	</div>
+	<a class="btn btn-primary" href="/admin/blog/new"><i class="fas fa-plus"></i> Nouvel article</a>
+</div>
+<div class="stat-grid">
+	<div class="stat-card">
+		<div class="stat-icon"><i class="fas fa-newspaper"></i></div>
+		<div><span>Total</span><strong><%= total %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-green"><i class="fas fa-eye"></i></div>
+		<div><span>Visibles</span><strong><%= activeCount %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-amber"><i class="fas fa-eye-slash"></i></div>
+		<div><span>Masqués</span><strong><%= hiddenCount %></strong></div>
+	</div>
+</div>
+<div class="panel" data-table data-sort-index="2" data-sort-dir="desc">
+	<% if (!total) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-newspaper"></i></div>
+			<h3>Aucun article</h3>
+			<p>Créez le premier contenu du blog.</p>
+		</div>
+	<% } else { %>
+		<div class="table-toolbar">
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-sort>Titre</th>
+						<th data-sort>Catégorie</th>
+						<th data-sort data-sort-dir="desc">Date</th>
+						<th data-sort>Statut</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% posts.forEach((post) => { %>
+						<tr data-search="<%= post.title %> <%= post.category || '' %> <%= helpers.isActive(post.is_active) ? 'actif visible' : 'masqué inactif' %>">
+							<td><strong><%= post.title %></strong></td>
+							<td><%= post.category || '—' %></td>
+							<td data-sort-value="<%= post.published_at ? new Date(post.published_at).toISOString() : '' %>"><%= helpers.formatLongDate(post.published_at) %></td>
+							<td data-sort-value="<%= helpers.isActive(post.is_active) ? '1' : '0' %>">
+								<span class="badge <%= helpers.isActive(post.is_active) ? 'badge-on' : 'badge-off' %>">
+									<span class="badge-dot"></span><%= helpers.isActive(post.is_active) ? 'Actif' : 'Masqué' %>
+								</span>
+							</td>
+							<td>
+								<div class="row-actions">
+									<a class="btn-icon" href="/admin/blog/<%= post.id %>/edit" title="Modifier"><i class="fas fa-pen"></i></a>
+									<form action="/admin/blog/<%= post.id %>/toggle" method="post">
+										<button class="btn-icon is-warn" type="submit" title="<%= helpers.isActive(post.is_active) ? 'Désactiver' : 'Activer' %>">
+											<i class="fas <%= helpers.isActive(post.is_active) ? 'fa-eye-slash' : 'fa-eye' %>"></i>
+										</button>
+									</form>
+									<form action="/admin/blog/<%= post.id %>/delete" method="post" data-confirm>
+										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-empty" data-table-empty>Aucun résultat pour cette recherche.</div>
+		<div class="table-footer">
+			<label class="table-pagesize">
+				Afficher
+				<select data-page-size>
+					<option value="10" selected>10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+				</select>
+				lignes
+			</label>
+			<div class="pager" data-pager></div>
+		</div>
+	<% } %>
+</div>
+<%- include('../partials/shell-end') %>

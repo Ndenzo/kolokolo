@@ -1,0 +1,99 @@
+<%- include('partials/shell-start') %>
+<% const selectedCountry = String(settings.country_iso2 || 'SN').toUpperCase(); %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Paramètres</p>
+		<h1>Informations du site</h1>
+		<p>Ces valeurs apparaissent sur la page Contact, le header, le pied de page et les icônes des réseaux sociaux.</p>
+	</div>
+</div>
+<form action="/admin/settings" method="post" data-admin-form novalidate>
+	<div class="settings-grid">
+		<div class="panel form-stack">
+			<div class="panel-title">
+				<h2>Coordonnées</h2>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="country_iso2">Pays <abbr class="req" title="Obligatoire">*</abbr></label>
+					<select class="admin-select" id="country_iso2" name="country_iso2" data-placeholder="Choisir un pays" required data-validate="required">
+					<option value="">Choisir un pays</option>
+					<% countries.forEach((country) => { %>
+						<option
+							value="<%= country.iso2 %>"
+							data-iso2="<%= country.iso2 %>"
+							data-dial="<%= country.dial %>"
+							<%= country.iso2 === selectedCountry ? 'selected' : '' %>
+						><%= country.label %></option>
+					<% }) %>
+				</select>
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="phone">Téléphone <abbr class="req" title="Obligatoire">*</abbr></label>
+				<div class="phone-field" data-phone-addon data-country-select="#country_iso2">
+					<span class="phone-prefix">
+						<span class="fi fi-sn" data-phone-flag></span>
+						<span data-phone-dial>+221</span>
+					</span>
+					<input class="admin-input" id="phone" name="phone" value="<%= settings.phone %>" required data-validate="required">
+				</div>
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="email">Email <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="email" type="email" name="email" value="<%= settings.email %>" required data-validate="required email">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="location">Localisation <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="location" name="location" value="<%= settings.location %>" required data-validate="required">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="hours">Horaires (semaine) <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="hours" name="hours" value="<%= settings.hours %>" required data-validate="required">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="weekend_hours">Horaires (week-end) <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="weekend_hours" name="weekend_hours" value="<%= settings.weekend_hours %>" required data-validate="required">
+				<p class="field-error" data-error></p>
+			</div>
+		</div>
+		<div class="panel form-stack">
+			<div class="panel-title">
+				<h2>Carte & réseaux</h2>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="map_embed">URL de la carte Google Maps (iframe src) <abbr class="req" title="Obligatoire">*</abbr></label>
+				<textarea class="admin-textarea" id="map_embed" name="map_embed" required data-validate="required"><%= settings.map_embed %></textarea>
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="facebook">Facebook</label>
+				<input class="admin-input" id="facebook" type="url" name="facebook" placeholder="https://facebook.com/..." value="<%= settings.facebook || '' %>" data-validate="url">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="twitter">X</label>
+				<input class="admin-input" id="twitter" type="url" name="twitter" placeholder="https://x.com/..." value="<%= settings.twitter || '' %>" data-validate="url">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="instagram">Instagram</label>
+				<input class="admin-input" id="instagram" type="url" name="instagram" placeholder="https://instagram.com/..." value="<%= settings.instagram || '' %>" data-validate="url">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="linkedin">LinkedIn</label>
+				<input class="admin-input" id="linkedin" type="url" name="linkedin" placeholder="https://linkedin.com/company/..." value="<%= settings.linkedin || '' %>" data-validate="url">
+				<p class="field-error" data-error></p>
+			</div>
+		</div>
+	</div>
+	<div class="form-actions">
+		<a class="btn btn-ghost" href="/admin">Annuler</a>
+		<button class="btn btn-primary js-submit" type="submit">Enregistrer</button>
+	</div>
+</form>
+<%- include('partials/shell-end') %>

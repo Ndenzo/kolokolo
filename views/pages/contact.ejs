@@ -1,0 +1,222 @@
+<main>
+	<!-- page title area start  -->
+	<section class="page-title-area" data-background="/assets/front/img/bg/hire-bg.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="page-title-content text-center">
+						<div class="page-title-heading">
+							<h1>Contact</h1>
+						</div>
+						<nav class="grb-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Contact</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- page title area end -->
+	<!-- contact area start  -->
+	<div class="contact-area pt-145 pb-120">
+		<div class="container">
+			<div class="row wow fadeInUp">
+				<div class="col-lg-4">
+					<div class="contact-address">
+						<div class="contact-heading">
+							<p class="quote-kicker">Coordonnées</p>
+							<h4>Nous contacter</h4>
+							<p class="contact-lead">Une équipe à Dakar, disponible pour vos projets digitaux.</p>
+						</div>
+						<ul class="contact-address-list">
+							<li>
+								<div class="contact-list-icon">
+									<i class="fas fa-phone-alt"></i>
+								</div>
+								<div class="contact-list-text">
+									<span><a href="tel:<%= helpers.telHref(settings.phone) %>"><%= settings.phone %></a></span>
+									<span><%= settings.hours %></span>
+								</div>
+							</li>
+							<li>
+								<div class="contact-list-icon st-3">
+									<i class="fas fa-envelope"></i>
+								</div>
+								<div class="contact-list-text">
+									<span><a href="mailto:<%= settings.email %>"><%= settings.email %></a></span>
+									<span>Réponse sous 24 heures</span>
+								</div>
+							</li>
+							<li>
+								<div class="contact-list-icon">
+									<i class="fas fa-map-marker-alt"></i>
+								</div>
+								<div class="contact-list-text">
+									<span><%= settings.location %></span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="get-in-touch">
+						<div class="contact-heading">
+							<p class="quote-kicker">Écrivez-nous</p>
+							<h4>Envoyez-nous un message</h4>
+							<p class="contact-lead">Une question, un projet ou un partenariat : dites-nous comment vous aider.</p>
+						</div>
+						<form class="cms-form" id="contact-form" action="/contact" method="post" novalidate>
+							<input type="text" name="website" tabindex="-1" autocomplete="off" class="quote-hp" aria-hidden="true">
+							<div class="cms-form-grid">
+								<label>
+									<span>Prénom <abbr class="req" title="Obligatoire">*</abbr></span>
+									<input type="text" name="firstname" required maxlength="120" autocomplete="given-name" placeholder="Aminata">
+								</label>
+								<label>
+									<span>Nom <abbr class="req" title="Obligatoire">*</abbr></span>
+									<input type="text" name="lastname" required maxlength="120" autocomplete="family-name" placeholder="Sow">
+								</label>
+								<label>
+									<span>Email <abbr class="req" title="Obligatoire">*</abbr></span>
+									<input type="email" name="email" required maxlength="180" autocomplete="email" placeholder="vous@entreprise.sn">
+								</label>
+								<label>
+									<span>Téléphone</span>
+									<input type="tel" name="phone" maxlength="80" autocomplete="tel" placeholder="+221 77 000 00 00">
+								</label>
+								<label class="cms-form-full">
+									<span>Sujet <abbr class="req" title="Obligatoire">*</abbr></span>
+									<select name="subject" required data-placeholder="Choisir un sujet">
+										<option value="">Choisir un sujet</option>
+										<% (typeof contactSubjects !== 'undefined' ? contactSubjects : []).forEach((item) => { %>
+											<option value="<%= item %>" <%= typeof selectedSubject !== 'undefined' && selectedSubject === item ? 'selected' : '' %>><%= item %></option>
+										<% }) %>
+									</select>
+								</label>
+								<label class="cms-form-full">
+									<span>Votre message <abbr class="req" title="Obligatoire">*</abbr></span>
+									<textarea name="message" rows="6" required maxlength="4000" placeholder="Comment pouvons-nous vous aider ?"></textarea>
+								</label>
+							</div>
+							<p class="quote-form-error" data-contact-error hidden></p>
+							<div class="quote-actions">
+								<button class="quote-btn quote-btn-primary" type="submit">
+									<span class="quote-btn-idle"><i class="fas fa-paper-plane"></i> Envoyer le message</span>
+									<span class="quote-btn-busy" hidden><i class="fas fa-spinner fa-spin"></i> Envoi…</span>
+								</button>
+							</div>
+						</form>
+						<div class="quote-success" data-contact-success hidden>
+							<div class="quote-success-icon"><i class="fas fa-check"></i></div>
+							<h3>Message envoyé</h3>
+							<p>Merci. Nous vous répondons sous 24 heures.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- contact area end -->
+	<!-- map area start  -->
+	<div class="contact-map-area">
+		<iframe src="<%= settings.map_embed %>" allowfullscreen="" loading="lazy"></iframe>
+	</div>
+	<!-- map area end -->
+	<!-- brand area start  -->
+	<div class="brand-area pt-100 pb-100 grey-bg">
+		<div class="container">
+			<div class="row wow fadeInUp">
+				<div class="col-12">
+					<div class="swiper-container brand-active">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand1.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand1-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand2.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand2-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand3.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand3-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand4.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand4-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand5.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand5-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand1.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand1-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand2.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand2-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand3.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand3-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand4.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand4-wc.png" alt=""></a>
+								</div>
+							</div>
+							<div class="swiper-slide">
+								<div class="single-brand">
+									<a href="#"><img src="/assets/front/img/brand/brand5.png" alt=""></a>
+									<a href="#"><img src="/assets/front/img/brand/brand5-wc.png" alt=""></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- brand area end -->
+	<!-- newsletter area start  -->
+	<div class="newsletter-area">
+		<div class="container">
+			<div class="row wow fadeInUp align-items-center">
+				<div class="col-lg-6">
+					<div class="newsletter-text mb-30">
+						<h4>Inscrivez-vous à la newsletter</h4>
+						<p>Recevez nos actualités et conseils digital, directement dans votre boîte mail.</p>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<form class="subscribe-form mb-30">
+						<input type="email" placeholder="Votre email...">
+						<button type="submit"><i class="fas fa-paper-plane"></i>S'inscrire</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- newsletter area end -->
+</main>
