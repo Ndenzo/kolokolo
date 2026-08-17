@@ -3,7 +3,7 @@
 	line-height: 1.8;
 	color: #8f98a8;
 }
-.bm-rich p { margin-bottom: 18px; }
+.bm-rich p { margin-bottom: 18px; text-align: justify; hyphens: auto; }
 .bm-rich h2, .bm-rich h3, .bm-rich h4 {
 	color: #0c0b22;
 	margin: 24px 0 12px;
@@ -57,6 +57,67 @@
 .testimonial-name h5 a:hover,
 .testimonial-single.st-3:hover .testimonial-name.st-3 h5 a {
 	color: #F5A623;
+}
+
+.about__content > p,
+.about-points p,
+.about-details-right p,
+.about-details-box-content > p,
+.service__text p,
+.service-box-content-text p,
+.choosing__text p,
+.partners-content p,
+.testimonial-single > p,
+.blog-content p,
+.bms-content > p,
+.bm-details-quote p,
+.job-offer-card > p,
+.newsletter-text p,
+.contact-lead,
+body.page-career section.pt-140 .row.align-items-center p {
+	text-align: justify;
+	hyphens: auto;
+}
+
+.about__img .p-element .ab-image,
+.ab-image {
+	border: 20px solid #fff;
+	border-radius: 25px;
+	overflow: hidden;
+}
+.ab-image img {
+	display: block;
+}
+
+.portfolio-active .swiper-button-prev,
+.portfolio-active .swiper-button-next,
+.portfolio-slide-nav .swiper-button-prev,
+.portfolio-slide-nav .swiper-button-next,
+.testimonial-nav-1 .testimonial1-button-prev,
+.testimonial-nav-1 .testimonial1-button-next,
+.testimonial-nav-2 .testimonial2-btn-prev,
+.testimonial-nav-2 .testimonial2-btn-next,
+.testimonial-nav-3 .testimonial-btn-prev,
+.testimonial-nav-3 .testimonial-btn-next {
+	background: #F5A623;
+	border-color: #F5A623;
+	color: #0C0B22;
+}
+.portfolio-active .swiper-button-prev:hover,
+.portfolio-active .swiper-button-next:hover,
+.portfolio-slide-nav .swiper-button-prev:hover,
+.portfolio-slide-nav .swiper-button-next:hover,
+.testimonial-nav-1 .testimonial1-button-prev:hover,
+.testimonial-nav-1 .testimonial1-button-next:hover,
+.testimonial-nav-2 .testimonial2-btn-prev:hover,
+.testimonial-nav-2 .testimonial2-btn-next:hover,
+.testimonial-nav-2 .testimonial2-btn-prev.st-2:hover,
+.testimonial-nav-2 .testimonial2-btn-next.st-2:hover,
+.testimonial-nav-3 .testimonial-btn-prev:hover,
+.testimonial-nav-3 .testimonial-btn-next:hover {
+	background: #e09412;
+	border-color: #e09412;
+	color: #0C0B22;
 }
 
 body.quote-open { overflow: hidden; }
@@ -385,13 +446,13 @@ body.quote-open { overflow: hidden; }
 	box-shadow: 0 18px 50px rgba(12, 11, 34, 0.06);
 	overflow: visible;
 }
+.contact-area > .container > .row { align-items: flex-start; }
 .contact-address {
 	background: #fff;
 	border: 1px solid #eceef5;
 	border-radius: 24px;
 	padding: 32px 28px 28px;
 	box-shadow: 0 18px 50px rgba(12, 11, 34, 0.06);
-	height: 100%;
 }
 .contact-heading { margin-bottom: 22px !important; }
 .contact-heading h4 {
