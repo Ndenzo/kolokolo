@@ -1,5 +1,5 @@
 const { db } = require('../db');
-const { defaultSettings } = require('../config');
+const { defaultSettings, siteUrl } = require('../config');
 const helpers = require('../lib/helpers');
 
 function flash(req, res, next) {
@@ -16,11 +16,15 @@ function setFlash(req, type, message) {
 }
 
 async function loadSettings(req, res, next) {
+	res.locals.canonicalPath = req.path;
+	res.locals.siteUrl = siteUrl;
 	try {
 		const row = await db('site_settings').first();
-		res.locals.settings = { ...defaultSettings, ...(row || {}) };
+		const settings = { ...defaultSettings, ...(row || {}) };
+		settings.place = helpers.contactPlace(settings);
+		res.locals.settings = settings;
 	} catch {
-		res.locals.settings = defaultSettings;
+		res.locals.settings = { ...defaultSettings, place: helpers.contactPlace(defaultSettings) };
 	}
 	res.locals.helpers = helpers;
 	next();

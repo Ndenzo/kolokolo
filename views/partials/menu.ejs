@@ -74,7 +74,6 @@
                                         <li><a href="/a-propos">À propos</a></li>
                                         <li><a href="/services">Services</a></li>
                                         <li><a href="/blog">Blog</a></li>
-										<li><a href="/carriere">Carrière</a></li>
                                         <li><a href="/contact">Contact</a></li>
                                     </ul>
                                 </nav>
@@ -175,7 +174,7 @@
                         <h4>Contact</h4>
                         <a href="#" class="">
                             <i class="fal fa-map-marker-alt"></i>
-                            <span><%= settings.location %></span>
+                            <span><%= settings.place.address %><br><%= settings.place.regionCountry %></span>
                         </a>
                         <a href="tel:<%= helpers.telHref(settings.phone) %>" class="">
                             <i class="fal fa-phone"></i>

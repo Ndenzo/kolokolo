@@ -1,0 +1,52 @@
+<%- include('../partials/shell-start') %>
+<%
+	const labels = typeof campaignStatusLabels !== 'undefined' ? campaignStatusLabels : {};
+	const canSend = campaign.status === 'brouillon';
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Newsletter</p>
+		<h1><%= campaign.subject %></h1>
+		<p><%= campaign.sent_at ? `Envoyée le ${helpers.formatDateTime(campaign.sent_at)}.` : `Brouillon enregistré le ${helpers.formatDateTime(campaign.created_at)}.` %></p>
+	</div>
+	<div class="header-actions">
+		<a class="btn btn-ghost" href="/admin/newsletter">Retour à la liste</a>
+		<% if (canSend) { %>
+			<a class="btn btn-ghost" href="/admin/newsletter/<%= campaign.id %>/edit"><i class="fas fa-pen"></i> Modifier</a>
+		<% } %>
+	</div>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Suivi</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Statut</span><strong><span class="badge badge-status badge-<%= campaign.status %>"><%= labels[campaign.status] || campaign.status %></span></strong></div>
+			<div class="info-row"><span>Abonnés actifs</span><strong><%= activeCount %></strong></div>
+			<% if (campaign.status !== 'brouillon') { %>
+				<div class="info-row"><span>Destinataires</span><strong><%= campaign.recipient_count || 0 %></strong></div>
+				<div class="info-row"><span>Envoyés</span><strong><%= campaign.sent_count || 0 %></strong></div>
+				<div class="info-row"><span>Échecs</span><strong><%= campaign.failed_count || 0 %></strong></div>
+			<% } %>
+		</div>
+		<div class="form-actions">
+			<% if (canSend) { %>
+				<form action="/admin/newsletter/<%= campaign.id %>/send" method="post" data-confirm data-confirm-title="Envoyer la newsletter" data-confirm-message="Envoyer « <%= campaign.subject %> » à <%= activeCount %> abonné<%= activeCount > 1 ? 's' : '' %> ?" data-confirm-ok="Envoyer">
+					<button class="btn btn-primary" type="submit" <%= !smtpConfigured || !activeCount ? 'disabled' : '' %>><i class="fas fa-paper-plane"></i> Envoyer aux inscrits</button>
+				</form>
+			<% } %>
+			<form action="/admin/newsletter/<%= campaign.id %>/delete" method="post" data-confirm>
+				<button class="btn btn-danger" type="submit">Supprimer</button>
+			</form>
+		</div>
+		<% if (canSend && !smtpConfigured) { %>
+			<p class="smtp-note">SMTP n’est pas configuré : l’envoi est impossible.</p>
+		<% } else if (canSend && !activeCount) { %>
+			<p class="smtp-note">Aucun abonné actif. Les inscriptions du site apparaîtront dans <a href="/admin/newsletter/abonnes">Abonnés</a>.</p>
+		<% } %>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-title"><h2>Aperçu de l’email</h2></div>
+	<iframe class="mail-frame" src="/admin/newsletter/<%= campaign.id %>/preview" title="Aperçu de l’email newsletter"></iframe>
+</div>
+<%- include('../partials/shell-end') %>

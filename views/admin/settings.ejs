@@ -45,8 +45,13 @@
 				<p class="field-error" data-error></p>
 			</div>
 			<div class="field" data-field>
-				<label class="admin-label" for="location">Localisation <abbr class="req" title="Obligatoire">*</abbr></label>
-				<input class="admin-input" id="location" name="location" value="<%= settings.location %>" required data-validate="required">
+				<label class="admin-label" for="region">Région <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="region" name="region" value="<%= settings.region %>" required data-validate="required" placeholder="DAKAR">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="address">Adresse <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="address" name="address" value="<%= settings.address %>" required data-validate="required" placeholder="HANN MARISTES 1/B">
 				<p class="field-error" data-error></p>
 			</div>
 			<div class="field" data-field>

@@ -3,6 +3,7 @@ const { db } = require('../db');
 const helpers = require('../lib/helpers');
 const { sendQuoteRequest, sendContactMessage } = require('../lib/mailer');
 const { quoteBudgets, quoteTimelines, allowedServiceLabels, contactSubjects } = require('../data/services');
+const { conditionsGenerales, confidentialite } = require('../data/legal');
 
 const router = Router();
 
@@ -116,6 +117,18 @@ router.get('/contact', (req, res) => {
 	renderPage(res, 'contact', 'Contact - Kolokolo', { selectedSubject });
 });
 
+router.get('/conditions-generales', (req, res) => {
+	renderPage(res, 'legal', 'Conditions générales - Kolokolo', {
+		doc: conditionsGenerales(res.locals.settings),
+	});
+});
+
+router.get('/confidentialite', (req, res) => {
+	renderPage(res, 'legal', 'Confidentialité - Kolokolo', {
+		doc: confidentialite(res.locals.settings),
+	});
+});
+
 router.post('/contact', async (req, res) => {
 	const wantsJson = req.xhr || String(req.headers.accept || '').includes('application/json');
 	const reply = (status, payload) => {
@@ -160,7 +173,10 @@ router.post('/contact', async (req, res) => {
 		const inserted = await db('contact_messages').insert(payload);
 		const id = Array.isArray(inserted) ? inserted[0] : inserted;
 		try {
-			const emailSent = await sendContactMessage({ ...payload, id }, res.locals.settings && res.locals.settings.email);
+			const emailSent = await sendContactMessage(
+				{ ...payload, id },
+				{ fallbackTo: res.locals.settings && res.locals.settings.email, settings: res.locals.settings }
+			);
 			if (emailSent) await db('contact_messages').where({ id }).update({ email_sent: 1, updated_at: db.fn.now() });
 		} catch (err) {
 			console.error('Envoi du message de contact impossible :', err.message);
@@ -228,7 +244,10 @@ router.post('/devis', async (req, res) => {
 		const id = Array.isArray(inserted) ? inserted[0] : inserted;
 		let emailSent = false;
 		try {
-			emailSent = await sendQuoteRequest({ ...payload, id }, res.locals.settings && res.locals.settings.email);
+			emailSent = await sendQuoteRequest(
+				{ ...payload, id },
+				{ fallbackTo: res.locals.settings && res.locals.settings.email, settings: res.locals.settings }
+			);
 			if (emailSent) await db('quote_requests').where({ id }).update({ email_sent: 1, updated_at: db.fn.now() });
 		} catch (err) {
 			console.error('Envoi du devis par email impossible :', err.message);
@@ -238,6 +257,64 @@ router.post('/devis', async (req, res) => {
 		console.error(err);
 		return reply(500, { ok: false, error: 'Impossible d’enregistrer la demande pour le moment.' });
 	}
+});
+
+router.post('/newsletter', async (req, res) => {
+	const wantsJson = req.xhr || String(req.headers.accept || '').includes('application/json');
+	const reply = (status, payload) => {
+		if (wantsJson) return res.status(status).json(payload);
+		return res.redirect(req.get('referer') || '/');
+	};
+	if (String(req.body.website || '').trim()) {
+		return reply(200, { ok: true });
+	}
+	const email = helpers.normalizeEmail(req.body.email).slice(0, 180);
+	if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+		return reply(400, { ok: false, error: 'Merci d’indiquer une adresse email valide.' });
+	}
+
+	const ip = String(req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim().slice(0, 80) || null;
+	try {
+		const existing = await db('newsletter_subscribers').where({ email }).first();
+		if (existing) {
+			if (existing.status !== 'actif') {
+				await db('newsletter_subscribers').where({ id: existing.id }).update({
+					status: 'actif',
+					unsubscribed_at: null,
+					ip,
+					updated_at: db.fn.now(),
+				});
+			}
+			return reply(200, { ok: true });
+		}
+		await db('newsletter_subscribers').insert({
+			email,
+			status: 'actif',
+			unsubscribe_token: helpers.unsubscribeToken(),
+			ip,
+			created_at: db.fn.now(),
+			updated_at: db.fn.now(),
+		});
+		return reply(200, { ok: true });
+	} catch (err) {
+		console.error(err);
+		return reply(500, { ok: false, error: 'Impossible de vous inscrire pour le moment.' });
+	}
+});
+
+router.get('/newsletter/desinscription/:token', async (req, res) => {
+	const subscriber = await db('newsletter_subscribers').where({ unsubscribe_token: req.params.token }).first();
+	if (!subscriber) {
+		return res.status(404).render('layout', { title: 'Page introuvable - Kolokolo', page: '404' });
+	}
+	if (subscriber.status !== 'desinscrit') {
+		await db('newsletter_subscribers').where({ id: subscriber.id }).update({
+			status: 'desinscrit',
+			unsubscribed_at: db.fn.now(),
+			updated_at: db.fn.now(),
+		});
+	}
+	renderPage(res, 'newsletter-unsub', 'Désinscription newsletter - Kolokolo');
 });
 
 module.exports = router;

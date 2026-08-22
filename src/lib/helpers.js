@@ -1,5 +1,10 @@
+const crypto = require('node:crypto');
+
 const MONTHS_SHORT = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
 const MONTHS_LONG = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+
+const { findCountry } = require('../data/countries');
+const { buildHead } = require('./seo');
 
 function slugify(text) {
 	return String(text || '')
@@ -80,6 +85,28 @@ function isActive(value) {
 	return value === true || value === 1 || value === '1';
 }
 
+function unsubscribeToken() {
+	return crypto.randomBytes(24).toString('hex');
+}
+
+function normalizeEmail(value) {
+	return String(value || '').trim().toLowerCase();
+}
+
+function contactPlace(settings) {
+	const region = String((settings && settings.region) || '').trim();
+	const address = String((settings && settings.address) || '').trim();
+	const country = findCountry(settings && settings.country_iso2).label.toUpperCase();
+	const regionCountry = [region, country].filter(Boolean).join(', ');
+	return {
+		address,
+		region,
+		country,
+		regionCountry,
+		full: [address, regionCountry].filter(Boolean).join('\n'),
+	};
+}
+
 module.exports = {
 	slugify,
 	uniqueSlug,
@@ -93,4 +120,8 @@ module.exports = {
 	stripHtml,
 	datetimeLocal,
 	isActive,
+	contactPlace,
+	unsubscribeToken,
+	normalizeEmail,
+	buildHead,
 };

@@ -1,0 +1,99 @@
+<%- include('../partials/shell-start') %>
+<%
+	const labels = typeof subscriberStatusLabels !== 'undefined' ? subscriberStatusLabels : { actif: 'Inscrit', desinscrit: 'Désinscrit' };
+	const total = subscribers.length;
+	const activeCount = subscribers.filter((item) => item.status === 'actif').length;
+	const unsubCount = total - activeCount;
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Newsletter</p>
+		<h1>Abonnés</h1>
+		<p>Les inscriptions collectées depuis le bandeau du site, et celles ajoutées ici.</p>
+	</div>
+	<div class="header-actions">
+		<a class="btn btn-ghost" href="/admin/newsletter">Campagnes</a>
+		<a class="btn btn-primary" href="/admin/newsletter/new"><i class="fas fa-plus"></i> Nouvelle newsletter</a>
+	</div>
+</div>
+<div class="stat-grid">
+	<div class="stat-card">
+		<div class="stat-icon"><i class="fas fa-users"></i></div>
+		<div><span>Total</span><strong><%= total %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-green"><i class="fas fa-user-check"></i></div>
+		<div><span>Inscrits</span><strong><%= activeCount %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-amber"><i class="fas fa-user-slash"></i></div>
+		<div><span>Désinscrits</span><strong><%= unsubCount %></strong></div>
+	</div>
+</div>
+<div class="panel" data-table data-sort-index="2" data-sort-dir="desc">
+	<div class="table-toolbar">
+		<form class="inline-add" action="/admin/newsletter/abonnes" method="post">
+			<input class="admin-input" type="email" name="email" required maxlength="180" placeholder="Ajouter un email">
+			<button class="btn btn-primary" type="submit">Ajouter</button>
+		</form>
+		<% if (total) { %>
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		<% } %>
+	</div>
+	<% if (!total) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-users"></i></div>
+			<h3>Aucun abonné</h3>
+			<p>Les inscriptions du site apparaîtront ici. Vous pouvez aussi en ajouter manuellement.</p>
+		</div>
+	<% } else { %>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-sort>Email</th>
+						<th data-sort>Statut</th>
+						<th data-sort data-sort-dir="desc">Inscription</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% subscribers.forEach((item) => { %>
+						<tr data-search="<%= item.email %> <%= labels[item.status] || item.status %>">
+							<td><strong><%= item.email %></strong></td>
+							<td data-sort-value="<%= item.status %>">
+								<span class="badge <%= item.status === 'actif' ? 'badge-on' : 'badge-off' %>"><%= labels[item.status] || item.status %></span>
+							</td>
+							<td data-sort-value="<%= item.created_at ? new Date(item.created_at).toISOString() : '' %>"><%= helpers.formatDateTime(item.created_at) %></td>
+							<td>
+								<div class="row-actions">
+									<form action="/admin/newsletter/abonnes/<%= item.id %>/delete" method="post" data-confirm>
+										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-empty" data-table-empty>Aucun résultat pour cette recherche.</div>
+		<div class="table-footer">
+			<label class="table-pagesize">
+				Afficher
+				<select data-page-size>
+					<option value="10" selected>10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+				</select>
+				lignes
+			</label>
+			<div class="pager" data-pager></div>
+		</div>
+	<% } %>
+</div>
+<%- include('../partials/shell-end') %>

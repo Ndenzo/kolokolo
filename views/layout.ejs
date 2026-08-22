@@ -1,18 +1,50 @@
+<%
+	const head = helpers.buildHead({
+		title,
+		page: typeof page !== 'undefined' ? page : 'home',
+		path: typeof canonicalPath !== 'undefined' ? canonicalPath : '/',
+		settings: typeof settings !== 'undefined' ? settings : {},
+		siteUrl: typeof siteUrl !== 'undefined' ? siteUrl : 'https://kolokolo.tech',
+		post: typeof post !== 'undefined' ? post : null,
+		job: typeof job !== 'undefined' ? job : null,
+		doc: typeof doc !== 'undefined' ? doc : null,
+		description: typeof description !== 'undefined' ? description : '',
+		image: typeof metaImage !== 'undefined' ? metaImage : '',
+	});
+%>
 <!doctype html>
-<html class="no-js" lang="fr">
-
+<html lang="fr">
 <head>
 	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title><%= title %></title>
-	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title><%= head.title %></title>
+	<meta name="description" content="<%= head.description %>">
+	<meta name="author" content="Kolokolo">
+	<meta name="robots" content="<%= head.robots %>">
+	<meta name="theme-color" content="#FF0A08">
+	<link rel="canonical" href="<%= head.url %>">
 
-	<link rel="manifest" href="site.webmanifest">
-	<link rel="shortcut icon" type="image/x-icon" href="/assets/custom/img/logo/favicon.png">
-	<!-- Place favicon.ico in the root directory -->
+	<meta property="og:type" content="<%= head.ogType %>">
+	<meta property="og:site_name" content="Kolokolo">
+	<meta property="og:locale" content="fr_FR">
+	<meta property="og:title" content="<%= head.title %>">
+	<meta property="og:description" content="<%= head.description %>">
+	<meta property="og:url" content="<%= head.url %>">
+	<meta property="og:image" content="<%= head.image %>">
 
-	<!-- CSS here -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:title" content="<%= head.title %>">
+	<meta name="twitter:description" content="<%= head.description %>">
+	<meta name="twitter:image" content="<%= head.image %>">
+
+	<link rel="icon" type="image/png" sizes="32x32" href="/assets/custom/img/logo/favicon.png">
+	<link rel="apple-touch-icon" href="/assets/custom/img/logo/logo.png">
+	<link rel="manifest" href="/site.webmanifest">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="preconnect" href="https://cdn.jsdelivr.net">
+
 	<link rel="stylesheet" href="/assets/front/css/bootstrap.min.css">
 	<link rel="stylesheet" href="/assets/front/css/swiper-bundle.css">
 	<link rel="stylesheet" href="/assets/front/css/animate.min.css">
@@ -25,6 +57,7 @@
 	<link rel="stylesheet" href="/assets/front/css/main.css">
 	<link rel="stylesheet" href="/assets/front/css/cms.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+	<script type="application/ld+json"><%- head.jsonLd %></script>
 </head>
 
 <body class="page-<%= typeof page !== 'undefined' ? page : 'default' %>">
@@ -50,7 +83,7 @@
 							</div>
 							<div class="footer-address">
 								<h5>Contact</h5>
-								<p><%= settings.location %><br><%= settings.email %></p>
+								<p><%= settings.place.address %><br><%= settings.place.regionCountry %><br><%= settings.email %></p>
 							</div>
 							<div class="grb__social footer-social">
 								<ul>
@@ -79,10 +112,9 @@
 							</div>
 							<ul class="footer-list">
 								<li><a href="/a-propos">À propos</a></li>
-								<li><a href="/carriere">Carrière</a></li>
 								<li><a href="/contact">Contact</a></li>
-								<li><a href="#">Politique de confidentialité</a></li>
-								<li><a href="#">Conditions générales</a></li>
+								<li><a href="/confidentialite">Politique de confidentialité</a></li>
+								<li><a href="/conditions-generales">Conditions générales</a></li>
 							</ul>
 						</div>
 					</div>
@@ -123,9 +155,9 @@
 					</div>
 					<div class="col-lg-5 col-md-6">
 						<ul class="copyright-list f-right">
-							<li><a href="#">Conditions générales</a></li>
-							<li><a href="#">Confidentialité</a></li>
-							<li><a href="/">À propos</a></li>
+							<li><a href="/conditions-generales">Conditions générales</a></li>
+							<li><a href="/confidentialite">Confidentialité</a></li>
+							<li><a href="/a-propos">À propos</a></li>
 						</ul>
 					</div>
 				</div>
@@ -154,6 +186,7 @@
 	<%- include('partials/quote-modal') %>
 	<script src="/assets/front/js/quote.js"></script>
 	<script src="/assets/front/js/contact.js"></script>
+	<script src="/assets/front/js/newsletter.js"></script>
 </body>
 
 </html>

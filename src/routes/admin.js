@@ -5,9 +5,13 @@ const multer = require('multer');
 const { db } = require('../db');
 const { requireAuth } = require('../middleware/auth');
 const { setFlash } = require('../middleware/locals');
-const { uniqueSlug, isActive } = require('../lib/helpers');
+const { uniqueSlug, isActive, normalizeEmail, unsubscribeToken, stripHtml } = require('../lib/helpers');
 const { countries, findCountry } = require('../data/countries');
 const { quoteStatusLabels } = require('../data/services');
+const { campaignStatusLabels, subscriberStatusLabels } = require('../data/newsletter');
+const { sendNewsletter, isConfigured, contactHtml, quoteHtml } = require('../lib/mailer');
+const { renderNewsletterMail, sampleContact, sampleQuote, sampleNewsletter } = require('../lib/emails');
+const { siteUrl } = require('../config');
 
 const DEFAULT_CATEGORIES = ['Site Web', 'Social Media', 'Mobile App', 'Publicité Digitale', 'SEO & visibilité'];
 
@@ -57,7 +61,7 @@ async function blogCategories() {
 router.use(requireAuth);
 
 router.get('/', async (_req, res) => {
-	const [posts, jobs, testimonials, projects, quotes, newQuotes, contacts, newContacts, settings] = await Promise.all([
+	const [posts, jobs, testimonials, projects, quotes, newQuotes, contacts, newContacts, subscribers, activeSubscribers, campaigns] = await Promise.all([
 		db('blog_posts').count('id as count').first(),
 		db('job_offers').count('id as count').first(),
 		db('testimonials').count('id as count').first(),
@@ -66,7 +70,9 @@ router.get('/', async (_req, res) => {
 		db('quote_requests').where({ status: 'nouveau' }).count('id as count').first(),
 		db('contact_messages').count('id as count').first(),
 		db('contact_messages').where({ status: 'nouveau' }).count('id as count').first(),
-		db('site_settings').first(),
+		db('newsletter_subscribers').count('id as count').first(),
+		db('newsletter_subscribers').where({ status: 'actif' }).count('id as count').first(),
+		db('newsletter_campaigns').count('id as count').first(),
 	]);
 	adminPage(res, 'admin/dashboard', {
 		title: 'Tableau de bord',
@@ -84,9 +90,38 @@ router.get('/', async (_req, res) => {
 			newQuotes: Number(newQuotes.count || 0),
 			contacts: Number(contacts.count || 0),
 			newContacts: Number(newContacts.count || 0),
+			subscribers: Number(subscribers.count || 0),
+			activeSubscribers: Number(activeSubscribers.count || 0),
+			campaigns: Number(campaigns.count || 0),
 		},
-		settings,
+		settings: res.locals.settings,
 	});
+});
+
+router.get('/emails', (_req, res) => {
+	adminPage(res, 'admin/emails/index', {
+		title: 'Modèles d’emails',
+		active: 'emails',
+	});
+});
+
+router.get('/emails/contact', async (req, res) => {
+	res.type('html').send(await contactHtml(sampleContact, res.locals.settings));
+});
+
+router.get('/emails/devis', async (req, res) => {
+	res.type('html').send(await quoteHtml(sampleQuote, res.locals.settings));
+});
+
+router.get('/emails/newsletter', async (req, res) => {
+	const html = await renderNewsletterMail({
+		settings: res.locals.settings,
+		subject: sampleNewsletter.subject,
+		title: sampleNewsletter.subject,
+		bodyHtml: sampleNewsletter.bodyHtml,
+		unsubscribeUrl: `${siteUrl}/newsletter/desinscription/apercu`,
+	});
+	res.type('html').send(html);
 });
 
 router.get('/settings', async (req, res) => {
@@ -104,7 +139,8 @@ router.post('/settings', async (req, res) => {
 		country_iso2: country.iso2,
 		phone: String(req.body.phone || '').trim(),
 		email: String(req.body.email || '').trim(),
-		location: String(req.body.location || '').trim(),
+		region: String(req.body.region || '').trim(),
+		address: String(req.body.address || '').trim(),
 		hours: String(req.body.hours || '').trim(),
 		weekend_hours: String(req.body.weekend_hours || '').trim(),
 		map_embed: String(req.body.map_embed || '').trim(),
@@ -114,7 +150,8 @@ router.post('/settings', async (req, res) => {
 		linkedin: String(req.body.linkedin || '').trim(),
 		updated_at: db.fn.now(),
 	};
-	if (!payload.phone || !payload.email || !payload.location) {
+	payload.location = [payload.region, country.label.toUpperCase()].filter(Boolean).join(', ');
+	if (!payload.phone || !payload.email || !payload.region || !payload.address) {
 		setFlash(req, 'error', 'Les champs obligatoires doivent être renseignés.');
 		return res.redirect('/admin/settings');
 	}
@@ -555,6 +592,12 @@ router.get('/quotes/:id', async (req, res) => {
 	});
 });
 
+router.get('/quotes/:id/preview', async (req, res) => {
+	const item = await db('quote_requests').where({ id: req.params.id }).first();
+	if (!item) return res.status(404).send('Introuvable');
+	res.type('html').send(await quoteHtml(item, res.locals.settings));
+});
+
 router.post('/quotes/:id/status', async (req, res) => {
 	const item = await db('quote_requests').where({ id: req.params.id }).first();
 	if (!item) return res.redirect('/admin/quotes');
@@ -599,6 +642,12 @@ router.get('/contacts/:id', async (req, res) => {
 	});
 });
 
+router.get('/contacts/:id/preview', async (req, res) => {
+	const item = await db('contact_messages').where({ id: req.params.id }).first();
+	if (!item) return res.status(404).send('Introuvable');
+	res.type('html').send(await contactHtml(item, res.locals.settings));
+});
+
 router.post('/contacts/:id/status', async (req, res) => {
 	const item = await db('contact_messages').where({ id: req.params.id }).first();
 	if (!item) return res.redirect('/admin/contacts');
@@ -616,6 +665,240 @@ router.post('/contacts/:id/delete', async (req, res) => {
 	await db('contact_messages').where({ id: req.params.id }).del();
 	setFlash(req, 'success', 'Message supprimé.');
 	res.redirect('/admin/contacts');
+});
+
+function campaignPayload(body) {
+	return {
+		subject: String(body.subject || '').trim().slice(0, 180),
+		body_html: String(body.body_html || '').trim(),
+	};
+}
+
+function unsubscribeLink(token) {
+	return `${siteUrl}/newsletter/desinscription/${token}`;
+}
+
+router.get('/newsletter', async (_req, res) => {
+	const [campaigns, subscriberCount, activeCount] = await Promise.all([
+		db('newsletter_campaigns').orderBy('created_at', 'desc'),
+		db('newsletter_subscribers').count('id as count').first(),
+		db('newsletter_subscribers').where({ status: 'actif' }).count('id as count').first(),
+	]);
+	adminPage(res, 'admin/newsletter/index', {
+		title: 'Newsletter',
+		active: 'newsletter',
+		campaigns,
+		campaignStatusLabels,
+		smtpConfigured: isConfigured(),
+		stats: {
+			campaigns: campaigns.length,
+			subscribers: Number(subscriberCount.count || 0),
+			active: Number(activeCount.count || 0),
+		},
+	});
+});
+
+router.get('/newsletter/new', (_req, res) => {
+	adminPage(res, 'admin/newsletter/form', {
+		title: 'Nouvelle newsletter',
+		active: 'newsletter',
+		campaign: { subject: '', body_html: '' },
+		action: '/admin/newsletter',
+		smtpConfigured: isConfigured(),
+	});
+});
+
+router.post('/newsletter', async (req, res) => {
+	const payload = campaignPayload(req.body);
+	if (!payload.subject) {
+		setFlash(req, 'error', 'Le sujet est obligatoire.');
+		return res.redirect('/admin/newsletter/new');
+	}
+	if (!stripHtml(payload.body_html)) {
+		setFlash(req, 'error', 'Le contenu de l’email est obligatoire.');
+		return res.redirect('/admin/newsletter/new');
+	}
+	payload.status = 'brouillon';
+	payload.created_at = db.fn.now();
+	payload.updated_at = db.fn.now();
+	const inserted = await db('newsletter_campaigns').insert(payload);
+	const id = Array.isArray(inserted) ? inserted[0] : inserted;
+	setFlash(req, 'success', 'Brouillon enregistré.');
+	res.redirect(`/admin/newsletter/${id}`);
+});
+
+router.get('/newsletter/abonnes', async (_req, res) => {
+	const subscribers = await db('newsletter_subscribers').orderBy('created_at', 'desc');
+	adminPage(res, 'admin/newsletter/subscribers', {
+		title: 'Abonnés newsletter',
+		active: 'newsletter',
+		subscribers,
+		subscriberStatusLabels,
+	});
+});
+
+router.post('/newsletter/abonnes', async (req, res) => {
+	const email = normalizeEmail(req.body.email).slice(0, 180);
+	if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+		setFlash(req, 'error', 'Merci d’indiquer une adresse email valide.');
+		return res.redirect('/admin/newsletter/abonnes');
+	}
+	const existing = await db('newsletter_subscribers').where({ email }).first();
+	if (existing) {
+		if (existing.status !== 'actif') {
+			await db('newsletter_subscribers').where({ id: existing.id }).update({
+				status: 'actif',
+				unsubscribed_at: null,
+				updated_at: db.fn.now(),
+			});
+			setFlash(req, 'success', 'L’adresse a été réinscrite.');
+		} else {
+			setFlash(req, 'error', 'Cette adresse est déjà inscrite.');
+		}
+		return res.redirect('/admin/newsletter/abonnes');
+	}
+	await db('newsletter_subscribers').insert({
+		email,
+		status: 'actif',
+		unsubscribe_token: unsubscribeToken(),
+		created_at: db.fn.now(),
+		updated_at: db.fn.now(),
+	});
+	setFlash(req, 'success', 'Abonné ajouté.');
+	res.redirect('/admin/newsletter/abonnes');
+});
+
+router.post('/newsletter/abonnes/:id/delete', async (req, res) => {
+	await db('newsletter_subscribers').where({ id: req.params.id }).del();
+	setFlash(req, 'success', 'Abonné supprimé.');
+	res.redirect('/admin/newsletter/abonnes');
+});
+
+router.get('/newsletter/:id', async (req, res) => {
+	const campaign = await db('newsletter_campaigns').where({ id: req.params.id }).first();
+	if (!campaign) return res.redirect('/admin/newsletter');
+	const activeCount = Number((await db('newsletter_subscribers').where({ status: 'actif' }).count('id as count').first()).count || 0);
+	adminPage(res, 'admin/newsletter/show', {
+		title: campaign.subject,
+		active: 'newsletter',
+		campaign,
+		campaignStatusLabels,
+		activeCount,
+		smtpConfigured: isConfigured(),
+	});
+});
+
+router.get('/newsletter/:id/preview', async (req, res) => {
+	const campaign = await db('newsletter_campaigns').where({ id: req.params.id }).first();
+	if (!campaign) return res.status(404).send('Introuvable');
+	const html = await renderNewsletterMail({
+		settings: res.locals.settings,
+		subject: campaign.subject,
+		title: campaign.subject,
+		bodyHtml: campaign.body_html,
+		unsubscribeUrl: `${siteUrl}/newsletter/desinscription/apercu`,
+	});
+	res.type('html').send(html);
+});
+
+router.get('/newsletter/:id/edit', async (req, res) => {
+	const campaign = await db('newsletter_campaigns').where({ id: req.params.id }).first();
+	if (!campaign) return res.redirect('/admin/newsletter');
+	if (campaign.status !== 'brouillon') {
+		setFlash(req, 'error', 'Seuls les brouillons peuvent être modifiés.');
+		return res.redirect(`/admin/newsletter/${campaign.id}`);
+	}
+	adminPage(res, 'admin/newsletter/form', {
+		title: 'Modifier la newsletter',
+		active: 'newsletter',
+		campaign,
+		action: `/admin/newsletter/${campaign.id}`,
+		smtpConfigured: isConfigured(),
+	});
+});
+
+router.post('/newsletter/:id', async (req, res) => {
+	const campaign = await db('newsletter_campaigns').where({ id: req.params.id }).first();
+	if (!campaign) return res.redirect('/admin/newsletter');
+	if (campaign.status !== 'brouillon') {
+		setFlash(req, 'error', 'Seuls les brouillons peuvent être modifiés.');
+		return res.redirect(`/admin/newsletter/${campaign.id}`);
+	}
+	const payload = campaignPayload(req.body);
+	if (!payload.subject) {
+		setFlash(req, 'error', 'Le sujet est obligatoire.');
+		return res.redirect(`/admin/newsletter/${campaign.id}/edit`);
+	}
+	if (!stripHtml(payload.body_html)) {
+		setFlash(req, 'error', 'Le contenu de l’email est obligatoire.');
+		return res.redirect(`/admin/newsletter/${campaign.id}/edit`);
+	}
+	payload.updated_at = db.fn.now();
+	await db('newsletter_campaigns').where({ id: campaign.id }).update(payload);
+	setFlash(req, 'success', 'Brouillon mis à jour.');
+	res.redirect(`/admin/newsletter/${campaign.id}`);
+});
+
+router.post('/newsletter/:id/send', async (req, res) => {
+	const campaign = await db('newsletter_campaigns').where({ id: req.params.id }).first();
+	if (!campaign) return res.redirect('/admin/newsletter');
+	if (campaign.status !== 'brouillon') {
+		setFlash(req, 'error', 'Cette newsletter a déjà été envoyée.');
+		return res.redirect(`/admin/newsletter/${campaign.id}`);
+	}
+	if (!stripHtml(campaign.body_html)) {
+		setFlash(req, 'error', 'Le contenu de l’email est obligatoire.');
+		return res.redirect(`/admin/newsletter/${campaign.id}`);
+	}
+	const subscribers = await db('newsletter_subscribers').where({ status: 'actif' });
+	if (!subscribers.length) {
+		setFlash(req, 'error', 'Aucun abonné inscrit pour l’instant.');
+		return res.redirect(`/admin/newsletter/${campaign.id}`);
+	}
+	if (!isConfigured()) {
+		setFlash(req, 'error', 'SMTP n’est pas configuré : l’envoi est impossible.');
+		return res.redirect(`/admin/newsletter/${campaign.id}`);
+	}
+
+	let sentCount = 0;
+	let failedCount = 0;
+	for (const subscriber of subscribers) {
+		try {
+			const ok = await sendNewsletter({
+				to: subscriber.email,
+				subject: campaign.subject,
+				bodyHtml: campaign.body_html,
+				unsubscribeUrl: unsubscribeLink(subscriber.unsubscribe_token),
+				settings: res.locals.settings,
+			});
+			if (ok) sentCount += 1;
+			else failedCount += 1;
+		} catch (err) {
+			console.error('Envoi newsletter impossible :', err.message);
+			failedCount += 1;
+		}
+	}
+
+	const status = failedCount === 0 ? 'envoye' : sentCount === 0 ? 'echec' : 'partiel';
+	await db('newsletter_campaigns').where({ id: campaign.id }).update({
+		status,
+		recipient_count: subscribers.length,
+		sent_count: sentCount,
+		failed_count: failedCount,
+		sent_at: db.fn.now(),
+		updated_at: db.fn.now(),
+	});
+
+	if (status === 'envoye') setFlash(req, 'success', `Newsletter envoyée à ${sentCount} abonné${sentCount > 1 ? 's' : ''}.`);
+	else if (status === 'partiel') setFlash(req, 'error', `Envoi partiel : ${sentCount} envoyés, ${failedCount} échecs.`);
+	else setFlash(req, 'error', 'L’envoi a échoué.');
+	res.redirect(`/admin/newsletter/${campaign.id}`);
+});
+
+router.post('/newsletter/:id/delete', async (req, res) => {
+	await db('newsletter_campaigns').where({ id: req.params.id }).del();
+	setFlash(req, 'success', 'Newsletter supprimée.');
+	res.redirect('/admin/newsletter');
 });
 
 module.exports = router;

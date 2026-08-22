@@ -1,0 +1,37 @@
+<%- include('../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Newsletter</p>
+		<h1><%= campaign.id ? 'Modifier la newsletter' : 'Nouvelle newsletter' %></h1>
+		<p>Le contenu mis en forme ici est envoyé tel quel aux inscrits, dans l’habillage Kolokolo.</p>
+	</div>
+	<a class="btn btn-ghost" href="/admin/newsletter">Retour</a>
+</div>
+<% if (!smtpConfigured) { %>
+	<p class="smtp-note">SMTP n’est pas configuré. Vous pouvez préparer le brouillon, l’envoi ne sera possible qu’après configuration.</p>
+<% } %>
+<form action="<%= action %>" method="post" data-admin-form novalidate>
+	<div class="form-grid">
+		<div class="panel form-stack">
+			<div class="field" data-field>
+				<label class="admin-label" for="subject">Sujet de l’email <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="subject" name="subject" value="<%= campaign.subject %>" required data-validate="required" maxlength="180" placeholder="Actualités Kolokolo — août 2026">
+				<p class="field-error" data-error></p>
+			</div>
+			<div>
+				<label class="admin-label">Contenu <abbr class="req" title="Obligatoire">*</abbr></label>
+				<textarea class="js-wysiwyg" name="body_html"><%= campaign.body_html || '' %></textarea>
+			</div>
+		</div>
+		<div class="form-stack">
+			<div class="panel">
+				<p>Chaque destinataire reçoit l’email dans le modèle Kolokolo (logo, couleurs, pied de page et lien de désinscription). Seuls les abonnés actifs sont concernés.</p>
+			</div>
+			<div class="form-actions">
+				<a class="btn btn-ghost" href="<%= campaign.id ? `/admin/newsletter/${campaign.id}` : '/admin/newsletter' %>">Annuler</a>
+				<button class="btn btn-primary js-submit" type="submit">Enregistrer le brouillon</button>
+			</div>
+		</div>
+	</div>
+</form>
+<%- include('../partials/shell-end') %>

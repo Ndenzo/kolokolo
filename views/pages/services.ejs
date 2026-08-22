@@ -246,7 +246,7 @@
 					<div class="swiper-container testimonial-active-2 st-3">
 						<div class="swiper-wrapper">
 							<% serviceTestimonials.forEach((item) => { %>
-							<div class="swiper-slide">
+							<div class="swiper-slide" data-photo="<%= item.photo || '/assets/front/img/testimonial/test1.png' %>" data-name="<%= item.name %>">
 								<div class="testimonial-single">
 									<p class="mb-30"><%= item.content %></p>
 									<div class="testimonial-name">
@@ -266,7 +266,7 @@
 				<div class="col-lg-6 d-none d-lg-block">
 					<div class="testimonial-right p-relative">
 						<div class="test-i-img">
-							<img src="/assets/front/img/testimonial/test-i-img.jpg" alt="">
+							<img data-testimonial-client-photo src="<%= serviceTestimonials[0].photo || '/assets/front/img/testimonial/test1.png' %>" alt="<%= serviceTestimonials[0].name %>">
 						</div>
 						<div class="testimonial-right-img p-relative">
 							<img src="/assets/front/img/testimonial/test-r-img.jpg" alt="">
@@ -280,22 +280,5 @@
 		</div>
 	</div>
 	<% } %>
-	<div class="newsletter-area">
-		<div class="container">
-			<div class="row wow fadeInUp align-items-center">
-				<div class="col-lg-6">
-					<div class="newsletter-text mb-30">
-						<h4>Inscrivez-vous à la newsletter</h4>
-						<p>Recevez nos actualités et conseils digitaux, directement dans votre boîte mail.</p>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<form class="subscribe-form mb-30">
-						<input type="email" placeholder="Votre email...">
-						<button type="submit"><i class="fas fa-paper-plane"></i>S'inscrire</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+	<%- include('../partials/newsletter') %>
 </main>

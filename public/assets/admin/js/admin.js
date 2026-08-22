@@ -104,6 +104,11 @@
 		if (!overlay) return;
 		const okBtn = qs('[data-confirm-ok]', overlay);
 		const cancelBtn = qs('[data-confirm-cancel]', overlay);
+		const titleEl = qs('#admin-confirm-title', overlay);
+		const textEl = qs('#admin-confirm-text', overlay);
+		const defaultTitle = titleEl ? titleEl.textContent : '';
+		const defaultText = textEl ? textEl.textContent : '';
+		const defaultOk = okBtn ? okBtn.textContent : '';
 		let pendingForm = null;
 
 		function close() {
@@ -131,6 +136,9 @@
 				}
 				e.preventDefault();
 				pendingForm = form;
+				if (titleEl) titleEl.textContent = form.getAttribute('data-confirm-title') || defaultTitle;
+				if (textEl) textEl.textContent = form.getAttribute('data-confirm-message') || defaultText;
+				if (okBtn) okBtn.textContent = form.getAttribute('data-confirm-ok') || defaultOk;
 				overlay.classList.add('is-open');
 			});
 		});

@@ -1,0 +1,23 @@
+{
+	"name": "Kolokolo",
+	"short_name": "Kolokolo",
+	"description": "Agence digitale à Dakar : sites web, applications mobiles, publicité digitale, social media et SEO.",
+	"start_url": "/",
+	"display": "browser",
+	"background_color": "#0C0B22",
+	"theme_color": "#FF0A08",
+	"lang": "fr",
+	"icons": [
+		{
+			"src": "/assets/custom/img/logo/favicon.png",
+			"sizes": "32x32",
+			"type": "image/png"
+		},
+		{
+			"src": "/assets/custom/img/logo/logo.png",
+			"sizes": "1500x1500",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	]
+}

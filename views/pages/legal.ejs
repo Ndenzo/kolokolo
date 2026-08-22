@@ -1,0 +1,49 @@
+<main>
+	<section class="page-title-area" data-background="/assets/front/img/bg/hire-bg.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="page-title-content text-center">
+						<div class="page-title-heading">
+							<h1><%= doc.heading %></h1>
+						</div>
+						<nav class="grb-breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+								<li class="breadcrumb-item active" aria-current="page"><%= doc.heading %></li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="pt-140 pb-100">
+		<div class="container">
+			<div class="row wow fadeInUp justify-content-center">
+				<div class="col-lg-10">
+					<article class="legal-doc bm-rich">
+						<p class="legal-updated">Dernière mise à jour : <%= doc.updated %></p>
+						<p><%= doc.intro %></p>
+						<% doc.sections.forEach((section) => { %>
+							<h2><%= section.title %></h2>
+							<% (section.paragraphs || []).forEach((paragraph) => { %>
+								<p><%= paragraph %></p>
+							<% }) %>
+							<% if (section.bullets && section.bullets.length) { %>
+								<ul>
+									<% section.bullets.forEach((item) => { %>
+										<li><%= item %></li>
+									<% }) %>
+								</ul>
+							<% } %>
+							<% (section.links || []).forEach((link) => { %>
+								<p><a href="<%= link.href %>"><%= link.label %></a></p>
+							<% }) %>
+						<% }) %>
+					</article>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>

@@ -258,18 +258,31 @@
 		let testimonial2 = new Swiper(".testimonial-active-2", {
 			slidesPerView: 1,
 			spaceBetween: 200,
-			// direction: 'vertical',
 			loop: true,
 			autoplay: {
 				delay: 5000,
 			},
-
-			// Navigation arrows
 			navigation: {
 				nextEl: ".testimonial2-btn-next",
 				prevEl: ".testimonial2-btn-prev",
 			},
+			on: {
+				init: function () {
+					syncTestimonialPhoto(this);
+				},
+				slideChange: function () {
+					syncTestimonialPhoto(this);
+				},
+			},
 		});
+		function syncTestimonialPhoto(swiper) {
+			const slide = swiper.slides[swiper.activeIndex];
+			const img = document.querySelector("[data-testimonial-client-photo]");
+			if (!slide || !img) return;
+			const photo = slide.getAttribute("data-photo");
+			if (photo) img.src = photo;
+			img.alt = slide.getAttribute("data-name") || "";
+		}
 	}
 	// team 3 activation
 	if (jQuery(".testimonial-active-3").length > 0) {

@@ -578,6 +578,86 @@ button, input, textarea, select { font: inherit; }
 .badge-nouveau { background: #fff6e5; color: #b7791f; }
 .badge-lu { background: #ecebff; color: var(--ink); }
 .badge-traite { background: #e9f8ee; color: #0f7a3c; }
+.badge-brouillon { background: #f3f4f8; color: var(--muted); }
+.badge-envoye { background: #e9f8ee; color: #0f7a3c; }
+.badge-partiel { background: #fff6e5; color: #b7791f; }
+.badge-echec { background: #fdecec; color: var(--red); }
+.header-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.smtp-note {
+	background: #fff6e5;
+	color: #8a5a00;
+	border-radius: 12px;
+	padding: 12px 16px;
+	margin: 0 0 20px;
+	line-height: 1.5;
+}
+.smtp-note code {
+	font-size: 12px;
+	background: rgba(255,255,255,.6);
+	padding: 1px 6px;
+	border-radius: 6px;
+}
+.inline-add {
+	display: flex;
+	gap: 8px;
+	flex-wrap: wrap;
+	align-items: center;
+}
+.inline-add .admin-input { min-width: 240px; }
+.form-stack .panel p {
+	margin: 0;
+	color: var(--muted);
+	line-height: 1.6;
+}
+.mail-preview {
+	background: #f3f4f9;
+	border-radius: 16px;
+	padding: 18px;
+}
+.mail-preview-card {
+	background: #fff;
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 12px 32px rgba(12, 11, 34, 0.08);
+}
+.mail-preview-head {
+	background: #0c0b22;
+	color: #fff;
+	padding: 20px 24px;
+}
+.mail-preview-head p {
+	margin: 0 0 6px;
+	letter-spacing: 0.18em;
+	text-transform: uppercase;
+	font-size: 11px;
+	color: #F5A623;
+}
+.mail-preview-head h2 {
+	margin: 0;
+	font-size: 20px;
+	color: #fff;
+}
+.mail-preview-body {
+	padding: 22px 24px;
+	color: var(--ink);
+	line-height: 1.7;
+}
+.mail-preview-body p:first-child { margin-top: 0; }
+.mail-preview-body p:last-child { margin-bottom: 0; }
+.mail-preview-foot {
+	padding: 14px 24px 18px;
+	background: #f7f8fc;
+	color: var(--muted);
+	font-size: 12px;
+}
+.mail-frame {
+	display: block;
+	width: 100%;
+	min-height: 820px;
+	border: 1px solid var(--line);
+	border-radius: 12px;
+	background: #eceff1;
+}
 .muted { color: var(--muted); font-size: 12px; font-weight: 400; margin-top: 4px; }
 .quote-message { white-space: pre-wrap; color: var(--text); line-height: 1.7; }
 .select-inline { max-width: 200px; }
@@ -1071,7 +1151,12 @@ button, input, textarea, select { font: inherit; }
 	flex-shrink: 0;
 	box-shadow: 0 4px 12px rgba(12, 11, 34, 0.06);
 }
-.contact-tile span { display: block; color: var(--muted); font-size: 12px; }
+.contact-ico i {
+	display: block;
+	line-height: 1;
+	font-size: 14px;
+}
+.contact-tile > div span { display: block; color: var(--muted); font-size: 12px; }
 .contact-tile strong { font-size: 13px; color: var(--ink); word-break: break-word; }
 .social-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .social-chip {

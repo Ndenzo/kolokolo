@@ -7,7 +7,9 @@ const defaultSettings = {
 	country_iso2: 'SN',
 	phone: '+221 76 190 30 30',
 	email: 'contact@kolokolo.tech',
-	location: 'Dakar, Sénégal',
+	region: 'DAKAR',
+	address: 'HANN MARISTES 1/B',
+	location: 'DAKAR, SÉNÉGAL',
 	hours: 'Lundi — Vendredi, 08:00 - 18:30',
 	weekend_hours: 'Fermé',
 	map_embed: DEFAULT_MAP,
@@ -21,6 +23,7 @@ const smtpPort = Number(process.env.SMTP_PORT || 587);
 
 module.exports = {
 	port: Number(process.env.PORT || 3000),
+	siteUrl: String(process.env.SITE_URL || 'https://kolokolo.tech').replace(/\/$/, ''),
 	sessionSecret: process.env.SESSION_SECRET || 'kolokolo-dev-session-secret',
 	adminEmail: process.env.ADMIN_EMAIL || 'admin@kolokolo.tech',
 	adminPassword: process.env.ADMIN_PASSWORD || 'KolokoloAdmin2026',

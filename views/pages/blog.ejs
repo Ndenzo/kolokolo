@@ -46,7 +46,7 @@
 												<% if (post.category) { %>
 													<li><a href="/blog?category=<%= encodeURIComponent(post.category) %>"><i class="fas fa-folder-open"></i><%= post.category %></a></li>
 												<% } %>
-												<li><a href="/contact"><i class="fas fa-map-marker-alt"></i><%= settings.location %></a></li>
+												<li><a href="/contact"><i class="fas fa-map-marker-alt"></i><%= settings.place.address %>, <%= settings.place.regionCountry %></a></li>
 												<li><i class="fas fa-eye"></i><%= post.views %> vues</li>
 											</ul>
 											<h4><a href="/blog/<%= post.slug %>"><%= post.title %></a></h4>
@@ -69,22 +69,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="newsletter-area">
-		<div class="container">
-			<div class="row wow fadeInUp align-items-center">
-				<div class="col-lg-6">
-					<div class="newsletter-text mb-30">
-						<h4>Inscrivez-vous à la newsletter</h4>
-						<p>Recevez nos actualités et conseils digitaux, directement dans votre boîte mail.</p>
-					</div>
-				</div>
-				<div class="col-lg-6">
-					<form class="subscribe-form mb-30">
-						<input type="email" placeholder="Votre email...">
-						<button type="submit"><i class="fas fa-paper-plane"></i>S'inscrire</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+	<%- include('../partials/newsletter') %>
 </main>

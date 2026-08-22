@@ -1,0 +1,35 @@
+<%- include('../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Emails</p>
+		<h1>Modèles d’emails</h1>
+		<p>Aperçu des trois modèles envoyés par le site, avec l’identité Kolokolo.</p>
+	</div>
+</div>
+<div class="module-grid">
+	<a class="module-card" href="/admin/emails/contact" target="_blank" rel="noopener">
+		<div class="module-card-top">
+			<span class="stat-icon"><i class="fas fa-envelope"></i></span>
+		</div>
+		<h3>Contact</h3>
+		<p>Notification interne quand un visiteur envoie le formulaire de contact.</p>
+		<small>Ouvrir le modèle</small>
+	</a>
+	<a class="module-card" href="/admin/emails/devis" target="_blank" rel="noopener">
+		<div class="module-card-top">
+			<span class="stat-icon"><i class="fas fa-clipboard-list"></i></span>
+		</div>
+		<h3>Devis</h3>
+		<p>Notification interne pour une nouvelle demande de devis.</p>
+		<small>Ouvrir le modèle</small>
+	</a>
+	<a class="module-card" href="/admin/emails/newsletter" target="_blank" rel="noopener">
+		<div class="module-card-top">
+			<span class="stat-icon"><i class="fas fa-paper-plane"></i></span>
+		</div>
+		<h3>Newsletter</h3>
+		<p>Email envoyé aux inscrits, avec lien de désinscription.</p>
+		<small>Ouvrir le modèle</small>
+	</a>
+</div>
+<%- include('../partials/shell-end') %>

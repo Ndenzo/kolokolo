@@ -1,0 +1,25 @@
+<div class="newsletter-area">
+	<div class="container">
+		<div class="row wow fadeInUp align-items-center">
+			<div class="col-lg-6">
+				<div class="newsletter-text mb-30">
+					<h4>Inscrivez-vous à la newsletter</h4>
+					<p>Recevez nos actualités et conseils digitaux, directement dans votre boîte mail.</p>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<form class="subscribe-form mb-30" action="/newsletter" method="post" data-newsletter-form novalidate>
+					<input type="text" name="website" tabindex="-1" autocomplete="off" class="quote-hp" aria-hidden="true">
+					<label class="sr-only" for="newsletter-email">Votre email</label>
+					<input id="newsletter-email" type="email" name="email" required maxlength="180" autocomplete="email" placeholder="Votre email...">
+					<button type="submit">
+						<span class="newsletter-btn-idle"><i class="fas fa-paper-plane"></i>S'inscrire</span>
+						<span class="newsletter-btn-busy" hidden>Inscription…</span>
+					</button>
+					<p class="subscribe-form-error" data-newsletter-error hidden></p>
+					<p class="subscribe-form-ok" data-newsletter-success hidden>Merci, vous êtes bien inscrit.</p>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

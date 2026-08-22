@@ -7,6 +7,7 @@ const { port } = require('./config');
 const { sessionMiddleware } = require('./middleware/session');
 const { flash, loadSettings } = require('./middleware/locals');
 const { quoteServices, quoteBudgets, quoteTimelines, contactSubjects } = require('./data/services');
+const { campaignStatusLabels, subscriberStatusLabels } = require('./data/newsletter');
 const helpers = require('./lib/helpers');
 const publicRoutes = require('./routes/public');
 const authRoutes = require('./routes/auth');
@@ -23,6 +24,8 @@ async function start() {
 	app.locals.quoteBudgets = quoteBudgets;
 	app.locals.quoteTimelines = quoteTimelines;
 	app.locals.contactSubjects = contactSubjects;
+	app.locals.campaignStatusLabels = campaignStatusLabels;
+	app.locals.subscriberStatusLabels = subscriberStatusLabels;
 
 	app.use(express.urlencoded({ extended: true, limit: '5mb' }));
 	app.use(express.json({ limit: '5mb' }));

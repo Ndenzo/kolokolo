@@ -1,0 +1,100 @@
+<%- include('../partials/shell-start') %>
+<%
+	const labels = typeof campaignStatusLabels !== 'undefined' ? campaignStatusLabels : {};
+	const total = campaigns.length;
+%>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Newsletter</p>
+		<h1>Campagnes</h1>
+		<p>Rédigez un email, puis envoyez-le à toutes les personnes inscrites depuis le site.</p>
+	</div>
+	<div class="header-actions">
+		<a class="btn btn-ghost" href="/admin/newsletter/abonnes"><i class="fas fa-users"></i> Abonnés</a>
+		<a class="btn btn-primary" href="/admin/newsletter/new"><i class="fas fa-plus"></i> Nouvelle newsletter</a>
+	</div>
+</div>
+<% if (!smtpConfigured) { %>
+	<p class="smtp-note">SMTP n’est pas configuré : les inscriptions sont enregistrées, mais l’envoi des campagnes restera bloqué tant que <code>SMTP_HOST</code> n’est pas renseigné.</p>
+<% } %>
+<div class="stat-grid">
+	<div class="stat-card">
+		<div class="stat-icon"><i class="fas fa-paper-plane"></i></div>
+		<div><span>Campagnes</span><strong><%= stats.campaigns %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-green"><i class="fas fa-user-check"></i></div>
+		<div><span>Inscrits</span><strong><%= stats.active %></strong></div>
+	</div>
+	<div class="stat-card">
+		<div class="stat-icon is-ink"><i class="fas fa-users"></i></div>
+		<div><span>Total abonnés</span><strong><%= stats.subscribers %></strong></div>
+	</div>
+</div>
+<div class="panel" data-table data-sort-index="2" data-sort-dir="desc">
+	<% if (!total) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-paper-plane"></i></div>
+			<h3>Aucune newsletter</h3>
+			<p>Créez le premier email à envoyer aux inscrits.</p>
+		</div>
+	<% } else { %>
+		<div class="table-toolbar">
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-sort>Sujet</th>
+						<th data-sort>Statut</th>
+						<th data-sort data-sort-dir="desc">Date</th>
+						<th data-sort>Envois</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% campaigns.forEach((item) => { %>
+						<tr data-search="<%= item.subject %> <%= labels[item.status] || item.status %>">
+							<td><strong><%= item.subject %></strong></td>
+							<td data-sort-value="<%= item.status %>">
+								<span class="badge badge-status badge-<%= item.status %>"><%= labels[item.status] || item.status %></span>
+							</td>
+							<td data-sort-value="<%= item.created_at ? new Date(item.created_at).toISOString() : '' %>"><%= helpers.formatDateTime(item.created_at) %></td>
+							<td data-sort-value="<%= item.sent_count || 0 %>"><%= item.status === 'brouillon' ? '—' : `${item.sent_count || 0} / ${item.recipient_count || 0}` %></td>
+							<td>
+								<div class="row-actions">
+									<a class="btn-icon" href="/admin/newsletter/<%= item.id %>" title="Consulter"><i class="fas fa-eye"></i></a>
+									<% if (item.status === 'brouillon') { %>
+										<a class="btn-icon" href="/admin/newsletter/<%= item.id %>/edit" title="Modifier"><i class="fas fa-pen"></i></a>
+									<% } %>
+									<form action="/admin/newsletter/<%= item.id %>/delete" method="post" data-confirm>
+										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+									</form>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+		<div class="table-empty" data-table-empty>Aucun résultat pour cette recherche.</div>
+		<div class="table-footer">
+			<label class="table-pagesize">
+				Afficher
+				<select data-page-size>
+					<option value="10" selected>10</option>
+					<option value="25">25</option>
+					<option value="50">50</option>
+				</select>
+				lignes
+			</label>
+			<div class="pager" data-pager></div>
+		</div>
+	<% } %>
+</div>
+<%- include('../partials/shell-end') %>

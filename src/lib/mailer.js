@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
-const { smtp, defaultSettings } = require('../config');
+const { smtp, defaultSettings, siteUrl } = require('../config');
+const { renderNotificationMail, renderNewsletterMail } = require('./emails');
 
 function isConfigured() {
 	return Boolean(smtp.host);
@@ -24,12 +25,10 @@ function createTransport() {
 	return nodemailer.createTransport(options);
 }
 
-function escapeHtml(value) {
-	return String(value || '')
-		.replace(/&/g, '&amp;')
-		.replace(/</g, '&lt;')
-		.replace(/>/g, '&gt;')
-		.replace(/"/g, '&quot;');
+function mailOptions(second) {
+	if (!second) return {};
+	if (typeof second === 'string') return { fallbackTo: second };
+	return second;
 }
 
 function quoteRows(request) {
@@ -46,34 +45,63 @@ function quoteRows(request) {
 	];
 }
 
-function brandedRows(rows) {
-	return rows
-		.map(([label, value]) => `
-			<tr>
-				<td style="padding:10px 12px;border-bottom:1px solid #eceef5;color:#6b7289;width:140px;vertical-align:top;">${escapeHtml(label)}</td>
-				<td style="padding:10px 12px;border-bottom:1px solid #eceef5;color:#0c0b22;white-space:pre-wrap;">${escapeHtml(value)}</td>
-			</tr>`)
-		.join('');
-}
-
-function brandedHtml(title, rows) {
-	return `
-		<div style="font-family:Roboto,Arial,sans-serif;background:#f3f4f9;padding:24px;">
-			<div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:18px;overflow:hidden;box-shadow:0 18px 50px rgba(12,11,34,.08);">
-				<div style="background:#0c0b22;color:#fff;padding:22px 28px;">
-					<p style="margin:0 0 6px;letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:#F5A623;">Kolokolo</p>
-					<h1 style="margin:0;font-size:22px;">${escapeHtml(title)}</h1>
-				</div>
-				<table style="width:100%;border-collapse:collapse;">${brandedRows(rows)}</table>
-			</div>
-		</div>`;
+function contactRows(message) {
+	return [
+		['Nom', `${message.firstname} ${message.lastname}`],
+		['Email', message.email],
+		['Téléphone', message.phone || '—'],
+		['Sujet', message.subject || '—'],
+		['Message', message.message || '—'],
+	];
 }
 
 function brandedText(rows) {
 	return rows.map(([label, value]) => `${label} : ${value}`).join('\n');
 }
 
-async function sendBrandedMail({ title, subject, rows, replyTo, fallbackTo }) {
+function newsletterText(bodyHtml, unsubscribeUrl) {
+	const text = String(bodyHtml || '')
+		.replace(/<br\s*\/?>/gi, '\n')
+		.replace(/<\/p>/gi, '\n\n')
+		.replace(/<[^>]+>/g, ' ')
+		.replace(/\s+\n/g, '\n')
+		.replace(/\n{3,}/g, '\n\n')
+		.replace(/[ \t]+/g, ' ')
+		.trim();
+	return `${text}\n\nSe désinscrire : ${unsubscribeUrl}`;
+}
+
+async function contactHtml(message, settings) {
+	const name = `${message.firstname} ${message.lastname}`.trim();
+	return renderNotificationMail({
+		settings,
+		title: `Contact — ${name}`,
+		preheader: `Nouveau message de ${name}`,
+		greetingName: 'Kolokolo',
+		heading: 'Nouveau message de contact',
+		intro: 'Un visiteur a envoyé un message depuis le formulaire de contact.',
+		rows: contactRows(message),
+		ctaLabel: 'Voir le message',
+		ctaUrl: message.id ? `${siteUrl}/admin/contacts/${message.id}` : `${siteUrl}/admin/contacts`,
+	});
+}
+
+async function quoteHtml(request, settings) {
+	const name = `${request.firstname} ${request.lastname}`.trim();
+	return renderNotificationMail({
+		settings,
+		title: `Nouveau devis — ${name}`,
+		preheader: `Nouvelle demande de devis de ${name}`,
+		greetingName: 'Kolokolo',
+		heading: 'Nouvelle demande de devis',
+		intro: 'Un prospect a envoyé une demande de devis depuis le site.',
+		rows: quoteRows(request),
+		ctaLabel: 'Voir la demande',
+		ctaUrl: request.id ? `${siteUrl}/admin/quotes/${request.id}` : `${siteUrl}/admin/quotes`,
+	});
+}
+
+async function sendBrandedMail({ title, subject, text, html, replyTo, fallbackTo }) {
 	const transport = createTransport();
 	if (!transport) {
 		console.warn(`SMTP non configuré : « ${title} » enregistré sans envoi d’email.`);
@@ -89,36 +117,65 @@ async function sendBrandedMail({ title, subject, rows, replyTo, fallbackTo }) {
 		to,
 		replyTo,
 		subject,
-		text: brandedText(rows),
-		html: brandedHtml(title, rows),
+		text,
+		html,
 	});
 	return true;
 }
 
-async function sendQuoteRequest(request, fallbackTo) {
+async function sendQuoteRequest(request, second) {
+	const { fallbackTo, settings } = mailOptions(second);
 	return sendBrandedMail({
 		title: 'Nouvelle demande de devis',
 		subject: `Nouveau devis — ${request.firstname} ${request.lastname}`,
 		replyTo: request.email,
 		fallbackTo,
-		rows: quoteRows(request),
+		text: brandedText(quoteRows(request)),
+		html: await quoteHtml(request, settings),
 	});
 }
 
-async function sendContactMessage(message, fallbackTo) {
+async function sendContactMessage(message, second) {
+	const { fallbackTo, settings } = mailOptions(second);
 	return sendBrandedMail({
 		title: 'Nouveau message de contact',
 		subject: `Contact — ${message.firstname} ${message.lastname}${message.subject ? ` (${message.subject})` : ''}`,
 		replyTo: message.email,
 		fallbackTo,
-		rows: [
-			['Nom', `${message.firstname} ${message.lastname}`],
-			['Email', message.email],
-			['Téléphone', message.phone || '—'],
-			['Sujet', message.subject || '—'],
-			['Message', message.message || '—'],
-		],
+		text: brandedText(contactRows(message)),
+		html: await contactHtml(message, settings),
 	});
 }
 
-module.exports = { isConfigured, sendQuoteRequest, sendContactMessage };
+async function sendNewsletter({ to, subject, bodyHtml, unsubscribeUrl, settings }) {
+	const transport = createTransport();
+	if (!transport) return false;
+	const html = await renderNewsletterMail({
+		settings,
+		subject,
+		title: subject,
+		preheader: subject,
+		bodyHtml,
+		unsubscribeUrl,
+	});
+	await transport.sendMail({
+		from: fromAddress(),
+		to,
+		subject,
+		text: newsletterText(bodyHtml, unsubscribeUrl),
+		html,
+		headers: {
+			'List-Unsubscribe': `<${unsubscribeUrl}>`,
+		},
+	});
+	return true;
+}
+
+module.exports = {
+	isConfigured,
+	sendQuoteRequest,
+	sendContactMessage,
+	sendNewsletter,
+	contactHtml,
+	quoteHtml,
+};
