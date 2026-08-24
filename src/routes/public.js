@@ -4,6 +4,7 @@ const helpers = require('../lib/helpers');
 const { sendQuoteRequest, sendContactMessage } = require('../lib/mailer');
 const { quoteBudgets, quoteTimelines, allowedServiceLabels, contactSubjects } = require('../data/services');
 const { conditionsGenerales, confidentialite } = require('../data/legal');
+const { matchQuery, filterItems, getSearchPages, getSearchServices } = require('../data/search');
 
 const router = Router();
 
@@ -40,7 +41,94 @@ async function activeProjects() {
 
 router.get('/', async (req, res) => {
 	const [homePosts, testimonials, projects] = await Promise.all([latestPosts(3), activeTestimonials(), activeProjects()]);
-	renderPage(res, 'home', 'Kolokolo - Agence Digitale à Dakar', { homePosts, testimonials, projects });
+	renderPage(res, 'home', res.locals.t('meta.homeTitle'), { homePosts, testimonials, projects });
+});
+
+router.get('/recherche', async (req, res) => {
+	const q = String(req.query.q || '').trim();
+	if (q.length < 2) return res.json({ ok: true, groups: [] });
+
+	const like = `%${q.replace(/[%_\\]/g, '\\$&')}%`;
+	try {
+		const [posts, projects, jobs] = await Promise.all([
+			db('blog_posts')
+				.where({ is_active: 1 })
+				.andWhere((builder) => {
+					builder
+						.whereRaw('LOWER(title) LIKE LOWER(?)', [like])
+						.orWhereRaw('LOWER(IFNULL(excerpt, "")) LIKE LOWER(?)', [like])
+						.orWhereRaw('LOWER(IFNULL(category, "")) LIKE LOWER(?)', [like]);
+				})
+				.orderBy('published_at', 'desc')
+				.limit(8),
+			db('portfolio_projects')
+				.where({ is_active: 1 })
+				.andWhere((builder) => {
+					builder
+						.whereRaw('LOWER(title) LIKE LOWER(?)', [like])
+						.orWhereRaw('LOWER(IFNULL(category, "")) LIKE LOWER(?)', [like]);
+				})
+				.orderByRaw('sort_order ASC, id ASC')
+				.limit(8),
+			db('job_offers')
+				.where({ is_active: 1 })
+				.andWhere((builder) => {
+					builder
+						.whereRaw('LOWER(title) LIKE LOWER(?)', [like])
+						.orWhereRaw('LOWER(IFNULL(location, "")) LIKE LOWER(?)', [like])
+						.orWhereRaw('LOWER(IFNULL(contract_type, "")) LIKE LOWER(?)', [like]);
+				})
+				.orderBy('created_at', 'desc')
+				.limit(6),
+		]);
+
+		const t = res.locals.t;
+		const groups = [
+			{ key: 'pages', label: t('search.pages'), items: filterItems(q, getSearchPages(t)) },
+			{ key: 'services', label: t('search.services'), items: filterItems(q, getSearchServices(t)) },
+			{
+				key: 'blog',
+				label: t('search.blog'),
+				items: posts
+					.filter((post) => matchQuery(q, post.title, post.excerpt, post.category))
+					.slice(0, 5)
+					.map((post) => ({
+						title: post.title,
+						url: `/blog/${post.slug}`,
+						excerpt: post.excerpt || post.category || '',
+					})),
+			},
+			{
+				key: 'portfolio',
+				label: t('search.portfolio'),
+				items: projects
+					.filter((project) => matchQuery(q, project.title, project.category))
+					.slice(0, 5)
+					.map((project) => ({
+						title: project.title,
+						url: project.link || '/#portfolio',
+						excerpt: project.category || t('search.project'),
+					})),
+			},
+			{
+				key: 'carriere',
+				label: t('search.career'),
+				items: jobs
+					.filter((job) => matchQuery(q, job.title, job.location, job.contract_type))
+					.slice(0, 5)
+					.map((job) => ({
+						title: job.title,
+						url: `/carriere/${job.slug}`,
+						excerpt: [job.contract_type, job.location].filter(Boolean).join(' · '),
+					})),
+			},
+		].filter((group) => group.items.length);
+
+		return res.json({ ok: true, groups });
+	} catch (err) {
+		console.error(err);
+		return res.status(500).json({ ok: false, groups: [], error: res.locals.t('errors.searchFail') });
+	}
 });
 
 router.get('/coming', (req, res) => {
@@ -48,12 +136,12 @@ router.get('/coming', (req, res) => {
 });
 
 router.get('/a-propos', (req, res) => {
-	renderPage(res, 'about', 'À propos - Kolokolo');
+	renderPage(res, 'about', res.locals.t('meta.aboutTitle'));
 });
 
 router.get('/services', async (req, res) => {
 	const testimonials = await activeTestimonials();
-	renderPage(res, 'services', 'Services - Kolokolo', { testimonials });
+	renderPage(res, 'services', res.locals.t('meta.servicesTitle'), { testimonials });
 });
 
 router.get('/blog', async (req, res) => {
@@ -71,13 +159,13 @@ router.get('/blog', async (req, res) => {
 	if (tag) query = query.andWhereRaw('LOWER(IFNULL(tags, "")) LIKE LOWER(?)', [`%${tag.replace(/[%_]/g, '\\$&')}%`]);
 	const posts = await query.orderBy('published_at', 'desc');
 	const sidebar = await sidebarData();
-	renderPage(res, 'blog', 'Blog - Kolokolo', { posts, sidebar, q, category, tag });
+	renderPage(res, 'blog', res.locals.t('meta.blogTitle'), { posts, sidebar, q, category, tag });
 });
 
 router.get('/blog/:slug', async (req, res) => {
 	const post = await db('blog_posts').where({ slug: req.params.slug, is_active: 1 }).first();
 	if (!post) {
-		return res.status(404).render('layout', { title: 'Page introuvable - Kolokolo', page: '404' });
+		return res.status(404).render('layout', { title: res.locals.t('meta.notFoundTitle'), page: '404' });
 	}
 	await db('blog_posts').where({ id: post.id }).increment('views', 1);
 	post.views += 1;
@@ -97,13 +185,13 @@ router.get('/blog/:slug', async (req, res) => {
 
 router.get('/carriere', async (req, res) => {
 	const jobs = await db('job_offers').where({ is_active: 1 }).orderBy('created_at', 'desc');
-	renderPage(res, 'career', 'Carrière - Kolokolo', { jobs });
+	renderPage(res, 'career', res.locals.t('meta.careerTitle'), { jobs });
 });
 
 router.get('/carriere/:slug', async (req, res) => {
 	const job = await db('job_offers').where({ slug: req.params.slug, is_active: 1 }).first();
 	if (!job) {
-		return res.status(404).render('layout', { title: 'Page introuvable - Kolokolo', page: '404' });
+		return res.status(404).render('layout', { title: res.locals.t('meta.notFoundTitle'), page: '404' });
 	}
 	renderPage(res, 'career-details', `${job.title} - Kolokolo`, { job });
 });
@@ -114,18 +202,18 @@ router.post('/carriere', (req, res) => {
 
 router.get('/contact', (req, res) => {
 	const selectedSubject = String(req.query.sujet || '').trim();
-	renderPage(res, 'contact', 'Contact - Kolokolo', { selectedSubject });
+	renderPage(res, 'contact', res.locals.t('meta.contactTitle'), { selectedSubject });
 });
 
 router.get('/conditions-generales', (req, res) => {
-	renderPage(res, 'legal', 'Conditions générales - Kolokolo', {
-		doc: conditionsGenerales(res.locals.settings),
+	renderPage(res, 'legal', res.locals.t('meta.termsTitle'), {
+		doc: conditionsGenerales(res.locals.settings, res.locals.lang),
 	});
 });
 
 router.get('/confidentialite', (req, res) => {
-	renderPage(res, 'legal', 'Confidentialité - Kolokolo', {
-		doc: confidentialite(res.locals.settings),
+	renderPage(res, 'legal', res.locals.t('meta.privacyTitle'), {
+		doc: confidentialite(res.locals.settings, res.locals.lang),
 	});
 });
 
@@ -146,13 +234,13 @@ router.post('/contact', async (req, res) => {
 	const message = String(req.body.message || '').trim().slice(0, 4000);
 
 	if (!firstname || !lastname || !email || !subject || !message) {
-		return reply(400, { ok: false, error: 'Merci de renseigner les champs obligatoires.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.required') });
 	}
 	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-		return reply(400, { ok: false, error: 'L’adresse email n’est pas valide.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.email') });
 	}
 	if (subject && !contactSubjects.includes(subject)) {
-		return reply(400, { ok: false, error: 'Sujet invalide.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.subject') });
 	}
 
 	const payload = {
@@ -184,7 +272,7 @@ router.post('/contact', async (req, res) => {
 		return reply(200, { ok: true });
 	} catch (err) {
 		console.error(err);
-		return reply(500, { ok: false, error: 'Impossible d’envoyer le message pour le moment.' });
+		return reply(500, { ok: false, error: res.locals.t('errors.contactFail') });
 	}
 });
 
@@ -209,16 +297,16 @@ router.post('/devis', async (req, res) => {
 	const services = allowedServiceLabels(req.body.services);
 
 	if (!firstname || !lastname || !email || !phone || !message || !services.length) {
-		return reply(400, { ok: false, error: 'Merci de renseigner vos coordonnées, au moins un service et vos attentes.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.quoteRequired') });
 	}
 	if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-		return reply(400, { ok: false, error: 'L’adresse email n’est pas valide.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.email') });
 	}
 	if (budget && !quoteBudgets.includes(budget)) {
-		return reply(400, { ok: false, error: 'Budget invalide.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.budget') });
 	}
 	if (timeline && !quoteTimelines.includes(timeline)) {
-		return reply(400, { ok: false, error: 'Délai invalide.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.timeline') });
 	}
 
 	const payload = {
@@ -255,7 +343,7 @@ router.post('/devis', async (req, res) => {
 		return reply(200, { ok: true, emailSent });
 	} catch (err) {
 		console.error(err);
-		return reply(500, { ok: false, error: 'Impossible d’enregistrer la demande pour le moment.' });
+		return reply(500, { ok: false, error: res.locals.t('errors.quoteFail') });
 	}
 });
 
@@ -270,7 +358,7 @@ router.post('/newsletter', async (req, res) => {
 	}
 	const email = helpers.normalizeEmail(req.body.email).slice(0, 180);
 	if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-		return reply(400, { ok: false, error: 'Merci d’indiquer une adresse email valide.' });
+		return reply(400, { ok: false, error: res.locals.t('errors.newsletterEmail') });
 	}
 
 	const ip = String(req.headers['x-forwarded-for'] || req.ip || '').split(',')[0].trim().slice(0, 80) || null;
@@ -298,14 +386,14 @@ router.post('/newsletter', async (req, res) => {
 		return reply(200, { ok: true });
 	} catch (err) {
 		console.error(err);
-		return reply(500, { ok: false, error: 'Impossible de vous inscrire pour le moment.' });
+		return reply(500, { ok: false, error: res.locals.t('errors.newsletterFail') });
 	}
 });
 
 router.get('/newsletter/desinscription/:token', async (req, res) => {
 	const subscriber = await db('newsletter_subscribers').where({ unsubscribe_token: req.params.token }).first();
 	if (!subscriber) {
-		return res.status(404).render('layout', { title: 'Page introuvable - Kolokolo', page: '404' });
+		return res.status(404).render('layout', { title: res.locals.t('meta.notFoundTitle'), page: '404' });
 	}
 	if (subscriber.status !== 'desinscrit') {
 		await db('newsletter_subscribers').where({ id: subscriber.id }).update({
@@ -314,7 +402,7 @@ router.get('/newsletter/desinscription/:token', async (req, res) => {
 			updated_at: db.fn.now(),
 		});
 	}
-	renderPage(res, 'newsletter-unsub', 'Désinscription newsletter - Kolokolo');
+	renderPage(res, 'newsletter-unsub', res.locals.t('meta.unsubTitle'));
 });
 
 module.exports = router;

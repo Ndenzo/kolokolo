@@ -1,0 +1,62 @@
+<%- include('../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Logos clients</p>
+		<h1><%= item.id ? 'Modifier le logo client' : 'Nouveau logo client' %></h1>
+		<p>La version couleur s’affiche sur fond clair. La version monochrome (blanche) sert aux fonds sombres et au survol du bandeau.</p>
+	</div>
+</div>
+<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate>
+	<div class="panel form-stack">
+		<div class="field" data-field>
+			<label class="admin-label" for="name">Nom du client <abbr class="req" title="Obligatoire">*</abbr></label>
+			<input class="admin-input" id="name" name="name" value="<%= item.name %>" required data-validate="required">
+			<p class="field-error" data-error></p>
+		</div>
+		<div class="field" data-field>
+			<label class="admin-label" for="url">Site web (optionnel)</label>
+			<input class="admin-input" id="url" type="url" name="url" placeholder="https://..." value="<%= item.url || '' %>" data-validate="url">
+			<p class="field-error" data-error></p>
+		</div>
+		<div class="field" data-field>
+			<label class="admin-label" for="sort_order">Ordre d’affichage</label>
+			<input class="admin-input" id="sort_order" type="number" name="sort_order" value="<%= item.sort_order || 0 %>">
+			<p class="field-error" data-error></p>
+		</div>
+		<label class="switch">
+			<input type="checkbox" name="is_active" value="1" data-switch <%= helpers.isActive(item.is_active) ? 'checked' : '' %>>
+			<span class="switch-track"><span class="switch-thumb"></span></span>
+			<span>Visible sur le site</span>
+			<span class="switch-state" data-switch-state></span>
+		</label>
+	</div>
+	<div class="form-stack">
+		<div class="panel">
+			<label class="admin-label">Version couleur <abbr class="req" title="Obligatoire">*</abbr></label>
+			<p class="hint">Logo officiel, pour les fonds clairs.</p>
+			<div class="dropzone" data-dropzone>
+				<input type="hidden" name="logo_color" value="<%= item.logo_color || '' %>">
+				<input type="file" accept="image/*">
+				<div data-preview></div>
+				<div data-hint class="hint"><strong>Glissez le logo couleur</strong><br>ou cliquez pour parcourir</div>
+				<button class="remove" type="button" data-remove hidden>Retirer</button>
+			</div>
+		</div>
+		<div class="panel">
+			<label class="admin-label">Version monochrome <abbr class="req" title="Obligatoire">*</abbr></label>
+			<p class="hint">Logo blanc, pour les fonds sombres.</p>
+			<div class="dropzone is-dark" data-dropzone>
+				<input type="hidden" name="logo_mono" value="<%= item.logo_mono || '' %>">
+				<input type="file" accept="image/*">
+				<div data-preview></div>
+				<div data-hint class="hint"><strong>Glissez le logo blanc</strong><br>ou cliquez pour parcourir</div>
+				<button class="remove" type="button" data-remove hidden>Retirer</button>
+			</div>
+		</div>
+		<div class="form-actions">
+			<a class="btn btn-ghost" href="/admin/clients">Annuler</a>
+			<button class="btn btn-primary js-submit" type="submit">Enregistrer</button>
+		</div>
+	</div>
+</form>
+<%- include('../partials/shell-end') %>

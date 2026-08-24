@@ -5,12 +5,12 @@
 				<div class="col-lg-12">
 					<div class="page-title-content text-center">
 						<div class="page-title-heading">
-							<h1>Blog</h1>
+							<h1><%= t('blog.heading') %></h1>
 						</div>
 						<nav class="grb-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Blog</li>
+								<li class="breadcrumb-item"><a href="/"><%= t('nav.home') %></a></li>
+								<li class="breadcrumb-item active" aria-current="page"><%= t('blog.heading') %></li>
 							</ol>
 						</nav>
 					</div>
@@ -25,8 +25,8 @@
 					<div class="blog-main">
 						<% if (!posts.length) { %>
 							<div class="blog-empty">
-								<h3>Aucun article pour le moment</h3>
-								<p>Revenez bientôt, nos contenus seront publiés ici dès qu’ils seront actifs.</p>
+								<h3><%= t('blog.emptyTitle') %></h3>
+								<p><%= t('blog.emptyText') %></p>
 							</div>
 						<% } %>
 						<% posts.forEach((post) => { %>
@@ -39,7 +39,7 @@
 										<div class="blog-date bms-date">
 											<i class="fal fa-calendar-alt"></i>
 											<span><%= helpers.formatDay(post.published_at) %></span>
-											<p><%= helpers.formatMonthYear(post.published_at) %></p>
+											<p><%= helpers.formatMonthYear(post.published_at, lang) %></p>
 										</div>
 										<div class="bms-title">
 											<ul class="project-like-view bms-lv">
@@ -47,14 +47,14 @@
 													<li><a href="/blog?category=<%= encodeURIComponent(post.category) %>"><i class="fas fa-folder-open"></i><%= post.category %></a></li>
 												<% } %>
 												<li><a href="/contact"><i class="fas fa-map-marker-alt"></i><%= settings.place.address %>, <%= settings.place.regionCountry %></a></li>
-												<li><i class="fas fa-eye"></i><%= post.views %> vues</li>
+												<li><i class="fas fa-eye"></i><%= t('blog.views', { count: post.views }) %></li>
 											</ul>
 											<h4><a href="/blog/<%= post.slug %>"><%= post.title %></a></h4>
 										</div>
 									</div>
 									<p><%= post.excerpt %></p>
 									<div class="bms-btn mt-45">
-										<a href="/blog/<%= post.slug %>" class="grb-border-btn st-1">Lire plus</a>
+										<a href="/blog/<%= post.slug %>" class="grb-border-btn st-1"><%= t('home.readMore') %></a>
 									</div>
 								</div>
 							</div>

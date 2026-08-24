@@ -5,12 +5,12 @@
 				<div class="col-lg-12">
 					<div class="page-title-content text-center">
 						<div class="page-title-heading">
-							<h1>Carrière</h1>
+							<h1><%= t('career.heading') %></h1>
 						</div>
 						<nav class="grb-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
-								<li class="breadcrumb-item"><a href="/carriere">Carrière</a></li>
+								<li class="breadcrumb-item"><a href="/"><%= t('nav.home') %></a></li>
+								<li class="breadcrumb-item"><a href="/carriere"><%= t('career.heading') %></a></li>
 								<li class="breadcrumb-item active" aria-current="page"><%= job.title %></li>
 							</ol>
 						</nav>
@@ -28,18 +28,18 @@
 						<div class="job-offer-meta">
 							<% if (job.contract_type) { %><span><i class="fas fa-briefcase"></i><%= job.contract_type %></span><% } %>
 							<% if (job.location) { %><span><i class="fas fa-map-marker-alt"></i><%= job.location %></span><% } %>
-							<span><i class="fas fa-calendar-alt"></i><%= helpers.formatLongDate(job.created_at) %></span>
+							<span><i class="fas fa-calendar-alt"></i><%= helpers.formatLongDate(job.created_at, lang) %></span>
 						</div>
 						<div class="bm-rich"><%- job.description_html || '' %></div>
 						<div class="mt-40">
-							<a href="/contact?sujet=Recrutement" class="grb-btn">Postuler</a>
+							<a href="/contact?sujet=Recrutement" class="grb-btn"><%= t('career.apply') %></a>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="contact-address">
 						<div class="contact-heading">
-							<h4>Candidature</h4>
+							<h4><%= t('career.application') %></h4>
 						</div>
 						<ul class="contact-address-list">
 							<li>
@@ -57,7 +57,7 @@
 								</div>
 								<div class="contact-list-text">
 									<span><a href="mailto:<%= settings.email %>"><%= settings.email %></a></span>
-									<span>Réponse sous 24 heures</span>
+									<span><%= t('contact.reply') %></span>
 								</div>
 							</li>
 							<li>

@@ -1,0 +1,30 @@
+<%
+	const logos = typeof clientLogos !== 'undefined' ? clientLogos : [];
+	const areaClass = typeof extraClass !== 'undefined' ? extraClass : '';
+%>
+<% if (logos.length) { %>
+	<div class="brand-area pt-100 pb-100<%= areaClass ? ' ' + areaClass : '' %>">
+		<div class="container">
+			<div class="row wow fadeInUp">
+				<div class="col-12">
+					<div class="swiper-container brand-active">
+						<div class="swiper-wrapper">
+							<% logos.forEach((logo) => { %>
+								<div class="swiper-slide">
+									<div class="single-brand">
+										<a href="<%= logo.url || '#' %>"<% if (logo.url) { %> target="_blank" rel="noopener noreferrer"<% } %>>
+											<img src="<%= logo.logo_color %>" alt="<%= logo.name %>">
+										</a>
+										<a href="<%= logo.url || '#' %>"<% if (logo.url) { %> target="_blank" rel="noopener noreferrer"<% } %>>
+											<img src="<%= logo.logo_mono || logo.logo_color %>" alt="<%= logo.name %>">
+										</a>
+									</div>
+								</div>
+							<% }) %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<% } %>

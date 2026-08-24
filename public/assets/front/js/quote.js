@@ -14,8 +14,8 @@
 			if ($el.hasClass('select2-hidden-accessible')) return;
 			$el.select2({
 				width: '100%',
-				language: 'fr',
-				placeholder: 'Choisir',
+				language: document.documentElement.lang === 'en' ? 'en' : 'fr',
+				placeholder: (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.choose) || 'Choisir',
 				allowClear: true,
 				dropdownParent: jQuery('#quote-modal'),
 			});
@@ -72,7 +72,7 @@
 		const selected = Array.from(form.querySelectorAll('input[name="services"]:checked'));
 		if (!form.reportValidity()) return;
 		if (!selected.length) {
-			errorBox.textContent = 'Sélectionnez au moins un service.';
+			errorBox.textContent = (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.quoteService) || 'Sélectionnez au moins un service.';
 			errorBox.hidden = false;
 			return;
 		}
@@ -93,7 +93,7 @@
 			});
 			const json = await res.json().catch(() => ({}));
 			if (!res.ok || !json.ok) {
-				errorBox.textContent = json.error || 'Impossible d’envoyer la demande.';
+				errorBox.textContent = json.error || (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.quoteSendError) || 'Impossible d’envoyer la demande.';
 				errorBox.hidden = false;
 				return;
 			}
@@ -103,7 +103,7 @@
 			form.hidden = true;
 			successBox.hidden = false;
 		} catch (_err) {
-			errorBox.textContent = 'Impossible d’envoyer la demande pour le moment.';
+			errorBox.textContent = (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.quoteSendFail) || 'Impossible d’envoyer la demande pour le moment.';
 			errorBox.hidden = false;
 		} finally {
 			submitBtn.disabled = false;

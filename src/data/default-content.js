@@ -148,4 +148,47 @@ const defaultProjects = [
 	},
 ];
 
-module.exports = { defaultPosts, defaultTestimonials, defaultProjects };
+const defaultClientLogos = [
+	{
+		name: 'Client 1',
+		url: '',
+		logo_color: '/assets/front/img/brand/brand1.png',
+		logo_mono: '/assets/front/img/brand/brand1-wc.png',
+		sort_order: 1,
+		is_active: 1,
+	},
+	{
+		name: 'Client 2',
+		url: '',
+		logo_color: '/assets/front/img/brand/brand2.png',
+		logo_mono: '/assets/front/img/brand/brand2-wc.png',
+		sort_order: 2,
+		is_active: 1,
+	},
+	{
+		name: 'Client 3',
+		url: '',
+		logo_color: '/assets/front/img/brand/brand3.png',
+		logo_mono: '/assets/front/img/brand/brand3-wc.png',
+		sort_order: 3,
+		is_active: 1,
+	},
+	{
+		name: 'Client 4',
+		url: '',
+		logo_color: '/assets/front/img/brand/brand4.png',
+		logo_mono: '/assets/front/img/brand/brand4-wc.png',
+		sort_order: 4,
+		is_active: 1,
+	},
+	{
+		name: 'Client 5',
+		url: '',
+		logo_color: '/assets/front/img/brand/brand5.png',
+		logo_mono: '/assets/front/img/brand/brand5-wc.png',
+		sort_order: 5,
+		is_active: 1,
+	},
+];
+
+module.exports = { defaultPosts, defaultTestimonials, defaultProjects, defaultClientLogos };

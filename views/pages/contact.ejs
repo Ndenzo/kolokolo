@@ -6,12 +6,12 @@
 				<div class="col-lg-12">
 					<div class="page-title-content text-center">
 						<div class="page-title-heading">
-							<h1>Contact</h1>
+							<h1><%= t('contact.heading') %></h1>
 						</div>
 						<nav class="grb-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Contact</li>
+								<li class="breadcrumb-item"><a href="/"><%= t('nav.home') %></a></li>
+								<li class="breadcrumb-item active" aria-current="page"><%= t('contact.heading') %></li>
 							</ol>
 						</nav>
 					</div>
@@ -27,9 +27,9 @@
 				<div class="col-lg-4">
 					<div class="contact-address">
 						<div class="contact-heading">
-							<p class="quote-kicker">Coordonnées</p>
-							<h4>Nous contacter</h4>
-							<p class="contact-lead">Une équipe à Dakar, disponible pour vos projets digitaux.</p>
+							<p class="quote-kicker"><%= t('contact.coords') %></p>
+							<h4><%= t('contact.reach') %></h4>
+							<p class="contact-lead"><%= t('contact.lead') %></p>
 						</div>
 						<ul class="contact-address-list">
 							<li>
@@ -47,7 +47,7 @@
 								</div>
 								<div class="contact-list-text">
 									<span><a href="mailto:<%= settings.email %>"><%= settings.email %></a></span>
-									<span>Réponse sous 24 heures</span>
+									<span><%= t('contact.reply') %></span>
 								</div>
 							</li>
 							<li>
@@ -65,55 +65,55 @@
 				<div class="col-lg-8">
 					<div class="get-in-touch">
 						<div class="contact-heading">
-							<p class="quote-kicker">Écrivez-nous</p>
-							<h4>Envoyez-nous un message</h4>
-							<p class="contact-lead">Une question, un projet ou un partenariat : dites-nous comment nous pouvons vous aider.</p>
+							<p class="quote-kicker"><%= t('contact.write') %></p>
+							<h4><%= t('contact.sendTitle') %></h4>
+							<p class="contact-lead"><%= t('contact.sendLead') %></p>
 						</div>
 						<form class="cms-form" id="contact-form" action="/contact" method="post" novalidate>
 							<input type="text" name="website" tabindex="-1" autocomplete="off" class="quote-hp" aria-hidden="true">
 							<div class="cms-form-grid">
 								<label>
-									<span>Prénom <abbr class="req" title="Obligatoire">*</abbr></span>
+									<span><%= t('contact.firstName') %> <abbr class="req" title="<%= t('contact.required') %>">*</abbr></span>
 									<input type="text" name="firstname" required maxlength="120" autocomplete="given-name" placeholder="Aminata">
 								</label>
 								<label>
-									<span>Nom <abbr class="req" title="Obligatoire">*</abbr></span>
+									<span><%= t('contact.lastName') %> <abbr class="req" title="<%= t('contact.required') %>">*</abbr></span>
 									<input type="text" name="lastname" required maxlength="120" autocomplete="family-name" placeholder="Sow">
 								</label>
 								<label>
-									<span>Email <abbr class="req" title="Obligatoire">*</abbr></span>
+									<span><%= t('contact.email') %> <abbr class="req" title="<%= t('contact.required') %>">*</abbr></span>
 									<input type="email" name="email" required maxlength="180" autocomplete="email" placeholder="vous@entreprise.sn">
 								</label>
 								<label>
-									<span>Téléphone</span>
+									<span><%= t('contact.phone') %></span>
 									<input type="tel" name="phone" maxlength="80" autocomplete="tel" placeholder="+221 77 000 00 00">
 								</label>
 								<label class="cms-form-full">
-									<span>Sujet <abbr class="req" title="Obligatoire">*</abbr></span>
-									<select name="subject" required data-placeholder="Choisir un sujet">
-										<option value="">Choisir un sujet</option>
+									<span><%= t('contact.subject') %> <abbr class="req" title="<%= t('contact.required') %>">*</abbr></span>
+									<select name="subject" required data-placeholder="<%= t('contact.chooseSubject') %>">
+										<option value=""><%= t('contact.chooseSubject') %></option>
 										<% (typeof contactSubjects !== 'undefined' ? contactSubjects : []).forEach((item) => { %>
-											<option value="<%= item %>" <%= typeof selectedSubject !== 'undefined' && selectedSubject === item ? 'selected' : '' %>><%= item %></option>
+											<option value="<%= item %>" <%= typeof selectedSubject !== 'undefined' && selectedSubject === item ? 'selected' : '' %>><%= t('contact.subjects', item) %></option>
 										<% }) %>
 									</select>
 								</label>
 								<label class="cms-form-full">
-									<span>Votre message <abbr class="req" title="Obligatoire">*</abbr></span>
-									<textarea name="message" rows="6" required maxlength="4000" placeholder="Comment pouvons-nous vous aider ?"></textarea>
+									<span><%= t('contact.message') %> <abbr class="req" title="<%= t('contact.required') %>">*</abbr></span>
+									<textarea name="message" rows="6" required maxlength="4000" placeholder="<%= t('contact.messagePh') %>"></textarea>
 								</label>
 							</div>
 							<p class="quote-form-error" data-contact-error hidden></p>
 							<div class="quote-actions">
 								<button class="quote-btn quote-btn-primary" type="submit">
-									<span class="quote-btn-idle"><i class="fas fa-paper-plane"></i> Envoyer le message</span>
-									<span class="quote-btn-busy" hidden><i class="fas fa-spinner fa-spin"></i> Envoi…</span>
+									<span class="quote-btn-idle"><i class="fas fa-paper-plane"></i> <%= t('contact.send') %></span>
+									<span class="quote-btn-busy" hidden><i class="fas fa-spinner fa-spin"></i> <%= t('contact.sending') %></span>
 								</button>
 							</div>
 						</form>
 						<div class="quote-success" data-contact-success hidden>
 							<div class="quote-success-icon"><i class="fas fa-check"></i></div>
-							<h3>Message envoyé</h3>
-							<p>Merci. Nous vous répondons sous 24 heures.</p>
+							<h3><%= t('contact.sentTitle') %></h3>
+							<p><%= t('contact.sentText') %></p>
 						</div>
 					</div>
 				</div>
@@ -126,80 +126,7 @@
 		<iframe src="<%= settings.map_embed %>" allowfullscreen="" loading="lazy"></iframe>
 	</div>
 	<!-- map area end -->
-	<!-- brand area start  -->
-	<div class="brand-area pt-100 pb-100 grey-bg">
-		<div class="container">
-			<div class="row wow fadeInUp">
-				<div class="col-12">
-					<div class="swiper-container brand-active">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand1.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand1-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand2.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand2-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand3.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand3-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand4.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand4-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand5.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand5-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand1.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand1-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand2.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand2-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand3.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand3-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand4.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand4-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand5.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand5-wc.png" alt=""></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- brand area end -->
+	<%- include('../partials/client-logos-slider', { extraClass: 'grey-bg' }) %>
 	<!-- newsletter area start  -->
 	<%- include('../partials/newsletter') %>
 	<!-- newsletter area end -->

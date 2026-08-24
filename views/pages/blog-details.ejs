@@ -5,12 +5,12 @@
 				<div class="col-lg-12">
 					<div class="page-title-content text-center">
 						<div class="page-title-heading">
-							<h1>Blog</h1>
+							<h1><%= t('blog.heading') %></h1>
 						</div>
 						<nav class="grb-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
-								<li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+								<li class="breadcrumb-item"><a href="/"><%= t('nav.home') %></a></li>
+								<li class="breadcrumb-item"><a href="/blog"><%= t('blog.heading') %></a></li>
 								<li class="breadcrumb-item active" aria-current="page"><%= post.title %></li>
 							</ol>
 						</nav>
@@ -33,15 +33,15 @@
 									<div class="blog-date bms-date">
 										<i class="fal fa-calendar-alt"></i>
 										<span><%= helpers.formatDay(post.published_at) %></span>
-										<p><%= helpers.formatMonthYear(post.published_at) %></p>
+										<p><%= helpers.formatMonthYear(post.published_at, lang) %></p>
 									</div>
 									<div class="bms-title">
 										<ul class="project-like-view bms-lv bm-details">
-											<li><i class="fas fa-calendar-alt"></i><%= helpers.formatLongDate(post.published_at) %></li>
+											<li><i class="fas fa-calendar-alt"></i><%= helpers.formatLongDate(post.published_at, lang) %></li>
 											<% if (post.category) { %>
 												<li><i class="fas fa-folder-open"></i><%= post.category %></li>
 											<% } %>
-											<li><i class="fas fa-eye"></i><%= post.views %> vues</li>
+											<li><i class="fas fa-eye"></i><%= t('blog.views', { count: post.views }) %></li>
 										</ul>
 										<h4><%= post.title %></h4>
 									</div>
@@ -82,7 +82,7 @@
 								<div class="row">
 									<div class="col-md-6">
 										<div class="bms-tags">
-											<span>Tags :</span>
+											<span><%= t('blog.tagsLabel') %></span>
 											<% const tags = helpers.splitTags(post.tags); %>
 											<% if (!tags.length) { %>
 												—
@@ -95,7 +95,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="bms-share f-right">
-											<span><i class="fal fa-share-alt"></i>Partager :</span>
+											<span><i class="fal fa-share-alt"></i><%= t('blog.share') %></span>
 											<div class="grb__social bms-social">
 												<ul>
 													<%- include('../partials/social-items') %>
@@ -110,7 +110,7 @@
 										<div class="col-md-6">
 											<% if (previous) { %>
 												<div class="article-nav-content pr-100">
-													<span>Article précédent</span>
+													<span><%= t('blog.prev') %></span>
 													<h6><a href="/blog/<%= previous.slug %>"><%= previous.title %></a></h6>
 												</div>
 											<% } %>
@@ -118,7 +118,7 @@
 										<div class="col-md-6">
 											<% if (next) { %>
 												<div class="article-nav-content next-article pl-100">
-													<span>Article suivant</span>
+													<span><%= t('blog.next') %></span>
 													<h6><a href="/blog/<%= next.slug %>"><%= next.title %></a></h6>
 												</div>
 											<% } %>

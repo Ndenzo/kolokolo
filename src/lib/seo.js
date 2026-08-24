@@ -1,20 +1,17 @@
-const DEFAULT_DESCRIPTION =
-	'Kolokolo, agence digitale à Dakar : sites web, e-commerce, applications mobiles, publicité digitale, social media et SEO.';
-
 const DEFAULT_IMAGE = '/assets/custom/img/logo/logo.png';
 
-const PAGE_DESCRIPTIONS = {
-	home: 'Agence digitale à Dakar : sites web, applications mobiles, publicité digitale, social media et SEO. Kolokolo vous accompagne de l’idée à la mise en ligne.',
-	about: 'Kolokolo, agence digitale basée à Dakar. Découvrez notre approche, nos compétences et notre accompagnement digital.',
-	services: 'Sites web, applications mobiles, publicité digitale, social media, SEO et maintenance. Découvrez les services de Kolokolo à Dakar.',
-	blog: 'Actualités, conseils et ressources digitales par Kolokolo, agence basée à Dakar.',
-	contact: 'Contactez Kolokolo à Dakar pour un projet web, mobile ou de communication digitale.',
-	career: 'Rejoignez Kolokolo, agence digitale à Dakar. Consultez nos offres d’emploi.',
-	'career-details': 'Offre d’emploi chez Kolokolo, agence digitale à Dakar.',
-	'blog-details': 'Article publié par Kolokolo, agence digitale à Dakar.',
-	legal: 'Informations légales de Kolokolo, agence digitale basée à Dakar.',
-	'newsletter-unsub': 'Vous êtes désinscrit de la newsletter Kolokolo.',
-	404: 'La page demandée est introuvable.',
+const PAGE_DESC_KEYS = {
+	home: 'meta.homeDesc',
+	about: 'meta.aboutDesc',
+	services: 'meta.servicesDesc',
+	blog: 'meta.blogDesc',
+	contact: 'meta.contactDesc',
+	career: 'meta.careerDesc',
+	'career-details': 'meta.careerDetailsDesc',
+	'blog-details': 'meta.blogDetailsDesc',
+	legal: 'meta.legalDesc',
+	'newsletter-unsub': 'meta.unsubDesc',
+	404: 'meta.notFoundDesc',
 };
 
 function stripHtml(html) {
@@ -59,9 +56,11 @@ function buildHead({
 	doc,
 	description,
 	image,
+	t,
 } = {}) {
 	const key = page || 'home';
-	let desc = description || PAGE_DESCRIPTIONS[key] || DEFAULT_DESCRIPTION;
+	const translate = typeof t === 'function' ? t : (k) => k;
+	let desc = description || (PAGE_DESC_KEYS[key] ? translate(PAGE_DESC_KEYS[key]) : '') || translate('meta.defaultDesc');
 	let img = image || DEFAULT_IMAGE;
 	let ogType = 'website';
 	const robots = key === '404' || key === 'newsletter-unsub' ? 'noindex, nofollow' : 'index, follow';
@@ -72,7 +71,7 @@ function buildHead({
 		ogType = 'article';
 	}
 	if (key === 'career-details' && job) {
-		desc = stripHtml(job.description_html) || `${job.title} — offre d’emploi chez Kolokolo, Dakar.`;
+		desc = stripHtml(job.description_html) || `${job.title} — ${translate('meta.careerDetailsDesc')}`;
 	}
 	if (key === 'legal' && doc) {
 		desc = doc.intro || desc;
@@ -94,7 +93,7 @@ function buildHead({
 		image: imageUrl,
 		email: settings.email || 'contact@kolokolo.tech',
 		telephone: settings.phone || undefined,
-		description: DEFAULT_DESCRIPTION,
+		description: translate('meta.defaultDesc'),
 		address: {
 			'@type': 'PostalAddress',
 			streetAddress: place.address || settings.address || undefined,
@@ -133,4 +132,4 @@ function buildHead({
 	};
 }
 
-module.exports = { buildHead, DEFAULT_DESCRIPTION, DEFAULT_IMAGE };
+module.exports = { buildHead, DEFAULT_IMAGE };

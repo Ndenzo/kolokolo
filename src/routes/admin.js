@@ -32,7 +32,7 @@ const upload = multer({
 	storage,
 	limits: { fileSize: 5 * 1024 * 1024 },
 	fileFilter: (_req, file, cb) => {
-		if (!/^image\/(jpeg|png|webp|gif|avif)$/.test(file.mimetype)) {
+		if (!/^image\/(jpeg|png|webp|gif|avif|svg\+xml)$/.test(file.mimetype)) {
 			return cb(new Error('Format image non pris en charge.'));
 		}
 		return cb(null, true);
@@ -61,11 +61,12 @@ async function blogCategories() {
 router.use(requireAuth);
 
 router.get('/', async (_req, res) => {
-	const [posts, jobs, testimonials, projects, quotes, newQuotes, contacts, newContacts, subscribers, activeSubscribers, campaigns] = await Promise.all([
+	const [posts, jobs, testimonials, projects, clientLogos, quotes, newQuotes, contacts, newContacts, subscribers, activeSubscribers, campaigns] = await Promise.all([
 		db('blog_posts').count('id as count').first(),
 		db('job_offers').count('id as count').first(),
 		db('testimonials').count('id as count').first(),
 		db('portfolio_projects').count('id as count').first(),
+		db('client_logos').count('id as count').first(),
 		db('quote_requests').count('id as count').first(),
 		db('quote_requests').where({ status: 'nouveau' }).count('id as count').first(),
 		db('contact_messages').count('id as count').first(),
@@ -82,10 +83,12 @@ router.get('/', async (_req, res) => {
 			jobs: Number(jobs.count || 0),
 			testimonials: Number(testimonials.count || 0),
 			projects: Number(projects.count || 0),
+			clientLogos: Number(clientLogos.count || 0),
 			activePosts: Number((await db('blog_posts').where({ is_active: 1 }).count('id as count').first()).count || 0),
 			activeJobs: Number((await db('job_offers').where({ is_active: 1 }).count('id as count').first()).count || 0),
 			activeTestimonials: Number((await db('testimonials').where({ is_active: 1 }).count('id as count').first()).count || 0),
 			activeProjects: Number((await db('portfolio_projects').where({ is_active: 1 }).count('id as count').first()).count || 0),
+			activeClientLogos: Number((await db('client_logos').where({ is_active: 1 }).count('id as count').first()).count || 0),
 			quotes: Number(quotes.count || 0),
 			newQuotes: Number(newQuotes.count || 0),
 			contacts: Number(contacts.count || 0),
@@ -465,6 +468,98 @@ router.post('/testimonials/:id/toggle', async (req, res) => {
 		setFlash(req, 'success', active ? 'Témoignage désactivé.' : 'Témoignage activé.');
 	}
 	res.redirect('/admin/testimonials');
+});
+
+router.get('/clients', async (req, res) => {
+	const clients = await db('client_logos').orderByRaw('sort_order ASC, id ASC');
+	adminPage(res, 'admin/clients/index', {
+		title: 'Logos clients',
+		active: 'clients',
+		clients,
+	});
+});
+
+router.get('/clients/new', (req, res) => {
+	adminPage(res, 'admin/clients/form', {
+		title: 'Nouveau logo client',
+		active: 'clients',
+		item: {
+			name: '',
+			url: '',
+			logo_color: '',
+			logo_mono: '',
+			sort_order: 0,
+			is_active: 1,
+		},
+		action: '/admin/clients',
+	});
+});
+
+function clientLogoPayload(body) {
+	return {
+		name: String(body.name || '').trim(),
+		url: String(body.url || '').trim() || null,
+		logo_color: String(body.logo_color || '').trim() || null,
+		logo_mono: String(body.logo_mono || '').trim() || null,
+		sort_order: Number(body.sort_order || 0),
+		is_active: parseActive(body),
+		updated_at: db.fn.now(),
+	};
+}
+
+router.post('/clients', async (req, res) => {
+	const payload = clientLogoPayload(req.body);
+	if (!payload.name || !payload.logo_color || !payload.logo_mono) {
+		setFlash(req, 'error', 'Le nom et les deux versions du logo sont obligatoires.');
+		return res.redirect('/admin/clients/new');
+	}
+	payload.created_at = db.fn.now();
+	await db('client_logos').insert(payload);
+	setFlash(req, 'success', 'Logo client créé.');
+	res.redirect('/admin/clients');
+});
+
+router.get('/clients/:id/edit', async (req, res) => {
+	const item = await db('client_logos').where({ id: req.params.id }).first();
+	if (!item) return res.redirect('/admin/clients');
+	adminPage(res, 'admin/clients/form', {
+		title: 'Modifier le logo client',
+		active: 'clients',
+		item,
+		action: `/admin/clients/${item.id}`,
+	});
+});
+
+router.post('/clients/:id', async (req, res) => {
+	const item = await db('client_logos').where({ id: req.params.id }).first();
+	if (!item) return res.redirect('/admin/clients');
+	const payload = clientLogoPayload(req.body);
+	if (!payload.name || !payload.logo_color || !payload.logo_mono) {
+		setFlash(req, 'error', 'Le nom et les deux versions du logo sont obligatoires.');
+		return res.redirect(`/admin/clients/${item.id}/edit`);
+	}
+	await db('client_logos').where({ id: item.id }).update(payload);
+	setFlash(req, 'success', 'Logo client mis à jour.');
+	res.redirect('/admin/clients');
+});
+
+router.post('/clients/:id/delete', async (req, res) => {
+	await db('client_logos').where({ id: req.params.id }).del();
+	setFlash(req, 'success', 'Logo client supprimé.');
+	res.redirect('/admin/clients');
+});
+
+router.post('/clients/:id/toggle', async (req, res) => {
+	const item = await db('client_logos').where({ id: req.params.id }).first();
+	if (item) {
+		const active = isActive(item.is_active);
+		await db('client_logos').where({ id: item.id }).update({
+			is_active: active ? 0 : 1,
+			updated_at: db.fn.now(),
+		});
+		setFlash(req, 'success', active ? 'Logo client masqué.' : 'Logo client activé.');
+	}
+	res.redirect('/admin/clients');
 });
 
 async function projectCategories() {

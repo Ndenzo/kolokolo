@@ -1,7 +1,13 @@
 const crypto = require('node:crypto');
 
-const MONTHS_SHORT = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'];
-const MONTHS_LONG = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+const MONTHS_SHORT = {
+	fr: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sept', 'Oct', 'Nov', 'Déc'],
+	en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+};
+const MONTHS_LONG = {
+	fr: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
+	en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+};
 
 const { findCountry } = require('../data/countries');
 const { buildHead } = require('./seo');
@@ -40,20 +46,23 @@ function formatDay(value) {
 	return String(asDate(value).getDate()).padStart(2, '0');
 }
 
-function formatMonthYear(value) {
+function formatMonthYear(value, lang = 'fr') {
 	const date = asDate(value);
-	return `${MONTHS_SHORT[date.getMonth()]} ${date.getFullYear()}`;
+	const months = MONTHS_SHORT[lang] || MONTHS_SHORT.fr;
+	return `${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-function formatLongDate(value) {
+function formatLongDate(value, lang = 'fr') {
 	const date = asDate(value);
-	return `${date.getDate()} ${MONTHS_LONG[date.getMonth()]} ${date.getFullYear()}`;
+	const months = MONTHS_LONG[lang] || MONTHS_LONG.fr;
+	return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
 }
 
-function formatDateTime(value) {
+function formatDateTime(value, lang = 'fr') {
 	const date = asDate(value);
 	const pad = (n) => String(n).padStart(2, '0');
-	return `${formatLongDate(value)} à ${pad(date.getHours())}h${pad(date.getMinutes())}`;
+	const sep = lang === 'en' ? ' at ' : ' à ';
+	return `${formatLongDate(value, lang)}${sep}${pad(date.getHours())}h${pad(date.getMinutes())}`;
 }
 
 function telHref(phone) {

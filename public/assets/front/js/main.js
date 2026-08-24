@@ -42,7 +42,7 @@
 		closeSearch();
 	});
 
-	$(".search-trigger, .main-search-input").on("click", function (e) {
+	$(".search-trigger, .main-search-input, .search-suggest").on("click", function (e) {
 		e.stopPropagation();
 	});
 

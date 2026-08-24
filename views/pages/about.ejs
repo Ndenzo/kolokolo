@@ -5,12 +5,12 @@
 				<div class="col-lg-12">
 					<div class="page-title-content text-center">
 						<div class="page-title-heading">
-							<h1>À propos</h1>
+							<h1><%= t('about.heading') %></h1>
 						</div>
 						<nav class="grb-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
-								<li class="breadcrumb-item active" aria-current="page">À propos</li>
+								<li class="breadcrumb-item"><a href="/"><%= t('nav.home') %></a></li>
+								<li class="breadcrumb-item active" aria-current="page"><%= t('about.heading') %></li>
 							</ol>
 						</nav>
 					</div>
@@ -23,12 +23,12 @@
 			<div class="row wow fadeInUp align-items-center">
 				<div class="col-lg-6">
 					<div class="section-title mb-30">
-						<h2>Nous sommes une agence digitale basée à Dakar</h2>
+						<h2><%= t('about.title') %></h2>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="about-details-right mb-30">
-						<p>Kolokolo, autre nom de l'ibis rouge qui est notre emblème, arbore son joli plumage pour donner des couleurs à tous vos projets digitaux. Sites web, applications mobiles, publicité et social media : nos processus sont simples, pour que vos projets soient menés à bien dans les meilleurs délais.</p>
+						<p><%= t('about.lead') %></p>
 					</div>
 				</div>
 			</div>
@@ -36,26 +36,26 @@
 				<div class="row wow fadeInUp justify-content-end">
 					<div class="col-xl-6 col-md-10">
 						<div class="about-details-box-content">
-							<h5>Une équipe engagée pour concevoir, lancer et faire grandir vos produits digitaux.</h5>
-							<p>Les web apps et les applications mobiles n'ont plus de secrets pour nous. Nous accompagnons des entreprises sénégalaises et internationales, de l'idée jusqu'à la mise en ligne, avec un suivi continu.</p>
+							<h5><%= t('about.boxTitle') %></h5>
+							<p><%= t('about.boxText') %></p>
 							<ul class="about-points st-ab">
 								<li>
 									<div class="points-heading">
 										<div class="p-icon">
 											<i class="flaticon-team"></i>
 										</div>
-										<h5>Garantie Qualité</h5>
+										<h5><%= t('home.quality') %></h5>
 									</div>
-									<p>Nous mettons un point d'honneur à livrer un travail soigné et fiable, à la hauteur de vos attentes.</p>
+									<p><%= t('home.qualityText') %></p>
 								</li>
 								<li>
 									<div class="points-heading">
 										<div class="p-icon">
 											<i class="flaticon-creative-team"></i>
 										</div>
-										<h5>Innovation Permanente</h5>
+										<h5><%= t('home.innovation') %></h5>
 									</div>
-									<p>Nous restons à l'affût des dernières tendances digitales pour vous proposer des solutions modernes.</p>
+									<p><%= t('home.innovationText') %></p>
 								</li>
 							</ul>
 						</div>
@@ -70,14 +70,14 @@
 				<div class="col-lg-6">
 					<div class="section-title mb-55">
 						<div class="border-left">
-							<p>Nos Services</p>
+							<p><%= t('home.ourServices') %></p>
 						</div>
-						<h2>Nos Meilleurs Services</h2>
+						<h2><%= t('home.bestServices') %></h2>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="service__text mb-30">
-						<p>Nous créons des sites web, des applications mobiles, de la publicité digitale et du social media marketing pour mener vos projets à bien dans les meilleurs délais.</p>
+						<p><%= t('home.servicesLead') %></p>
 					</div>
 				</div>
 			</div>
@@ -91,28 +91,28 @@
 					<div class="counter-board-single mb-40">
 						<i class="flaticon-crm"></i>
 						<div class="counter-board-number"><span class="odometer" data-count="50">00</span>+</div>
-						<p>Clients satisfaits</p>
+						<p><%= t('home.clients') %></p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-sm-6">
 					<div class="counter-board-single mb-40">
 						<i class="flaticon-new-product"></i>
 						<div class="counter-board-number"><span class="odometer" data-count="30">00</span>+</div>
-						<p>Produits digitaux</p>
+						<p><%= t('home.products') %></p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-sm-6">
 					<div class="counter-board-single mb-40">
 						<i class="flaticon-delivery-box"></i>
 						<div class="counter-board-number"><span class="odometer" data-count="4">00</span></div>
-						<p>Services uniques</p>
+						<p><%= t('home.unique') %></p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-sm-6">
 					<div class="counter-board-single mb-40">
 						<i class="flaticon-employee"></i>
 						<div class="counter-board-number"><span class="odometer" data-count="10">00</span>+</div>
-						<p>Experts qualifiés</p>
+						<p><%= t('home.experts') %></p>
 					</div>
 				</div>
 			</div>
@@ -124,7 +124,7 @@
 				<div class="col-lg-6">
 					<div class="about__content mb-30">
 						<div class="section-title mb-30">
-							<h2>Des compétences au service de vos projets</h2>
+							<h2><%= t('about.skillsTitle') %></h2>
 						</div>
 						<div class="ab-experience st-3">
 							<div class="ab-experience-content">
@@ -132,18 +132,18 @@
 									<i class="flaticon-trophy"></i>
 								</div>
 								<div class="ab-experience-text">
-									<p><span>Dakar</span>Sénégal</p>
+									<p><span><%= t('about.dakar') %></span><%= t('about.senegal') %></p>
 								</div>
 							</div>
 						</div>
-						<p>Nous concevons des sites web, des applications mobiles, de la publicité digitale et du social media marketing pour mener vos projets à bien, avec accompagnement et formation à la clé.</p>
+						<p><%= t('about.skillsLead') %></p>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="grb-skill mt-45 ml-20 mr-10">
 						<div class="skill-wrapper">
 							<div class="skill-title">
-								<h5 class="skill-category">Site Web</h5>
+								<h5 class="skill-category"><%= t('services.items.web.name') %></h5>
 								<span>95%</span>
 							</div>
 							<div class="progress">
@@ -152,7 +152,7 @@
 						</div>
 						<div class="skill-wrapper">
 							<div class="skill-title">
-								<h5 class="skill-category">Mobile App</h5>
+								<h5 class="skill-category"><%= t('services.items.app.name') %></h5>
 								<span>90%</span>
 							</div>
 							<div class="progress">
@@ -161,7 +161,7 @@
 						</div>
 						<div class="skill-wrapper">
 							<div class="skill-title">
-								<h5 class="skill-category">Publicité Digitale</h5>
+								<h5 class="skill-category"><%= t('services.items.ads.name') %></h5>
 								<span>85%</span>
 							</div>
 							<div class="progress">
@@ -170,7 +170,7 @@
 						</div>
 						<div class="skill-wrapper">
 							<div class="skill-title">
-								<h5 class="skill-category">Social Media</h5>
+								<h5 class="skill-category"><%= t('services.items.social.name') %></h5>
 								<span>88%</span>
 							</div>
 							<div class="progress">
@@ -182,77 +182,6 @@
 			</div>
 		</div>
 	</section>
-	<div class="brand-area pt-100 pb-100">
-		<div class="container">
-			<div class="row wow fadeInUp">
-				<div class="col-12">
-					<div class="swiper-container brand-active">
-						<div class="swiper-wrapper">
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand1.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand1-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand2.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand2-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand3.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand3-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand4.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand4-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand5.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand5-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand1.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand1-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand2.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand2-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand3.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand3-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand4.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand4-wc.png" alt=""></a>
-								</div>
-							</div>
-							<div class="swiper-slide">
-								<div class="single-brand">
-									<a href="#"><img src="/assets/front/img/brand/brand5.png" alt=""></a>
-									<a href="#"><img src="/assets/front/img/brand/brand5-wc.png" alt=""></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<%- include('../partials/client-logos-slider') %>
 	<%- include('../partials/newsletter') %>
 </main>

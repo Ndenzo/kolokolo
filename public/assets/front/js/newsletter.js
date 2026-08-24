@@ -29,7 +29,7 @@
 				const json = await res.json().catch(() => ({}));
 				if (!res.ok || !json.ok) {
 					if (errorBox) {
-						errorBox.textContent = json.error || 'Impossible de vous inscrire.';
+						errorBox.textContent = json.error || (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.newsletterError) || 'Impossible de vous inscrire.';
 						errorBox.hidden = false;
 					}
 					return;
@@ -39,7 +39,7 @@
 				if (successBox) successBox.hidden = false;
 			} catch (_err) {
 				if (errorBox) {
-					errorBox.textContent = 'Impossible de vous inscrire pour le moment.';
+					errorBox.textContent = (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.newsletterFail) || 'Impossible de vous inscrire pour le moment.';
 					errorBox.hidden = false;
 				}
 			} finally {

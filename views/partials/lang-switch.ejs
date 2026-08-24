@@ -1,0 +1,14 @@
+<%
+	const isDark = typeof variant !== 'undefined' && (variant === 'side' || variant === 'dark');
+	const current = typeof lang !== 'undefined' ? lang : 'fr';
+%>
+<div class="header-lang<%= isDark ? ' is-dark' : '' %>" data-lang-switch role="group" aria-label="<%= typeof t === 'function' ? t('nav.lang') : 'Langue' %>">
+	<button type="button" class="<%= current === 'fr' ? 'is-active' : '' %>" data-lang="fr" aria-pressed="<%= current === 'fr' ? 'true' : 'false' %>" title="Français">
+		<span class="fi fi-fr" aria-hidden="true"></span>
+		<span>FR</span>
+	</button>
+	<button type="button" class="<%= current === 'en' ? 'is-active' : '' %>" data-lang="en" aria-pressed="<%= current === 'en' ? 'true' : 'false' %>" title="English">
+		<span class="fi fi-gb" aria-hidden="true"></span>
+		<span>EN</span>
+	</button>
+</div>

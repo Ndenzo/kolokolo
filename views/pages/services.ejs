@@ -5,12 +5,12 @@
 				<div class="col-lg-12">
 					<div class="page-title-content text-center">
 						<div class="page-title-heading">
-							<h1>Services</h1>
+							<h1><%= t('services.heading') %></h1>
 						</div>
 						<nav class="grb-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Services</li>
+								<li class="breadcrumb-item"><a href="/"><%= t('nav.home') %></a></li>
+								<li class="breadcrumb-item active" aria-current="page"><%= t('services.heading') %></li>
 							</ol>
 						</nav>
 					</div>
@@ -29,17 +29,17 @@
 				<div class="row wow fadeInUp">
 					<div class="col-lg-7 col-md-8">
 						<div class="section-title mb-30">
-							<h2>Des formules pensées pour vos projets</h2>
+							<h2><%= t('services.pricingTitle') %></h2>
 						</div>
 					</div>
 				</div>
 				<div class="pricing-plans wow fadeInUp">
 					<ul class="nav nav-tabs" id="pricingTab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab" aria-controls="monthly" aria-selected="true">Mensuel</button>
+							<button class="nav-link active" id="monthly-tab" data-bs-toggle="tab" data-bs-target="#monthly" type="button" role="tab" aria-controls="monthly" aria-selected="true"><%= t('services.monthly') %></button>
 						</li>
 						<li class="nav-item" role="presentation">
-							<button class="nav-link" id="yearly-tab" data-bs-toggle="tab" data-bs-target="#yearly" type="button" role="tab" aria-controls="yearly" aria-selected="false">Annuel</button>
+							<button class="nav-link" id="yearly-tab" data-bs-toggle="tab" data-bs-target="#yearly" type="button" role="tab" aria-controls="yearly" aria-selected="false"><%= t('services.yearly') %></button>
 						</li>
 					</ul>
 					<div class="tab-content" id="pricingTabContent">
@@ -48,57 +48,57 @@
 								<div class="col-lg-4 col-md-6">
 									<div class="single-pricing mb-30">
 										<div class="pricing-title">
-											<h5>Essentiel</h5>
+											<h5><%= t('services.essential') %></h5>
 											<span>150 000 F</span>
 										</div>
 										<ul class="pricing-list">
-											<li>Site vitrine</li>
-											<li>Identité visuelle de base</li>
-											<li>Référencement de départ</li>
-											<li>Hébergement 1 mois</li>
-											<li>Support email</li>
-											<li>1 révision incluse</li>
+											<li><%= t('services.e1') %></li>
+											<li><%= t('services.e2') %></li>
+											<li><%= t('services.e3') %></li>
+											<li><%= t('services.e4m') %></li>
+											<li><%= t('services.e5') %></li>
+											<li><%= t('services.e6') %></li>
 										</ul>
 										<div class="pricing-btn text-center">
-											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Essentiel">Choisir cette offre</a>
+											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Essentiel"><%= t('services.choose') %></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-6">
 									<div class="single-pricing mb-30">
 										<div class="pricing-title">
-											<h5>Business</h5>
+											<h5><%= t('services.business') %></h5>
 											<span>350 000 F</span>
 										</div>
 										<ul class="pricing-list">
-											<li>Site web ou e-commerce</li>
-											<li>Publicité digitale</li>
-											<li>Gestion réseaux sociaux</li>
-											<li>Reporting mensuel</li>
-											<li>Support prioritaire</li>
-											<li>3 révisions incluses</li>
+											<li><%= t('services.b1') %></li>
+											<li><%= t('services.b2') %></li>
+											<li><%= t('services.b3') %></li>
+											<li><%= t('services.b4') %></li>
+											<li><%= t('services.b5') %></li>
+											<li><%= t('services.b6') %></li>
 										</ul>
 										<div class="pricing-btn text-center">
-											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Business">Choisir cette offre</a>
+											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Business"><%= t('services.choose') %></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-6">
 									<div class="single-pricing mb-30">
 										<div class="pricing-title">
-											<h5>Premium</h5>
+											<h5><%= t('services.premium') %></h5>
 											<span>650 000 F</span>
 										</div>
 										<ul class="pricing-list">
-											<li>Site web + application</li>
-											<li>Campagnes publicitaires</li>
-											<li>Social media complet</li>
-											<li>Accompagnement dédié</li>
-											<li>Formation de vos équipes</li>
-											<li>Révisions illimitées</li>
+											<li><%= t('services.p1') %></li>
+											<li><%= t('services.p2') %></li>
+											<li><%= t('services.p3') %></li>
+											<li><%= t('services.p4') %></li>
+											<li><%= t('services.p5') %></li>
+											<li><%= t('services.p6') %></li>
 										</ul>
 										<div class="pricing-btn text-center">
-											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Premium">Choisir cette offre</a>
+											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Premium"><%= t('services.choose') %></a>
 										</div>
 									</div>
 								</div>
@@ -109,57 +109,57 @@
 								<div class="col-lg-4 col-md-6">
 									<div class="single-pricing mb-30">
 										<div class="pricing-title">
-											<h5>Essentiel</h5>
+											<h5><%= t('services.essential') %></h5>
 											<span>1 500 000 F</span>
 										</div>
 										<ul class="pricing-list">
-											<li>Site vitrine</li>
-											<li>Identité visuelle de base</li>
-											<li>Référencement de départ</li>
-											<li>Hébergement 12 mois</li>
-											<li>Support email</li>
-											<li>1 révision incluse</li>
+											<li><%= t('services.e1') %></li>
+											<li><%= t('services.e2') %></li>
+											<li><%= t('services.e3') %></li>
+											<li><%= t('services.e4y') %></li>
+											<li><%= t('services.e5') %></li>
+											<li><%= t('services.e6') %></li>
 										</ul>
 										<div class="pricing-btn text-center">
-											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Essentiel">Choisir cette offre</a>
+											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Essentiel"><%= t('services.choose') %></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-6">
 									<div class="single-pricing mb-30">
 										<div class="pricing-title">
-											<h5>Business</h5>
+											<h5><%= t('services.business') %></h5>
 											<span>3 500 000 F</span>
 										</div>
 										<ul class="pricing-list">
-											<li>Site web ou e-commerce</li>
-											<li>Publicité digitale</li>
-											<li>Gestion réseaux sociaux</li>
-											<li>Reporting mensuel</li>
-											<li>Support prioritaire</li>
-											<li>3 révisions incluses</li>
+											<li><%= t('services.b1') %></li>
+											<li><%= t('services.b2') %></li>
+											<li><%= t('services.b3') %></li>
+											<li><%= t('services.b4') %></li>
+											<li><%= t('services.b5') %></li>
+											<li><%= t('services.b6') %></li>
 										</ul>
 										<div class="pricing-btn text-center">
-											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Business">Choisir cette offre</a>
+											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Business"><%= t('services.choose') %></a>
 										</div>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-6">
 									<div class="single-pricing mb-30">
 										<div class="pricing-title">
-											<h5>Premium</h5>
+											<h5><%= t('services.premium') %></h5>
 											<span>6 500 000 F</span>
 										</div>
 										<ul class="pricing-list">
-											<li>Site web + application</li>
-											<li>Campagnes publicitaires</li>
-											<li>Social media complet</li>
-											<li>Accompagnement dédié</li>
-											<li>Formation de vos équipes</li>
-											<li>Révisions illimitées</li>
+											<li><%= t('services.p1') %></li>
+											<li><%= t('services.p2') %></li>
+											<li><%= t('services.p3') %></li>
+											<li><%= t('services.p4') %></li>
+											<li><%= t('services.p5') %></li>
+											<li><%= t('services.p6') %></li>
 										</ul>
 										<div class="pricing-btn text-center">
-											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Premium">Choisir cette offre</a>
+											<a href="#devis" class="grb-border-btn st-1" data-quote-open data-quote-offer="Premium"><%= t('services.choose') %></a>
 										</div>
 									</div>
 								</div>
@@ -176,39 +176,23 @@
 				<div class="col-lg-6">
 					<div class="partners-content mb-40">
 						<div class="section-title mb-35">
-							<h2>Ils nous font confiance</h2>
+							<h2><%= t('services.trust') %></h2>
 						</div>
-						<p>Notre équipe accompagne des entreprises sénégalaises et internationales dans la réussite de leurs projets digitaux, du premier brief jusqu'au suivi après mise en ligne.</p>
+						<p><%= t('services.trustText') %></p>
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="partners-logo pl-100">
 						<div class="row">
-							<div class="col-sm-6">
-								<div class="single-partner">
-									<a href="#"><img src="/assets/front/img/brand/brand1.png" alt=""></a>
+							<% (typeof clientLogos !== 'undefined' ? clientLogos : []).forEach((logo, index) => { %>
+								<div class="col-sm-6">
+									<div class="single-partner<%= index % 2 ? ' text-end' : '' %>">
+										<a href="<%= logo.url || '#' %>"<% if (logo.url) { %> target="_blank" rel="noopener noreferrer"<% } %>>
+											<img src="<%= logo.logo_color %>" alt="<%= logo.name %>">
+										</a>
+									</div>
 								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="single-partner text-end">
-									<a href="#"><img src="/assets/front/img/brand/brand2.png" alt=""></a>
-								</div>
-							</div>
-							<div class="col-sm-12">
-								<div class="single-partner text-center">
-									<a href="#"><img src="/assets/front/img/brand/brand3.png" alt=""></a>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="single-partner">
-									<a href="#"><img src="/assets/front/img/brand/brand4.png" alt=""></a>
-								</div>
-							</div>
-							<div class="col-sm-6">
-								<div class="single-partner text-end">
-									<a href="#"><img src="/assets/front/img/brand/brand5.png" alt=""></a>
-								</div>
-							</div>
+							<% }) %>
 						</div>
 					</div>
 				</div>
@@ -221,10 +205,10 @@
 				<div class="col-lg-8 col-md-11">
 					<div class="hire-content text-center">
 						<div class="section-title mb-55">
-							<h2 class="white-color">Avez-vous un projet ?</h2>
+							<h2 class="white-color"><%= t('services.project') %></h2>
 						</div>
 						<div class="hire-btn">
-							<a href="#devis" class="grb-btn" data-quote-open>Parlons-en</a>
+							<a href="#devis" class="grb-btn" data-quote-open><%= t('services.talk') %></a>
 						</div>
 					</div>
 				</div>
@@ -239,9 +223,9 @@
 				<div class="col-lg-6">
 					<div class="section-title mb-30">
 						<div class="border-left">
-							<p>Témoignages</p>
+							<p><%= t('home.testimonials') %></p>
 						</div>
-						<h2>Nos clients sont ravis <br> d'avoir collaboré avec nous</h2>
+						<h2><%= t('home.testimonialsTitle') %> <br> <%= t('home.testimonialsTitle2') %></h2>
 					</div>
 					<div class="swiper-container testimonial-active-2 st-3">
 						<div class="swiper-wrapper">

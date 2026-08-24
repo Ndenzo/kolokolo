@@ -1,6 +1,7 @@
 const { db } = require('../db');
 const { defaultSettings, siteUrl } = require('../config');
 const helpers = require('../lib/helpers');
+const { loadLang } = require('../i18n');
 
 function flash(req, res, next) {
 	res.locals.flash = req.session.flash || null;
@@ -27,7 +28,12 @@ async function loadSettings(req, res, next) {
 		res.locals.settings = { ...defaultSettings, place: helpers.contactPlace(defaultSettings) };
 	}
 	res.locals.helpers = helpers;
-	next();
+	try {
+		res.locals.clientLogos = await db('client_logos').where({ is_active: 1 }).orderByRaw('sort_order ASC, id ASC');
+	} catch {
+		res.locals.clientLogos = [];
+	}
+	loadLang(req, res, next);
 }
 
 module.exports = { flash, setFlash, loadSettings };

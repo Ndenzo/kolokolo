@@ -3,7 +3,7 @@
         <div class="header__top d-none d-md-block">
             <div class="container">
                 <div class="row d-flex align-items-center">
-                    <div class="col-lg-9">
+                    <div class="col-md-7 col-lg-8">
                         <div class="grb__cta header-cta">
                             <ul>
                                 <li>
@@ -11,7 +11,7 @@
                                         <span><i class="fas fa-phone-alt"></i></span>
                                     </div>
                                     <div class="cta__content">
-                                        <p>Appelez-nous :</p>
+                                        <p><%= t('header.call') %></p>
                                         <span><a href="tel:<%= helpers.telHref(settings.phone) %>"><%= settings.phone %></a></span>
                                     </div>
                                 </li>
@@ -20,27 +20,21 @@
                                         <span><i class="fas fa-envelope"></i></span>
                                     </div>
                                     <div class="cta__content">
-                                        <p>Écrivez-nous :</p>
+                                        <p><%= t('header.write') %></p>
                                         <span><a href="mailto:<%= settings.email %>"><%= settings.email %></a></span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="cta__icon">
-                                        <span><i class="fas fa-clock"></i></span>
-                                    </div>
-                                    <div class="cta__content">
-                                        <p>Horaires</p>
-                                        <span><%= settings.hours %></span>
                                     </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-3 d-none d-lg-block">
-                        <div class="grb__social f-right st-1">
-                            <ul>
-                                <%- include('social-items', { variant: 'header' }) %>
-                            </ul>
+                    <div class="col-md-5 col-lg-4 d-none d-md-flex align-items-center justify-content-end">
+                        <div class="header-top-tools">
+                            <%- include('lang-switch', { variant: 'dark' }) %>
+                            <div class="grb__social st-1">
+                                <ul>
+                                    <%- include('social-items', { variant: 'header' }) %>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,11 +64,11 @@
                             <div class="main-menu main-menu-1">
                                 <nav id="mobile-menu">
                                     <ul>
-                                        <li><a href="/">Accueil</a></li>
-                                        <li><a href="/a-propos">À propos</a></li>
-                                        <li><a href="/services">Services</a></li>
-                                        <li><a href="/blog">Blog</a></li>
-                                        <li><a href="/contact">Contact</a></li>
+                                        <li><a href="/"><%= t('nav.home') %></a></li>
+                                        <li><a href="/a-propos"><%= t('nav.about') %></a></li>
+                                        <li><a href="/services"><%= t('nav.services') %></a></li>
+                                        <li><a href="/blog"><%= t('nav.blog') %></a></li>
+                                        <li><a href="/contact"><%= t('nav.contact') %></a></li>
                                     </ul>
                                 </nav>
                             </div>
@@ -85,7 +79,7 @@
                                         class="fal fa-bars"></i></a>
                             </div>
                             <div class="header__btn d-none d-xl-inline-block">
-                                <a href="#devis" class="grb-btn" data-quote-open>Devis gratuit<i
+                                <a href="#devis" class="grb-btn" data-quote-open><%= t('nav.quote') %><i
                                         class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
@@ -108,11 +102,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="header__lang-slot is-drawer d-lg-none mb-25">
+                    <%- include('lang-switch', { variant: 'dark' }) %>
+                </div>
                 <div class="mobile-menu d-lg-none"></div>
                 <div class="offset-widget offset_searchbar mb-30">
                     <form method="get" action="#">
                         <div class="offset_search_content">
-                            <input type="search" placeholder="Que recherchez-vous ?">
+                            <input type="search" placeholder="<%= t('nav.searchSidebar') %>">
                             <button type="submit" class="offset_search_button"><i class="fal fa-search"></i></button>
                         </div>
                     </form>
@@ -120,7 +117,7 @@
 
                 <div class="offset-widget mb-40 d-none d-lg-block">
                     <div class="info-widget">
-                        <p class="mb-30">Agence digitale basée à Dakar. Sites web, applications mobiles, publicité et social media : on mène vos projets digitaux dans les meilleurs délais.</p>
+                        <p class="mb-30"><%= t('header.sideIntro') %></p>
                     </div>
                 </div>
 
@@ -171,7 +168,7 @@
 
                 <div class="contact-infos mt-30 mb-30">
                     <div class="contact-list mb-30">
-                        <h4>Contact</h4>
+                        <h4><%= t('footer.contact') %></h4>
                         <a href="#" class="">
                             <i class="fal fa-map-marker-alt"></i>
                             <span><%= settings.place.address %><br><%= settings.place.regionCountry %></span>
@@ -202,10 +199,12 @@
         <div class="search-inner">
             <i class="fal fa-times search-close" id="search-close"></i>
             <div class="search-cell">
-                <form method="get">
+                <form method="get" action="/blog" class="site-search-form" data-site-search>
                     <div class="search-field-holder">
-                        <input type="search" class="main-search-input" placeholder="Rechercher...">
+                        <label class="sr-only" for="site-search-input"><%= t('nav.search') %></label>
+                        <input id="site-search-input" type="search" name="q" class="main-search-input" placeholder="<%= t('nav.searchPlaceholder') %>" autocomplete="off" maxlength="120">
                     </div>
+                    <div class="search-suggest" data-search-suggest hidden></div>
                 </form>
             </div>
         </div>

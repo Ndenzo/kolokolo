@@ -9,8 +9,8 @@
 		const $form = jQuery('#contact-form');
 		$form.find('select').select2({
 			width: '100%',
-			language: 'fr',
-			placeholder: 'Choisir un sujet',
+			language: document.documentElement.lang === 'en' ? 'en' : 'fr',
+			placeholder: (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.chooseSubject) || 'Choisir un sujet',
 			allowClear: false,
 			dropdownParent: jQuery('.get-in-touch').length ? jQuery('.get-in-touch') : $form,
 			minimumResultsForSearch: Infinity,
@@ -42,7 +42,7 @@
 			const json = await res.json().catch(() => ({}));
 			if (!res.ok || !json.ok) {
 				if (errorBox) {
-					errorBox.textContent = json.error || 'Impossible d’envoyer le message.';
+					errorBox.textContent = json.error || (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.contactSendError) || 'Impossible d’envoyer le message.';
 					errorBox.hidden = false;
 				}
 				return;
@@ -55,7 +55,7 @@
 			if (heading) heading.hidden = true;
 		} catch (_err) {
 			if (errorBox) {
-				errorBox.textContent = 'Impossible d’envoyer le message pour le moment.';
+				errorBox.textContent = (window.KOLOKOLO_I18N && window.KOLOKOLO_I18N.contactSendFail) || 'Impossible d’envoyer le message pour le moment.';
 				errorBox.hidden = false;
 			}
 		} finally {

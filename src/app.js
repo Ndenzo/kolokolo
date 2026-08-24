@@ -39,7 +39,7 @@ async function start() {
 	app.use(publicRoutes);
 
 	app.use((req, res) => {
-		res.status(404).render('layout', { title: 'Page introuvable - Kolokolo', page: '404' });
+		res.status(404).render('layout', { title: res.locals.t ? res.locals.t('meta.notFoundTitle') : 'Page introuvable - Kolokolo', page: '404' });
 	});
 
 	app.use((err, req, res, _next) => {

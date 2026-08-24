@@ -1,4 +1,4 @@
-function conditionsGenerales(settings) {
+function conditionsGeneralesFr(settings) {
 	const place = settings.place || {};
 	const address = [place.address, place.regionCountry].filter(Boolean).join(', ');
 	return {
@@ -83,7 +83,7 @@ function conditionsGenerales(settings) {
 	};
 }
 
-function confidentialite(settings) {
+function confidentialiteFr(settings) {
 	const place = settings.place || {};
 	const address = [place.address, place.regionCountry].filter(Boolean).join(', ');
 	return {
@@ -172,6 +172,186 @@ function confidentialite(settings) {
 			},
 		],
 	};
+}
+
+function conditionsGeneralesEn(settings) {
+	const place = settings.place || {};
+	const address = [place.address, place.regionCountry].filter(Boolean).join(', ');
+	return {
+		slug: 'conditions-generales',
+		heading: 'Terms of use',
+		updated: '20 August 2026',
+		intro: 'These terms govern access to the website and the services offered by Kolokolo, a digital agency based in Dakar. By browsing the site or entrusting us with a project, you accept these terms.',
+		sections: [
+			{
+				title: '1. Website publisher',
+				paragraphs: [
+					`The website kolokolo.tech is published by Kolokolo, a digital agency located ${address || 'in Dakar, Senegal'}.`,
+					`Contact: ${settings.email || 'contact@kolokolo.tech'}${settings.phone ? ` — ${settings.phone}` : ''}.`,
+				],
+			},
+			{
+				title: '2. Purpose',
+				paragraphs: [
+					'These terms define how the website may be used and the framework for design, development, digital communication, support and maintenance services offered by Kolokolo.',
+					'Specific terms (quote, contract, specifications) may complement or clarify these terms. In case of conflict, the signed specific terms prevail.',
+				],
+			},
+			{
+				title: '3. Access to the website',
+				paragraphs: [
+					'The website is free to access. Kolokolo endeavours to keep it available, without guaranteeing uninterrupted access. Interruptions may occur for maintenance, updates or force majeure.',
+					'You agree to use the website lawfully, without disrupting its operation or infringing third-party rights.',
+				],
+			},
+			{
+				title: '4. Services and quotes',
+				paragraphs: [
+					'Service descriptions, plans and prices on the website are indicative. Each project is covered by a quote or proposal tailored to your needs.',
+					'A quote request via the website does not bind Kolokolo or the prospect until a quote has been accepted in writing (email, signature or any other formal agreement).',
+					'The quote sets out the scope, deliverables, estimated timeline and financial terms. Any change of scope may lead to an amendment.',
+				],
+			},
+			{
+				title: '5. Order, timelines and deliverables',
+				paragraphs: [
+					'The order is firm once the quote is accepted and, where applicable, the deposit has been received.',
+					'Stated timelines are estimates. They depend on timely provision of content, access, approvals and information from you.',
+					'Deliverables are deemed accepted if no written reservation is made within eight (8) days after they are made available, unless a different period is set in the quote.',
+				],
+			},
+			{
+				title: '6. Prices and payment',
+				paragraphs: [
+					'Prices are those stated in the accepted quote, exclusive of applicable taxes. Unless otherwise stated, they are in CFA francs (XOF).',
+					'Payment terms (deposit, instalments, balance) appear in the quote. Any delay may lead to suspension of services until regularisation, without prejudice to amounts already due.',
+				],
+			},
+			{
+				title: '7. Intellectual property',
+				paragraphs: [
+					'The website, its texts, visuals, logos, trademarks and graphic elements remain the property of Kolokolo or their rights holders. Unauthorised reproduction is prohibited.',
+					'Unless otherwise agreed, Kolokolo retains ownership of methods, tools and generic components used. Client-specific deliverables are assigned as set out in the quote, after full payment.',
+					'Kolokolo may mention the project in its portfolio and communication materials, unless the client objects in writing.',
+				],
+			},
+			{
+				title: '8. Liability',
+				paragraphs: [
+					'Kolokolo uses reasonable means to perform the services according to professional standards. Kolokolo cannot be held liable for content provided by the client, the client’s strategic choices, or indirect damages (loss of revenue, data or opportunity).',
+					'If Kolokolo’s liability were engaged, it would be limited to the amount actually paid, exclusive of tax, for the service concerned.',
+				],
+			},
+			{
+				title: '9. Personal data',
+				paragraphs: [
+					'Information collected via the website (contact forms, quote requests) is processed in accordance with our privacy policy.',
+				],
+				links: [{ href: '/confidentialite', label: 'Read the privacy policy' }],
+			},
+			{
+				title: '10. Governing law',
+				paragraphs: [
+					'These terms are governed by Senegalese law. In case of dispute, an amicable solution will be sought. Failing that, the competent courts of Dakar will have jurisdiction.',
+				],
+			},
+		],
+	};
+}
+
+function confidentialiteEn(settings) {
+	const place = settings.place || {};
+	const address = [place.address, place.regionCountry].filter(Boolean).join(', ');
+	return {
+		slug: 'confidentialite',
+		heading: 'Privacy',
+		updated: '20 August 2026',
+		intro: 'Kolokolo takes the protection of your personal data seriously. This policy explains what information we collect, why, and what your rights are.',
+		sections: [
+			{
+				title: '1. Data controller',
+				paragraphs: [
+					`Kolokolo, a digital agency located ${address || 'in Dakar, Senegal'}, is responsible for processing carried out via the website.`,
+					`For any question: ${settings.email || 'contact@kolokolo.tech'}${settings.phone ? ` — ${settings.phone}` : ''}.`,
+				],
+			},
+			{
+				title: '2. Data collected',
+				paragraphs: ['We only collect data needed for exchanges and to deliver our services:'],
+				bullets: [
+					'Contact form: first name, last name, email, phone (optional), subject and message.',
+					'Quote request: contact details, company, requested services, budget, timeline and project description.',
+					'Newsletter: email address, subscription date and, where applicable, unsubscribe date.',
+					'Minimal technical data: IP address, send date, security logs, where applicable.',
+				],
+			},
+			{
+				title: '3. Purposes',
+				paragraphs: ['This data is used to:'],
+				bullets: [
+					'reply to your messages and quote requests;',
+					'send the newsletter if you subscribed;',
+					'prepare a commercial proposal and manage the client relationship;',
+					'improve the website and keep it secure;',
+					'meet our legal and accounting obligations.',
+				],
+			},
+			{
+				title: '4. Legal basis',
+				paragraphs: [
+					'Processing is based on your request (contact or quote), your consent for the newsletter, the performance of pre-contractual or contractual measures, and, where applicable, our legitimate interest in securing the website and improving our services.',
+				],
+			},
+			{
+				title: '5. Recipients',
+				paragraphs: [
+					'Data is intended for authorised Kolokolo teams. It may pass through our technical providers (hosting, email) only as needed for the service, and is not sold to third parties.',
+				],
+			},
+			{
+				title: '6. Retention period',
+				paragraphs: [
+					'Contact and quote requests are kept for as long as needed to process them, then archived for a limited period consistent with our legal obligations (in particular commercial and accounting), before deletion or anonymisation.',
+					'Newsletter subscriptions are kept for as long as you remain subscribed. You can unsubscribe at any time via the link in each email, or by writing to us.',
+				],
+			},
+			{
+				title: '7. Your rights',
+				paragraphs: [
+					'Under Senegalese law no. 2008-12 of 25 January 2008 on the protection of personal data, you may request access, rectification, update or deletion of your data, within the limits provided by law.',
+					`To exercise these rights, write to ${settings.email || 'contact@kolokolo.tech'}. You may also contact Senegal’s Commission de protection des données personnelles (CDP).`,
+				],
+			},
+			{
+				title: '8. Cookies and trackers',
+				paragraphs: [
+					'The website may use technical cookies required for it to work (session, security, display preferences). No advertising cookie is set without prior information.',
+					'You can configure your browser to refuse cookies. Some website features may then be limited.',
+				],
+			},
+			{
+				title: '9. Security',
+				paragraphs: [
+					'Kolokolo implements reasonable measures to protect your data against unauthorised access, loss or alteration. No system is infallible, so please only send the information needed for your request.',
+				],
+			},
+			{
+				title: '10. Updates',
+				paragraphs: [
+					'This policy may be updated to reflect changes to the website or the law. The date at the top of the page is authoritative.',
+				],
+				links: [{ href: '/conditions-generales', label: 'See also the terms of use' }],
+			},
+		],
+	};
+}
+
+function conditionsGenerales(settings, lang) {
+	return lang === 'en' ? conditionsGeneralesEn(settings) : conditionsGeneralesFr(settings);
+}
+
+function confidentialite(settings, lang) {
+	return lang === 'en' ? confidentialiteEn(settings) : confidentialiteFr(settings);
 }
 
 module.exports = { conditionsGenerales, confidentialite };

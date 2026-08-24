@@ -1,17 +1,17 @@
 							<div class="bs-widget mb-30 sidebar-search">
 								<form class="search-form" action="/blog" method="get">
 									<div class="search-input-field bss">
-										<input type="text" name="q" placeholder="Rechercher..." value="<%= typeof q !== 'undefined' ? q : '' %>">
-										<button type="submit"><i class="far fa-search"></i>Chercher</button>
+										<input type="text" name="q" placeholder="<%= t('nav.searchPlaceholder') %>" value="<%= typeof q !== 'undefined' ? q : '' %>">
+										<button type="submit"><i class="far fa-search"></i><%= t('blog.search') %></button>
 									</div>
 								</form>
 							</div>
 							<div class="bs-widget mb-30">
 								<div class="bs-widget-title mb-40">
-									<h5>Catégories</h5>
+									<h5><%= t('blog.categories') %></h5>
 								</div>
 								<% if (!sidebar.categories.length) { %>
-									<p>Aucune catégorie pour le moment.</p>
+									<p><%= t('blog.noCategories') %></p>
 								<% } else { %>
 									<ul class="bs-category-list">
 										<% sidebar.categories.forEach((item) => { %>
@@ -26,10 +26,10 @@
 							</div>
 							<div class="bs-widget mb-30">
 								<div class="bs-widget-title mb-40">
-									<h5>Articles récents</h5>
+									<h5><%= t('blog.recent') %></h5>
 								</div>
 								<% if (!sidebar.recent.length) { %>
-									<p>Aucun article publié.</p>
+									<p><%= t('blog.noRecent') %></p>
 								<% } else { %>
 									<ul class="bs-post">
 										<% sidebar.recent.forEach((item) => { %>
@@ -41,7 +41,7 @@
 												</div>
 												<div class="bs-post-content">
 													<h6><a href="/blog/<%= item.slug %>"><%= item.title %></a></h6>
-													<span><%= helpers.formatLongDate(item.published_at) %></span>
+													<span><%= helpers.formatLongDate(item.published_at, lang) %></span>
 												</div>
 											</li>
 										<% }) %>
@@ -50,10 +50,10 @@
 							</div>
 							<div class="bs-widget mb-30 widget-tag">
 								<div class="bs-widget-title mb-40">
-									<h5>Tags populaires</h5>
+									<h5><%= t('blog.tags') %></h5>
 								</div>
 								<% if (!sidebar.tags.length) { %>
-									<p>Aucun tag pour le moment.</p>
+									<p><%= t('blog.noTags') %></p>
 								<% } else { %>
 									<ul class="bs-tags">
 										<% sidebar.tags.forEach((tagName) => { %>
@@ -66,10 +66,10 @@
 								<a class="bs-ad-inner p-relative" href="#devis" data-quote-open>
 									<div class="bs-ad-inner-content">
 										<div class="bs-ad-inner-text">
-											<p>Un projet<br><span>en tête ?</span></p>
-											<span class="bs-ad-cta">Devis gratuit</span>
+											<p><%= t('blog.ad') %><br><span><%= t('blog.ad2') %></span></p>
+											<span class="bs-ad-cta"><%= t('nav.quote') %></span>
 										</div>
 									</div>
-									<img src="/assets/front/img/blog/bs-ad.jpg" alt="Demander un devis">
+									<img src="/assets/front/img/blog/bs-ad.jpg" alt="<%= t('blog.adAlt') %>">
 								</a>
 							</div>

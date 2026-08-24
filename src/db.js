@@ -2,7 +2,7 @@ const knex = require('knex');
 const bcrypt = require('bcryptjs');
 const knexfile = require('../knexfile');
 const { adminEmail, adminPassword, defaultSettings } = require('./config');
-const { defaultPosts, defaultTestimonials, defaultProjects } = require('./data/default-content');
+const { defaultPosts, defaultTestimonials, defaultProjects, defaultClientLogos } = require('./data/default-content');
 
 const env = process.env.NODE_ENV || 'development';
 const db = knex(knexfile[env]);
@@ -67,6 +67,20 @@ async function ensureDefaultProjects() {
 	console.log(`${defaultProjects.length} projets portfolio par défaut créés.`);
 }
 
+async function ensureDefaultClientLogos() {
+	const existing = await db('client_logos').first();
+	if (existing) return;
+	const now = db.fn.now();
+	await db('client_logos').insert(
+		defaultClientLogos.map((item) => ({
+			...item,
+			created_at: now,
+			updated_at: now,
+		}))
+	);
+	console.log(`${defaultClientLogos.length} logos clients par défaut créés.`);
+}
+
 async function boot() {
 	await db.migrate.latest();
 	await ensureAdmin();
@@ -74,6 +88,7 @@ async function boot() {
 	await ensureDefaultPosts();
 	await ensureDefaultTestimonials();
 	await ensureDefaultProjects();
+	await ensureDefaultClientLogos();
 }
 
 module.exports = { db, boot };

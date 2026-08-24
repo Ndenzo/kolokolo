@@ -9,7 +9,7 @@
 						</div>
 						<nav class="grb-breadcrumb">
 							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="/">Accueil</a></li>
+								<li class="breadcrumb-item"><a href="/"><%= t('nav.home') %></a></li>
 								<li class="breadcrumb-item active" aria-current="page"><%= doc.heading %></li>
 							</ol>
 						</nav>
@@ -23,7 +23,7 @@
 			<div class="row wow fadeInUp justify-content-center">
 				<div class="col-lg-10">
 					<article class="legal-doc bm-rich">
-						<p class="legal-updated">Dernière mise à jour : <%= doc.updated %></p>
+						<p class="legal-updated"><%= t('legal.updated', { date: doc.updated }) %></p>
 						<p><%= doc.intro %></p>
 						<% doc.sections.forEach((section) => { %>
 							<h2><%= section.title %></h2>

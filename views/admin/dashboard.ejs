@@ -8,6 +8,7 @@
 		{ href: '/admin/blog', icon: 'fa-newspaper', title: 'Blog', total: stats.posts, active: stats.activePosts, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/portfolio', icon: 'fa-project-diagram', title: 'Portfolio', total: stats.projects, active: stats.activeProjects, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/testimonials', icon: 'fa-quote-right', title: 'Témoignages', total: stats.testimonials, active: stats.activeTestimonials, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
+		{ href: '/admin/clients', icon: 'fa-handshake', title: 'Logos clients', total: stats.clientLogos, active: stats.activeClientLogos, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/jobs', icon: 'fa-briefcase', title: 'Carrières', total: stats.jobs, active: stats.activeJobs, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/quotes', icon: 'fa-clipboard-list', title: 'Devis', total: stats.quotes, active: stats.quotes - stats.newQuotes, onLabel: 'pris en charge', offLabel: 'nouveaux', ratioLabel: 'traités' },
 		{ href: '/admin/contacts', icon: 'fa-envelope', title: 'Messages', total: stats.contacts, active: stats.contacts - stats.newContacts, onLabel: 'pris en charge', offLabel: 'nouveaux', ratioLabel: 'traités' },
@@ -37,11 +38,11 @@
 	</div>
 	<div class="dash-hero-stats">
 		<div>
-			<strong><%= stats.activePosts + stats.activeProjects + stats.activeTestimonials + stats.activeJobs %></strong>
+			<strong><%= stats.activePosts + stats.activeProjects + stats.activeTestimonials + stats.activeJobs + stats.activeClientLogos %></strong>
 			<span>éléments visibles</span>
 		</div>
 		<div>
-			<strong><%= stats.posts + stats.projects + stats.testimonials + stats.jobs %></strong>
+			<strong><%= stats.posts + stats.projects + stats.testimonials + stats.jobs + stats.clientLogos %></strong>
 			<span>contenus au total</span>
 		</div>
 	</div>
@@ -73,6 +74,7 @@
 			<a class="quick-action" href="/admin/blog/new"><i class="fas fa-plus"></i><span>Nouvel article</span></a>
 			<a class="quick-action" href="/admin/portfolio/new"><i class="fas fa-plus"></i><span>Nouveau projet</span></a>
 			<a class="quick-action" href="/admin/testimonials/new"><i class="fas fa-plus"></i><span>Nouveau témoignage</span></a>
+			<a class="quick-action" href="/admin/clients/new"><i class="fas fa-plus"></i><span>Nouveau logo client</span></a>
 			<a class="quick-action" href="/admin/jobs/new"><i class="fas fa-plus"></i><span>Nouvelle offre</span></a>
 			<a class="quick-action" href="/admin/newsletter/new"><i class="fas fa-plus"></i><span>Nouvelle newsletter</span></a>
 		</div>
