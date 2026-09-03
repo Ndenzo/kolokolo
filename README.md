@@ -43,7 +43,7 @@ npm run dev
 
 Voir **[DEPLOY.md](./DEPLOY.md)**.
 
-Sans Node sur Hostinger : le build produit des **fichiers HTML** dans `dist/`. La branche GitHub `production` (mise à jour par Actions) ne contient que ce build — brancher Hostinger dessus vers `public_html`.
+Sans Node sur Hostinger : le build produit des **fichiers HTML** dans `dist/` (local/CI). GitHub Actions publie ce **contenu** sur la branche `production` — Hostinger doit être branché sur **`production`**. Tu dois voir `index.html` à la racine de `public_html`, **pas** un dossier nommé `dist`.
 
 ## Pages
 

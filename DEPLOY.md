@@ -1,82 +1,82 @@
 # Déploiement Kolokolo (Hostinger)
 
-## Pourquoi tu ne voyais pas de HTML
+## Point important : tu ne verras JAMAIS un dossier `dist/` sur Hostinger
 
-Kolokolo en développement est une app **Express + EJS** : les pages sont rendues **à la demande** par Node. Il n’y a **pas** de fichiers `.html` dans le dépôt source.
+`dist/` est **local / CI uniquement** (il est dans `.gitignore`).
 
-Sur Hostinger **sans** « Node.js Web App », le Git ne fait que **copier** le code → tu vois des `.ejs` / `.js`, pas un site navigable → souvent **403** ou listing inutile.
+Le workflow GitHub copie le **contenu** de `dist/` vers la branche **`production`** :
+- `dist/index.html` → `production` → `public_html/index.html`
+- `dist/a-propos/` → `public_html/a-propos/`
+- etc.
 
-**Solution pour un abonnement classique :** `npm run build` génère un site **HTML statique** dans `dist/`. C’est **ce dossier** qu’il faut mettre en ligne.
+Si Hostinger est branché sur **`main`**, tu reçois le code source Node (`.ejs`, `src/…`) — **pas** le site HTML.
 
 ---
 
-## Flux recommandé (Git + webhook Hostinger)
+## Config Hostinger (à vérifier)
+
+1. **Advanced → Git**
+2. Branche : **`production`** (obligatoire)
+3. Dossier cible : **`public_html`**
+4. Auto-deploy activé
+
+Après un deploy réussi, dans le File Manager tu dois voir :
 
 ```text
-push sur main
-  → GitHub Actions : npm ci + npm run build
-  → branche production = contenu de dist/ (HTML + assets + .htaccess)
-  → webhook Hostinger tire production → public_html
+public_html/
+  index.html          ← obligatoire
+  a-propos/
+  blog/
+  assets/
+  .htaccess
+  …
 ```
 
-### Réglages Hostinger (Git classique)
+S’il n’y a pas `index.html` à la racine, Hostinger n’est pas sur la bonne branche (ou le workflow n’a pas tourné).
 
-1. **Advanced → Git** (pas Node.js Web App)
-2. Repo GitHub, branche : **`production`**
-3. Dossier cible : **`public_html`** (vide au premier deploy)
-4. Auto-deploy / webhook activé
+---
 
-### GitHub
+## Config GitHub
 
-- **Settings → Actions → General → Workflow permissions** : Read and write
-- Optionnel : secret `DEPLOY_PAT` si le push sur `production` est refusé
+1. **Settings → Actions → General → Workflow permissions** → **Read and write** → Save  
+2. Onglet **Actions** : lancer **Deploy** (workflow_dispatch) ou pousser sur `main`  
+3. Vérifier que le job est vert, puis regarder la branche `production` sur GitHub : elle ne doit contenir que le HTML (pas `src/`, pas `package.json`)
 
-### Checklist
+---
 
-- [ ] Build local OK : `npm run build` puis ouvrir `dist/index.html` (ou servir `dist/`)
-- [ ] Hostinger branché sur **`production`**, pas `main`
-- [ ] Après push sur `main`, Actions vertes + dossier `public_html` contient `index.html`
-- [ ] Plus de sources Node (`src/`, `views/`) dans `public_html`
+## Flux
+
+```text
+push main
+  → Actions : npm run build → dist/
+  → branche production = contenu de dist/
+  → webhook Hostinger tire production → public_html
+```
 
 ---
 
 ## Limites du mode statique
 
-| Fonctionne | Ne fonctionne pas (sans Node) |
+| OK | Non disponible |
 | --- | --- |
-| Pages vitrine, blog seed, SEO head | Back-office `/admin` |
-| Assets CSS/JS/images | Formulaires contact / devis / newsletter (POST) |
-| URLs propres via `.htaccess` | Recherche AJAX `/recherche` |
-| | CMS dynamique (contenu figé au build) |
-
-Pour un CMS + formulaires complets : **Node.js Web App** Hostinger (ou VPS) avec `src/app.js` + MySQL.
+| Pages vitrine, blog seed, assets | Admin `/admin` |
+| URLs + `.htaccess` | Formulaires POST, recherche API |
+| | Contenu CMS live (figé au build) |
 
 ---
 
-## Commandes locales
+## Local
 
 ```bash
 npm ci
-npm run build          # SCSS + export HTML → dist/
-npx --yes serve dist   # aperçu local du site statique
-npm start              # app Node complète (dev / Node hosting)
+npm run build
+# aperçu : ouvrir dist/index.html ou npx serve dist
 ```
 
 ---
 
-## Fichiers CI/CD
+## 403 / pas de site
 
-| Fichier | Rôle |
-| --- | --- |
-| `scripts/build.js` | Orchestre SCSS + export |
-| `scripts/export-static.js` | Génère `dist/**/*.html` |
-| `.github/workflows/ci.yml` | Build sur PR / push |
-| `.github/workflows/deploy.yml` | Publie `dist/` → branche `production` |
-
----
-
-## En cas de 403
-
-1. Vérifier que `public_html/index.html` existe
-2. Vérifier le `.htaccess` généré dans `dist/` (déployé avec le site)
-3. Redeploy Hostinger après un push `production` réussi
+1. Hostinger = branche **`production`**, pas `main`
+2. `public_html/index.html` présent
+3. Relancer le workflow **Deploy** sur GitHub, puis Redeploy Hostinger

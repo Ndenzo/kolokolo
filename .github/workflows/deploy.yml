@@ -1,7 +1,8 @@
 name: Deploy
 
-# Push sur main → build (HTML dans dist/) → publie dist/ sur la branche production.
-# Hostinger (Git classique) doit être branché sur `production` → public_html.
+# Push sur main → build → publie le CONTENU de dist/ sur la branche `production`
+# (pas un dossier nommé dist). Hostinger doit être branché sur `production` → public_html.
+# Dans public_html tu dois voir index.html à la racine, pas un dossier dist/.
 
 on:
   push:
@@ -33,30 +34,17 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (SCSS + HTML dist/)
+      - name: Build (SCSS + HTML → dist/)
         run: npm run build
 
-      - name: Publish dist/ to production branch
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEPLOY_PAT: ${{ secrets.DEPLOY_PAT }}
-        run: |
-          set -euo pipefail
-          TOKEN="${DEPLOY_PAT:-${GITHUB_TOKEN}}"
-          SHA="$(git rev-parse --short HEAD)"
-          MSG="$(git log -1 --pretty=%s)"
+      - name: Verify index.html exists
+        run: test -f dist/index.html && ls -la dist | head -30
 
-          DEPLOY_DIR="$(mktemp -d)"
-          cp -a dist/. "$DEPLOY_DIR/"
-          cd "$DEPLOY_DIR"
-
-          git init
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b production
-          git add -A
-          git commit -m "deploy: ${SHA} — ${MSG}"
-          git remote add origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git push --force origin production
-
-          echo "Branche production = contenu de dist/ (${SHA})"
+      - name: Publish dist/ contents to production branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: production
+          folder: dist
+          clean: true
+          force: true
+          commit-message: 'deploy: static site from main'
