@@ -38,6 +38,9 @@ Réglages :
 | Entry file | `src/app.js` |
 | Package manager | npm |
 
+Un `.htaccess` est fourni à la racine du dépôt (`PassengerStartupFile src/app.js`).  
+Sur Hostinger Node.js Web App, hPanel peut le régénérer : si le site renvoie 403 après un deploy, clique **Redeploy** ou vérifie que l’entry file reste `src/app.js`.
+
 > La branche `production` est mise à jour **uniquement** après un build GitHub réussi (voir workflows).
 
 ### 3. Variables d’environnement (hPanel)
