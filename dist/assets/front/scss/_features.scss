@@ -1,0 +1,40 @@
+/*
+*****
+15. features
+*************************
+*/
+.features-area {
+	padding: 10px 0;
+}
+.single-features {
+}
+.features-content {
+}
+.features-icon {
+	float: left;
+	margin-right: 25px;
+	@media #{$lg} {
+		margin-right: 20px;
+	}
+	& i {
+		font-size: 42px;
+		color: $heading-color;
+		@include transition(0.3s);
+		@media #{$lg} {
+			font-size: 40px;
+		}
+	}
+}
+.features-text {
+	overflow: hidden;
+	& span {
+		font-size: 18px;
+		color: $heading-color;
+		font-weight: 700;
+		display: block;
+		line-height: 25px;
+		@media #{$lg} {
+			font-size: 16px;
+		}
+	}
+}

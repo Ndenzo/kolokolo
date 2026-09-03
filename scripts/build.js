@@ -55,4 +55,4 @@ if (!fs.existsSync(path.join(root, 'dist/index.html'))) {
 
 step('Build OK');
 console.log('  CSS compilé + site HTML dans dist/');
-console.log('  Hostinger (sans Node) : déployer le contenu de dist/ dans public_html.\n');
+console.log('  Commit dist/ + .htaccess sur main pour Hostinger.\n');

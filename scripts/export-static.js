@@ -214,48 +214,9 @@ async function main() {
 	step('Copier les assets publics');
 	copyDir(publicDir, distDir);
 
-	step('Écrire .htaccess statique Hostinger');
-	writeFile(
-		'.htaccess',
-		`# Kolokolo — site statique (hébergement Hostinger sans Node)
-DirectoryIndex index.html
-
-<IfModule mod_rewrite.c>
-	RewriteEngine On
-	RewriteBase /
-
-	# HTTPS
-	RewriteCond %{HTTPS} !=on
-	RewriteCond %{HTTP:X-Forwarded-Proto} !https
-	RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-
-	# Fichiers / dossiers existants
-	RewriteCond %{REQUEST_FILENAME} -f [OR]
-	RewriteCond %{REQUEST_FILENAME} -d
-	RewriteRule ^ - [L]
-
-	# URLs propres → dossier/index.html
-	RewriteCond %{REQUEST_FILENAME}.html -f
-	RewriteRule ^(.+)$ $1.html [L]
-
-	RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
-	RewriteRule ^(.+)/?$ $1/index.html [L]
-</IfModule>
-
-ErrorDocument 404 /404.html
-
-# Secrets / sources (si présents par erreur)
-<IfModule mod_authz_core.c>
-	<FilesMatch "(^\\.env|package(-lock)?\\.json)">
-		Require all denied
-	</FilesMatch>
-</IfModule>
-`,
-	);
-
 	step('Export OK');
-	console.log(`  Sortie: ${path.relative(root, distDir)}/`);
-	console.log('  Déployer le contenu de dist/ sur public_html (Hostinger Git → branche production).\n');
+	console.log('  Sortie: dist/ (à committer sur main pour Hostinger)');
+	console.log('  Le .htaccess racine route / vers dist/.\n');
 }
 
 main().catch((err) => fail(err.stack || err.message));

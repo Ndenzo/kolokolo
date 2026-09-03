@@ -1,57 +1,53 @@
-# Déploiement Kolokolo (Hostinger)
+# Déploiement Kolokolo (Hostinger) — tout sur `main`
 
-## Point important : tu ne verras JAMAIS un dossier `dist/` sur Hostinger
+## Principe
 
-`dist/` est **local / CI uniquement** (il est dans `.gitignore`).
+1. En local : `npm run build` → génère **`dist/`** (HTML + assets)
+2. Tu commits **`dist/`** + le `.htaccess` racine sur **`main`**
+3. Hostinger Git est branché sur **`main`** → `public_html`
+4. Le `.htaccess` racine sert le site depuis **`dist/`** (URLs `/`, `/a-propos`, …)
 
-Le workflow GitHub copie le **contenu** de `dist/` vers la branche **`production`** :
-- `dist/index.html` → `production` → `public_html/index.html`
-- `dist/a-propos/` → `public_html/a-propos/`
-- etc.
-
-Si Hostinger est branché sur **`main`**, tu reçois le code source Node (`.ejs`, `src/…`) — **pas** le site HTML.
+Plus de branche `production`.
 
 ---
 
-## Config Hostinger (à vérifier)
+## Hostinger
 
 1. **Advanced → Git**
-2. Branche : **`production`** (obligatoire)
-3. Dossier cible : **`public_html`**
-4. Auto-deploy activé
+2. Branche : **`main`**
+3. Cible : **`public_html`**
+4. Auto-deploy / webhook OK
 
-Après un deploy réussi, dans le File Manager tu dois voir :
+Après deploy, File Manager :
 
 ```text
 public_html/
-  index.html          ← obligatoire
-  a-propos/
-  blog/
-  assets/
-  .htaccess
+  .htaccess          ← routage vers dist/
+  dist/
+    index.html
+    a-propos/
+    assets/
+    …
+  src/               ← présent mais bloqué par .htaccess
   …
 ```
 
-S’il n’y a pas `index.html` à la racine, Hostinger n’est pas sur la bonne branche (ou le workflow n’a pas tourné).
+Le site s’ouvre sur `/` (pas `/dist/`).
 
 ---
 
-## Config GitHub
+## Workflow local
 
-1. **Settings → Actions → General → Workflow permissions** → **Read and write** → Save  
-2. Onglet **Actions** : lancer **Deploy** (workflow_dispatch) ou pousser sur `main`  
-3. Vérifier que le job est vert, puis regarder la branche `production` sur GitHub : elle ne doit contenir que le HTML (pas `src/`, pas `package.json`)
-
----
-
-## Flux
-
-```text
-push main
-  → Actions : npm run build → dist/
-  → branche production = contenu de dist/
-  → webhook Hostinger tire production → public_html
+```bash
+npm ci
+npm run build
+# vérifier dist/index.html
+git add dist .htaccess
+git commit -m "build: export statique"
+git push origin main
 ```
+
+GitHub Actions (**CI**) vérifie seulement que le build passe ; **c’est toi** qui versions `dist/` sur `main`.
 
 ---
 
@@ -60,23 +56,13 @@ push main
 | OK | Non disponible |
 | --- | --- |
 | Pages vitrine, blog seed, assets | Admin `/admin` |
-| URLs + `.htaccess` | Formulaires POST, recherche API |
+| URLs via `.htaccess` | Formulaires POST, recherche API |
 | | Contenu CMS live (figé au build) |
 
 ---
 
-## Local
+## 403 / page blanche
 
-```bash
-npm ci
-npm run build
-# aperçu : ouvrir dist/index.html ou npx serve dist
-```
-
----
-
-## 403 / pas de site
-
-1. Hostinger = branche **`production`**, pas `main`
-2. `public_html/index.html` présent
-3. Relancer le workflow **Deploy** sur GitHub, puis Redeploy Hostinger
+1. `dist/index.html` est bien commit / présent sur le serveur
+2. `.htaccess` racine présent
+3. Redeploy Hostinger après le push

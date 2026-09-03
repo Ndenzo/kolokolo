@@ -1,0 +1,33 @@
+/*
+*****
+06. brand
+*************************
+*/
+.brand-area {
+	@media #{$xs} {
+		padding-top: 60px;
+		padding-bottom: 60px;
+	}
+}
+.brand-slider {
+}
+.single-brand {
+	text-align: center;
+	&:hover a {
+		&:first-child {
+			display: block;
+		}
+		&:last-child {
+			display: none;
+		}
+	}
+	& a {
+		display: inline-block;
+		& img {
+			@include transition(0.5s);
+		}
+		&:first-child {
+			display: none;
+		}
+	}
+}
