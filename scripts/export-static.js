@@ -112,7 +112,6 @@ async function renderLayout(page, title, extra, lang) {
 	return ejs.renderFile(path.join(viewsDir, 'layout.ejs'), locals, {
 		root: viewsDir,
 		filename: path.join(viewsDir, 'layout.ejs'),
-		async: true,
 	});
 }
 
@@ -208,7 +207,7 @@ async function main() {
 
 	step('Page maintenance (coming)');
 	const comingSrc = path.join(viewsDir, 'coming.ejs');
-	const comingHtml = await ejs.renderFile(comingSrc, {}, { async: true, filename: comingSrc });
+	const comingHtml = await ejs.renderFile(comingSrc, {}, { filename: comingSrc });
 	writeFile('coming/index.html', comingHtml);
 
 	step('Copier les assets publics');
