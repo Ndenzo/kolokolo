@@ -1,0 +1,59 @@
+/*
+*****
+17. faq
+*************************
+*/
+// grb accordion
+.grb-accordion .accordion-button.collapsed::after {
+	content: "\f067";
+	font-family: "Font Awesome 5 Pro";
+	font-size: 16px;
+	color: $theme-color;
+	background-image: none;
+	width: auto;
+	height: auto;
+	font-weight: 400;
+}
+.grb-accordion .accordion-button::after {
+	content: "\f068";
+	font-family: "Font Awesome 5 Pro";
+	font-size: 16px;
+	color: $theme-color;
+	background-image: none;
+	width: auto;
+	height: auto;
+	font-weight: 400;
+}
+.grb-accordion .accordion-item {
+	background-color: #fff;
+}
+.grb-accordion .accordion-button {
+	font-size: 15px;
+	font-weight: 700;
+	color: $heading-color;
+	padding: 0 20px;
+	height: 60px;
+	line-height: 25px;
+}
+.grb-accordion .accordion-button:not(.collapsed) {
+	color: $heading-color;
+	background-color: $white;
+	box-shadow: none;
+	border: 1px solid #f2f2f2;
+}
+.grb-accordion .accordion-button:focus {
+	border: 1px solid #f2f2f2;
+	box-shadow: none;
+	background: none;
+}
+.grb-accordion .accordion-body {
+	padding: 20px 20px;
+}
+.grb-accordion .accordion-item:first-of-type .accordion-button,
+.grb-accordion .accordion-item:last-of-type .accordion-button {
+	border-radius: 0;
+}
+.grb-accordion .accordion-item:first-of-type,
+.grb-accordion .accordion-item:last-of-type {
+	border-radius: 0;
+}

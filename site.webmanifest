@@ -1,0 +1,23 @@
+{
+	"name": "Kolokolo — Agence digitale internationale",
+	"short_name": "Kolokolo",
+	"description": "Kolokolo, agence digitale internationale basée à Dakar : sites web, applications mobiles, publicité, social media et SEO pour clients en Afrique et dans le monde.",
+	"start_url": "/",
+	"display": "browser",
+	"background_color": "#0C0B22",
+	"theme_color": "#FF0A08",
+	"lang": "fr",
+	"icons": [
+		{
+			"src": "/assets/custom/img/logo/favicon.png",
+			"sizes": "32x32",
+			"type": "image/png"
+		},
+		{
+			"src": "/assets/custom/img/logo/logo.png",
+			"sizes": "1500x1500",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	]
+}
