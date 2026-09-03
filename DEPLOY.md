@@ -38,8 +38,7 @@ Réglages :
 | Entry file | `src/app.js` |
 | Package manager | npm |
 
-Un `.htaccess` est fourni à la racine du dépôt (`PassengerStartupFile src/app.js`).  
-Sur Hostinger Node.js Web App, hPanel peut le régénérer : si le site renvoie 403 après un deploy, clique **Redeploy** ou vérifie que l’entry file reste `src/app.js`.
+**Ne pas committer de `.htaccess`** : Hostinger en génère un dans `public_html` pour router vers le process Node. Un fichier maison provoque souvent un **403**. Si tu as déjà un 403 : supprimer / laisser le `.htaccess` dans `public_html`, puis **Redeploy** dans hPanel.
 
 > La branche `production` est mise à jour **uniquement** après un build GitHub réussi (voir workflows).
 
@@ -123,9 +122,11 @@ npm run migrate  # optionnel : aussi exécuté au boot
 
 ## Checklist go-live
 
-- [ ] Site Hostinger de type **Node.js Web App**
+- [ ] Site Hostinger de type **Node.js Web App** (pas Git classique PHP)
 - [ ] Branche `production` connectée + auto-deploy
+- [ ] **Pas** de `.htaccess` custom dans le repo / `public_html` (Hostinger le génère)
 - [ ] Variables d’environnement renseignées
 - [ ] MySQL accessible depuis l’app
 - [ ] Premier push sur `main` → Actions vertes → déploiement Hostinger OK
 - [ ] Vérifier `/` et `/auth` (admin)
+- [ ] En cas de **403** : Redeploy dans hPanel pour régénérer le `.htaccess`
