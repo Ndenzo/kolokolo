@@ -45,6 +45,20 @@ function jsonLdString(data) {
 	return JSON.stringify(data).replace(/</g, '\\u003c');
 }
 
+function brandIdentity(translate) {
+	const knowsAbout = translate('brand.knowsAbout');
+	return {
+		name: translate('brand.name') || 'Kolokolo',
+		siteName: translate('brand.siteName') || 'Kolokolo — Agence digitale à Dakar',
+		tagline: translate('brand.tagline') || 'Agence digitale basée à Dakar',
+		author: translate('brand.author') || 'Kolokolo, agence digitale à Dakar (Sénégal)',
+		alternateName: translate('brand.alternateName') || 'Kolokolo — L’ibis rouge du digital',
+		slogan: translate('brand.slogan') || '',
+		imageAlt: translate('brand.imageAlt') || 'Logo Kolokolo',
+		knowsAbout: Array.isArray(knowsAbout) ? knowsAbout : [],
+	};
+}
+
 function buildHead({
 	title,
 	page,
@@ -57,9 +71,11 @@ function buildHead({
 	description,
 	image,
 	t,
+	lang,
 } = {}) {
 	const key = page || 'home';
 	const translate = typeof t === 'function' ? t : (k) => k;
+	const brand = brandIdentity(translate);
 	let desc = description || (PAGE_DESC_KEYS[key] ? translate(PAGE_DESC_KEYS[key]) : '') || translate('meta.defaultDesc');
 	let img = image || DEFAULT_IMAGE;
 	let ogType = 'website';
@@ -77,34 +93,71 @@ function buildHead({
 		desc = doc.intro || desc;
 	}
 
+	const baseUrl = String(siteUrl || '').replace(/\/$/, '') || 'https://kolokolo.tech';
 	const url = absoluteUrl(siteUrl, path || '/');
 	const imageUrl = absoluteUrl(siteUrl, img);
 	const place = settings.place || {};
 	const sameAs = [settings.facebook, settings.twitter, settings.instagram, settings.linkedin]
 		.map(socialUrl)
 		.filter(Boolean);
+	const locality = place.region || settings.region || 'Dakar';
+	const street = place.address || settings.address || undefined;
+	const currentLang = lang === 'en' ? 'en' : 'fr';
 
 	const organization = {
-		'@context': 'https://schema.org',
-		'@type': 'ProfessionalService',
-		name: 'Kolokolo',
-		url: String(siteUrl || '').replace(/\/$/, '') || 'https://kolokolo.tech',
-		logo: absoluteUrl(siteUrl, DEFAULT_IMAGE),
+		'@type': ['Organization', 'ProfessionalService'],
+		'@id': `${baseUrl}/#organization`,
+		name: brand.name,
+		legalName: brand.name,
+		alternateName: brand.alternateName,
+		slogan: brand.slogan || undefined,
+		url: baseUrl,
+		logo: {
+			'@type': 'ImageObject',
+			url: absoluteUrl(siteUrl, DEFAULT_IMAGE),
+			caption: brand.imageAlt,
+		},
 		image: imageUrl,
 		email: settings.email || 'contact@kolokolo.tech',
 		telephone: settings.phone || undefined,
 		description: translate('meta.defaultDesc'),
+		foundingLocation: {
+			'@type': 'Place',
+			name: 'Dakar, Sénégal',
+		},
 		address: {
 			'@type': 'PostalAddress',
-			streetAddress: place.address || settings.address || undefined,
-			addressLocality: place.region || settings.region || 'Dakar',
+			streetAddress: street,
+			addressLocality: locality,
+			addressRegion: 'Dakar',
 			addressCountry: 'SN',
 		},
-		areaServed: 'SN',
+		areaServed: [
+			{ '@type': 'Country', name: 'Sénégal' },
+			{ '@type': 'City', name: 'Dakar' },
+		],
+		knowsAbout: brand.knowsAbout.length ? brand.knowsAbout : undefined,
+		brand: {
+			'@type': 'Brand',
+			name: brand.name,
+			slogan: brand.slogan || undefined,
+			logo: absoluteUrl(siteUrl, DEFAULT_IMAGE),
+		},
 	};
 	if (sameAs.length) organization.sameAs = sameAs;
 
-	const graph = [organization];
+	const website = {
+		'@type': 'WebSite',
+		'@id': `${baseUrl}/#website`,
+		name: brand.siteName,
+		alternateName: brand.name,
+		url: baseUrl,
+		description: brand.tagline,
+		inLanguage: [currentLang === 'en' ? 'en' : 'fr', currentLang === 'en' ? 'fr' : 'en'],
+		publisher: { '@id': `${baseUrl}/#organization` },
+	};
+
+	const graph = [organization, website];
 	if (key === 'blog-details' && post) {
 		graph.push({
 			'@type': 'Article',
@@ -113,22 +166,33 @@ function buildHead({
 			image: imageUrl,
 			url,
 			datePublished: post.published_at || undefined,
+			inLanguage: currentLang,
+			author: {
+				'@type': 'Organization',
+				name: brand.name,
+				url: baseUrl,
+			},
 			publisher: {
 				'@type': 'Organization',
-				name: 'Kolokolo',
+				name: brand.name,
 				logo: { '@type': 'ImageObject', url: absoluteUrl(siteUrl, DEFAULT_IMAGE) },
 			},
 		});
 	}
 
 	return {
-		title: title || 'Kolokolo',
+		title: title || brand.siteName,
 		description: truncateMeta(desc),
 		url,
 		image: imageUrl,
+		imageAlt: brand.imageAlt,
 		robots,
 		ogType,
-		jsonLd: jsonLdString(graph.length > 1 ? { '@context': 'https://schema.org', '@graph': graph } : organization),
+		siteName: brand.siteName,
+		author: brand.author,
+		applicationName: brand.name,
+		tagline: brand.tagline,
+		jsonLd: jsonLdString({ '@context': 'https://schema.org', '@graph': graph }),
 	};
 }
 

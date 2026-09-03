@@ -11,7 +11,10 @@
 		description: typeof description !== 'undefined' ? description : '',
 		image: typeof metaImage !== 'undefined' ? metaImage : '',
 		t: typeof t === 'function' ? t : undefined,
+		lang: typeof lang !== 'undefined' ? lang : 'fr',
 	});
+	const ogLocale = typeof locale !== 'undefined' ? locale : 'fr_FR';
+	const ogLocaleAlt = ogLocale === 'en_US' ? 'fr_FR' : 'en_US';
 %>
 <!doctype html>
 <html lang="<%= typeof lang !== 'undefined' ? lang : 'fr' %>">
@@ -20,23 +23,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><%= head.title %></title>
 	<meta name="description" content="<%= head.description %>">
-	<meta name="author" content="Kolokolo">
+	<meta name="author" content="<%= head.author %>">
+	<meta name="application-name" content="<%= head.applicationName %>">
+	<meta name="apple-mobile-web-app-title" content="<%= head.applicationName %>">
 	<meta name="robots" content="<%= head.robots %>">
 	<meta name="theme-color" content="#FF0A08">
+	<meta name="geo.region" content="SN-DK">
+	<meta name="geo.placename" content="Dakar">
 	<link rel="canonical" href="<%= head.url %>">
 
 	<meta property="og:type" content="<%= head.ogType %>">
-	<meta property="og:site_name" content="Kolokolo">
-	<meta property="og:locale" content="<%= typeof locale !== 'undefined' ? locale : 'fr_FR' %>">
+	<meta property="og:site_name" content="<%= head.siteName %>">
+	<meta property="og:locale" content="<%= ogLocale %>">
+	<meta property="og:locale:alternate" content="<%= ogLocaleAlt %>">
 	<meta property="og:title" content="<%= head.title %>">
 	<meta property="og:description" content="<%= head.description %>">
 	<meta property="og:url" content="<%= head.url %>">
 	<meta property="og:image" content="<%= head.image %>">
+	<meta property="og:image:alt" content="<%= head.imageAlt %>">
 
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="<%= head.title %>">
 	<meta name="twitter:description" content="<%= head.description %>">
 	<meta name="twitter:image" content="<%= head.image %>">
+	<meta name="twitter:image:alt" content="<%= head.imageAlt %>">
 
 	<link rel="icon" type="image/png" sizes="32x32" href="/assets/custom/img/logo/favicon.png">
 	<link rel="apple-touch-icon" href="/assets/custom/img/logo/logo.png">

@@ -1,0 +1,79 @@
+name: Deploy
+
+# Après un push sur main/master : build GitHub, puis promotion vers la branche
+# `production` que Hostinger écoute (webhook). Ainsi le site n’est mis à jour
+# que si le build réussit.
+#
+# Prérequis Hostinger :
+# - Site « Node.js Web App » (runtime Node obligatoire pour Express)
+# - Branche connectée : production
+# - Build command : npm run build
+# - Entry file : src/app.js
+# - Variables d’environnement (DB_*, SESSION_SECRET, SMTP_*, …) dans hPanel
+#
+# Secrets GitHub (Settings → Secrets and variables → Actions) :
+# - DEPLOY_PAT : Personal Access Token avec permission contents:write
+#   (ou laisser vide si GITHUB_TOKEN suffit — activer « Read and write » pour
+#   le workflow dans Settings → Actions → General → Workflow permissions)
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  build-and-promote:
+    name: Build & promote production
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Promote to production branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEPLOY_PAT: ${{ secrets.DEPLOY_PAT }}
+        run: |
+          set -euo pipefail
+          TOKEN="${DEPLOY_PAT:-${GITHUB_TOKEN}}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+
+          CURRENT_SHA="$(git rev-parse HEAD)"
+          CURRENT_MSG="$(git log -1 --pretty=%s)"
+
+          if git ls-remote --exit-code --heads origin production >/dev/null 2>&1; then
+            git fetch origin production
+            git checkout -B production origin/production
+          else
+            git checkout -B production
+          fi
+
+          git reset --hard "$CURRENT_SHA"
+          git push --force-with-lease origin production
+
+          echo "Promoted ${CURRENT_SHA} (${CURRENT_MSG}) → production"
+          echo "Hostinger doit être connecté à la branche production pour déployer via webhook."
