@@ -49,9 +49,9 @@ function brandIdentity(translate) {
 	const knowsAbout = translate('brand.knowsAbout');
 	return {
 		name: translate('brand.name') || 'Kolokolo',
-		siteName: translate('brand.siteName') || 'Kolokolo — Agence digitale à Dakar',
-		tagline: translate('brand.tagline') || 'Agence digitale basée à Dakar',
-		author: translate('brand.author') || 'Kolokolo, agence digitale à Dakar (Sénégal)',
+		siteName: translate('brand.siteName') || 'Kolokolo — Agence digitale internationale',
+		tagline: translate('brand.tagline') || 'Depuis Dakar, vers le monde',
+		author: translate('brand.author') || 'Kolokolo, agence digitale internationale basée à Dakar (Sénégal)',
 		alternateName: translate('brand.alternateName') || 'Kolokolo — L’ibis rouge du digital',
 		slogan: translate('brand.slogan') || '',
 		imageAlt: translate('brand.imageAlt') || 'Logo Kolokolo',
@@ -133,8 +133,10 @@ function buildHead({
 			addressCountry: 'SN',
 		},
 		areaServed: [
-			{ '@type': 'Country', name: 'Sénégal' },
 			{ '@type': 'City', name: 'Dakar' },
+			{ '@type': 'Country', name: 'Sénégal' },
+			{ '@type': 'Continent', name: 'Africa' },
+			'Worldwide',
 		],
 		knowsAbout: brand.knowsAbout.length ? brand.knowsAbout : undefined,
 		brand: {

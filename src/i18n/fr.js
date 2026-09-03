@@ -16,7 +16,7 @@ module.exports = {
 		call: 'Appelez-nous :',
 		write: 'Écrivez-nous :',
 		sideIntro:
-			'Agence digitale basée à Dakar. Sites web, applications mobiles, publicité et social media : on mène vos projets digitaux dans les meilleurs délais.',
+			'Agence digitale internationale, basée à Dakar. Sites web, applications mobiles, publicité et social media : on mène vos projets digitaux partout dans le monde.',
 	},
 	footer: {
 		question: 'Une question ? Appelez-nous',
@@ -33,12 +33,12 @@ module.exports = {
 	},
 	brand: {
 		name: 'Kolokolo',
-		siteName: 'Kolokolo — Agence digitale à Dakar',
-		tagline: 'Agence digitale basée à Dakar',
-		author: 'Kolokolo, agence digitale à Dakar (Sénégal)',
+		siteName: 'Kolokolo — Agence digitale internationale',
+		tagline: 'Depuis Dakar, vers le monde',
+		author: 'Kolokolo, agence digitale internationale basée à Dakar (Sénégal)',
 		alternateName: 'Kolokolo — L’ibis rouge du digital',
 		slogan: 'Vos projets digitaux en deux temps, trois mouvements',
-		imageAlt: 'Logo Kolokolo, agence digitale à Dakar',
+		imageAlt: 'Logo Kolokolo, agence digitale internationale basée à Dakar',
 		knowsAbout: [
 			'Sites web',
 			'E-commerce',
@@ -47,10 +47,11 @@ module.exports = {
 			'Social media',
 			'SEO',
 			'Maintenance web',
+			'Transformation digitale internationale',
 		],
 	},
 	meta: {
-		homeTitle: 'Kolokolo - Agence Digitale à Dakar',
+		homeTitle: 'Kolokolo - Agence Digitale Internationale',
 		aboutTitle: 'À propos - Kolokolo',
 		servicesTitle: 'Services - Kolokolo',
 		blogTitle: 'Blog - Kolokolo',
@@ -61,21 +62,21 @@ module.exports = {
 		unsubTitle: 'Désinscription newsletter - Kolokolo',
 		notFoundTitle: 'Page introuvable - Kolokolo',
 		homeDesc:
-			'Agence digitale à Dakar : sites web, applications mobiles, publicité digitale, social media et SEO. Kolokolo vous accompagne de l’idée à la mise en ligne.',
+			'Agence digitale internationale basée à Dakar : sites web, applications mobiles, publicité, social media et SEO. Kolokolo accompagne vos projets en Afrique et dans le monde.',
 		aboutDesc:
-			'Kolokolo, agence digitale basée à Dakar. Découvrez notre approche, nos compétences et notre accompagnement digital.',
+			'Kolokolo, agence digitale internationale basée à Dakar. Découvrez notre approche, nos compétences et notre accompagnement digital à l’échelle mondiale.',
 		servicesDesc:
-			'Sites web, applications mobiles, publicité digitale, social media, SEO et maintenance. Découvrez les services de Kolokolo à Dakar.',
-		blogDesc: 'Actualités, conseils et ressources digitales par Kolokolo, agence basée à Dakar.',
-		contactDesc: 'Contactez Kolokolo à Dakar pour un projet web, mobile ou de communication digitale.',
-		careerDesc: 'Rejoignez Kolokolo, agence digitale à Dakar. Consultez nos offres d’emploi.',
-		careerDetailsDesc: 'Offre d’emploi chez Kolokolo, agence digitale à Dakar.',
-		blogDetailsDesc: 'Article publié par Kolokolo, agence digitale à Dakar.',
-		legalDesc: 'Informations légales de Kolokolo, agence digitale basée à Dakar.',
+			'Sites web, applications mobiles, publicité digitale, social media, SEO et maintenance. Les services Kolokolo pour entreprises locales et internationales.',
+		blogDesc: 'Actualités, conseils et ressources digitales par Kolokolo, agence internationale basée à Dakar.',
+		contactDesc: 'Contactez Kolokolo pour un projet web, mobile ou digital — depuis Dakar, au service de clients dans le monde.',
+		careerDesc: 'Rejoignez Kolokolo, agence digitale internationale basée à Dakar. Consultez nos offres d’emploi.',
+		careerDetailsDesc: 'Offre d’emploi chez Kolokolo, agence digitale internationale basée à Dakar.',
+		blogDetailsDesc: 'Article publié par Kolokolo, agence digitale internationale basée à Dakar.',
+		legalDesc: 'Informations légales de Kolokolo, agence digitale internationale basée à Dakar.',
 		unsubDesc: 'Vous êtes désinscrit de la newsletter Kolokolo.',
 		notFoundDesc: 'La page demandée est introuvable.',
 		defaultDesc:
-			'Kolokolo, agence digitale à Dakar : sites web, e-commerce, applications mobiles, publicité digitale, social media et SEO.',
+			'Kolokolo, agence digitale internationale basée à Dakar : sites web, e-commerce, applications mobiles, publicité, social media et SEO pour clients en Afrique et dans le monde.',
 	},
 	home: {
 		slide1Kicker: 'Vos projets digitaux en deux temps, trois mouvements',
@@ -88,7 +89,7 @@ module.exports = {
 		watch: 'Voir la vidéo',
 		who: 'Qui sommes-nous ?',
 		about:
-			'Nous sommes une agence digitale basée à Dakar au Sénégal, spécialisée dans la conception et la réalisation de projets web. Les web apps et les applications mobiles n’ont plus de secrets pour nous. Nos processus sont simples, pour que vos projets digitaux soient menés à bien dans les meilleurs délais. Kolokolo, autre nom de l’ibis rouge qui est notre emblème, arbore son joli plumage pour donner des couleurs à tous vos projets digitaux.',
+			'Nous sommes une agence digitale internationale basée à Dakar au Sénégal, spécialisée dans la conception et la réalisation de projets web. Les web apps et les applications mobiles n’ont plus de secrets pour nous. Nos processus sont simples, pour que vos projets digitaux soient menés à bien dans les meilleurs délais — en Afrique comme à l’international. Kolokolo, autre nom de l’ibis rouge qui est notre emblème, arbore son joli plumage pour donner des couleurs à tous vos projets digitaux.',
 		quality: 'Garantie Qualité',
 		qualityText: 'Nous mettons un point d’honneur à livrer un travail soigné et fiable, à la hauteur de vos attentes.',
 		innovation: 'Innovation Permanente',
@@ -122,12 +123,12 @@ module.exports = {
 	},
 	about: {
 		heading: 'À propos',
-		title: 'Nous sommes une agence digitale basée à Dakar',
+		title: 'Agence digitale internationale, basée à Dakar',
 		lead:
-			'Kolokolo, autre nom de l’ibis rouge qui est notre emblème, arbore son joli plumage pour donner des couleurs à tous vos projets digitaux. Sites web, applications mobiles, publicité et social media : nos processus sont simples, pour que vos projets soient menés à bien dans les meilleurs délais.',
+			'Kolokolo, autre nom de l’ibis rouge qui est notre emblème, arbore son joli plumage pour donner des couleurs à tous vos projets digitaux. Sites web, applications mobiles, publicité et social media : nos processus sont simples, pour que vos projets soient menés à bien en Afrique et à l’international.',
 		boxTitle: 'Une équipe engagée pour concevoir, lancer et faire grandir vos produits digitaux.',
 		boxText:
-			'Les web apps et les applications mobiles n’ont plus de secrets pour nous. Nous accompagnons des entreprises sénégalaises et internationales, de l’idée jusqu’à la mise en ligne, avec un suivi continu.',
+			'Les web apps et les applications mobiles n’ont plus de secrets pour nous. Depuis Dakar, nous accompagnons des entreprises locales et internationales, de l’idée jusqu’à la mise en ligne, avec un suivi continu.',
 		skillsTitle: 'Des compétences au service de vos projets',
 		dakar: 'Dakar',
 		senegal: 'Sénégal',
@@ -188,7 +189,7 @@ module.exports = {
 		heading: 'Contact',
 		coords: 'Coordonnées',
 		reach: 'Nous contacter',
-		lead: 'Une équipe à Dakar, disponible pour vos projets digitaux.',
+		lead: 'Basés à Dakar, disponibles pour vos projets digitaux partout dans le monde.',
 		reply: 'Réponse sous 24 heures',
 		write: 'Écrivez-nous',
 		sendTitle: 'Envoyez-nous un message',
@@ -285,7 +286,7 @@ module.exports = {
 	career: {
 		heading: 'Carrière',
 		title: 'Rejoignez l’équipe Kolokolo',
-		lead: 'Agence digitale basée à Dakar. Sites web, applications mobiles, publicité et social media : on mène vos projets digitaux dans les meilleurs délais.',
+		lead: 'Agence digitale internationale basée à Dakar. Sites web, applications mobiles, publicité et social media : on mène vos projets digitaux partout dans le monde.',
 		emptyTitle: 'Aucune offre d’emploi pour le moment',
 		emptyText: 'Nous n’avons pas de poste ouvert actuellement. Vous pouvez tout de même nous envoyer une candidature spontanée, nous la lirons avec attention.',
 		applyOpen: 'Candidature spontanée',
@@ -323,8 +324,8 @@ module.exports = {
 		career: 'Carrière',
 		project: 'Projet',
 		pageItems: {
-			home: { title: 'Accueil', excerpt: 'Agence digitale à Dakar : sites web, applications, publicité et social media.' },
-			about: { title: 'À propos', excerpt: 'Kolokolo, agence digitale basée à Dakar. Notre approche et nos compétences.' },
+			home: { title: 'Accueil', excerpt: 'Agence digitale internationale basée à Dakar : sites web, applications, publicité et social media.' },
+			about: { title: 'À propos', excerpt: 'Kolokolo, agence digitale internationale. Notre approche et nos compétences depuis Dakar.' },
 			services: { title: 'Services', excerpt: 'Sites web, applications mobiles, publicité digitale, social media, SEO et maintenance.' },
 			blog: { title: 'Blog', excerpt: 'Actualités et conseils digitaux par Kolokolo.' },
 			contact: { title: 'Contact', excerpt: 'Écrivez-nous pour un projet, un partenariat ou une question.' },

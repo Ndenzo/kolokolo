@@ -16,7 +16,7 @@ module.exports = {
 		call: 'Call us:',
 		write: 'Email us:',
 		sideIntro:
-			'Digital agency based in Dakar. Websites, mobile apps, advertising and social media: we deliver your digital projects on time.',
+			'International digital agency based in Dakar. Websites, mobile apps, advertising and social media: we deliver your digital projects worldwide.',
 	},
 	footer: {
 		question: 'A question? Call us',
@@ -33,12 +33,12 @@ module.exports = {
 	},
 	brand: {
 		name: 'Kolokolo',
-		siteName: 'Kolokolo — Digital agency in Dakar',
-		tagline: 'Digital agency based in Dakar',
-		author: 'Kolokolo, digital agency in Dakar (Senegal)',
+		siteName: 'Kolokolo — International digital agency',
+		tagline: 'From Dakar to the world',
+		author: 'Kolokolo, international digital agency based in Dakar (Senegal)',
 		alternateName: 'Kolokolo — The scarlet ibis of digital',
 		slogan: 'Your digital projects, done the simple way',
-		imageAlt: 'Kolokolo logo, digital agency in Dakar',
+		imageAlt: 'Kolokolo logo, international digital agency based in Dakar',
 		knowsAbout: [
 			'Websites',
 			'E-commerce',
@@ -47,10 +47,11 @@ module.exports = {
 			'Social media',
 			'SEO',
 			'Web maintenance',
+			'International digital transformation',
 		],
 	},
 	meta: {
-		homeTitle: 'Kolokolo - Digital Agency in Dakar',
+		homeTitle: 'Kolokolo - International Digital Agency',
 		aboutTitle: 'About - Kolokolo',
 		servicesTitle: 'Services - Kolokolo',
 		blogTitle: 'Blog - Kolokolo',
@@ -61,20 +62,21 @@ module.exports = {
 		unsubTitle: 'Newsletter unsubscribe - Kolokolo',
 		notFoundTitle: 'Page not found - Kolokolo',
 		homeDesc:
-			'Digital agency in Dakar: websites, mobile apps, digital advertising, social media and SEO. Kolokolo supports you from idea to launch.',
-		aboutDesc: 'Kolokolo is a digital agency based in Dakar. Discover our approach, skills and digital support.',
+			'International digital agency based in Dakar: websites, mobile apps, advertising, social media and SEO. Kolokolo supports your projects across Africa and worldwide.',
+		aboutDesc:
+			'Kolokolo is an international digital agency based in Dakar. Discover our approach, skills and global digital support.',
 		servicesDesc:
-			'Websites, mobile apps, digital advertising, social media, SEO and maintenance. Discover Kolokolo’s services in Dakar.',
-		blogDesc: 'Digital news, tips and resources by Kolokolo, an agency based in Dakar.',
-		contactDesc: 'Contact Kolokolo in Dakar for a web, mobile or digital communication project.',
-		careerDesc: 'Join Kolokolo, a digital agency in Dakar. Browse our job openings.',
-		careerDetailsDesc: 'Job opening at Kolokolo, a digital agency in Dakar.',
-		blogDetailsDesc: 'Article published by Kolokolo, a digital agency in Dakar.',
-		legalDesc: 'Legal information for Kolokolo, a digital agency based in Dakar.',
+			'Websites, mobile apps, digital advertising, social media, SEO and maintenance. Kolokolo services for local and international businesses.',
+		blogDesc: 'Digital news, tips and resources by Kolokolo, an international agency based in Dakar.',
+		contactDesc: 'Contact Kolokolo for a web, mobile or digital project — from Dakar, serving clients worldwide.',
+		careerDesc: 'Join Kolokolo, an international digital agency based in Dakar. Browse our job openings.',
+		careerDetailsDesc: 'Job opening at Kolokolo, an international digital agency based in Dakar.',
+		blogDetailsDesc: 'Article published by Kolokolo, an international digital agency based in Dakar.',
+		legalDesc: 'Legal information for Kolokolo, an international digital agency based in Dakar.',
 		unsubDesc: 'You have been unsubscribed from the Kolokolo newsletter.',
 		notFoundDesc: 'The requested page could not be found.',
 		defaultDesc:
-			'Kolokolo, digital agency in Dakar: websites, e-commerce, mobile apps, digital advertising, social media and SEO.',
+			'Kolokolo, international digital agency based in Dakar: websites, e-commerce, mobile apps, advertising, social media and SEO for clients across Africa and worldwide.',
 	},
 	home: {
 		slide1Kicker: 'Your digital projects, done the simple way',
@@ -87,7 +89,7 @@ module.exports = {
 		watch: 'Watch the video',
 		who: 'Who we are',
 		about:
-			'We are a digital agency based in Dakar, Senegal, specialised in designing and delivering web projects. Web apps and mobile applications have no secrets for us. Our process is simple, so your digital projects are delivered on time. Kolokolo, another name for the scarlet ibis that is our emblem, brings colour to all your digital projects.',
+			'We are an international digital agency based in Dakar, Senegal, specialised in designing and delivering web projects. Web apps and mobile applications have no secrets for us. Our process is simple, so your digital projects are delivered on time — across Africa and worldwide. Kolokolo, another name for the scarlet ibis that is our emblem, brings colour to all your digital projects.',
 		quality: 'Quality guarantee',
 		qualityText: 'We take pride in delivering careful, reliable work that meets your expectations.',
 		innovation: 'Constant innovation',
@@ -121,12 +123,12 @@ module.exports = {
 	},
 	about: {
 		heading: 'About',
-		title: 'We are a digital agency based in Dakar',
+		title: 'International digital agency based in Dakar',
 		lead:
-			'Kolokolo, another name for the scarlet ibis that is our emblem, brings colour to all your digital projects. Websites, mobile apps, advertising and social media: our process is simple, so your projects are delivered on time.',
+			'Kolokolo, another name for the scarlet ibis that is our emblem, brings colour to all your digital projects. Websites, mobile apps, advertising and social media: our process is simple, so your projects are delivered across Africa and worldwide.',
 		boxTitle: 'A committed team to design, launch and grow your digital products.',
 		boxText:
-			'Web apps and mobile applications have no secrets for us. We support Senegalese and international companies from idea to launch, with ongoing follow-up.',
+			'Web apps and mobile applications have no secrets for us. From Dakar, we support local and international companies from idea to launch, with ongoing follow-up.',
 		skillsTitle: 'Skills that serve your projects',
 		dakar: 'Dakar',
 		senegal: 'Senegal',
@@ -187,7 +189,7 @@ module.exports = {
 		heading: 'Contact',
 		coords: 'Details',
 		reach: 'Get in touch',
-		lead: 'A team in Dakar, available for your digital projects.',
+		lead: 'Based in Dakar, available for your digital projects worldwide.',
 		reply: 'Reply within 24 hours',
 		write: 'Write to us',
 		sendTitle: 'Send us a message',
@@ -284,7 +286,7 @@ module.exports = {
 	career: {
 		heading: 'Careers',
 		title: 'Join the Kolokolo team',
-		lead: 'Digital agency based in Dakar. Websites, mobile apps, advertising and social media: we deliver your digital projects on time.',
+		lead: 'International digital agency based in Dakar. Websites, mobile apps, advertising and social media: we deliver your digital projects worldwide.',
 		emptyTitle: 'No job openings at the moment',
 		emptyText: 'We have no open roles right now. You can still send a spontaneous application — we will read it carefully.',
 		applyOpen: 'Spontaneous application',
@@ -322,8 +324,8 @@ module.exports = {
 		career: 'Careers',
 		project: 'Project',
 		pageItems: {
-			home: { title: 'Home', excerpt: 'Digital agency in Dakar: websites, apps, advertising and social media.' },
-			about: { title: 'About', excerpt: 'Kolokolo, a digital agency based in Dakar. Our approach and skills.' },
+			home: { title: 'Home', excerpt: 'International digital agency based in Dakar: websites, apps, advertising and social media.' },
+			about: { title: 'About', excerpt: 'Kolokolo, an international digital agency. Our approach and skills from Dakar.' },
 			services: { title: 'Services', excerpt: 'Websites, mobile apps, digital advertising, social media, SEO and maintenance.' },
 			blog: { title: 'Blog', excerpt: 'Digital news and tips by Kolokolo.' },
 			contact: { title: 'Contact', excerpt: 'Write to us about a project, partnership or question.' },
