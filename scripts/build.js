@@ -18,6 +18,14 @@ function step(label) {
 	console.log(`\n→ ${label}`);
 }
 
+function runNode(scriptRel) {
+	const result = spawnSync(process.execPath, [path.join(root, scriptRel)], {
+		cwd: root,
+		stdio: 'inherit',
+	});
+	if (result.status !== 0) fail(scriptRel);
+}
+
 step('Compile SCSS → CSS');
 if (!fs.existsSync(scssEntry)) fail(`SCSS introuvable: ${scssEntry}`);
 
@@ -30,21 +38,6 @@ const sass = spawnSync(
 if (sass.status !== 0) fail('compilation SCSS');
 
 step('Vérifier les modules serveur');
-const required = [
-	'src/app.js',
-	'src/config.js',
-	'src/db.js',
-	'src/routes/public.js',
-	'src/routes/admin.js',
-	'src/routes/auth.js',
-	'knexfile.js',
-	'package.json',
-];
-for (const rel of required) {
-	const abs = path.join(root, rel);
-	if (!fs.existsSync(abs)) fail(`fichier manquant: ${rel}`);
-}
-
 try {
 	require(path.join(root, 'src/config'));
 	require(path.join(root, 'src/lib/seo'));
@@ -53,7 +46,13 @@ try {
 	fail(`chargement modules: ${err.message}`);
 }
 
+step('Export HTML statique → dist/');
+runNode('scripts/export-static.js');
+
+if (!fs.existsSync(path.join(root, 'dist/index.html'))) {
+	fail('dist/index.html manquant après export');
+}
+
 step('Build OK');
-console.log(`  CSS: ${path.relative(root, cssOut)}`);
-console.log('  Entry: src/app.js');
-console.log('  Prêt pour déploiement (Hostinger Node.js / VPS).\n');
+console.log('  CSS compilé + site HTML dans dist/');
+console.log('  Hostinger (sans Node) : déployer le contenu de dist/ dans public_html.\n');

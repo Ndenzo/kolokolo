@@ -34,8 +34,8 @@ npm run dev
 
 | Commande | Description |
 | --- | --- |
-| `npm run build` | Compile le SCSS et vérifie l’app (étape CI / Hostinger) |
-| `npm start` | Démarre le serveur Express |
+| `npm run build` | Compile le SCSS et exporte le site HTML dans `dist/` |
+| `npm start` | Démarre le serveur Express (dev / hébergement Node) |
 | `npm run dev` | Mode watch |
 | `npm run migrate` | Migrations Knex |
 
@@ -43,7 +43,7 @@ npm run dev
 
 Voir **[DEPLOY.md](./DEPLOY.md)**.
 
-Résumé : l’app est **Node.js** (Express). Sur Hostinger, utiliser un site **Node.js Web App** branché sur la branche `production`. Un push sur `main` lance le build GitHub, puis met à jour `production` pour déclencher le webhook Hostinger.
+Sans Node sur Hostinger : le build produit des **fichiers HTML** dans `dist/`. La branche GitHub `production` (mise à jour par Actions) ne contient que ce build — brancher Hostinger dessus vers `public_html`.
 
 ## Pages
 
