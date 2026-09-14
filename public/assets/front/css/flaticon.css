@@ -1,14 +1,14 @@
 @font-face {
 	font-family: "flaticon";
-	src: url("../fonts/flaticon.ttf?757587e6d4abf70b0bea962dadea867f")
+	src: url("../fonts/Flaticon.ttf?757587e6d4abf70b0bea962dadea867f")
 			format("truetype"),
-		url("../fonts/flaticon.woff?757587e6d4abf70b0bea962dadea867f")
+		url("../fonts/Flaticon.woff?757587e6d4abf70b0bea962dadea867f")
 			format("woff"),
-		url("../fonts/flaticon.woff2?757587e6d4abf70b0bea962dadea867f")
+		url("../fonts/Flaticon.woff2?757587e6d4abf70b0bea962dadea867f")
 			format("woff2"),
-		url("../fonts/flaticon.eot?757587e6d4abf70b0bea962dadea867f#iefix")
+		url("../fonts/Flaticon.eot?757587e6d4abf70b0bea962dadea867f#iefix")
 			format("embedded-opentype"),
-		url("../fonts/flaticon.svg?757587e6d4abf70b0bea962dadea867f#flaticon")
+		url("../fonts/Flaticon.svg?757587e6d4abf70b0bea962dadea867f#flaticon")
 			format("svg");
 }
 
@@ -167,4 +167,7 @@ i[class*=" flaticon-"]:before {
 }
 .flaticon-map:before {
 	content: "\f130";
+}
+.flaticon-support:before {
+	content: "\f119";
 }
