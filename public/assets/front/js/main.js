@@ -152,22 +152,26 @@
 
 	// portfolio activation
 	if (jQuery(".portfolio-active").length > 0) {
+		const portfolioSlides = jQuery(".portfolio-active .swiper-slide").length;
+		// Loop clones slides; with few items it invents many duplicates (e.g. 5 → ~17).
+		const portfolioLoop = portfolioSlides > 6;
 		let portfolio = new Swiper(".portfolio-active", {
 			slidesPerView: 1,
 			spaceBetween: 30,
-			// direction: 'vertical',
-			loop: true,
+			loop: portfolioLoop,
 			autoplay: {
 				delay: 5000,
+				disableOnInteraction: false,
+				stopOnLastSlide: !portfolioLoop,
 			},
 			// Responsive breakpoints
 			breakpoints: {
 				768: {
-					slidesPerView: 2,
+					slidesPerView: Math.min(2, portfolioSlides) || 1,
 					spaceBetween: 30,
 				},
 				1400: {
-					slidesPerView: 3,
+					slidesPerView: Math.min(3, portfolioSlides) || 1,
 					spaceBetween: 30,
 				},
 			},
