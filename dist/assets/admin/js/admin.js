@@ -428,8 +428,22 @@
 		});
 	}
 
+	function initNavGroups() {
+		qsa('[data-nav-group]').forEach((group) => {
+			const toggle = qs('.nav-group-toggle', group);
+			const panel = qs('.nav-group-panel', group);
+			if (!toggle || !panel) return;
+			toggle.addEventListener('click', () => {
+				const open = group.classList.toggle('is-open');
+				toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+				panel.hidden = !open;
+			});
+		});
+	}
+
 	initToasts();
 	initConfirmModal();
+	initNavGroups();
 	initSwitches();
 	initPasswordToggles();
 	qsa('[data-table]').forEach(initDataTable);

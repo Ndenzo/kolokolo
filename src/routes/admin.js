@@ -14,6 +14,16 @@ const { renderNewsletterMail, sampleContact, sampleQuote, sampleNewsletter } = r
 const { siteUrl } = require('../config');
 
 const DEFAULT_CATEGORIES = ['Site Web', 'Social Media', 'Mobile App', 'Publicité Digitale', 'SEO & visibilité'];
+const DEFAULT_PORTFOLIO_CATEGORIES = [
+	'Site Web',
+	'Application Web',
+	'Application Web Mobile',
+	'Application Mobile',
+	'E-commerce',
+	'Publicité Digitale',
+	'Social Media',
+	'SEO & visibilité',
+];
 
 const router = Router();
 const uploadDir = path.join(__dirname, '..', '..', 'public', 'uploads');
@@ -565,7 +575,7 @@ router.post('/clients/:id/toggle', async (req, res) => {
 async function projectCategories() {
 	const rows = await db('portfolio_projects').distinct('category');
 	const fromDb = rows.map((row) => String(row.category || '').trim()).filter(Boolean);
-	return Array.from(new Set([...DEFAULT_CATEGORIES, ...fromDb])).sort((a, b) => a.localeCompare(b, 'fr'));
+	return Array.from(new Set([...DEFAULT_PORTFOLIO_CATEGORIES, ...fromDb])).sort((a, b) => a.localeCompare(b, 'fr'));
 }
 
 router.get('/portfolio', async (req, res) => {

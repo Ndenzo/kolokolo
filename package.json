@@ -27,6 +27,6 @@
     "nodemailer": "^9.0.5"
   },
   "devDependencies": {
-    "sass": "^1.103.1"
+    "sass": "1.86.3"
   }
 }

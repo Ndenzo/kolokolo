@@ -1,4 +1,7 @@
-const DEFAULT_IMAGE = '/assets/custom/img/logo/logo.png';
+const DEFAULT_IMAGE = '/assets/custom/img/logo/og-share.png';
+const DEFAULT_LOGO = '/assets/custom/img/logo/logo.png';
+const DEFAULT_IMAGE_WIDTH = 1200;
+const DEFAULT_IMAGE_HEIGHT = 630;
 
 const PAGE_DESC_KEYS = {
 	home: 'meta.homeDesc',
@@ -79,11 +82,18 @@ function buildHead({
 	let desc = description || (PAGE_DESC_KEYS[key] ? translate(PAGE_DESC_KEYS[key]) : '') || translate('meta.defaultDesc');
 	let img = image || DEFAULT_IMAGE;
 	let ogType = 'website';
+	let twitterCard = 'summary_large_image';
+	let imageWidth = DEFAULT_IMAGE_WIDTH;
+	let imageHeight = DEFAULT_IMAGE_HEIGHT;
 	const robots = key === '404' || key === 'newsletter-unsub' ? 'noindex, nofollow' : 'index, follow';
 
 	if (key === 'blog-details' && post) {
 		desc = post.excerpt || stripHtml(post.intro_html) || desc;
-		img = post.cover_image || img;
+		if (post.cover_image) {
+			img = post.cover_image;
+			imageWidth = 1200;
+			imageHeight = 630;
+		}
 		ogType = 'article';
 	}
 	if (key === 'career-details' && job) {
@@ -114,7 +124,7 @@ function buildHead({
 		url: baseUrl,
 		logo: {
 			'@type': 'ImageObject',
-			url: absoluteUrl(siteUrl, DEFAULT_IMAGE),
+			url: absoluteUrl(siteUrl, DEFAULT_LOGO),
 			caption: brand.imageAlt,
 		},
 		image: imageUrl,
@@ -143,7 +153,7 @@ function buildHead({
 			'@type': 'Brand',
 			name: brand.name,
 			slogan: brand.slogan || undefined,
-			logo: absoluteUrl(siteUrl, DEFAULT_IMAGE),
+			logo: absoluteUrl(siteUrl, DEFAULT_LOGO),
 		},
 	};
 	if (sameAs.length) organization.sameAs = sameAs;
@@ -177,7 +187,7 @@ function buildHead({
 			publisher: {
 				'@type': 'Organization',
 				name: brand.name,
-				logo: { '@type': 'ImageObject', url: absoluteUrl(siteUrl, DEFAULT_IMAGE) },
+				logo: { '@type': 'ImageObject', url: absoluteUrl(siteUrl, DEFAULT_LOGO) },
 			},
 		});
 	}
@@ -188,6 +198,11 @@ function buildHead({
 		url,
 		image: imageUrl,
 		imageAlt: brand.imageAlt,
+		imageWidth,
+		imageHeight,
+		imageType: 'image/png',
+		logo: absoluteUrl(siteUrl, DEFAULT_LOGO),
+		twitterCard,
 		robots,
 		ogType,
 		siteName: brand.siteName,
@@ -198,4 +213,4 @@ function buildHead({
 	};
 }
 
-module.exports = { buildHead, DEFAULT_IMAGE };
+module.exports = { buildHead, DEFAULT_IMAGE, DEFAULT_LOGO };

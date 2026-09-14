@@ -4,15 +4,17 @@
 	const greeting = hour < 12 ? 'Bonjour' : (hour < 18 ? 'Bon après-midi' : 'Bonsoir');
 	const dateLabel = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 	const pct = (active, total) => total ? Math.round((active / total) * 100) : 0;
-	const modules = [
+	const contentModules = [
 		{ href: '/admin/blog', icon: 'fa-newspaper', title: 'Blog', total: stats.posts, active: stats.activePosts, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/portfolio', icon: 'fa-project-diagram', title: 'Portfolio', total: stats.projects, active: stats.activeProjects, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/testimonials', icon: 'fa-quote-right', title: 'Témoignages', total: stats.testimonials, active: stats.activeTestimonials, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/clients', icon: 'fa-handshake', title: 'Logos clients', total: stats.clientLogos, active: stats.activeClientLogos, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
-		{ href: '/admin/jobs', icon: 'fa-briefcase', title: 'Carrières', total: stats.jobs, active: stats.activeJobs, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
+	];
+	const otherModules = [
 		{ href: '/admin/quotes', icon: 'fa-clipboard-list', title: 'Devis', total: stats.quotes, active: stats.quotes - stats.newQuotes, onLabel: 'pris en charge', offLabel: 'nouveaux', ratioLabel: 'traités' },
 		{ href: '/admin/contacts', icon: 'fa-envelope', title: 'Messages', total: stats.contacts, active: stats.contacts - stats.newContacts, onLabel: 'pris en charge', offLabel: 'nouveaux', ratioLabel: 'traités' },
 		{ href: '/admin/newsletter', icon: 'fa-paper-plane', title: 'Newsletter', total: stats.subscribers, active: stats.activeSubscribers, onLabel: 'inscrits', offLabel: 'désinscrits', ratioLabel: 'inscrits' },
+		{ href: '/admin/jobs', icon: 'fa-briefcase', title: 'Carrières', total: stats.jobs, active: stats.activeJobs, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 	];
 	const socials = [
 		{ key: 'facebook', label: 'Facebook', icon: 'fab fa-facebook-f', url: settings.facebook },
@@ -48,22 +50,51 @@
 	</div>
 </section>
 
-<div class="module-grid">
-	<% modules.forEach((mod) => { const ratio = pct(mod.active, mod.total); %>
-		<a class="module-card" href="<%= mod.href %>">
-			<div class="module-card-top">
-				<span class="stat-icon"><i class="fas <%= mod.icon %>"></i></span>
-				<span class="module-count"><%= mod.total %></span>
-			</div>
-			<h3><%= mod.title %></h3>
-			<p><%= mod.active %> <%= mod.onLabel %> · <%= mod.total - mod.active %> <%= mod.offLabel %></p>
-			<div class="progress" role="img" aria-label="<%= ratio %>% <%= mod.ratioLabel %>">
-				<span style="width: <%= ratio %>%"></span>
-			</div>
-			<small><%= ratio %>% <%= mod.ratioLabel %></small>
-		</a>
-	<% }) %>
-</div>
+<section class="module-section">
+	<div class="module-section-head">
+		<span class="module-section-tag is-content">Contenu</span>
+		<h2>Contenu du site</h2>
+	</div>
+	<div class="module-grid">
+		<% contentModules.forEach((mod) => { const ratio = pct(mod.active, mod.total); %>
+			<a class="module-card is-content" href="<%= mod.href %>">
+				<div class="module-card-top">
+					<span class="stat-icon"><i class="fas <%= mod.icon %>"></i></span>
+					<span class="module-count"><%= mod.total %></span>
+				</div>
+				<h3><%= mod.title %></h3>
+				<p><%= mod.active %> <%= mod.onLabel %> · <%= mod.total - mod.active %> <%= mod.offLabel %></p>
+				<div class="progress" role="img" aria-label="<%= ratio %>% <%= mod.ratioLabel %>">
+					<span style="width: <%= ratio %>%"></span>
+				</div>
+				<small><%= ratio %>% <%= mod.ratioLabel %></small>
+			</a>
+		<% }) %>
+	</div>
+</section>
+
+<section class="module-section">
+	<div class="module-section-head">
+		<span class="module-section-tag is-ops">Activité</span>
+		<h2>Demandes & communication</h2>
+	</div>
+	<div class="module-grid">
+		<% otherModules.forEach((mod) => { const ratio = pct(mod.active, mod.total); %>
+			<a class="module-card is-ops" href="<%= mod.href %>">
+				<div class="module-card-top">
+					<span class="stat-icon"><i class="fas <%= mod.icon %>"></i></span>
+					<span class="module-count"><%= mod.total %></span>
+				</div>
+				<h3><%= mod.title %></h3>
+				<p><%= mod.active %> <%= mod.onLabel %> · <%= mod.total - mod.active %> <%= mod.offLabel %></p>
+				<div class="progress" role="img" aria-label="<%= ratio %>% <%= mod.ratioLabel %>">
+					<span style="width: <%= ratio %>%"></span>
+				</div>
+				<small><%= ratio %>% <%= mod.ratioLabel %></small>
+			</a>
+		<% }) %>
+	</div>
+</section>
 
 <div class="dash-layout">
 	<div class="panel">
