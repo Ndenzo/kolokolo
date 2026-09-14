@@ -7,8 +7,8 @@ on:
     branches: [main, master]
 
 jobs:
-  build:
-    name: Build
+  check:
+    name: Check
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -25,8 +25,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build (SCSS + HTML → dist/)
-        run: npm run build
-
-      - name: Check dist/index.html
-        run: test -f dist/index.html
+      - name: Smoke load
+        run: node -e "require('./src/config'); require('./src/lib/seo'); require('./src/i18n');"

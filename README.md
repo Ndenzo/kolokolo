@@ -1,13 +1,14 @@
 # Kolokolo
 
-Site web principal de l’agence digitale Kolokolo (Dakar).
+Site web principal de l’agence digitale Kolokolo (Dakar).  
+Application **Node.js + Express + MySQL** — pas d’étape de build.
 
 ## Prérequis
 
 - Node.js 18 ou supérieur
 - MySQL
 
-## Installation
+## Installation locale
 
 ```bash
 npm install
@@ -17,8 +18,7 @@ cp .env.example .env   # puis renseigner DB / SMTP / secrets
 Créer la base MySQL (`utf8mb4`), puis :
 
 ```bash
-npm run migrate   # optionnel : aussi au démarrage
-npm run build
+npm run migrate
 npm start
 ```
 
@@ -34,8 +34,7 @@ npm run dev
 
 | Commande | Description |
 | --- | --- |
-| `npm run build` | Compile le SCSS et exporte le site HTML dans `dist/` |
-| `npm start` | Démarre le serveur Express (dev / hébergement Node) |
+| `npm start` | Démarre le serveur Express |
 | `npm run dev` | Mode watch |
 | `npm run migrate` | Migrations Knex |
 
@@ -43,7 +42,7 @@ npm run dev
 
 Voir **[DEPLOY.md](./DEPLOY.md)**.
 
-Sans Node : `npm run build` → commit le dossier **`dist/`** sur **`main`**. Hostinger tire `main` ; le `.htaccess` racine sert le site depuis `dist/`.
+En résumé : app Node.js, fichier de démarrage `src/app.js`, `npm start`. Aucun build / aucun `dist/`.
 
 ## Pages
 

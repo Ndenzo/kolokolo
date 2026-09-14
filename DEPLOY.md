@@ -1,68 +1,71 @@
-# Déploiement Kolokolo (Hostinger) — tout sur `main`
+# Déploiement Kolokolo — application Node.js (Hostinger)
 
-## Principe
+Déploiement simple : pas de build, pas d’export HTML. Hostinger lance l’app Express avec `npm start`.
 
-1. En local : `npm run build` → génère **`dist/`** (HTML + assets)
-2. Tu commits **`dist/`** + le `.htaccess` racine sur **`main`**
-3. Hostinger Git est branché sur **`main`** → `public_html`
-4. Le `.htaccess` racine sert le site depuis **`dist/`** (URLs `/`, `/a-propos`, …)
+## Prérequis Hostinger
 
-Plus de branche `production`.
+1. Hébergement avec **Node.js** (pas uniquement Apache/static)
+2. Base **MySQL** créée dans hPanel
+3. Variables d’environnement configurées (voir `.env.example`)
 
----
+## Configuration de l’app Node
 
-## Hostinger
+Dans hPanel → **Websites** → **Node.js** (ou Advanced → Node.js) :
 
-1. **Advanced → Git**
-2. Branche : **`main`**
-3. Cible : **`public_html`**
-4. Auto-deploy / webhook OK
+| Réglage | Valeur |
+| --- | --- |
+| Application root | racine du repo (ex. `domains/…/public_html` ou le dossier Git) |
+| Application startup file | `src/app.js` |
+| Node version | **18** ou **20** |
+| Application URL | ton domaine |
 
-Après deploy, File Manager :
+Commande de démarrage : `npm start` (déjà défini dans `package.json`).
 
-```text
-public_html/
-  .htaccess          ← routage vers dist/
-  dist/
-    index.html
-    a-propos/
-    assets/
-    …
-  src/               ← présent mais bloqué par .htaccess
-  …
-```
+## Variables d’environnement
 
-Le site s’ouvre sur `/` (pas `/dist/`).
+Copier `.env.example` → `.env` **sur le serveur** (ou via l’UI Node.js Hostinger). Ne jamais committer `.env`.
 
----
+Obligatoires :
 
-## Workflow local
+- `PORT` — souvent fourni par Hostinger ; sinon `3000`
+- `SITE_URL` — URL publique HTTPS (`https://kolokolo.tech`)
+- `SESSION_SECRET`
+- `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`
+- `ADMIN_EMAIL`, `ADMIN_PASSWORD` (premier compte admin)
+
+SMTP optionnel pour devis / contact / newsletter.
+
+## Première mise en ligne
 
 ```bash
-npm ci
-npm run build
-# vérifier dist/index.html
-git add dist .htaccess
-git commit -m "build: export statique"
+npm install --omit=dev
+npm run migrate
+npm start
+```
+
+Sur Hostinger, `npm install` et le démarrage sont en général gérés par le panneau après un deploy Git.
+
+## Workflow quotidien
+
+```bash
 git push origin main
 ```
 
-GitHub Actions (**CI**) vérifie seulement que le build passe ; **c’est toi** qui versions `dist/` sur `main`.
+Hostinger tire `main` → réinstalle si besoin → redémarre Node.  
+Aucun `npm run build`, aucun dossier `dist/`.
 
----
+## Vérifications
 
-## Limites du mode statique
+1. Le site répond sur l’URL du domaine
+2. `/admin` accessible après login
+3. Les uploads vont dans `public/uploads/` (droits en écriture)
+4. `SITE_URL` est bien en HTTPS (métas Open Graph)
 
-| OK | Non disponible |
+## Dépannage
+
+| Symptôme | Piste |
 | --- | --- |
-| Pages vitrine, blog seed, assets | Admin `/admin` |
-| URLs via `.htaccess` | Formulaires POST, recherche API |
-| | Contenu CMS live (figé au build) |
-
----
-
-## 403 / page blanche
-
-1. `dist/index.html` est bien commit / présent sur le serveur
-2. `.htaccess` racine présent
-3. Redeploy Hostinger après le push
+| App ne démarre pas | Logs Node, `.env` / DB, Node ≥ 18 |
+| 502 / timeout | `PORT` incorrect ou app crashée (voir logs) |
+| CSS / images 404 | `public/` bien déployé ; pas besoin de `dist/` |
+| Admin KO | Migrations non jouées : `npm run migrate` |

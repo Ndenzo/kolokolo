@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "node --watch src/app.js",
-    "build": "node scripts/build.js",
     "migrate": "knex migrate:latest",
-    "migrate:rollback": "knex migrate:rollback"
+    "migrate:rollback": "knex migrate:rollback",
+    "build": "node -e \"console.log('Pas de build — application Node.js prête.')\""
   },
   "engines": {
     "node": ">=18"
@@ -25,8 +25,5 @@
     "multer": "^2.2.0",
     "mysql2": "^3.23.3",
     "nodemailer": "^9.0.5"
-  },
-  "devDependencies": {
-    "sass": "1.86.3"
   }
 }
