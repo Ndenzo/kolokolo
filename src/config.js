@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('node:path').join(__dirname, '..', '.env') });
 
 const DEFAULT_MAP =
 	'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3838.8!2d-17.4676!3d14.6928!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sDakar%2C%20Senegal!5e0!3m2!1sfr!2ssn!4v1627994034288!5m2!1sfr!2ssn';

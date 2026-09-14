@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('node:path').join(__dirname, '..', '.env') });
 
 const path = require('node:path');
 const express = require('express');
@@ -14,9 +14,14 @@ const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 
 async function start() {
+	console.log('[kolokolo] démarrage…');
+	console.log(`[kolokolo] NODE_ENV=${process.env.NODE_ENV || 'development'} PORT=${port}`);
+
 	await boot();
+	console.log('[kolokolo] base de données prête');
 
 	const app = express();
+	app.set('trust proxy', 1);
 	app.set('view engine', 'ejs');
 	app.set('views', path.join(__dirname, '..', 'views'));
 	app.locals.helpers = helpers;
@@ -34,6 +39,10 @@ async function start() {
 	app.use(flash);
 	app.use(loadSettings);
 
+	app.get('/health', (_req, res) => {
+		res.status(200).type('text').send('ok');
+	});
+
 	app.use(authRoutes);
 	app.use('/admin', adminRoutes);
 	app.use(publicRoutes);
@@ -47,13 +56,14 @@ async function start() {
 		res.status(500).send('Une erreur est survenue.');
 	});
 
-	app.listen(port, () => {
-		console.log(`Kolokolo server running on http://localhost:${port}`);
+	const host = process.env.HOST || '0.0.0.0';
+	app.listen(port, host, () => {
+		console.log(`[kolokolo] écoute sur http://${host}:${port}`);
 	});
 }
 
 start().catch((err) => {
-	console.error('Impossible de démarrer (base de données) :', err.message);
-	console.error('Vérifiez DB_HOST, DB_PORT, DB_NAME, DB_USER et DB_PASSWORD dans le fichier .env, puis créez la base MySQL si besoin : CREATE DATABASE kolokolo CHARACTER SET utf8mb4;');
+	console.error('[kolokolo] échec démarrage :', err && err.stack ? err.stack : err);
+	console.error('[kolokolo] Vérifiez les variables DB_* / SESSION_SECRET / SITE_URL dans .env (ou le panneau Hostinger).');
 	process.exit(1);
 });

@@ -92,5 +92,3 @@ async function boot() {
 }
 
 module.exports = { db, boot };
-
-module.exports = { db, boot };

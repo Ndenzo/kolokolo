@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('node:path').join(__dirname, '.env') });
 
 const connection = {
 	host: process.env.DB_HOST || '127.0.0.1',
