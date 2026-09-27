@@ -48,16 +48,7 @@
 						<% }) %>
 					</div>
 					<div class="quote-fields quote-fields-2">
-						<label>
-							<span><%= t('quote.budget') %></span>
-							<select name="budget">
-								<option value=""><%= t('quote.choose') %></option>
-								<% (typeof quoteBudgets !== 'undefined' ? quoteBudgets : []).forEach((item) => { %>
-									<option value="<%= item %>"><%= t('quote.budgets', item) %></option>
-								<% }) %>
-							</select>
-						</label>
-						<label>
+						<label class="quote-full">
 							<span><%= t('quote.timeline') %></span>
 							<select name="timeline">
 								<option value=""><%= t('quote.choose') %></option>
