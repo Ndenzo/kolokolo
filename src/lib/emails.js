@@ -91,7 +91,7 @@ const sampleQuote = {
 	email: 'moussa.diop@exemple.sn',
 	phone: '+221 76 111 22 33',
 	company: 'Atelier Horizon',
-	services: 'Site Web, SEO & visibilité',
+	services: 'Sites vitrines, SEO & maintenance',
 	offer: 'Site vitrine',
 	budget: '350 000 — 650 000 F',
 	timeline: 'Dans 1 à 3 mois',

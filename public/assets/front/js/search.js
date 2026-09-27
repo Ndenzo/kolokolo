@@ -125,7 +125,7 @@
 			return;
 		}
 		const query = input.value.trim();
-		if (query) window.location.href = '/blog?q=' + encodeURIComponent(query);
+		if (query) window.location.href = '/?q=' + encodeURIComponent(query);
 	});
 
 	document.querySelectorAll('.search-trigger').forEach((trigger) => {

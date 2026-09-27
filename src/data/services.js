@@ -1,10 +1,10 @@
 const quoteServices = [
-	{ id: 'site-web', label: 'Site Web' },
-	{ id: 'mobile-app', label: 'Mobile App' },
-	{ id: 'publicite', label: 'Publicité Digitale' },
-	{ id: 'social-media', label: 'Social Media' },
-	{ id: 'seo', label: 'SEO & visibilité' },
-	{ id: 'maintenance', label: 'Maintenance' },
+	{ id: 'sites-vitrines', label: 'Sites vitrines' },
+	{ id: 'applications-web', label: 'Applications web' },
+	{ id: 'apps-mobiles-bureau', label: 'Apps mobiles & bureau' },
+	{ id: 'publicite', label: 'Publicité digitale' },
+	{ id: 'reseaux-sociaux', label: 'Réseaux sociaux' },
+	{ id: 'seo-maintenance', label: 'SEO & maintenance' },
 ];
 
 const quoteBudgets = [

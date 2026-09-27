@@ -13,16 +13,14 @@ const { sendNewsletter, isConfigured, contactHtml, quoteHtml } = require('../lib
 const { renderNewsletterMail, sampleContact, sampleQuote, sampleNewsletter } = require('../lib/emails');
 const { siteUrl } = require('../config');
 
-const DEFAULT_CATEGORIES = ['Site Web', 'Social Media', 'Mobile App', 'Publicité Digitale', 'SEO & visibilité'];
 const DEFAULT_PORTFOLIO_CATEGORIES = [
-	'Site Web',
-	'Application Web',
-	'Application Web Mobile',
-	'Application Mobile',
+	'Sites vitrines',
+	'Applications web',
+	'Apps mobiles & bureau',
 	'E-commerce',
-	'Publicité Digitale',
-	'Social Media',
-	'SEO & visibilité',
+	'Publicité digitale',
+	'Réseaux sociaux',
+	'SEO & maintenance',
 ];
 
 const router = Router();
@@ -62,17 +60,10 @@ function parseActive(body) {
 	return value === '1' || value === 'on' || value === true ? 1 : 0;
 }
 
-async function blogCategories() {
-	const rows = await db('blog_posts').distinct('category');
-	const fromDb = rows.map((row) => String(row.category || '').trim()).filter(Boolean);
-	return Array.from(new Set([...DEFAULT_CATEGORIES, ...fromDb])).sort((a, b) => a.localeCompare(b, 'fr'));
-}
-
 router.use(requireAuth);
 
 router.get('/', async (_req, res) => {
-	const [posts, jobs, testimonials, projects, clientLogos, quotes, newQuotes, contacts, newContacts, subscribers, activeSubscribers, campaigns] = await Promise.all([
-		db('blog_posts').count('id as count').first(),
+	const [jobs, testimonials, projects, clientLogos, quotes, newQuotes, contacts, newContacts, subscribers, activeSubscribers, campaigns] = await Promise.all([
 		db('job_offers').count('id as count').first(),
 		db('testimonials').count('id as count').first(),
 		db('portfolio_projects').count('id as count').first(),
@@ -89,12 +80,10 @@ router.get('/', async (_req, res) => {
 		title: 'Tableau de bord',
 		active: 'dashboard',
 		stats: {
-			posts: Number(posts.count || 0),
 			jobs: Number(jobs.count || 0),
 			testimonials: Number(testimonials.count || 0),
 			projects: Number(projects.count || 0),
 			clientLogos: Number(clientLogos.count || 0),
-			activePosts: Number((await db('blog_posts').where({ is_active: 1 }).count('id as count').first()).count || 0),
 			activeJobs: Number((await db('job_offers').where({ is_active: 1 }).count('id as count').first()).count || 0),
 			activeTestimonials: Number((await db('testimonials').where({ is_active: 1 }).count('id as count').first()).count || 0),
 			activeProjects: Number((await db('portfolio_projects').where({ is_active: 1 }).count('id as count').first()).count || 0),
@@ -181,116 +170,6 @@ router.post('/uploads', (req, res) => {
 		if (!req.file) return res.status(400).json({ error: 'Aucun fichier reçu.' });
 		return res.json({ url: `/uploads/${req.file.filename}` });
 	});
-});
-
-router.get('/blog', async (req, res) => {
-	const posts = await db('blog_posts').orderBy('published_at', 'desc');
-	adminPage(res, 'admin/blog/index', {
-		title: 'Articles',
-		active: 'blog',
-		posts,
-	});
-});
-
-router.get('/blog/new', async (req, res) => {
-	adminPage(res, 'admin/blog/form', {
-		title: 'Nouvel article',
-		active: 'blog',
-		categories: await blogCategories(),
-		post: {
-			title: '',
-			excerpt: '',
-			category: '',
-			tags: '',
-			cover_image: '',
-			intro_html: '',
-			quote_text: '',
-			quote_author: '',
-			secondary_image: '',
-			secondary_html: '',
-			body_html: '',
-			published_at: new Date(),
-			is_active: true,
-		},
-		action: '/admin/blog',
-	});
-});
-
-function blogPayload(body) {
-	return {
-		title: String(body.title || '').trim(),
-		excerpt: String(body.excerpt || '').trim(),
-		category: String(body.category || '').trim(),
-		tags: String(body.tags || '').trim(),
-		cover_image: String(body.cover_image || '').trim() || null,
-		intro_html: body.intro_html || '',
-		quote_text: String(body.quote_text || '').trim(),
-		quote_author: String(body.quote_author || '').trim(),
-		secondary_image: String(body.secondary_image || '').trim() || null,
-		secondary_html: body.secondary_html || '',
-		body_html: body.body_html || '',
-		published_at: body.published_at ? new Date(body.published_at) : new Date(),
-		is_active: parseActive(body),
-		updated_at: db.fn.now(),
-	};
-}
-
-router.post('/blog', async (req, res) => {
-	const payload = blogPayload(req.body);
-	if (!payload.title) {
-		setFlash(req, 'error', 'Le titre est obligatoire.');
-		return res.redirect('/admin/blog/new');
-	}
-	payload.slug = await uniqueSlug(db, 'blog_posts', payload.title);
-	payload.created_at = db.fn.now();
-	await db('blog_posts').insert(payload);
-	setFlash(req, 'success', 'Article créé.');
-	res.redirect('/admin/blog');
-});
-
-router.get('/blog/:id/edit', async (req, res) => {
-	const post = await db('blog_posts').where({ id: req.params.id }).first();
-	if (!post) return res.redirect('/admin/blog');
-	adminPage(res, 'admin/blog/form', {
-		title: 'Modifier l’article',
-		active: 'blog',
-		categories: await blogCategories(),
-		post,
-		action: `/admin/blog/${post.id}`,
-	});
-});
-
-router.post('/blog/:id', async (req, res) => {
-	const post = await db('blog_posts').where({ id: req.params.id }).first();
-	if (!post) return res.redirect('/admin/blog');
-	const payload = blogPayload(req.body);
-	if (!payload.title) {
-		setFlash(req, 'error', 'Le titre est obligatoire.');
-		return res.redirect(`/admin/blog/${post.id}/edit`);
-	}
-	payload.slug = await uniqueSlug(db, 'blog_posts', payload.title, post.id);
-	await db('blog_posts').where({ id: post.id }).update(payload);
-	setFlash(req, 'success', 'Article mis à jour.');
-	res.redirect('/admin/blog');
-});
-
-router.post('/blog/:id/delete', async (req, res) => {
-	await db('blog_posts').where({ id: req.params.id }).del();
-	setFlash(req, 'success', 'Article supprimé.');
-	res.redirect('/admin/blog');
-});
-
-router.post('/blog/:id/toggle', async (req, res) => {
-	const post = await db('blog_posts').where({ id: req.params.id }).first();
-	if (post) {
-		const active = isActive(post.is_active);
-		await db('blog_posts').where({ id: post.id }).update({
-			is_active: active ? 0 : 1,
-			updated_at: db.fn.now(),
-		});
-		setFlash(req, 'success', active ? 'Article désactivé.' : 'Article activé.');
-	}
-	res.redirect('/admin/blog');
 });
 
 router.get('/jobs', async (req, res) => {

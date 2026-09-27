@@ -8,25 +8,6 @@ const { matchQuery, filterItems, getSearchPages, getSearchServices } = require('
 
 const router = Router();
 
-async function latestPosts(limit = 3) {
-	return db('blog_posts').where({ is_active: 1 }).orderBy('published_at', 'desc').limit(limit);
-}
-
-async function sidebarData() {
-	const recent = await latestPosts(5);
-	const posts = await db('blog_posts').where({ is_active: 1 }).select('category', 'tags');
-	const categoryMap = {};
-	const tagSet = new Set();
-	for (const post of posts) {
-		if (post.category) categoryMap[post.category] = (categoryMap[post.category] || 0) + 1;
-		for (const tag of helpers.splitTags(post.tags)) tagSet.add(tag);
-	}
-	const categories = Object.entries(categoryMap)
-		.map(([name, count]) => ({ name, count }))
-		.sort((a, b) => a.name.localeCompare(b.name, 'fr'));
-	return { recent, categories, tags: [...tagSet].sort((a, b) => a.localeCompare(b, 'fr')) };
-}
-
 function renderPage(res, page, title, extra = {}) {
 	res.render('layout', { title, page, ...extra });
 }
@@ -40,8 +21,8 @@ async function activeProjects() {
 }
 
 router.get('/', async (req, res) => {
-	const [homePosts, testimonials, projects] = await Promise.all([latestPosts(3), activeTestimonials(), activeProjects()]);
-	renderPage(res, 'home', res.locals.t('meta.homeTitle'), { homePosts, testimonials, projects });
+	const [testimonials, projects] = await Promise.all([activeTestimonials(), activeProjects()]);
+	renderPage(res, 'home', res.locals.t('meta.homeTitle'), { testimonials, projects });
 });
 
 router.get('/recherche', async (req, res) => {
@@ -50,17 +31,7 @@ router.get('/recherche', async (req, res) => {
 
 	const like = `%${q.replace(/[%_\\]/g, '\\$&')}%`;
 	try {
-		const [posts, projects, jobs] = await Promise.all([
-			db('blog_posts')
-				.where({ is_active: 1 })
-				.andWhere((builder) => {
-					builder
-						.whereRaw('LOWER(title) LIKE LOWER(?)', [like])
-						.orWhereRaw('LOWER(IFNULL(excerpt, "")) LIKE LOWER(?)', [like])
-						.orWhereRaw('LOWER(IFNULL(category, "")) LIKE LOWER(?)', [like]);
-				})
-				.orderBy('published_at', 'desc')
-				.limit(8),
+		const [projects, jobs] = await Promise.all([
 			db('portfolio_projects')
 				.where({ is_active: 1 })
 				.andWhere((builder) => {
@@ -86,18 +57,6 @@ router.get('/recherche', async (req, res) => {
 		const groups = [
 			{ key: 'pages', label: t('search.pages'), items: filterItems(q, getSearchPages(t)) },
 			{ key: 'services', label: t('search.services'), items: filterItems(q, getSearchServices(t)) },
-			{
-				key: 'blog',
-				label: t('search.blog'),
-				items: posts
-					.filter((post) => matchQuery(q, post.title, post.excerpt, post.category))
-					.slice(0, 5)
-					.map((post) => ({
-						title: post.title,
-						url: `/blog/${post.slug}`,
-						excerpt: post.excerpt || post.category || '',
-					})),
-			},
 			{
 				key: 'portfolio',
 				label: t('search.portfolio'),
@@ -142,45 +101,6 @@ router.get('/a-propos', (req, res) => {
 router.get('/services', async (req, res) => {
 	const testimonials = await activeTestimonials();
 	renderPage(res, 'services', res.locals.t('meta.servicesTitle'), { testimonials });
-});
-
-router.get('/blog', async (req, res) => {
-	const q = String(req.query.q || '').trim();
-	const category = String(req.query.category || '').trim();
-	const tag = String(req.query.tag || '').trim();
-	let query = db('blog_posts').where({ is_active: 1 });
-	if (q) {
-		const like = `%${q.replace(/[%_]/g, '\\$&')}%`;
-		query = query.andWhere((builder) => {
-			builder.whereRaw('LOWER(title) LIKE LOWER(?)', [like]).orWhereRaw('LOWER(IFNULL(excerpt, "")) LIKE LOWER(?)', [like]);
-		});
-	}
-	if (category) query = query.andWhere({ category });
-	if (tag) query = query.andWhereRaw('LOWER(IFNULL(tags, "")) LIKE LOWER(?)', [`%${tag.replace(/[%_]/g, '\\$&')}%`]);
-	const posts = await query.orderBy('published_at', 'desc');
-	const sidebar = await sidebarData();
-	renderPage(res, 'blog', res.locals.t('meta.blogTitle'), { posts, sidebar, q, category, tag });
-});
-
-router.get('/blog/:slug', async (req, res) => {
-	const post = await db('blog_posts').where({ slug: req.params.slug, is_active: 1 }).first();
-	if (!post) {
-		return res.status(404).render('layout', { title: res.locals.t('meta.notFoundTitle'), page: '404' });
-	}
-	await db('blog_posts').where({ id: post.id }).increment('views', 1);
-	post.views += 1;
-	const previous = await db('blog_posts')
-		.where({ is_active: 1 })
-		.andWhere('published_at', '<', post.published_at)
-		.orderBy('published_at', 'desc')
-		.first();
-	const next = await db('blog_posts')
-		.where({ is_active: 1 })
-		.andWhere('published_at', '>', post.published_at)
-		.orderBy('published_at', 'asc')
-		.first();
-	const sidebar = await sidebarData();
-	renderPage(res, 'blog-details', `${post.title} - Kolokolo`, { post, previous, next, sidebar });
 });
 
 router.get('/carriere', async (req, res) => {

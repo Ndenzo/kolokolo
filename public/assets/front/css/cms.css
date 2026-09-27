@@ -167,6 +167,138 @@ body.page-career section.pt-140 .row.align-items-center p {
 	text-align: justify;
 	hyphens: auto;
 }
+
+.about__content .section-title {
+	margin-bottom: 18px;
+}
+.about__content .section-title h2 {
+	margin-bottom: 0;
+}
+.about__content > p {
+	margin-bottom: 14px;
+	line-height: 1.75;
+}
+.about__content > p.about__extra {
+	margin-bottom: 22px;
+	color: #4a4860;
+}
+.about__highlights {
+	list-style: none;
+	margin: 0 0 28px;
+	padding: 0;
+}
+.about__highlights li {
+	position: relative;
+	padding-left: 18px;
+	margin-bottom: 8px;
+	font-size: 15px;
+	font-weight: 600;
+	color: #0c0b22;
+	line-height: 1.45;
+}
+.about__highlights li:last-child {
+	margin-bottom: 0;
+}
+.about__highlights li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0.55em;
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: #ff0a08;
+}
+.about__content .about__btn {
+	margin-top: 0;
+}
+
+.why-leading.about__area.st-2 {
+	padding-top: 100px;
+	padding-bottom: 80px;
+}
+.why-leading__content {
+	padding-left: 20px;
+}
+.why-leading .section-title {
+	text-align: center;
+}
+.why-leading .section-title .border-left {
+	display: inline-block;
+}
+.why-leading .about__img-inner img {
+	width: 100%;
+	border-radius: 25px;
+}
+.why-leading .ab-experience {
+	text-align: left;
+}
+.why-leading .about-points.st-2 {
+	overflow: hidden;
+	text-align: left;
+}
+@media (min-width: 992px) {
+	.why-leading .section-title {
+		text-align: left;
+	}
+	.why-leading__content {
+		padding-left: 40px;
+	}
+}
+@media (max-width: 991px) {
+	.why-leading__content {
+		padding-left: 0;
+	}
+	.why-leading .about__btn {
+		text-align: center;
+	}
+}
+.about-page-leading.about__area.st-2 {
+	padding-top: 80px;
+	padding-bottom: 60px;
+}
+.about-page-leading .about__img-inner {
+	max-width: 420px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.about-page-leading .about__img-inner img {
+	width: 100%;
+	height: 440px;
+	object-fit: cover;
+	object-position: center top;
+	border-radius: 22px;
+}
+.about-page-leading__lead {
+	margin-bottom: 8px !important;
+	line-height: 1.65;
+	max-width: 36rem;
+}
+.about-page-leading .about-points.st-2 {
+	margin-top: 28px;
+	margin-bottom: 28px;
+}
+.about-page-leading .section-title h2 {
+	font-size: clamp(1.6rem, 2.4vw, 2.15rem);
+	line-height: 1.25;
+}
+@media (min-width: 992px) {
+	.about-page-leading .why-leading__content {
+		padding-left: 28px;
+		max-width: 560px;
+	}
+}
+@media (max-width: 991px) {
+	.about-page-leading .about__img-inner {
+		max-width: 300px;
+	}
+	.about-page-leading .about__img-inner img {
+		height: 340px;
+	}
+	.about-page-leading__lead {
+		max-width: none;
+	}
+}
 .newsletter-area {
 	padding-bottom: 36px;
 }

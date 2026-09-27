@@ -30,7 +30,7 @@
 			</div>
 			<nav class="nav-list">
 				<%
-					const contentActive = ['blog', 'portfolio', 'testimonials', 'clients'].includes(active);
+					const contentActive = ['portfolio', 'testimonials', 'clients'].includes(active);
 					const leadsActive = ['quotes', 'contacts'].includes(active);
 					const mailActive = ['newsletter', 'emails'].includes(active);
 				%>
@@ -43,7 +43,6 @@
 						<em class="nav-caret fas fa-chevron-down" aria-hidden="true"></em>
 					</button>
 					<div class="nav-group-panel"<%= contentActive ? '' : ' hidden' %>>
-						<a class="nav-item nav-sub<%= active === 'blog' ? ' is-active' : '' %>" href="/admin/blog"><i class="fas fa-pen-nib"></i><span>Blog</span></a>
 						<a class="nav-item nav-sub<%= active === 'portfolio' ? ' is-active' : '' %>" href="/admin/portfolio"><i class="fas fa-project-diagram"></i><span>Portfolio</span></a>
 						<a class="nav-item nav-sub<%= active === 'testimonials' ? ' is-active' : '' %>" href="/admin/testimonials"><i class="fas fa-quote-right"></i><span>Témoignages</span></a>
 						<a class="nav-item nav-sub<%= active === 'clients' ? ' is-active' : '' %>" href="/admin/clients"><i class="fas fa-handshake"></i><span>Logos clients</span></a>

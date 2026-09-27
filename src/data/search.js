@@ -16,7 +16,7 @@ const SEARCH_PAGE_KEYS = [
 	{ key: 'home', url: '/' },
 	{ key: 'about', url: '/a-propos' },
 	{ key: 'services', url: '/services' },
-	{ key: 'blog', url: '/blog' },
+	{ key: 'career', url: '/carriere' },
 	{ key: 'contact', url: '/contact' },
 	{ key: 'terms', url: '/conditions-generales' },
 	{ key: 'privacy', url: '/confidentialite' },
@@ -24,11 +24,11 @@ const SEARCH_PAGE_KEYS = [
 
 const SEARCH_SERVICE_KEYS = [
 	{ key: 'web', url: '/services' },
-	{ key: 'app', url: '/services' },
+	{ key: 'webapp', url: '/services' },
+	{ key: 'apps', url: '/services' },
 	{ key: 'ads', url: '/services' },
 	{ key: 'social', url: '/services' },
-	{ key: 'seo', url: '/services' },
-	{ key: 'maintenance', url: '/services' },
+	{ key: 'support', url: '/services' },
 ];
 
 function catalogFrom(t, prefix, entries) {

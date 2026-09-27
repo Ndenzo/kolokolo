@@ -61,23 +61,29 @@
 		var resizeTimer = 0;
 
 		function count() {
-			return window.innerWidth < 768 ? 22 : 36;
+			return window.innerWidth < 768 ? 70 : 120;
 		}
 
 		function spawn(total) {
 			var list = [];
 			var i;
+			var large;
 			for (i = 0; i < total; i += 1) {
+				large = Math.random() > 0.72;
 				list.push({
 					x: Math.random(),
 					y: Math.random(),
-					r: 0.6 + Math.random() * 1.5,
-					vx: (Math.random() - 0.5) * 0.016,
-					vy: -0.005 - Math.random() * 0.016,
-					alpha: 0.14 + Math.random() * 0.28,
+					r: large ? 2.2 + Math.random() * 2.8 : 1.1 + Math.random() * 2,
+					vx: (Math.random() - 0.5) * 0.004,
+					vy: -0.0012 - Math.random() * 0.0028,
+					wobble: Math.random() * Math.PI * 2,
+					wobbleSpeed: 0.004 + Math.random() * 0.008,
+					wobbleAmp: 0.0004 + Math.random() * 0.0008,
+					alpha: large ? 0.45 + Math.random() * 0.4 : 0.32 + Math.random() * 0.45,
 					pulse: Math.random() * Math.PI * 2,
-					speed: 0.008 + Math.random() * 0.012,
-					amber: Math.random() > 0.28
+					speed: 0.006 + Math.random() * 0.01,
+					amber: Math.random() > 0.35,
+					glow: large
 				});
 			}
 			return list;
@@ -106,9 +112,12 @@
 			var i;
 			var p;
 			var glow;
+			var px;
+			var py;
 			for (i = 0; i < particles.length; i += 1) {
 				p = particles[i];
-				p.x += p.vx;
+				p.wobble += p.wobbleSpeed;
+				p.x += p.vx + Math.sin(p.wobble) * p.wobbleAmp;
 				p.y += p.vy;
 				p.pulse += p.speed;
 				if (p.y < -0.02) {
@@ -119,13 +128,20 @@
 				if (p.x > 1.02) p.x = -0.02;
 
 				glow = p.alpha * (0.55 + 0.45 * Math.sin(p.pulse));
+				px = p.x * width;
+				py = p.y * height;
 				ctx.beginPath();
+				ctx.shadowBlur = p.glow ? 16 : 7;
+				ctx.shadowColor = p.amber
+					? 'rgba(245, 166, 35, 0.9)'
+					: 'rgba(255, 10, 8, 0.85)';
 				ctx.fillStyle = p.amber
 					? 'rgba(245, 166, 35,' + glow.toFixed(3) + ')'
-					: 'rgba(255, 10, 8,' + (glow * 0.85).toFixed(3) + ')';
-				ctx.arc(p.x * width, p.y * height, p.r, 0, Math.PI * 2);
+					: 'rgba(255, 10, 8,' + glow.toFixed(3) + ')';
+				ctx.arc(px, py, p.r, 0, Math.PI * 2);
 				ctx.fill();
 			}
+			ctx.shadowBlur = 0;
 			raf = window.requestAnimationFrame(frame);
 		}
 

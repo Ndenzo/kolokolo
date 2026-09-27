@@ -22,10 +22,6 @@
 									<div class="hero-content-btn" data-animation="fadeInUp" data-delay="1.1s">
 										<a href="#devis" class="grb-btn" data-quote-open><%= t('home.cta') %></a>
 									</div>
-									<div class="hero-video-btn" data-animation="fadeInUp" data-delay="1.2s">
-										<a class="grb-video popup-video" href="https://www.youtube.com/watch?v=pNje3bWz7V8"><i class="fas fa-play"></i></a>
-										<p><%= t('home.watch') %></p>
-                                             </div>
                                         </div>
                                    </div>
                               </div>
@@ -50,10 +46,6 @@
 									<div class="hero-content-btn" data-animation="fadeInUp" data-delay="1.1s">
 										<a href="#devis" class="grb-btn" data-quote-open><%= t('home.cta') %></a>
 									</div>
-									<div class="hero-video-btn" data-animation="fadeInUp" data-delay="1.2s">
-										<a class="grb-video popup-video" href="https://youtu.be/Vu_PI00ifoc"><i class="fas fa-play"></i></a>
-										<p><%= t('home.watch') %></p>
-                                             </div>
                                         </div>
                                    </div>
                               </div>
@@ -78,10 +70,6 @@
 									<div class="hero-content-btn" data-animation="fadeInUp" data-delay="1.1s">
 										<a href="#devis" class="grb-btn" data-quote-open><%= t('home.cta') %></a>
 									</div>
-									<div class="hero-video-btn" data-animation="fadeInUp" data-delay="1.2s">
-										<a class="grb-video popup-video" href="https://youtu.be/Vu_PI00ifoc"><i class="fas fa-play"></i></a>
-										<p><%= t('home.watch') %></p>
-                                             </div>
                                         </div>
                                    </div>
                               </div>
@@ -100,7 +88,7 @@
 	<!-- about area start  -->
 	<section class="about__area">
 		<div class="container">
-			<div class="row wow fadeInUp">
+			<div class="row align-items-center wow fadeInUp">
 				<div class="col-xl-6 col-lg-5">
 					<div class="about__img p-relative mb-30">
 						<div class="about__img-inner">
@@ -116,32 +104,18 @@
 				</div>
 				<div class="col-xl-6 col-lg-7">
 					<div class="about__content mb-30">
-						<div class="section-title mb-30">
+						<div class="section-title">
 							<div class="border-left">
 								<p>#Kolokolo</p>
 							</div>
 							<h2><%= t('home.who') %></h2>
 						</div>
 						<p><%= t('home.about') %></p>
-						<ul class="about-points">
-							<li>
-								<div class="points-heading">
-									<div class="p-icon">
-										<i class="flaticon-team"></i>
-									</div>
-									<h5><%= t('home.quality') %></h5>
-								</div>
-								<p><%= t('home.qualityText') %></p>
-							</li>
-							<li>
-								<div class="points-heading">
-									<div class="p-icon">
-										<i class="flaticon-creative-team"></i>
-									</div>
-									<h5><%= t('home.innovation') %></h5>
-								</div>
-								<p><%= t('home.innovationText') %></p>
-							</li>
+						<p class="about__extra"><%= t('home.aboutExtra') %></p>
+						<ul class="about__highlights">
+							<li><%= t('home.aboutPoint1') %></li>
+							<li><%= t('home.aboutPoint2') %></li>
+							<li><%= t('home.aboutPoint3') %></li>
 						</ul>
 						<div class="about__btn st-1">
 							<a href="/a-propos" class="grb-btn st-1"><%= t('home.more') %><i class="fas fa-arrow-right"></i></a>
@@ -180,8 +154,7 @@
 			<div class="row wow fadeInUp">
 				<div class="col-lg-6">
 					<div class="choosing__img mb-30">
-						<img src="/assets/front/img/about/choosing.jpg" alt="">
-
+						<img src="/assets/front/img/about/about1.png" alt="<%= t('home.whyTitle') %>">
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -249,7 +222,7 @@
 					<div class="col-lg-3 col-6">
 						<div class="counter-board-single mb-30">
 							<i class="flaticon-delivery-box"></i>
-							<h2 class="counter-board-number"><span class="odometer odometer-theme-default" data-count="4">0</span></h2>
+							<h2 class="counter-board-number"><span class="odometer odometer-theme-default" data-count="6">0</span></h2>
 							<p><%= t('home.unique') %></p>
 						</div>
 					</div>
@@ -367,59 +340,6 @@
 	</section>
 	<% } %>
 	<!-- portfolio area end -->
-	<!-- blog area start  -->
-	<section class="blog-area pt-120 pb-90 grey-bg">
-		<div class="container">
-			<div class="row wow fadeInUp align-items-center counter-head">
-				<div class="col-lg-6 col-md-8">
-					<div class="blog-left">
-						<div class="section-title mb-55">
-							<div class="border-left">
-								<p><%= t('home.blogKicker') %></p>
-							</div>
-							<h2><%= t('home.blogTitle') %></h2>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-6 col-md-4">
-					<div class="blog-right mb-30 f-right">
-						<a href="/blog" class="grb-btn"><%= t('home.readMore') %></a>
-					</div>
-				</div>
-			</div>
-			<div class="row wow fadeInUp">
-				<% const posts = typeof homePosts !== 'undefined' ? homePosts : []; %>
-				<% if (!posts.length) { %>
-					<div class="col-12">
-						<p class="blog-empty"><%= t('home.noPosts') %></p>
-					</div>
-				<% } %>
-				<% posts.forEach((post) => { %>
-					<div class="col-lg-4 col-md-6">
-						<div class="blog-single mb-30 p-relative">
-							<div class="blog-date">
-								<div class="blog-date-shape">
-									<img src="/assets/front/img/shape/blog-date-shape.png" alt="">
-								</div>
-								<i class="fal fa-calendar-alt"></i>
-								<span><%= helpers.formatDay(post.published_at) %></span>
-								<p><%= helpers.formatMonthYear(post.published_at, lang) %></p>
-							</div>
-							<div class="blog-img">
-								<a href="/blog/<%= post.slug %>"><img src="<%= helpers.coverFallback(post.cover_image) %>" alt="<%= post.title %>"></a>
-							</div>
-							<div class="blog-content">
-								<h4><a href="/blog/<%= post.slug %>"><%= post.title %></a></h4>
-								<p><%= post.excerpt %></p>
-								<a href="/blog/<%= post.slug %>" class="read-btn"><%= t('home.readMore') %></a>
-							</div>
-						</div>
-					</div>
-				<% }) %>
-			</div>
-		</div>
-	</section>
-	<!-- blog area end -->
 	<!-- newsletter area start  -->
 	<%- include('../partials/newsletter') %>
 	<!-- newsletter area end -->

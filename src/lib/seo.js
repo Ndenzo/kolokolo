@@ -7,11 +7,9 @@ const PAGE_DESC_KEYS = {
 	home: 'meta.homeDesc',
 	about: 'meta.aboutDesc',
 	services: 'meta.servicesDesc',
-	blog: 'meta.blogDesc',
 	contact: 'meta.contactDesc',
 	career: 'meta.careerDesc',
 	'career-details': 'meta.careerDetailsDesc',
-	'blog-details': 'meta.blogDetailsDesc',
 	legal: 'meta.legalDesc',
 	'newsletter-unsub': 'meta.unsubDesc',
 	404: 'meta.notFoundDesc',
@@ -87,15 +85,6 @@ function buildHead({
 	let imageHeight = DEFAULT_IMAGE_HEIGHT;
 	const robots = key === '404' || key === 'newsletter-unsub' ? 'noindex, nofollow' : 'index, follow';
 
-	if (key === 'blog-details' && post) {
-		desc = post.excerpt || stripHtml(post.intro_html) || desc;
-		if (post.cover_image) {
-			img = post.cover_image;
-			imageWidth = 1200;
-			imageHeight = 630;
-		}
-		ogType = 'article';
-	}
 	if (key === 'career-details' && job) {
 		desc = stripHtml(job.description_html) || `${job.title} — ${translate('meta.careerDetailsDesc')}`;
 	}
@@ -170,27 +159,6 @@ function buildHead({
 	};
 
 	const graph = [organization, website];
-	if (key === 'blog-details' && post) {
-		graph.push({
-			'@type': 'Article',
-			headline: post.title,
-			description: truncateMeta(desc, 200),
-			image: imageUrl,
-			url,
-			datePublished: post.published_at || undefined,
-			inLanguage: currentLang,
-			author: {
-				'@type': 'Organization',
-				name: brand.name,
-				url: baseUrl,
-			},
-			publisher: {
-				'@type': 'Organization',
-				name: brand.name,
-				logo: { '@type': 'ImageObject', url: absoluteUrl(siteUrl, DEFAULT_LOGO) },
-			},
-		});
-	}
 
 	return {
 		title: title || brand.siteName,

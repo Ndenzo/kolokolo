@@ -83,7 +83,7 @@ function datetimeLocal(value) {
 }
 
 function coverFallback(url) {
-	return url || '/assets/front/img/blog/bms1.jpg';
+	return url || '/assets/front/img/portfolio/port1.jpg';
 }
 
 function stripHtml(html) {

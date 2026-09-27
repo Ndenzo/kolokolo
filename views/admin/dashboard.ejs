@@ -5,7 +5,6 @@
 	const dateLabel = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 	const pct = (active, total) => total ? Math.round((active / total) * 100) : 0;
 	const contentModules = [
-		{ href: '/admin/blog', icon: 'fa-newspaper', title: 'Blog', total: stats.posts, active: stats.activePosts, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/portfolio', icon: 'fa-project-diagram', title: 'Portfolio', total: stats.projects, active: stats.activeProjects, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/testimonials', icon: 'fa-quote-right', title: 'Témoignages', total: stats.testimonials, active: stats.activeTestimonials, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
 		{ href: '/admin/clients', icon: 'fa-handshake', title: 'Logos clients', total: stats.clientLogos, active: stats.activeClientLogos, onLabel: 'visibles', offLabel: 'masqués', ratioLabel: 'en ligne' },
@@ -36,15 +35,15 @@
 	<div class="dash-hero-copy">
 		<p class="dash-hero-kicker">Kolokolo CMS</p>
 		<h2>Tout est prêt pour publier.</h2>
-		<p>Gérez les pages vitrines, le blog, le portfolio et les offres depuis un espace unique.</p>
+		<p>Gérez les pages vitrines, le portfolio et les offres depuis un espace unique.</p>
 	</div>
 	<div class="dash-hero-stats">
 		<div>
-			<strong><%= stats.activePosts + stats.activeProjects + stats.activeTestimonials + stats.activeJobs + stats.activeClientLogos %></strong>
+			<strong><%= stats.activeProjects + stats.activeTestimonials + stats.activeJobs + stats.activeClientLogos %></strong>
 			<span>éléments visibles</span>
 		</div>
 		<div>
-			<strong><%= stats.posts + stats.projects + stats.testimonials + stats.jobs + stats.clientLogos %></strong>
+			<strong><%= stats.projects + stats.testimonials + stats.jobs + stats.clientLogos %></strong>
 			<span>contenus au total</span>
 		</div>
 	</div>
@@ -102,7 +101,6 @@
 			<h2>Actions rapides</h2>
 		</div>
 		<div class="quick-actions">
-			<a class="quick-action" href="/admin/blog/new"><i class="fas fa-plus"></i><span>Nouvel article</span></a>
 			<a class="quick-action" href="/admin/portfolio/new"><i class="fas fa-plus"></i><span>Nouveau projet</span></a>
 			<a class="quick-action" href="/admin/testimonials/new"><i class="fas fa-plus"></i><span>Nouveau témoignage</span></a>
 			<a class="quick-action" href="/admin/clients/new"><i class="fas fa-plus"></i><span>Nouveau logo client</span></a>
