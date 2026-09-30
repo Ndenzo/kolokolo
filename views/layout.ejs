@@ -17,10 +17,20 @@
 	const ogLocaleAlt = ogLocale === 'en_US' ? 'fr_FR' : 'en_US';
 %>
 <!doctype html>
-<html lang="<%= typeof lang !== 'undefined' ? lang : 'fr' %>">
+<html lang="<%= typeof lang !== 'undefined' ? lang : 'fr' %>" data-theme="light">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script>
+		(function () {
+			try {
+				var theme = localStorage.getItem('kolokolo-theme');
+				document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+			} catch (e) {
+				document.documentElement.setAttribute('data-theme', 'light');
+			}
+		})();
+	</script>
 	<title><%= head.title %></title>
 	<meta name="description" content="<%= head.description %>">
 	<meta name="author" content="<%= head.author %>">
@@ -221,6 +231,7 @@
 	<script src="/assets/front/js/newsletter.js"></script>
 	<script src="/assets/front/js/search.js"></script>
 	<script src="/assets/front/js/lang.js"></script>
+	<script src="/assets/front/js/theme.js"></script>
 	<script src="/assets/front/js/liquid-glass.js"></script>
 </body>
 

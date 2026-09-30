@@ -78,6 +78,9 @@
                                 <a class="side-toggle d-lg-none" href="javascript:void(0)"><i
                                         class="fal fa-bars"></i></a>
                             </div>
+                            <div class="header__theme d-none d-lg-inline-flex">
+                                <%- include('theme-switch') %>
+                            </div>
                             <div class="header__btn d-none d-xl-inline-block">
                                 <a href="#devis" class="grb-btn" data-quote-open><%= t('nav.quote') %><i
                                         class="fas fa-arrow-right"></i></a>
@@ -104,6 +107,9 @@
                 </div>
                 <div class="header__lang-slot is-drawer d-lg-none mb-25">
                     <%- include('lang-switch', { variant: 'dark' }) %>
+                </div>
+                <div class="header__theme-slot is-drawer d-lg-none mb-25">
+                    <%- include('theme-switch', { variant: 'dark' }) %>
                 </div>
                 <div class="mobile-menu d-lg-none"></div>
                 <div class="offset-widget offset_searchbar mb-30">

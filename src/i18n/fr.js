@@ -10,6 +10,9 @@ module.exports = {
 		searchPlaceholder: 'Rechercher...',
 		searchSidebar: 'Que recherchez-vous ?',
 		lang: 'Langue',
+		theme: 'Thème',
+		themeLight: 'Clair',
+		themeDark: 'Sombre',
 	},
 	header: {
 		call: 'Appelez-nous :',

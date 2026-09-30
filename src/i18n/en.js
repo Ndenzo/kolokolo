@@ -10,6 +10,9 @@ module.exports = {
 		searchPlaceholder: 'Search...',
 		searchSidebar: 'What are you looking for?',
 		lang: 'Language',
+		theme: 'Theme',
+		themeLight: 'Light',
+		themeDark: 'Dark',
 	},
 	header: {
 		call: 'Call us:',

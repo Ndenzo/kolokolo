@@ -1,0 +1,14 @@
+<%
+	const isDarkVariant = typeof variant !== 'undefined' && (variant === 'side' || variant === 'dark');
+	const label = typeof t === 'function' ? t('nav.theme') : 'Thème';
+	const lightLabel = typeof t === 'function' ? t('nav.themeLight') : 'Clair';
+	const darkLabel = typeof t === 'function' ? t('nav.themeDark') : 'Sombre';
+%>
+<div class="header-theme<%= isDarkVariant ? ' is-dark' : '' %>" data-theme-switch role="group" aria-label="<%= label %>">
+	<button type="button" data-theme-set="light" aria-pressed="true" title="<%= lightLabel %>" aria-label="<%= lightLabel %>">
+		<i class="fal fa-sun" aria-hidden="true"></i>
+	</button>
+	<button type="button" data-theme-set="dark" aria-pressed="false" title="<%= darkLabel %>" aria-label="<%= darkLabel %>">
+		<i class="fal fa-moon" aria-hidden="true"></i>
+	</button>
+</div>
