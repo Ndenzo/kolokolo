@@ -2025,3 +2025,129 @@ iframe {
 		background: transparent !important;
 	}
 }
+
+
+/* Responsive and dark theme visual audit fixes */
+.header-main-1 .logo .logo-text-white {
+	display: none !important;
+}
+.header-main-1 .logo a.logo-text-white,
+.header-main-1 .logo a.logo-text-black {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	vertical-align: middle;
+}
+.header-main-1 .logo a .logo-mark,
+.side-logo .logo-mark {
+	display: block;
+	width: 36px !important;
+	max-width: 36px;
+	height: 36px;
+	object-fit: contain;
+	flex: 0 0 36px;
+}
+.logo-wordmark {
+	color: #0c0b22;
+	font-size: 21px;
+	font-weight: 800;
+	letter-spacing: -0.04em;
+	line-height: 1;
+}
+.side-logo {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+}
+.side-logo .logo-wordmark {
+	color: #fff;
+	font-size: 23px;
+}
+
+[data-theme="dark"] .header-main-1 .logo-text-black {
+	display: none !important;
+}
+[data-theme="dark"] .header-main-1 .logo-text-white {
+	display: inline-flex !important;
+}
+[data-theme="dark"] .header-main-1 .logo-text-white .logo-wordmark {
+	color: #fff;
+}
+
+[data-theme="dark"] .contact-address,
+[data-theme="dark"] .get-in-touch {
+	background: var(--kk-card) !important;
+	border-color: var(--kk-border) !important;
+	box-shadow: 0 16px 40px rgba(0, 0, 0, 0.42) !important;
+	color: var(--kk-muted);
+}
+[data-theme="dark"] .contact-address .contact-heading h4,
+[data-theme="dark"] .get-in-touch .contact-heading h4,
+[data-theme="dark"] .get-in-touch .cms-form label,
+[data-theme="dark"] .get-in-touch .quote-success h3 {
+	color: var(--kk-text) !important;
+}
+[data-theme="dark"] .contact-address .contact-heading p,
+[data-theme="dark"] .get-in-touch .contact-heading p,
+[data-theme="dark"] .contact-address .contact-list-text span:last-child,
+[data-theme="dark"] .get-in-touch .quote-success p {
+	color: var(--kk-muted) !important;
+}
+[data-theme="dark"] .contact-address .contact-list-text span:first-child,
+[data-theme="dark"] .contact-address .contact-list-text span:first-child a {
+	color: var(--kk-text);
+}
+[data-theme="dark"] .about__highlights li {
+	color: var(--kk-text);
+}
+[data-theme="dark"] .about__content > p.about__extra {
+	color: var(--kk-muted);
+}
+
+@media (max-width: 767px) {
+	.service__area .row > [class*="col-"] {
+		margin-bottom: 18px;
+	}
+	.about-points.st-2 li {
+		float: none;
+		width: 100%;
+		max-width: 100%;
+	}
+	.service__area .row {
+		row-gap: 18px;
+	}
+	.service__area .service-box-single {
+		height: auto !important;
+		padding-bottom: 18px;
+	}
+	.service__area .service-box-content {
+		height: auto !important;
+		margin-bottom: 0;
+	}
+}
+
+
+/* Mobile cards on the dedicated services page */
+@media (max-width: 767px) {
+	.service-box-area .service-box-single {
+		height: auto !important;
+		margin-bottom: 18px !important;
+	}
+	.service-box-area .service-box-content {
+		height: auto !important;
+		margin-bottom: 0;
+	}
+}
+
+
+/* Keep the floating up button clear of mobile form fields */
+@media (max-width: 767px) {
+	#scrollUp {
+		right: 16px;
+		bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+		width: 42px;
+		height: 42px;
+		font-size: 18px;
+		line-height: 42px;
+	}
+}
