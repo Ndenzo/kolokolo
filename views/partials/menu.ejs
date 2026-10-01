@@ -49,10 +49,10 @@
                                 <img src="/assets/front/img/shape/logo-bg-1.png" alt="">
                             </div>
                             <a class="logo-text-white" href="/">
-								<img src="/assets/custom/img/logo/logo.png" alt="" class="logo-mark"><span class="logo-wordmark">Kolokolo</span>
+								<img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo">
 							</a>
                             <a class="logo-text-black" href="/">
-								<img src="/assets/custom/img/logo/logo.png" alt="" class="logo-mark"><span class="logo-wordmark">Kolokolo</span>
+								<img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo">
 							</a>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                                 <a class="side-toggle d-lg-none" href="javascript:void(0)"><i
                                         class="fal fa-bars"></i></a>
                             </div>
-                            <div class="header__theme d-none d-lg-inline-flex">
+                            <div class="header__theme d-none">
                                 <%- include('theme-switch') %>
                             </div>
                             <div class="header__btn d-none d-xl-inline-block">
@@ -98,7 +98,7 @@
             <div class="side-info-content">
                 <div class="offset-widget offset-logo mb-30 pb-20">
                     <div class="row align-items-center">
-                        <div class="col-9"><a href="/" class="side-logo"><img src="/assets/custom/img/logo/logo.png" alt="" class="logo-mark"><span class="logo-wordmark">Kolokolo</span></a>
+                        <div class="col-9"><a href="/"><img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo" style="width: 170px;"></a>
                         </div>
                         <div class="col-3 text-end"><button class="side-info-close"><i
                                     class="fal fa-times"></i></button>
@@ -108,7 +108,7 @@
                 <div class="header__lang-slot is-drawer d-lg-none mb-25">
                     <%- include('lang-switch', { variant: 'dark' }) %>
                 </div>
-                <div class="header__theme-slot is-drawer d-lg-none mb-25">
+                <div class="header__theme-slot is-drawer d-none mb-25">
                     <%- include('theme-switch', { variant: 'dark' }) %>
                 </div>
                 <div class="mobile-menu d-lg-none"></div>
@@ -137,9 +137,9 @@
                 <div class="contact-infos mt-30 mb-30">
                     <div class="contact-list mb-30">
                         <h4><%= t('footer.contact') %></h4>
-                        <a href="#" class="">
+                        <a href="#" class="contact-address-link">
                             <i class="fal fa-map-marker-alt"></i>
-                            <span><%= settings.place.address %><br><%= settings.place.regionCountry %></span>
+                            <span><%= settings.place.address %>, <%= settings.place.regionCountry %></span>
                         </a>
                         <a href="tel:<%= helpers.telHref(settings.phone) %>" class="">
                             <i class="fal fa-phone"></i>

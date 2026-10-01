@@ -1393,18 +1393,51 @@ iframe {
 	.side-info .mean-container .mean-nav ul li a {
 		white-space: normal;
 	}
-	.contact-list a {
+	.side-info .contact-list > a {
 		display: flex;
 		align-items: flex-start;
 		gap: 12px;
+		width: 100%;
+		max-width: 100%;
+		margin-bottom: 14px;
+		line-height: 1.45;
+		box-sizing: border-box;
 	}
-	.contact-list a i {
-		flex-shrink: 0;
-		margin-top: 4px;
+	.side-info .contact-list > a i {
+		flex: 0 0 22px;
+		width: 22px;
+		margin-right: 0;
+		margin-top: 0.15em;
+		line-height: 1;
+		font-size: 15px;
+		text-align: center;
 	}
-	.contact-list a span {
+	.side-info .contact-list > a span {
+		flex: 1 1 auto;
+		min-width: 0;
+		width: 100%;
 		display: block;
 		line-height: 1.45;
+		white-space: normal;
+		overflow-wrap: break-word;
+		word-break: normal;
+	}
+	.side-info .contact-list > a.contact-address-link {
+		display: grid;
+		grid-template-columns: 22px minmax(0, 1fr);
+		align-items: start;
+		column-gap: 12px;
+		width: 100%;
+	}
+	.side-info .contact-list > a.contact-address-link i {
+		grid-column: 1;
+		width: 22px;
+		margin: 0.15em 0 0;
+	}
+	.side-info .contact-list > a.contact-address-link span {
+		grid-column: 2;
+		width: 100%;
+		max-width: 100%;
 	}
 	.portfolio-area .section-title h2,
 	.testimonial-area .section-title h2,
@@ -2028,52 +2061,6 @@ iframe {
 
 
 /* Responsive and dark theme visual audit fixes */
-.header-main-1 .logo .logo-text-white {
-	display: none !important;
-}
-.header-main-1 .logo a.logo-text-white,
-.header-main-1 .logo a.logo-text-black {
-	display: inline-flex;
-	align-items: center;
-	gap: 8px;
-	vertical-align: middle;
-}
-.header-main-1 .logo a .logo-mark,
-.side-logo .logo-mark {
-	display: block;
-	width: 36px !important;
-	max-width: 36px;
-	height: 36px;
-	object-fit: contain;
-	flex: 0 0 36px;
-}
-.logo-wordmark {
-	color: #0c0b22;
-	font-size: 21px;
-	font-weight: 800;
-	letter-spacing: -0.04em;
-	line-height: 1;
-}
-.side-logo {
-	display: inline-flex;
-	align-items: center;
-	gap: 10px;
-}
-.side-logo .logo-wordmark {
-	color: #fff;
-	font-size: 23px;
-}
-
-[data-theme="dark"] .header-main-1 .logo-text-black {
-	display: none !important;
-}
-[data-theme="dark"] .header-main-1 .logo-text-white {
-	display: inline-flex !important;
-}
-[data-theme="dark"] .header-main-1 .logo-text-white .logo-wordmark {
-	color: #fff;
-}
-
 [data-theme="dark"] .contact-address,
 [data-theme="dark"] .get-in-touch {
 	background: var(--kk-card) !important;
@@ -2105,24 +2092,36 @@ iframe {
 }
 
 @media (max-width: 767px) {
-	.service__area .row > [class*="col-"] {
-		margin-bottom: 18px;
-	}
 	.about-points.st-2 li {
 		float: none;
 		width: 100%;
 		max-width: 100%;
 	}
-	.service__area .row {
-		row-gap: 18px;
+}
+
+.services-grid {
+	--services-gap: 30px;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: var(--services-gap);
+	align-items: stretch;
+}
+.services-grid .service-box-single {
+	margin-bottom: 0;
+	height: 100%;
+}
+.services-grid .service-box-content {
+	height: 100%;
+	margin-bottom: 0;
+}
+@media (min-width: 768px) {
+	.services-grid {
+		grid-template-columns: repeat(2, 1fr);
 	}
-	.service__area .service-box-single {
-		height: auto !important;
-		padding-bottom: 18px;
-	}
-	.service__area .service-box-content {
-		height: auto !important;
-		margin-bottom: 0;
+}
+@media (min-width: 992px) {
+	.services-grid {
+		grid-template-columns: repeat(3, 1fr);
 	}
 }
 
