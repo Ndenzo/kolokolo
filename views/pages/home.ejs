@@ -240,7 +240,7 @@
 	<!-- counter board area end -->
 	<!-- testimonial area start  -->
 	<% const homeTestimonials = typeof testimonials !== 'undefined' ? testimonials : []; %>
-	<% if (homeTestimonials.length) { %>
+	<% /* Témoignages masqués temporairement */ if (false && homeTestimonials.length) { %>
 	<section class="testimonial-area st-3 grey-bg">
 		<div class="container">
 			<div class="row wow fadeInUp">
@@ -274,7 +274,7 @@
 										</ul>
 										<p><%= item.content %></p>
 										<div class="testimonial-img st-3">
-											<img src="<%= item.photo || '/assets/front/img/testimonial/test1.png' %>" alt="<%= item.name %>">
+											<img src="/assets/front/img/testimonial/avatar-anonymous.svg" alt="">
 										</div>
 										<div class="testimonial-name st-3">
 											<h5><a href="#"><%= item.name %></a></h5>

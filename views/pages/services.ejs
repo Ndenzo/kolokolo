@@ -172,6 +172,7 @@
 		</div>
 	</section>
 	<% } %>
+	<% /* Logos partenaires masqués temporairement */ if (false) { %>
 	<section class="partners-area pt-80 pb-80">
 		<div class="container">
 			<div class="row wow fadeInUp">
@@ -201,6 +202,7 @@
 			</div>
 		</div>
 	</section>
+	<% } %>
 	<section class="hire-area" data-background="/assets/front/img/bg/hire-bg.jpg">
 		<div class="container">
 			<div class="row wow fadeInUp justify-content-center">
@@ -218,7 +220,7 @@
 		</div>
 	</section>
 	<% const serviceTestimonials = typeof testimonials !== 'undefined' ? testimonials : []; %>
-	<% if (serviceTestimonials.length) { %>
+	<% /* Témoignages masqués temporairement */ if (false && serviceTestimonials.length) { %>
 	<div class="testimonial-area st-2 grey-bg">
 		<div class="container">
 			<div class="row wow fadeInUp align-items-center">
@@ -232,7 +234,7 @@
 					<div class="swiper-container testimonial-active-2 st-3">
 						<div class="swiper-wrapper">
 							<% serviceTestimonials.forEach((item) => { %>
-							<div class="swiper-slide" data-photo="<%= item.photo || '/assets/front/img/testimonial/test1.png' %>" data-name="<%= item.name %>">
+							<div class="swiper-slide" data-photo="/assets/front/img/testimonial/avatar-anonymous.svg" data-name="">
 								<div class="testimonial-single">
 									<p class="mb-30"><%= item.content %></p>
 									<div class="testimonial-name">
@@ -252,7 +254,7 @@
 				<div class="col-lg-6 d-none d-lg-block">
 					<div class="testimonial-right p-relative">
 						<div class="test-i-img">
-							<img data-testimonial-client-photo src="<%= serviceTestimonials[0].photo || '/assets/front/img/testimonial/test1.png' %>" alt="<%= serviceTestimonials[0].name %>">
+							<img data-testimonial-client-photo src="/assets/front/img/testimonial/avatar-anonymous.svg" alt="">
 						</div>
 						<div class="testimonial-right-img p-relative">
 							<img src="/assets/front/img/testimonial/test-r-img.jpg" alt="">
