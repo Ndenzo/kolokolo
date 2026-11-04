@@ -69,7 +69,7 @@
 							<h4><%= t('contact.sendTitle') %></h4>
 							<p class="contact-lead"><%= t('contact.sendLead') %></p>
 						</div>
-						<form class="cms-form" id="contact-form" action="/contact" method="post" novalidate>
+						<form class="cms-form" id="contact-form" action="/contact" method="post" novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 							<input type="text" name="website" tabindex="-1" autocomplete="off" class="quote-hp" aria-hidden="true">
 							<div class="cms-form-grid">
 								<label>

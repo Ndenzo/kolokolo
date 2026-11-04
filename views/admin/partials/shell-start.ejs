@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="fr">
 <head>
+	<meta name="csrf-token" content="<%= csrfToken %>">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><%= title %> - Kolokolo</title>
@@ -84,7 +85,7 @@
 						<%= currentUser ? currentUser.email : '' %>
 					</span>
 				</div>
-				<form action="/auth/logout" method="post">
+				<form action="/auth/logout" method="post"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 					<button class="btn btn-logout btn-block" type="submit"><i class="fas fa-sign-out-alt"></i> <span>Déconnexion</span></button>
 				</form>
 			</div>

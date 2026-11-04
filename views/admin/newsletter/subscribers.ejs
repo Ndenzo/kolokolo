@@ -32,7 +32,7 @@
 </div>
 <div class="panel" data-table data-sort-index="2" data-sort-dir="desc">
 	<div class="table-toolbar">
-		<form class="inline-add" action="/admin/newsletter/abonnes" method="post">
+		<form class="inline-add" action="/admin/newsletter/abonnes" method="post"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 			<input class="admin-input" type="email" name="email" required maxlength="180" placeholder="Ajouter un email">
 			<button class="btn btn-primary" type="submit">Ajouter</button>
 		</form>
@@ -71,7 +71,7 @@
 							<td data-sort-value="<%= item.created_at ? new Date(item.created_at).toISOString() : '' %>"><%= helpers.formatDateTime(item.created_at) %></td>
 							<td>
 								<div class="row-actions">
-									<form action="/admin/newsletter/abonnes/<%= item.id %>/delete" method="post" data-confirm>
+									<form action="/admin/newsletter/abonnes/<%= item.id %>/delete" method="post" data-confirm><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
 									</form>
 								</div>

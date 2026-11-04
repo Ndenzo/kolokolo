@@ -7,7 +7,7 @@
 		<p>Ces valeurs apparaissent sur la page Contact, le header, le pied de page et les icônes des réseaux sociaux.</p>
 	</div>
 </div>
-<form action="/admin/settings" method="post" data-admin-form novalidate>
+<form action="/admin/settings" method="post" data-admin-form novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 	<div class="settings-grid">
 		<div class="panel form-stack">
 			<div class="panel-title">

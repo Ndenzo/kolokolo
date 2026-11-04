@@ -140,3 +140,24 @@
 		setSuggest('');
 	});
 })();
+
+// Recherche du menu latéral (mobile) : ouvre la recherche plein écran avec la saisie.
+(function () {
+	var sideForm = document.querySelector('[data-side-search]');
+	var input = document.getElementById('site-search-input');
+	var wrap = document.querySelector('.search-wrap');
+	if (!sideForm || !input || !wrap) return;
+	sideForm.addEventListener('submit', function (event) {
+		event.preventDefault();
+		event.stopPropagation();
+		var field = sideForm.querySelector('input[name="q"]');
+		var query = field ? field.value.trim() : '';
+		document.querySelector('.side-info') && document.querySelector('.side-info').classList.remove('info-open');
+		document.querySelector('.offcanvas-overlay') && document.querySelector('.offcanvas-overlay').classList.remove('overlay-open');
+		wrap.style.display = 'block';
+		wrap.style.opacity = '1';
+		input.value = query;
+		input.focus();
+		input.dispatchEvent(new Event('input', { bubbles: true }));
+	});
+})();

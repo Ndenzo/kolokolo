@@ -6,6 +6,7 @@ const { boot } = require('./db');
 const { port } = require('./config');
 const { sessionMiddleware } = require('./middleware/session');
 const { flash, loadSettings } = require('./middleware/locals');
+const { csrfToken, verifyCsrf } = require('./middleware/csrf');
 const { quoteServices, quoteBudgets, quoteTimelines, contactSubjects } = require('./data/services');
 const { campaignStatusLabels, subscriberStatusLabels } = require('./data/newsletter');
 const helpers = require('./lib/helpers');
@@ -25,6 +26,7 @@ async function start() {
 	app.set('view engine', 'ejs');
 	app.set('views', path.join(__dirname, '..', 'views'));
 	app.locals.helpers = helpers;
+	app.locals.features = require('./config').features;
 	app.locals.quoteServices = quoteServices;
 	app.locals.quoteBudgets = quoteBudgets;
 	app.locals.quoteTimelines = quoteTimelines;
@@ -38,6 +40,8 @@ async function start() {
 	app.use(sessionMiddleware());
 	app.use(flash);
 	app.use(loadSettings);
+	app.use(csrfToken);
+	app.use(verifyCsrf);
 
 	app.get('/health', (_req, res) => {
 		res.status(200).type('text').send('ok');

@@ -20,7 +20,8 @@
 		{ key: 'twitter', label: 'X', icon: 'fab fa-x-twitter', url: settings.twitter },
 		{ key: 'instagram', label: 'Instagram', icon: 'fab fa-instagram', url: settings.instagram },
 		{ key: 'linkedin', label: 'LinkedIn', icon: 'fab fa-linkedin-in', url: settings.linkedin },
-	];
+	].map((item) => ({ ...item, url: String(item.url || '').trim() }))
+		.filter((item) => item.url && item.url !== '#');
 %>
 <div class="admin-header">
 	<div>
@@ -135,15 +136,13 @@
 				<div><span>Horaires</span><strong><%= settings.hours %></strong></div>
 			</div>
 		</div>
+		<% if (socials.length) { %>
 		<div class="social-chips">
 			<% socials.forEach((item) => { %>
-				<% if (item.url) { %>
-					<a class="social-chip is-on" href="<%= item.url %>" target="_blank" rel="noopener"><i class="<%= item.icon %>"></i> <%= item.label %></a>
-				<% } else { %>
-					<span class="social-chip"><i class="<%= item.icon %>"></i> <%= item.label %></span>
-				<% } %>
+				<a class="social-chip is-on" href="<%= item.url %>" target="_blank" rel="noopener"><i class="<%= item.icon %>"></i> <%= item.label %></a>
 			<% }) %>
 		</div>
+		<% } %>
 	</div>
 </div>
 <%- include('partials/shell-end') %>

@@ -72,7 +72,7 @@
 									<% if (item.status === 'brouillon') { %>
 										<a class="btn-icon" href="/admin/newsletter/<%= item.id %>/edit" title="Modifier"><i class="fas fa-pen"></i></a>
 									<% } %>
-									<form action="/admin/newsletter/<%= item.id %>/delete" method="post" data-confirm>
+									<form action="/admin/newsletter/<%= item.id %>/delete" method="post" data-confirm><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
 									</form>
 								</div>

@@ -1243,7 +1243,7 @@ iframe {
 	height: auto;
 }
 .section-title h2,
-.hero-content h1,
+.hero-content h1,.hero-content .hero-title,
 .page-title-heading h1,
 .about-page-leading .section-title h2 {
 	overflow-wrap: anywhere;
@@ -1326,7 +1326,7 @@ iframe {
 		margin-bottom: 14px;
 		max-width: 34rem;
 	}
-	.hero-content h1 {
+	.hero-content h1,.hero-content .hero-title {
 		font-size: clamp(1.85rem, 6vw, 2.75rem) !important;
 		line-height: 1.15 !important;
 		margin-bottom: 24px;
@@ -1464,7 +1464,7 @@ iframe {
 	.hero-content p {
 		font-size: 13px !important;
 	}
-	.hero-content h1 {
+	.hero-content h1,.hero-content .hero-title {
 		font-size: clamp(1.65rem, 8vw, 2.2rem) !important;
 	}
 	.hero-content-btn {
@@ -2165,3 +2165,79 @@ iframe {
 		line-height: 42px;
 	}
 }
+
+
+/* ==========================================================================
+   Corrections visuelles et ergonomie (nov. 2026)
+   ========================================================================== */
+
+/* Texte aligné à gauche : le justifié crée des « trous » entre les mots, surtout sur mobile. */
+.about__content > p,
+.about-points p,
+.about-details-right p,
+.about-details-box-content > p,
+.service__text p,
+.service-box-content-text p,
+.choosing__text p,
+.partners-content p,
+.testimonial-single > p,
+.blog-content p,
+.bms-content > p,
+.bm-details-quote p,
+.job-offer-card > p,
+.newsletter-text p,
+.contact-lead,
+.bm-rich p,
+body.page-career section.pt-140 .row.align-items-center p {
+	text-align: left;
+	hyphens: manual;
+}
+
+/* Focus des champs : contour sombre, le rouge reste réservé aux erreurs. */
+.quote-pane input:focus,
+.quote-pane select:focus,
+.quote-pane textarea:focus,
+.cms-form input:focus,
+.cms-form select:focus,
+.cms-form textarea:focus {
+	border-color: #0c0b22;
+	box-shadow: 0 0 0 4px rgba(12, 11, 34, 0.1);
+}
+
+/* Bouton « retour en haut » aux couleurs de la marque. */
+#scrollUp {
+	background: #FF0A08;
+	box-shadow: 0 8px 20px rgba(255, 10, 8, 0.3);
+}
+#scrollUp:hover { background: #0c0b22; }
+
+/* Titres du carrousel : h1 pour la 1re slide, h2 pour les suivantes (même rendu). */
+.hero-content .hero-title { line-height: 1.1; }
+
+/* Mobile : texte du carrousel toujours lisible (pas d'animation qui le masque)
+   et voile plus sombre puisque la forme rouge est masquée sur petit écran. */
+@media (max-width: 767px) {
+	.slider-active .hero-content [data-animation] {
+		opacity: 1 !important;
+		animation: none !important;
+		-webkit-animation: none !important;
+	}
+	.slider-overlay:before {
+		background: linear-gradient(180deg, rgba(12, 11, 34, 0.45) 0%, rgba(12, 11, 34, 0.7) 100%);
+	}
+}
+
+/* Respect du réglage « réduire les animations » du système. */
+@media (prefers-reduced-motion: reduce) {
+	.slider-active .hero-content [data-animation],
+	.wow {
+		opacity: 1 !important;
+		visibility: visible !important;
+		animation: none !important;
+	}
+	.slide-bg { transition: none !important; }
+}
+
+/* Mode sombre désactivé pour le moment. */
+.header__theme,
+.header__theme-slot { display: none !important; }

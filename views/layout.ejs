@@ -21,16 +21,6 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script>
-		(function () {
-			try {
-				var theme = localStorage.getItem('kolokolo-theme');
-				document.documentElement.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
-			} catch (e) {
-				document.documentElement.setAttribute('data-theme', 'light');
-			}
-		})();
-	</script>
 	<title><%= head.title %></title>
 	<meta name="description" content="<%= head.description %>">
 	<meta name="author" content="<%= head.author %>">
@@ -41,6 +31,9 @@
 	<meta name="geo.region" content="SN-DK">
 	<meta name="geo.placename" content="Dakar">
 	<link rel="canonical" href="<%= head.url %>">
+	<% head.alternates.forEach((alt) => { %>
+	<link rel="alternate" hreflang="<%= alt.hreflang %>" href="<%= alt.href %>">
+	<% }) %>
 
 	<meta property="og:type" content="<%= head.ogType %>">
 	<meta property="og:site_name" content="<%= head.siteName %>">
@@ -85,7 +78,6 @@
 	<link rel="stylesheet" href="/assets/front/css/animate.min.css">
 	<link rel="stylesheet" href="/assets/front/css/custom-animation.css">
 	<link rel="stylesheet" href="/assets/front/css/magnific-popup.css">
-	<link rel="stylesheet" href="/assets/front/css/odometer-theme-default.css">
 	<link rel="stylesheet" href="/assets/front/css/fontawesome-all.min.css">
 	<link rel="stylesheet" href="/assets/front/css/meanmenu.css">
 	<link rel="stylesheet" href="/assets/front/css/flaticon.css">
@@ -121,11 +113,7 @@
 								<h5><%= t('footer.contact') %></h5>
 								<p><%= settings.place.address %><br><%= settings.place.regionCountry %><br><%= settings.email %></p>
 							</div>
-							<div class="grb__social footer-social">
-								<ul>
-									<%- include('partials/social-items') %>
-								</ul>
-							</div>
+							<%- include('partials/social-items', { wrapClass: 'grb__social footer-social' }) %>
 						</div>
 					</div>
 					<div class="col-lg-3 col-md-6">
@@ -147,8 +135,7 @@
 							</div>
 							<ul class="footer-list">
 								<li><a href="/a-propos"><%= t('nav.about') %></a></li>
-								<li><a href="/carriere"><%= t('nav.career') %></a></li>
-								<li><a href="/contact"><%= t('nav.contact') %></a></li>
+								<% if (features.career) { %><li><a href="/carriere"><%= t('nav.career') %></a></li><% } %>
 								<li><a href="/confidentialite"><%= t('footer.privacyPolicy') %></a></li>
 								<li><a href="/conditions-generales"><%= t('footer.terms') %></a></li>
 							</ul>
@@ -161,12 +148,12 @@
 							</div>
 							<ul class="worktime-list">
 								<li>
-									<h5><%= t('footer.hours') %></h5>
-									<span><%= settings.hours %></span>
+									<h5><%= t('footer.weekdays') %></h5>
+									<span><%= String(settings.hours || '').replace(/^[^\d,]*,\s*/, '') %></span>
 								</li>
 								<li>
 									<h5><%= t('footer.weekend') %></h5>
-									<span><%= settings.weekend_hours %></span>
+									<span><%= /^ferm/i.test(String(settings.weekend_hours || '').trim()) ? t('footer.closed') : settings.weekend_hours %></span>
 								</li>
 							</ul>
 							<div class="footer-lang">
@@ -209,14 +196,9 @@
 	<script src="/assets/front/js/vendor/jquery-3.6.0.min.js"></script>
 	<script src="/assets/front/js/bootstrap.bundle.min.js"></script>
 	<script src="/assets/front/js/swiper-bundle.js"></script>
-	<script src="/assets/front/js/isotope.pkgd.min.js"></script>
 	<script src="/assets/front/js/jquery.meanmenu.min.js"></script>
-	<script src="/assets/front/js/ajax-form.js"></script>
 	<script src="/assets/front/js/wow.min.js"></script>
 	<script src="/assets/front/js/jquery.scrollUp.min.js"></script>
-	<script src="/assets/front/js/odometer.min.js"></script>
-	<script src="/assets/front/js/appair.min.js"></script>
-	<script src="/assets/front/js/imagesloaded.pkgd.min.js"></script>
 	<script src="/assets/front/js/jquery.magnific-popup.min.js"></script>
 	<script src="/assets/front/js/plugins.js"></script>
 	<script src="/assets/front/js/main.js"></script>
@@ -231,7 +213,6 @@
 	<script src="/assets/front/js/newsletter.js"></script>
 	<script src="/assets/front/js/search.js"></script>
 	<script src="/assets/front/js/lang.js"></script>
-	<script src="/assets/front/js/theme.js"></script>
 	<script src="/assets/front/js/liquid-glass.js"></script>
 </body>
 

@@ -6,7 +6,15 @@ const { quoteBudgets, quoteTimelines, allowedServiceLabels, contactSubjects } = 
 const { conditionsGenerales, confidentialite } = require('../data/legal');
 const { matchQuery, filterItems, getSearchPages, getSearchServices } = require('../data/search');
 
+const { features } = require('../config');
+
 const router = Router();
+
+// Page Carrière masquée : toutes les URL /carriere répondent 404 tant que CAREER_ENABLED=false.
+router.use('/carriere', (req, res, next) => {
+	if (features.career) return next();
+	return res.status(404).render('layout', { title: res.locals.t('meta.notFoundTitle'), page: '404' });
+});
 
 function renderPage(res, page, title, extra = {}) {
 	res.render('layout', { title, page, ...extra });
@@ -41,7 +49,7 @@ router.get('/recherche', async (req, res) => {
 				})
 				.orderByRaw('sort_order ASC, id ASC')
 				.limit(8),
-			db('job_offers')
+			!features.career ? Promise.resolve([]) : db('job_offers')
 				.where({ is_active: 1 })
 				.andWhere((builder) => {
 					builder
@@ -88,6 +96,52 @@ router.get('/recherche', async (req, res) => {
 		console.error(err);
 		return res.status(500).json({ ok: false, groups: [], error: res.locals.t('errors.searchFail') });
 	}
+});
+
+// --- SEO : robots.txt et sitemap.xml -------------------------------------------
+const { siteUrl } = require('../config');
+
+router.get('/robots.txt', (req, res) => {
+	res.type('text/plain').send(
+		['User-agent: *', 'Allow: /', 'Disallow: /admin', 'Disallow: /auth', 'Disallow: /recherche', 'Disallow: /coming', 'Disallow: /newsletter/', '', `Sitemap: ${siteUrl}/sitemap.xml`, ''].join('\n')
+	);
+});
+
+router.get('/sitemap.xml', async (req, res) => {
+	const pages = [
+		{ path: '/', priority: '1.0', changefreq: 'weekly' },
+		{ path: '/services', priority: '0.9', changefreq: 'monthly' },
+		{ path: '/a-propos', priority: '0.8', changefreq: 'monthly' },
+		{ path: '/contact', priority: '0.8', changefreq: 'yearly' },
+		{ path: '/conditions-generales', priority: '0.3', changefreq: 'yearly' },
+		{ path: '/confidentialite', priority: '0.3', changefreq: 'yearly' },
+	];
+	if (features.career) {
+		pages.push({ path: '/carriere', priority: '0.6', changefreq: 'weekly' });
+		try {
+			const jobs = await db('job_offers').where({ is_active: 1 }).select('slug', 'updated_at');
+			jobs.forEach((job) => pages.push({ path: `/carriere/${job.slug}`, priority: '0.5', changefreq: 'weekly', lastmod: job.updated_at }));
+		} catch (err) {
+			console.error(err);
+		}
+	}
+	const esc = (value) => String(value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+	const urlFor = (path, lang) => `${siteUrl}${path}${lang === 'en' ? '?lang=en' : ''}`;
+	const entries = [];
+	for (const page of pages) {
+		for (const lang of ['fr', 'en']) {
+			const lastmod = page.lastmod ? `\n\t\t<lastmod>${new Date(page.lastmod).toISOString().slice(0, 10)}</lastmod>` : '';
+			entries.push(
+				`\t<url>\n\t\t<loc>${esc(urlFor(page.path, lang))}</loc>${lastmod}\n\t\t<changefreq>${page.changefreq}</changefreq>\n\t\t<priority>${page.priority}</priority>\n` +
+					`\t\t<xhtml:link rel="alternate" hreflang="fr" href="${esc(urlFor(page.path, 'fr'))}"/>\n` +
+					`\t\t<xhtml:link rel="alternate" hreflang="en" href="${esc(urlFor(page.path, 'en'))}"/>\n` +
+					`\t\t<xhtml:link rel="alternate" hreflang="x-default" href="${esc(urlFor(page.path, 'fr'))}"/>\n\t</url>`
+			);
+		}
+	}
+	res.type('application/xml').send(
+		`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>\n`
+	);
 });
 
 router.get('/coming', (req, res) => {

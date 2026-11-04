@@ -1,3 +1,8 @@
+function csrfHeaders() {
+	const meta = document.querySelector('meta[name="csrf-token"]');
+	return meta ? { 'X-CSRF-Token': meta.content } : {};
+}
+
 (function () {
 	function qs(sel, root) {
 		return (root || document).querySelector(sel);
@@ -28,7 +33,7 @@
 		async function send(file) {
 			const data = new FormData();
 			data.append('file', file);
-			const res = await fetch('/admin/uploads', { method: 'POST', body: data });
+			const res = await fetch('/admin/uploads', { method: 'POST', body: data, headers: csrfHeaders() });
 			const json = await res.json();
 			if (!res.ok) throw new Error(json.error || 'Upload impossible');
 			hidden.value = json.url;
@@ -78,7 +83,7 @@
 			images_upload_handler: (blobInfo) => {
 				const data = new FormData();
 				data.append('file', blobInfo.blob(), blobInfo.filename());
-				return fetch('/admin/uploads', { method: 'POST', body: data })
+				return fetch('/admin/uploads', { method: 'POST', body: data, headers: csrfHeaders() })
 					.then((res) => res.json())
 					.then((json) => {
 						if (!json.url) throw new Error(json.error || 'Upload impossible');

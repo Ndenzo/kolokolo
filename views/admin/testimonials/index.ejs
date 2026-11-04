@@ -66,12 +66,12 @@
 							<td>
 								<div class="row-actions">
 									<a class="btn-icon" href="/admin/testimonials/<%= item.id %>/edit" title="Modifier"><i class="fas fa-pen"></i></a>
-									<form action="/admin/testimonials/<%= item.id %>/toggle" method="post">
+									<form action="/admin/testimonials/<%= item.id %>/toggle" method="post"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<button class="btn-icon is-warn" type="submit" title="<%= helpers.isActive(item.is_active) ? 'Désactiver' : 'Activer' %>">
 											<i class="fas <%= helpers.isActive(item.is_active) ? 'fa-eye-slash' : 'fa-eye' %>"></i>
 										</button>
 									</form>
-									<form action="/admin/testimonials/<%= item.id %>/delete" method="post" data-confirm>
+									<form action="/admin/testimonials/<%= item.id %>/delete" method="post" data-confirm><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 										<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
 									</form>
 								</div>

@@ -21,13 +21,36 @@ const defaultSettings = {
 
 const smtpPort = Number(process.env.SMTP_PORT || 587);
 
+function resolveSessionSecret() {
+	const secret = String(process.env.SESSION_SECRET || '').trim();
+	if (secret) return secret;
+	if (process.env.NODE_ENV === 'production') {
+		throw new Error('SESSION_SECRET manquant dans le .env : démarrage impossible en production.');
+	}
+	console.warn('[kolokolo] SESSION_SECRET absent : secret aléatoire temporaire (sessions perdues au redémarrage).');
+	return require('node:crypto').randomBytes(32).toString('hex');
+}
+
 module.exports = {
 	port: Number(process.env.PORT || 3000),
 	siteUrl: String(process.env.SITE_URL || 'https://kolokolo.tech').replace(/\/$/, ''),
-	sessionSecret: process.env.SESSION_SECRET || 'kolokolo-dev-session-secret',
-	adminEmail: process.env.ADMIN_EMAIL || 'admin@kolokolo.tech',
-	adminPassword: process.env.ADMIN_PASSWORD || 'KolokoloAdmin2026',
+	sessionSecret: resolveSessionSecret(),
+	// Accès admin : uniquement depuis le .env, aucune valeur par défaut dans le code.
+	adminEmail: String(process.env.ADMIN_EMAIL || '').trim(),
+	adminPassword: String(process.env.ADMIN_PASSWORD || ''),
 	defaultSettings,
+	legal: {
+		companyName: String(process.env.LEGAL_COMPANY_NAME || 'Kolokolo').trim(),
+		form: String(process.env.LEGAL_FORM || '').trim(),
+		capital: String(process.env.LEGAL_CAPITAL || '').trim(),
+		ninea: String(process.env.LEGAL_NINEA || '').trim(),
+		rccm: String(process.env.LEGAL_RCCM || '').trim(),
+		publisher: String(process.env.LEGAL_PUBLISHER || '').trim(),
+	},
+	features: {
+		// Page Carrière masquée tant que CAREER_ENABLED n'est pas à true dans le .env.
+		career: String(process.env.CAREER_ENABLED || '').toLowerCase() === 'true',
+	},
 	smtp: {
 		host: String(process.env.SMTP_HOST || '').trim(),
 		port: smtpPort,

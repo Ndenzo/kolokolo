@@ -11,7 +11,7 @@
 		<p>Le contenu mis en forme ici s’affiche tel quel sur la fiche du poste.</p>
 	</div>
 </div>
-<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate>
+<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 	<div class="panel form-stack">
 		<div class="field" data-field>
 			<label class="admin-label" for="title">Intitulé du poste <abbr class="req" title="Obligatoire">*</abbr></label>

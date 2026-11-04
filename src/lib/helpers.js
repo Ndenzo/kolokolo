@@ -116,7 +116,10 @@ function contactPlace(settings) {
 	};
 }
 
+const { sanitizeHtml } = require('./sanitize');
+
 module.exports = {
+	sanitizeHtml,
 	slugify,
 	uniqueSlug,
 	formatDay,

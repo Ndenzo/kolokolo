@@ -1,18 +1,47 @@
+const { legal } = require('../config');
+
+// Hébergeur du site (Hostinger).
+const HOST = {
+	name: 'Hostinger International Ltd',
+	address: '61 Lordou Vironos Street, 6023 Larnaca, Chypre',
+	addressEn: '61 Lordou Vironos Street, 6023 Larnaca, Cyprus',
+	url: 'https://www.hostinger.com',
+};
+
+// Mentions légales : les informations d'immatriculation viennent du .env (LEGAL_*).
+// Une ligne n'est affichée que si la valeur correspondante est renseignée.
+function legalBullets(settings, address, lang) {
+	const fr = lang !== 'en';
+	const rows = [
+		[fr ? 'Raison sociale' : 'Company name', legal.companyName],
+		[fr ? 'Forme juridique' : 'Legal form', legal.form],
+		[fr ? 'Capital social' : 'Share capital', legal.capital],
+		[fr ? 'Siège social' : 'Registered office', address],
+		['NINEA', legal.ninea],
+		['RCCM', legal.rccm],
+		[fr ? 'Directeur de la publication' : 'Publication director', legal.publisher],
+		['Email', settings.email],
+		[fr ? 'Téléphone' : 'Phone', settings.phone],
+		[fr ? 'Hébergeur' : 'Hosting provider', `${HOST.name}, ${fr ? HOST.address : HOST.addressEn} — ${HOST.url}`],
+	];
+	return rows.filter(([, value]) => value).map(([label, value]) => `${label} : ${value}`.replace(' : ', fr ? ' : ' : ': '));
+}
+
 function conditionsGeneralesFr(settings) {
 	const place = settings.place || {};
 	const address = [place.address, place.regionCountry].filter(Boolean).join(', ');
 	return {
 		slug: 'conditions-generales',
 		heading: 'Conditions générales',
-		updated: '20 août 2026',
+		updated: '3 novembre 2026',
 		intro: 'Les présentes conditions générales encadrent l’accès au site et les prestations proposées par Kolokolo, agence digitale basée à Dakar. En naviguant sur le site ou en nous confiant un projet, vous acceptez ces conditions.',
 		sections: [
 			{
-				title: '1. Éditeur du site',
+				title: '1. Mentions légales',
 				paragraphs: [
-					`Le site kolokolo.tech est édité par Kolokolo, agence digitale située ${address || 'à Dakar, Sénégal'}.`,
-					`Contact : ${settings.email || 'contact@kolokolo.tech'}${settings.phone ? ` — ${settings.phone}` : ''}.`,
+					`Le site kolokolo.tech est édité par ${legal.companyName}, agence digitale située ${address || 'à Dakar, Sénégal'}.`,
 				],
+				bullets: legalBullets(settings, address, 'fr'),
 			},
 			{
 				title: '2. Objet',
@@ -31,7 +60,7 @@ function conditionsGeneralesFr(settings) {
 			{
 				title: '4. Prestations et devis',
 				paragraphs: [
-					'Les descriptions de services, formules et tarifs présentés sur le site sont indicatifs. Chaque projet fait l’objet d’un devis ou d’une proposition adaptée à vos besoins.',
+					'Les descriptions de services présentées sur le site sont indicatives. Chaque projet fait l’objet d’un devis ou d’une proposition adaptée à vos besoins.',
 					'Une demande de devis via le site n’engage ni Kolokolo ni le prospect tant qu’un devis n’a pas été accepté par écrit (email, signature ou tout autre accord formalisé).',
 					'Le devis précise le périmètre, les livrables, le calendrier estimatif et les conditions financières. Toute modification de périmètre peut donner lieu à un avenant.',
 				],
@@ -89,7 +118,7 @@ function confidentialiteFr(settings) {
 	return {
 		slug: 'confidentialite',
 		heading: 'Confidentialité',
-		updated: '20 août 2026',
+		updated: '3 novembre 2026',
 		intro: 'Kolokolo accorde une importance particulière à la protection de vos données personnelles. Cette politique explique quelles informations nous collectons, pourquoi, et quels sont vos droits.',
 		sections: [
 			{
@@ -180,15 +209,15 @@ function conditionsGeneralesEn(settings) {
 	return {
 		slug: 'conditions-generales',
 		heading: 'Terms of use',
-		updated: '20 August 2026',
+		updated: '3 November 2026',
 		intro: 'These terms govern access to the website and the services offered by Kolokolo, a digital agency based in Dakar. By browsing the site or entrusting us with a project, you accept these terms.',
 		sections: [
 			{
-				title: '1. Website publisher',
+				title: '1. Legal notice',
 				paragraphs: [
-					`The website kolokolo.tech is published by Kolokolo, a digital agency located ${address || 'in Dakar, Senegal'}.`,
-					`Contact: ${settings.email || 'contact@kolokolo.tech'}${settings.phone ? ` — ${settings.phone}` : ''}.`,
+					`The website kolokolo.tech is published by ${legal.companyName}, a digital agency located ${address || 'in Dakar, Senegal'}.`,
 				],
+				bullets: legalBullets(settings, address, 'en'),
 			},
 			{
 				title: '2. Purpose',
@@ -207,7 +236,7 @@ function conditionsGeneralesEn(settings) {
 			{
 				title: '4. Services and quotes',
 				paragraphs: [
-					'Service descriptions, plans and prices on the website are indicative. Each project is covered by a quote or proposal tailored to your needs.',
+					'Service descriptions on the website are indicative. Each project is covered by a quote or proposal tailored to your needs.',
 					'A quote request via the website does not bind Kolokolo or the prospect until a quote has been accepted in writing (email, signature or any other formal agreement).',
 					'The quote sets out the scope, deliverables, estimated timeline and financial terms. Any change of scope may lead to an amendment.',
 				],
@@ -265,7 +294,7 @@ function confidentialiteEn(settings) {
 	return {
 		slug: 'confidentialite',
 		heading: 'Privacy',
-		updated: '20 August 2026',
+		updated: '3 November 2026',
 		intro: 'Kolokolo takes the protection of your personal data seriously. This policy explains what information we collect, why, and what your rights are.',
 		sections: [
 			{

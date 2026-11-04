@@ -34,7 +34,7 @@
 			</div>
 		</aside>
 		<main class="login-panel">
-			<form class="login-card" action="/auth" method="post" data-admin-form novalidate>
+			<form class="login-card" action="/auth" method="post" data-admin-form novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 				<p class="login-card-kicker">Connexion</p>
 				<h1>Bon retour</h1>
 				<p class="lead">Identifiez-vous pour ouvrir le tableau de bord.</p>

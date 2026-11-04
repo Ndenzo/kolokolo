@@ -21,7 +21,7 @@ const defaultTestimonials = [
 
 const defaultProjects = [
 	{
-		title: 'Site vitrine sur-mesure',
+		title: 'site vitrine sur-mesure',
 		category: 'Site Web',
 		image: '/assets/front/img/portfolio/port1.jpg',
 		link: '',
@@ -29,7 +29,7 @@ const defaultProjects = [
 		is_active: 1,
 	},
 	{
-		title: 'Site e-commerce',
+		title: 'site e-commerce',
 		category: 'Site Web',
 		image: '/assets/front/img/portfolio/port2.jpg',
 		link: '',
@@ -37,7 +37,7 @@ const defaultProjects = [
 		is_active: 1,
 	},
 	{
-		title: 'Application mobile',
+		title: 'application mobile',
 		category: 'Mobile App',
 		image: '/assets/front/img/portfolio/port3.jpg',
 		link: '',
@@ -45,7 +45,7 @@ const defaultProjects = [
 		is_active: 1,
 	},
 	{
-		title: 'Campagne publicitaire',
+		title: 'campagne publicitaire',
 		category: 'Publicité Digitale',
 		image: '/assets/front/img/portfolio/port1.jpg',
 		link: '',
@@ -53,7 +53,7 @@ const defaultProjects = [
 		is_active: 1,
 	},
 	{
-		title: 'Gestion réseaux sociaux',
+		title: 'gestion réseaux sociaux',
 		category: 'Social Media',
 		image: '/assets/front/img/portfolio/port2.jpg',
 		link: '',
@@ -61,7 +61,7 @@ const defaultProjects = [
 		is_active: 1,
 	},
 	{
-		title: 'Boost publicitaire e-commerce',
+		title: 'boost publicitaire e-commerce',
 		category: 'Publicité Digitale',
 		image: '/assets/front/img/portfolio/port3.jpg',
 		link: '',

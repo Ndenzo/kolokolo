@@ -8,7 +8,7 @@
 				</div>
 			</div>
 			<div class="col-lg-6">
-				<form class="subscribe-form mb-30" action="/newsletter" method="post" data-newsletter-form novalidate>
+				<form class="subscribe-form mb-30" action="/newsletter" method="post" data-newsletter-form novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 					<input type="text" name="website" tabindex="-1" autocomplete="off" class="quote-hp" aria-hidden="true">
 					<label class="sr-only" for="newsletter-email"><%= t('newsletter.email') %></label>
 					<input id="newsletter-email" type="email" name="email" required maxlength="180" autocomplete="email" placeholder="<%= t('newsletter.placeholder') %>">

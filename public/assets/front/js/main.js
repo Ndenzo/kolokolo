@@ -11,7 +11,8 @@
 		$(".side-info").removeClass("info-open");
 		$(".offcanvas-overlay").removeClass("overlay-open");
 	});
-	$(".side-toggle").on("click", function () {
+	$(".side-toggle").on("click", function (e) {
+		e.preventDefault();
 		$(".side-info").addClass("info-open");
 		$(".offcanvas-overlay").addClass("overlay-open");
 	});
@@ -335,15 +336,14 @@
 		type: "iframe",
 	});
 
-	// init Isotope
-	var $grid = $(".grid").isotope({
-		// options
-	});
-	// filter items on button click
-	$(".portfolio-button").on("click", "button", function () {
-		var filterValue = $(this).attr("data-filter");
-		$grid.isotope({ filter: filterValue });
-	});
+	// init Isotope (uniquement si le plugin est chargé)
+	if ($.fn.isotope && $(".grid").length) {
+		var $grid = $(".grid").isotope({});
+		$(".portfolio-button").on("click", "button", function () {
+			var filterValue = $(this).attr("data-filter");
+			$grid.isotope({ filter: filterValue });
+		});
+	}
 
 	//for menu active class
 	$(".portfolio-button button").on("click", function (event) {
@@ -373,8 +373,8 @@
 	// WOW active
 	new WOW().init();
 
-	// Active Odometer Counter
-	jQuery(".odometer").appear(function (e) {
+	// Active Odometer Counter (uniquement si le plugin est chargé)
+	if (jQuery.fn.appear) jQuery(".odometer").appear(function (e) {
 		var odo = jQuery(".odometer");
 		odo.each(function () {
 			var countNumber = jQuery(this).attr("data-count");

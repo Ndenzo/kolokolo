@@ -27,6 +27,8 @@ module.exports = {
 		agency: 'Notre agence',
 		hours: 'Horaires',
 		weekend: 'Samedi — Dimanche',
+		weekdays: 'Lundi — Vendredi',
+		closed: 'Fermé',
 		rights: 'Tous droits réservés.',
 		privacy: 'Confidentialité',
 		terms: 'Conditions générales',
@@ -78,6 +80,8 @@ module.exports = {
 			'Kolokolo, agence digitale internationale basée à Dakar : sites vitrines, applications web, mobiles et de bureau, publicité et réseaux sociaux pour clients en Afrique et dans le monde.',
 	},
 	home: {
+		aboutImgAlt: 'L’équipe Kolokolo au travail sur un projet digital',
+		aboutImg2Alt: 'L’ibis rouge, emblème de Kolokolo',
 		slide1Kicker: 'Vos projets digitaux en deux temps, trois mouvements',
 		slide1Title: 'Une véritable agence web !',
 		slide2Kicker: 'L’équipe du petit oiseau rouge du digital à vos côtés',
@@ -308,8 +312,10 @@ module.exports = {
 		text: 'La page que vous recherchez a été déplacée, supprimée, renommée ou n’a jamais existé.',
 		home: 'Retour à l’accueil',
 	},
+	portfolioCategory: {},
 	errors: {
 		required: 'Merci de renseigner les champs obligatoires.',
+		csrf: 'Votre session a expiré. Rechargez la page puis réessayez.',
 		email: 'L’adresse email n’est pas valide.',
 		subject: 'Sujet invalide.',
 		contactFail: 'Impossible d’envoyer le message pour le moment.',

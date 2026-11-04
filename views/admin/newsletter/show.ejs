@@ -30,11 +30,11 @@
 		</div>
 		<div class="form-actions">
 			<% if (canSend) { %>
-				<form action="/admin/newsletter/<%= campaign.id %>/send" method="post" data-confirm data-confirm-title="Envoyer la newsletter" data-confirm-message="Envoyer « <%= campaign.subject %> » à <%= activeCount %> abonné<%= activeCount > 1 ? 's' : '' %> ?" data-confirm-ok="Envoyer">
+				<form action="/admin/newsletter/<%= campaign.id %>/send" method="post" data-confirm data-confirm-title="Envoyer la newsletter" data-confirm-message="Envoyer « <%= campaign.subject %> » à <%= activeCount %> abonné<%= activeCount > 1 ? 's' : '' %> ?" data-confirm-ok="Envoyer"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 					<button class="btn btn-primary" type="submit" <%= !smtpConfigured || !activeCount ? 'disabled' : '' %>><i class="fas fa-paper-plane"></i> Envoyer aux inscrits</button>
 				</form>
 			<% } %>
-			<form action="/admin/newsletter/<%= campaign.id %>/delete" method="post" data-confirm>
+			<form action="/admin/newsletter/<%= campaign.id %>/delete" method="post" data-confirm><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 				<button class="btn btn-danger" type="submit">Supprimer</button>
 			</form>
 		</div>

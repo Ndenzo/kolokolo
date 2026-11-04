@@ -93,7 +93,7 @@ function buildHead({
 	}
 
 	const baseUrl = String(siteUrl || '').replace(/\/$/, '') || 'https://kolokolo.tech';
-	const url = absoluteUrl(siteUrl, path || '/');
+	const pageUrl = absoluteUrl(siteUrl, path || '/');
 	const imageUrl = absoluteUrl(siteUrl, img);
 	const place = settings.place || {};
 	const sameAs = [settings.facebook, settings.twitter, settings.instagram, settings.linkedin]
@@ -102,6 +102,14 @@ function buildHead({
 	const locality = place.region || settings.region || 'Dakar';
 	const street = place.address || settings.address || undefined;
 	const currentLang = lang === 'en' ? 'en' : 'fr';
+	// Une URL distincte par langue pour que Google indexe aussi la version anglaise.
+	const langUrl = (code) => (code === 'en' ? `${pageUrl}?lang=en` : pageUrl);
+	const url = langUrl(currentLang);
+	const alternates = [
+		{ hreflang: 'fr', href: langUrl('fr') },
+		{ hreflang: 'en', href: langUrl('en') },
+		{ hreflang: 'x-default', href: langUrl('fr') },
+	];
 
 	const organization = {
 		'@type': ['Organization', 'ProfessionalService'],
@@ -164,6 +172,7 @@ function buildHead({
 		title: title || brand.siteName,
 		description: truncateMeta(desc),
 		url,
+		alternates: robots.startsWith('noindex') ? [] : alternates,
 		image: imageUrl,
 		imageAlt: brand.imageAlt,
 		imageWidth,

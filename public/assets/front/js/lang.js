@@ -59,6 +59,10 @@
 			localStorage.setItem(KEY, next);
 		} catch (err) {}
 		writeCookie(next);
-		location.reload();
+		var url = new URL(location.href);
+		if (next === 'en') url.searchParams.set('lang', 'en');
+		else url.searchParams.delete('lang');
+		if (url.href === location.href) location.reload();
+		else location.href = url.href;
 	});
 })();

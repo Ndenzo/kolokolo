@@ -10,7 +10,7 @@
 <% if (!smtpConfigured) { %>
 	<p class="smtp-note">SMTP n’est pas configuré. Vous pouvez préparer le brouillon, l’envoi ne sera possible qu’après configuration.</p>
 <% } %>
-<form action="<%= action %>" method="post" data-admin-form novalidate>
+<form action="<%= action %>" method="post" data-admin-form novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 	<div class="form-grid">
 		<div class="panel form-stack">
 			<div class="field" data-field>

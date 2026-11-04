@@ -12,6 +12,7 @@ const { campaignStatusLabels, subscriberStatusLabels } = require('../data/newsle
 const { sendNewsletter, isConfigured, contactHtml, quoteHtml } = require('../lib/mailer');
 const { renderNewsletterMail, sampleContact, sampleQuote, sampleNewsletter } = require('../lib/emails');
 const { siteUrl } = require('../config');
+const { sanitizeHtml } = require('../lib/sanitize');
 
 const DEFAULT_PORTFOLIO_CATEGORIES = [
 	'Sites vitrines',
@@ -201,7 +202,7 @@ function jobPayload(body) {
 		title: String(body.title || '').trim(),
 		contract_type: String(body.contract_type || '').trim(),
 		location: String(body.location || '').trim(),
-		description_html: body.description_html || '',
+		description_html: sanitizeHtml(body.description_html),
 		is_active: parseActive(body),
 		updated_at: db.fn.now(),
 	};
@@ -485,7 +486,8 @@ router.get('/portfolio/new', async (req, res) => {
 
 function projectPayload(body) {
 	return {
-		title: String(body.title || '').trim(),
+		// Noms de projets toujours en minuscules, pour une présentation homogène.
+		title: String(body.title || '').trim().toLocaleLowerCase('fr'),
 		category: String(body.category || '').trim(),
 		image: String(body.image || '').trim() || null,
 		link: String(body.link || '').trim(),

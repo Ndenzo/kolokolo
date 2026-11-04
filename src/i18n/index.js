@@ -62,7 +62,15 @@ function jsBundle(t) {
 }
 
 function loadLang(req, res, next) {
-	const lang = parseLang(req);
+	// ?lang=fr|en dans l'URL est prioritaire (URL indexables par langue) et mémorise le choix.
+	const fromQuery = String((req.query && req.query.lang) || '').toLowerCase();
+	let lang;
+	if (fromQuery === 'fr' || fromQuery === 'en') {
+		lang = fromQuery;
+		res.cookie('kolokolo-lang', lang, { path: '/', maxAge: 365 * 24 * 3600 * 1000, sameSite: 'lax' });
+	} else {
+		lang = parseLang(req);
+	}
 	const t = createTranslator(lang);
 	res.locals.lang = lang;
 	res.locals.locale = lang === 'en' ? 'en_US' : 'fr_FR';

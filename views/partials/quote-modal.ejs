@@ -7,7 +7,7 @@
 			<h2 id="quote-modal-title"><%= t('quote.title') %></h2>
 			<p><%= t('quote.lead') %></p>
 		</div>
-		<form class="quote-form" id="quote-form" action="/devis" method="post" novalidate>
+		<form class="quote-form" id="quote-form" action="/devis" method="post" novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 			<input type="text" name="website" tabindex="-1" autocomplete="off" class="quote-hp" aria-hidden="true">
 			<input type="hidden" name="offer" id="quote-offer" value="">
 			<div class="quote-grid">

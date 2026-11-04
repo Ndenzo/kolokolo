@@ -1,3 +1,5 @@
+const { features } = require('../config');
+
 function fold(text) {
 	return String(text || '')
 		.normalize('NFD')
@@ -16,7 +18,7 @@ const SEARCH_PAGE_KEYS = [
 	{ key: 'home', url: '/' },
 	{ key: 'about', url: '/a-propos' },
 	{ key: 'services', url: '/services' },
-	{ key: 'career', url: '/carriere' },
+	...(features.career ? [{ key: 'career', url: '/carriere' }] : []),
 	{ key: 'contact', url: '/contact' },
 	{ key: 'terms', url: '/conditions-generales' },
 	{ key: 'privacy', url: '/confidentialite' },

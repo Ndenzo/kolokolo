@@ -30,11 +30,7 @@
                     <div class="col-md-5 col-lg-4 d-none d-md-flex align-items-center justify-content-end">
                         <div class="header-top-tools">
                             <%- include('lang-switch', { variant: 'dark' }) %>
-                            <div class="grb__social st-1">
-                                <ul>
-                                    <%- include('social-items', { variant: 'header' }) %>
-                                </ul>
-                            </div>
+                            <%- include('social-items', { variant: 'header', wrapClass: 'grb__social st-1' }) %>
                         </div>
                     </div>
                 </div>
@@ -51,8 +47,8 @@
                             <a class="logo-text-white" href="/">
 								<img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo">
 							</a>
-                            <a class="logo-text-black" href="/">
-								<img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo">
+                            <a class="logo-text-black" href="/" aria-hidden="true" tabindex="-1">
+								<img src="/assets/custom/img/logo/logoh.png" alt="">
 							</a>
                         </div>
                     </div>
@@ -67,16 +63,16 @@
                                         <li><a href="/"><%= t('nav.home') %></a></li>
                                         <li><a href="/a-propos"><%= t('nav.about') %></a></li>
                                         <li><a href="/services"><%= t('nav.services') %></a></li>
-                                        <li><a href="/carriere"><%= t('nav.career') %></a></li>
+                                        <% if (features.career) { %><li><a href="/carriere"><%= t('nav.career') %></a></li><% } %>
                                         <li><a href="/contact"><%= t('nav.contact') %></a></li>
                                     </ul>
                                 </nav>
                             </div>
                             <div class="header__search">
-                                <a class="search-btn nav-search search-trigger d-none d-lg-inline-block" href="#"><i
-                                        class="fal fa-search"></i></a>
-                                <a class="side-toggle d-lg-none" href="javascript:void(0)"><i
-                                        class="fal fa-bars"></i></a>
+                                <a class="search-btn nav-search search-trigger d-none d-lg-inline-block" href="#" role="button" aria-label="<%= t('nav.search') %>"><i
+                                        class="fal fa-search" aria-hidden="true"></i></a>
+                                <a class="side-toggle d-lg-none" href="#" role="button" aria-label="Menu"><i
+                                        class="fal fa-bars" aria-hidden="true"></i></a>
                             </div>
                             <div class="header__theme d-none">
                                 <%- include('theme-switch') %>
@@ -100,8 +96,8 @@
                     <div class="row align-items-center">
                         <div class="col-9"><a href="/"><img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo" style="width: 170px;"></a>
                         </div>
-                        <div class="col-3 text-end"><button class="side-info-close"><i
-                                    class="fal fa-times"></i></button>
+                        <div class="col-3 text-end"><button class="side-info-close" type="button" aria-label="<%= lang === 'en' ? 'Close' : 'Fermer' %>"><i
+                                    class="fal fa-times" aria-hidden="true"></i></button>
                         </div>
                     </div>
                 </div>
@@ -113,10 +109,10 @@
                 </div>
                 <div class="mobile-menu d-lg-none"></div>
                 <div class="offset-widget offset_searchbar mb-30">
-                    <form method="get" action="#">
+                    <form method="get" action="/" data-side-search>
                         <div class="offset_search_content">
-                            <input type="search" placeholder="<%= t('nav.searchSidebar') %>">
-                            <button type="submit" class="offset_search_button"><i class="fal fa-search"></i></button>
+                            <input type="search" name="q" placeholder="<%= t('nav.searchSidebar') %>" aria-label="<%= t('nav.search') %>">
+                            <button type="submit" class="offset_search_button" aria-label="<%= t('nav.search') %>"><i class="fal fa-search" aria-hidden="true"></i></button>
                         </div>
                     </form>
                 </div>
@@ -137,7 +133,7 @@
                 <div class="contact-infos mt-30 mb-30">
                     <div class="contact-list mb-30">
                         <h4><%= t('footer.contact') %></h4>
-                        <a href="#" class="contact-address-link">
+                        <a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent([settings.place.address, settings.place.regionCountry].filter(Boolean).join(', ')) %>" class="contact-address-link" target="_blank" rel="noopener noreferrer">
                             <i class="fal fa-map-marker-alt"></i>
                             <span><%= settings.place.address %>, <%= settings.place.regionCountry %></span>
                         </a>
@@ -151,11 +147,7 @@
                         </a>
 
                     </div>
-                    <div class="grb__social footer-social offset-social">
-                        <ul>
-                            <%- include('social-items') %>
-                        </ul>
-                    </div>
+                    <%- include('social-items', { wrapClass: 'grb__social footer-social offset-social' }) %>
                 </div>
             </div>
         </div>

@@ -27,7 +27,7 @@
 			<div class="info-row"><span>Budget</span><strong><%= item.budget || '—' %></strong></div>
 			<div class="info-row"><span>Délai</span><strong><%= item.timeline || '—' %></strong></div>
 		</div>
-		<form class="form-actions" action="/admin/quotes/<%= item.id %>/status" method="post">
+		<form class="form-actions" action="/admin/quotes/<%= item.id %>/status" method="post"><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 			<select class="admin-select select-inline" name="status">
 				<% Object.keys(labels).forEach((key) => { %>
 					<option value="<%= key %>" <%= item.status === key ? 'selected' : '' %>><%= labels[key] %></option>
@@ -43,7 +43,7 @@
 	<p class="quote-message"><%= item.message %></p>
 	<div class="form-actions">
 		<a class="btn btn-ghost" href="mailto:<%= item.email %>?subject=Votre demande de devis Kolokolo">Répondre par email</a>
-		<form action="/admin/quotes/<%= item.id %>/delete" method="post" data-confirm>
+		<form action="/admin/quotes/<%= item.id %>/delete" method="post" data-confirm><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 			<button class="btn btn-danger" type="submit">Supprimer</button>
 		</form>
 	</div>

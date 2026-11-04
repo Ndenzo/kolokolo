@@ -6,7 +6,7 @@
 		<p>La version couleur s’affiche sur fond clair. La version monochrome (blanche) sert aux fonds sombres et au survol du bandeau.</p>
 	</div>
 </div>
-<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate>
+<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 	<div class="panel form-stack">
 		<div class="field" data-field>
 			<label class="admin-label" for="name">Nom du client <abbr class="req" title="Obligatoire">*</abbr></label>

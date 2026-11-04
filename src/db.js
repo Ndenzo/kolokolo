@@ -10,6 +10,10 @@ const db = knex(knexfile[env]);
 async function ensureAdmin() {
 	const existing = await db('users').first();
 	if (existing) return;
+	if (!adminEmail || !adminPassword) {
+		console.warn('[kolokolo] Aucun compte admin : renseignez ADMIN_EMAIL et ADMIN_PASSWORD dans le .env puis redémarrez.');
+		return;
+	}
 	await db('users').insert({
 		email: adminEmail.toLowerCase().trim(),
 		password_hash: await bcrypt.hash(adminPassword, 12),

@@ -30,7 +30,7 @@
 							<% if (job.location) { %><span><i class="fas fa-map-marker-alt"></i><%= job.location %></span><% } %>
 							<span><i class="fas fa-calendar-alt"></i><%= helpers.formatLongDate(job.created_at, lang) %></span>
 						</div>
-						<div class="bm-rich"><%- job.description_html || '' %></div>
+						<div class="bm-rich"><%- helpers.sanitizeHtml(job.description_html) %></div>
 						<div class="mt-40">
 							<a href="/contact?sujet=Recrutement" class="grb-btn"><%= t('career.apply') %></a>
 						</div>
