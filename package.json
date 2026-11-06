@@ -22,8 +22,8 @@
     "express-mysql-session": "^3.0.3",
     "express-session": "^1.19.0",
     "knex": "^3.3.0",
-    "multer": "^2.2.0",
+    "multer": "^2.5.0",
     "mysql2": "^3.23.3",
-    "nodemailer": "^9.0.5"
+    "nodemailer": "^9.1.1"
   }
 }
