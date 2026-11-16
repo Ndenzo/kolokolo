@@ -2241,3 +2241,158 @@ body.page-career section.pt-140 .row.align-items-center p {
 /* Mode sombre désactivé pour le moment. */
 .header__theme,
 .header__theme-slot { display: none !important; }
+
+/* ==========================================================================
+   Site vitrine sur une page : ancres, menu actif, CTA
+   ========================================================================== */
+html {
+	scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+	html { scroll-behavior: auto; }
+}
+.onepage-section {
+	scroll-margin-top: 112px;
+}
+
+/* Menu : section affichée — texte en rouge uniquement, sans fond */
+.main-menu.main-menu-1 nav > ul > li.active:before {
+	opacity: 0;
+	visibility: hidden;
+}
+.main-menu ul li.active > a,
+.main-menu ul li > a.is-active {
+	color: #ff0a08;
+}
+.mean-container .mean-nav ul li.active > a,
+.mean-container .mean-nav ul li > a.is-active {
+	color: #ff0a08;
+}
+
+/* En-tête : CTA « Devis gratuit » (menu) et « Nous contacter » (barre supérieure) */
+.header-main-1 .header__ctas .grb-btn {
+	flex: none;
+	width: auto;
+	white-space: nowrap;
+}
+.header-top-cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	height: 34px;
+	padding: 0 16px;
+	margin-right: 16px;
+	border: 1px solid rgba(255, 255, 255, 0.28);
+	border-radius: 999px;
+	color: #fff;
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.3px;
+	text-transform: uppercase;
+	white-space: nowrap;
+	transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.header-top-cta i { color: #ff0a08; transition: color 0.2s ease; }
+.header-top-cta:hover,
+.header-top-cta:focus-visible,
+.header-top-cta.is-current {
+	color: #fff;
+	background: #ff0a08;
+	border-color: #ff0a08;
+}
+.header-top-cta:hover i,
+.header-top-cta:focus-visible i,
+.header-top-cta.is-current i { color: #fff; }
+@media (min-width: 1200px) and (max-width: 1399px) {
+	.header-main-1 .main-menu ul li { margin: 0 8px; }
+	.header-main-1 .main-menu ul li a { font-size: 14px; }
+}
+@media (min-width: 1400px) {
+	.header-main-1 .main-menu ul li { margin: 0 9px; }
+}
+/* Entre 992 et 1199 px, le menu passe dans le panneau latéral (bouton ☰) */
+@media (min-width: 992px) and (max-width: 1199px) {
+	.header-main-1 .main-menu { display: none; }
+	.header-main-1 .header__search .side-toggle { margin-left: 12px; }
+}
+
+/* Menu latéral (mobile) : CTA */
+.side-ctas {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	clear: both;
+	width: 100%;
+	padding-top: 24px;
+}
+.side-ctas.d-xl-none { display: flex !important; }
+@media (min-width: 1200px) {
+	.side-ctas.d-xl-none { display: none !important; }
+}
+.side-ctas .grb-btn,
+.side-ctas .grb-border-btn {
+	width: 100%;
+	min-width: 0;
+	height: 52px;
+	line-height: 50px;
+	font-size: 15px;
+}
+.side-ctas .grb-btn { line-height: 52px; }
+.side-ctas .grb-btn i { margin-left: 12px; }
+.side-ctas .grb-border-btn {
+	border-color: #ff0a08;
+	color: #ff0a08;
+}
+.side-ctas .grb-border-btn:hover { color: #fff; }
+
+/* Section À propos : actions */
+.onepage-actions {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 16px 30px;
+}
+.onepage-link {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	color: #0c0b22;
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.4px;
+}
+.onepage-link i { color: #ff0a08; transition: transform 0.2s ease; }
+.onepage-link:hover { color: #ff0a08; }
+.onepage-link:hover i { transform: translateY(3px); }
+
+/* Bandeau final : projet / contact */
+.onepage-cta__text {
+	max-width: 620px;
+	margin: 0 auto 38px;
+	color: rgba(255, 255, 255, 0.82);
+	font-size: 18px;
+	line-height: 1.6;
+}
+.onepage-cta__actions {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+.onepage-cta__actions .grb-btn i { margin-left: 14px; }
+.onepage-cta__ghost { min-width: 200px; }
+@media (max-width: 575px) {
+	.onepage-cta__actions a { width: 100%; }
+}
+@media (min-width: 1200px) {
+	.header-main-1 .main-menu nav > ul {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		white-space: nowrap;
+	}
+}
+@media (min-width: 1200px) and (max-width: 1399px) {
+	.main-menu.main-menu-1 nav > ul > li:before { width: calc(100% + 14px); left: -7px; }
+}

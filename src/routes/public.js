@@ -10,6 +10,28 @@ const { features } = require('../config');
 
 const router = Router();
 
+// SEO : une seule URL par page et par langue.
+// - /services/ → /services (redirection permanente) ;
+// - un visiteur qui a choisi l'anglais (cookie) et arrive sur une URL sans ?lang est renvoyé
+//   vers la version ?lang=en : l'URL sans paramètre affiche ainsi toujours le français,
+//   ce que Google voit (il n'a pas de cookie) et ce que déclarent les balises hreflang.
+router.use((req, res, next) => {
+	if (req.method !== 'GET' && req.method !== 'HEAD') return next();
+	const path = req.path;
+	if (/\.[a-z0-9]+$/i.test(path)) return next();
+	const qIndex = req.originalUrl.indexOf('?');
+	const query = qIndex >= 0 ? req.originalUrl.slice(qIndex) : '';
+	if (path.length > 1 && path.endsWith('/')) {
+		return res.redirect(301, (path.replace(/\/+$/, '') || '/') + query);
+	}
+	if (req.query.lang === undefined && res.locals.lang === 'en' && !path.startsWith('/recherche')
+		&& req.accepts(['html', 'json']) === 'html') {
+		res.set('Cache-Control', 'no-store');
+		return res.redirect(302, `${path}${query}${query ? '&' : '?'}lang=en`);
+	}
+	return next();
+});
+
 // Page Carrière masquée : toutes les URL /carriere répondent 404 tant que CAREER_ENABLED=false.
 router.use('/carriere', (req, res, next) => {
 	if (features.career) return next();
@@ -110,8 +132,6 @@ router.get('/robots.txt', (req, res) => {
 router.get('/sitemap.xml', async (req, res) => {
 	const pages = [
 		{ path: '/', priority: '1.0', changefreq: 'weekly' },
-		{ path: '/services', priority: '0.9', changefreq: 'monthly' },
-		{ path: '/a-propos', priority: '0.8', changefreq: 'monthly' },
 		{ path: '/contact', priority: '0.8', changefreq: 'yearly' },
 		{ path: '/conditions-generales', priority: '0.3', changefreq: 'yearly' },
 		{ path: '/confidentialite', priority: '0.3', changefreq: 'yearly' },
@@ -148,13 +168,13 @@ router.get('/coming', (req, res) => {
 	res.render('coming');
 });
 
-router.get('/a-propos', (req, res) => {
-	renderPage(res, 'about', res.locals.t('meta.aboutTitle'));
-});
-
-router.get('/services', async (req, res) => {
-	const testimonials = await activeTestimonials();
-	renderPage(res, 'services', res.locals.t('meta.servicesTitle'), { testimonials });
+// Site vitrine sur une page : les anciennes pages renvoient vers leur section de l'accueil
+// (redirection permanente, pour conserver le référencement et les liens existants).
+const ONEPAGE_REDIRECTS = { '/a-propos': 'a-propos', '/services': 'services' };
+Object.entries(ONEPAGE_REDIRECTS).forEach(([path, section]) => {
+	router.get(path, (req, res) => {
+		res.redirect(301, `${helpers.sectionHref(res.locals.lang, '')}#${section}`);
+	});
 });
 
 router.get('/carriere', async (req, res) => {

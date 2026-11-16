@@ -16,8 +16,8 @@ function matchQuery(query, ...fields) {
 
 const SEARCH_PAGE_KEYS = [
 	{ key: 'home', url: '/' },
-	{ key: 'about', url: '/a-propos' },
-	{ key: 'services', url: '/services' },
+	{ key: 'about', url: '/#a-propos' },
+	{ key: 'services', url: '/#services' },
 	...(features.career ? [{ key: 'career', url: '/carriere' }] : []),
 	{ key: 'contact', url: '/contact' },
 	{ key: 'terms', url: '/conditions-generales' },
@@ -25,12 +25,12 @@ const SEARCH_PAGE_KEYS = [
 ];
 
 const SEARCH_SERVICE_KEYS = [
-	{ key: 'web', url: '/services' },
-	{ key: 'webapp', url: '/services' },
-	{ key: 'apps', url: '/services' },
-	{ key: 'ads', url: '/services' },
-	{ key: 'social', url: '/services' },
-	{ key: 'support', url: '/services' },
+	{ key: 'web', url: '/#services' },
+	{ key: 'webapp', url: '/#services' },
+	{ key: 'apps', url: '/#services' },
+	{ key: 'ads', url: '/#services' },
+	{ key: 'social', url: '/#services' },
+	{ key: 'support', url: '/#services' },
 ];
 
 function catalogFrom(t, prefix, entries) {

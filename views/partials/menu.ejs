@@ -29,6 +29,7 @@
                     </div>
                     <div class="col-md-5 col-lg-4 d-none d-md-flex align-items-center justify-content-end">
                         <div class="header-top-tools">
+                            <a href="<%= helpers.pageHref(lang, '/contact') %>" class="header-top-cta<%= typeof page !== 'undefined' && page === 'contact' ? ' is-current' : '' %>"><i class="fal fa-paper-plane" aria-hidden="true"></i><%= t('nav.contactCta') %></a>
                             <%- include('lang-switch', { variant: 'dark' }) %>
                             <%- include('social-items', { variant: 'header', wrapClass: 'grb__social st-1' }) %>
                         </div>
@@ -44,10 +45,10 @@
                             <div class="logo-bg-1">
                                 <img src="/assets/front/img/shape/logo-bg-1.png" alt="">
                             </div>
-                            <a class="logo-text-white" href="/">
+                            <a class="logo-text-white" href="<%= helpers.sectionHref(lang) %>">
 								<img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo">
 							</a>
-                            <a class="logo-text-black" href="/" aria-hidden="true" tabindex="-1">
+                            <a class="logo-text-black" href="<%= helpers.sectionHref(lang) %>" aria-hidden="true" tabindex="-1">
 								<img src="/assets/custom/img/logo/logoh.png" alt="">
 							</a>
                         </div>
@@ -58,26 +59,27 @@
                                 <img src="/assets/front/img/shape/menu-bg-1.png" alt="">
                             </div>
                             <div class="main-menu main-menu-1">
-                                <nav id="mobile-menu">
+                                <nav id="mobile-menu" data-onepage-nav>
                                     <ul>
-                                        <li><a href="/"><%= t('nav.home') %></a></li>
-                                        <li><a href="/a-propos"><%= t('nav.about') %></a></li>
-                                        <li><a href="/services"><%= t('nav.services') %></a></li>
-                                        <% if (features.career) { %><li><a href="/carriere"><%= t('nav.career') %></a></li><% } %>
-                                        <li><a href="/contact"><%= t('nav.contact') %></a></li>
+                                        <li><a href="<%= helpers.sectionHref(lang, 'accueil') %>" data-section="accueil"><%= t('nav.home') %></a></li>
+                                        <li><a href="<%= helpers.sectionHref(lang, 'a-propos') %>" data-section="a-propos"><%= t('nav.about') %></a></li>
+                                        <li><a href="<%= helpers.sectionHref(lang, 'services') %>" data-section="services"><%= t('nav.services') %></a></li>
+                                        <li><a href="<%= helpers.sectionHref(lang, 'methode') %>" data-section="methode"><%= t('nav.method') %></a></li>
+                                        <li><a href="<%= helpers.sectionHref(lang, 'realisations') %>" data-section="realisations"><%= t('nav.work') %></a></li>
+                                        <% if (features.career) { %><li><a href="<%= helpers.pageHref(lang, '/carriere') %>"><%= t('nav.career') %></a></li><% } %>
                                     </ul>
                                 </nav>
                             </div>
                             <div class="header__search">
                                 <a class="search-btn nav-search search-trigger d-none d-lg-inline-block" href="#" role="button" aria-label="<%= t('nav.search') %>"><i
                                         class="fal fa-search" aria-hidden="true"></i></a>
-                                <a class="side-toggle d-lg-none" href="#" role="button" aria-label="Menu"><i
+                                <a class="side-toggle d-xl-none" href="#" role="button" aria-label="Menu"><i
                                         class="fal fa-bars" aria-hidden="true"></i></a>
                             </div>
                             <div class="header__theme d-none">
                                 <%- include('theme-switch') %>
                             </div>
-                            <div class="header__btn d-none d-xl-inline-block">
+                            <div class="header__btn header__ctas d-none d-lg-flex">
                                 <a href="#devis" class="grb-btn" data-quote-open><%= t('nav.quote') %><i
                                         class="fas fa-arrow-right"></i></a>
                             </div>
@@ -94,7 +96,7 @@
             <div class="side-info-content">
                 <div class="offset-widget offset-logo mb-30 pb-20">
                     <div class="row align-items-center">
-                        <div class="col-9"><a href="/"><img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo" style="width: 170px;"></a>
+                        <div class="col-9"><a href="<%= helpers.sectionHref(lang) %>"><img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo" style="width: 170px;"></a>
                         </div>
                         <div class="col-3 text-end"><button class="side-info-close" type="button" aria-label="<%= lang === 'en' ? 'Close' : 'Fermer' %>"><i
                                     class="fal fa-times" aria-hidden="true"></i></button>
@@ -107,7 +109,11 @@
                 <div class="header__theme-slot is-drawer d-none mb-25">
                     <%- include('theme-switch', { variant: 'dark' }) %>
                 </div>
-                <div class="mobile-menu d-lg-none"></div>
+                <div class="mobile-menu d-xl-none"></div>
+                <div class="side-ctas d-xl-none mb-30">
+                    <a href="#devis" class="grb-btn" data-quote-open><%= t('nav.quote') %><i class="fas fa-arrow-right"></i></a>
+                    <a href="<%= helpers.pageHref(lang, '/contact') %>" class="grb-border-btn"><%= t('nav.contactCta') %></a>
+                </div>
                 <div class="offset-widget offset_searchbar mb-30">
                     <form method="get" action="/" data-side-search>
                         <div class="offset_search_content">

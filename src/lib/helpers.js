@@ -118,8 +118,20 @@ function contactPlace(settings) {
 
 const { sanitizeHtml } = require('./sanitize');
 
+// Site vitrine sur une seule page : lien vers une section de l'accueil, en gardant la langue.
+function sectionHref(lang, id) {
+	return `${lang === 'en' ? '/?lang=en' : '/'}${id ? `#${id}` : ''}`;
+}
+
+// Lien vers une page interne en gardant la langue (ex. /contact?lang=en).
+function pageHref(lang, path) {
+	return lang === 'en' ? `${path}?lang=en` : path;
+}
+
 module.exports = {
 	sanitizeHtml,
+	sectionHref,
+	pageHref,
 	slugify,
 	uniqueSlug,
 	formatDay,

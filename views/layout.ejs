@@ -30,7 +30,9 @@
 	<meta name="theme-color" content="#FF0A08">
 	<meta name="geo.region" content="SN-DK">
 	<meta name="geo.placename" content="Dakar">
-	<link rel="canonical" href="<%= head.url %>">
+	<% if (head.googleVerification) { %><meta name="google-site-verification" content="<%= head.googleVerification %>">
+	<% } %><% if (head.bingVerification) { %><meta name="msvalidate.01" content="<%= head.bingVerification %>">
+	<% } %><link rel="canonical" href="<%= head.url %>">
 	<% head.alternates.forEach((alt) => { %>
 	<link rel="alternate" hreflang="<%= alt.hreflang %>" href="<%= alt.href %>">
 	<% }) %>
@@ -59,6 +61,7 @@
 	<meta itemprop="description" content="<%= head.description %>">
 	<meta itemprop="image" content="<%= head.image %>">
 
+	<link rel="icon" href="/favicon.ico" sizes="any">
 	<link rel="icon" type="image/png" sizes="32x32" href="/assets/custom/img/logo/favicon.png">
 	<link rel="icon" type="image/png" sizes="192x192" href="/assets/custom/img/logo/icon-192.png">
 	<link rel="icon" type="image/png" sizes="512x512" href="/assets/custom/img/logo/icon-512.png">
@@ -69,6 +72,10 @@
 	<link rel="manifest" href="/site.webmanifest">
 	<link rel="image_src" href="<%= head.image %>">
 
+	<% if (typeof page !== 'undefined' && page === 'home') { %>
+	<!-- Première bannière du hero chargée en priorité : affichage plus rapide, meilleur score Google. -->
+	<link rel="preload" as="image" type="image/webp" href="/assets/front/img/hero/banner1.webp" fetchpriority="high">
+	<% } %>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -122,9 +129,10 @@
 								<h4><%= t('footer.links') %></h4>
 							</div>
 							<ul class="footer-list">
-								<li><a href="/services"><%= t('nav.services') %></a></li>
-								<li><a href="/#portfolio"><%= t('footer.portfolio') %></a></li>
-								<li><a href="/contact"><%= t('nav.contact') %></a></li>
+								<li><a href="<%= helpers.sectionHref(lang, 'services') %>"><%= t('nav.services') %></a></li>
+								<li><a href="<%= helpers.sectionHref(lang, 'methode') %>"><%= t('nav.method') %></a></li>
+								<li><a href="<%= helpers.sectionHref(lang, 'realisations') %>"><%= t('nav.work') %></a></li>
+								<li><a href="<%= helpers.pageHref(lang, '/contact') %>"><%= t('nav.contact') %></a></li>
 							</ul>
 						</div>
 					</div>
@@ -134,8 +142,8 @@
 								<h4><%= t('footer.agency') %></h4>
 							</div>
 							<ul class="footer-list">
-								<li><a href="/a-propos"><%= t('nav.about') %></a></li>
-								<% if (features.career) { %><li><a href="/carriere"><%= t('nav.career') %></a></li><% } %>
+								<li><a href="<%= helpers.sectionHref(lang, 'a-propos') %>"><%= t('nav.about') %></a></li>
+								<% if (features.career) { %><li><a href="<%= helpers.pageHref(lang, '/carriere') %>"><%= t('nav.career') %></a></li><% } %>
 								<li><a href="/confidentialite"><%= t('footer.privacyPolicy') %></a></li>
 								<li><a href="/conditions-generales"><%= t('footer.terms') %></a></li>
 							</ul>
@@ -169,21 +177,21 @@
 				<div class="row wow fadeInUp align-items-center">
 					<div class="col-lg-3 d-none d-lg-block">
 						<div class="copyright-logo logo-shape">
-							<a href="/">
+							<a href="<%= helpers.sectionHref(lang) %>">
 								<img src="/assets/custom/img/logo/logoh.png" alt="Kolokolo">
 							</a>
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6">
 						<div class="copyright-text">
-							<p>&copy; <%= new Date().getFullYear() %> <a href="/">Kolokolo</a>. <%= t('footer.rights') %></p>
+							<p>&copy; <%= new Date().getFullYear() %> <a href="<%= helpers.sectionHref(lang) %>">Kolokolo</a>. <%= t('footer.rights') %></p>
 						</div>
 					</div>
 					<div class="col-lg-5 col-md-6">
 						<ul class="copyright-list f-right">
 							<li><a href="/conditions-generales"><%= t('footer.terms') %></a></li>
 							<li><a href="/confidentialite"><%= t('footer.privacy') %></a></li>
-							<li><a href="/a-propos"><%= t('nav.about') %></a></li>
+							<li><a href="<%= helpers.pageHref(lang, '/contact') %>"><%= t('nav.contact') %></a></li>
 						</ul>
 					</div>
 				</div>
@@ -214,6 +222,7 @@
 	<script src="/assets/front/js/search.js"></script>
 	<script src="/assets/front/js/lang.js"></script>
 	<script src="/assets/front/js/liquid-glass.js"></script>
+	<script src="/assets/front/js/onepage.js"></script>
 </body>
 
 </html>

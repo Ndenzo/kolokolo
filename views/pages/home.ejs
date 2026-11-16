@@ -1,6 +1,6 @@
 <main>
 	<!-- hero area start here -->
-	<section class="slider-area p-relative fix">
+	<section class="slider-area p-relative fix onepage-section" id="accueil">
 		<div class="slider-active swiper-container">
                <div class="swiper-wrapper">
 				<div class="single-slider slider-height swiper-slide slider-overlay" data-swiper-autoplay="5000">
@@ -85,8 +85,9 @@
      </section>
 	<!-- hero area end here -->
 	<%- include('../partials/client-logos-slider', { extraClass: 'grey-bg' }) %>
-	<!-- about area start  -->
-	<section class="about__area">
+
+	<!-- À propos -->
+	<section class="about__area onepage-section" id="a-propos">
 		<div class="container">
 			<div class="row align-items-center wow fadeInUp">
 				<div class="col-xl-6 col-lg-5">
@@ -106,9 +107,9 @@
 					<div class="about__content mb-30">
 						<div class="section-title">
 							<div class="border-left">
-								<p>#Kolokolo</p>
+								<p><%= t('home.who') %></p>
 							</div>
-							<h2><%= t('home.who') %></h2>
+							<h2><%= t('about.title') %></h2>
 						</div>
 						<p><%= t('home.about') %></p>
 						<p class="about__extra"><%= t('home.aboutExtra') %></p>
@@ -117,25 +118,26 @@
 							<li><%= t('home.aboutPoint2') %></li>
 							<li><%= t('home.aboutPoint3') %></li>
 						</ul>
-						<div class="about__btn st-1">
-							<a href="/a-propos" class="grb-btn st-1"><%= t('home.more') %><i class="fas fa-arrow-right"></i></a>
+						<div class="about__btn st-1 onepage-actions">
+							<a href="#devis" class="grb-btn st-1" data-quote-open><%= t('nav.quote') %><i class="fas fa-arrow-right"></i></a>
+							<a href="<%= helpers.sectionHref(lang, 'services') %>" class="onepage-link"><%= t('home.ourServices') %><i class="fal fa-arrow-down"></i></a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- about area end -->
-	<!-- service area start  -->
-	<section class="service__area grey-bg pt-120 pb-90">
+
+	<!-- Services -->
+	<section class="service__area grey-bg pt-120 pb-90 onepage-section" id="services">
 		<div class="container">
 			<div class="row wow fadeInUp">
 				<div class="col-lg-6">
 					<div class="section-title mb-55">
 						<div class="border-left">
 							<p><%= t('home.ourServices') %></p>
-							</div>
-							<h2><%= t('home.bestServices') %></h2>
+						</div>
+						<h2><%= t('home.bestServices') %></h2>
 					</div>
 				</div>
 				<div class="col-lg-6">
@@ -147,9 +149,9 @@
 			<%- include('../partials/services-grid') %>
 		</div>
 	</section>
-	<!-- service area end -->
-	<!-- choosing area start  -->
-	<section class="choosing__area pt-120 pb-90">
+
+	<!-- Notre méthode -->
+	<section class="choosing__area pt-120 pb-90 onepage-section" id="methode">
 		<div class="container">
 			<div class="row wow fadeInUp">
 				<div class="col-lg-6">
@@ -166,40 +168,24 @@
 					</div>
 					<div class="choosing__information mb-30">
 						<ul>
+							<% [1, 2, 3].forEach((n) => { %>
 							<li>
 								<div class="choosing__number">
-									<span>01</span>
+									<span>0<%= n %></span>
 								</div>
 								<div class="choosing__text">
-									<h5><%= t('home.why1') %></h5>
-									<p><%= t('home.why1Text') %></p>
+									<h5><%= t('home.why' + n) %></h5>
+									<p><%= t('home.why' + n + 'Text') %></p>
 								</div>
 							</li>
-							<li>
-								<div class="choosing__number">
-									<span>02</span>
-								</div>
-								<div class="choosing__text">
-									<h5><%= t('home.why2') %></h5>
-									<p><%= t('home.why2Text') %></p>
-								</div>
-							</li>
-							<li>
-								<div class="choosing__number">
-									<span>03</span>
-								</div>
-								<div class="choosing__text">
-									<h5><%= t('home.why3') %></h5>
-									<p><%= t('home.why3Text') %></p>
-								</div>
-							</li>
+							<% }) %>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- choosing area end  -->
+
 	<!-- testimonial area start  -->
 	<% const homeTestimonials = typeof testimonials !== 'undefined' ? testimonials : []; %>
 	<% /* Témoignages masqués temporairement */ if (false && homeTestimonials.length) { %>
@@ -258,7 +244,7 @@
 	<% } %>
 	<% const homeProjects = typeof projects !== 'undefined' ? projects : []; %>
 	<% if (homeProjects.length) { %>
-	<section class="portfolio-area" id="portfolio">
+	<section class="portfolio-area grey-bg onepage-section" id="realisations">
 		<div class="container">
 			<div class="row wow fadeInUp align-items-center counter-head">
 				<div class="col-lg-6 col-md-7">
@@ -301,8 +287,25 @@
 		</div>
 	</section>
 	<% } %>
-	<!-- portfolio area end -->
-	<!-- newsletter area start  -->
+	<!-- Appel à l'action : projet / contact -->
+	<section class="hire-area onepage-cta" id="projet" data-background="/assets/front/img/bg/hire-bg.jpg">
+		<div class="container">
+			<div class="row wow fadeInUp justify-content-center">
+				<div class="col-lg-8 col-md-11">
+					<div class="hire-content text-center">
+						<div class="section-title mb-30">
+							<h2 class="white-color"><%= t('services.project') %></h2>
+						</div>
+						<p class="onepage-cta__text"><%= t('home.ctaText') %></p>
+						<div class="hire-btn onepage-cta__actions">
+							<a href="#devis" class="grb-btn" data-quote-open><%= t('nav.quote') %><i class="fas fa-arrow-right"></i></a>
+							<a href="<%= helpers.pageHref(lang, '/contact') %>" class="grb-border-btn onepage-cta__ghost"><%= t('nav.contactCta') %></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<%- include('../partials/newsletter') %>
-	<!-- newsletter area end -->
 </main>

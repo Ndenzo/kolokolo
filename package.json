@@ -12,7 +12,7 @@
     "build": "node -e \"console.log('Pas de build — application Node.js prête.')\""
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
@@ -22,8 +22,13 @@
     "express-mysql-session": "^3.0.3",
     "express-session": "^1.19.0",
     "knex": "^3.3.0",
-    "multer": "^2.2.0",
+    "multer": "^2.5.0",
     "mysql2": "^3.23.3",
-    "nodemailer": "^9.0.5"
+    "nodemailer": "^10.0.9"
+  },
+  "overrides": {
+    "proxy-addr": "^2.0.8",
+    "body-parser": "^1.20.9",
+    "brace-expansion": "^2.1.6"
   }
 }

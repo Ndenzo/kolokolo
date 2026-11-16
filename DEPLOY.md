@@ -19,7 +19,7 @@ Dans hPanel → **Websites** → ton site → **Node.js** :
 | Entry / startup file | `src/app.js` |
 | Build command | **vide** (ou laisse le no-op) |
 | Output directory | **vide** |
-| Node version | **18** ou **20** |
+| Node version | **20** ou plus (requis par nodemailer 10) |
 
 Commande de démarrage : `npm start`.
 
@@ -74,7 +74,7 @@ La 503 signifie presque toujours : **le process Node n’écoute pas** (crash au
    - Entry file = `src/app.js`
    - Variables `DB_*` correctes (hôte Hostinger, pas ton `.env` local)
    - Base MySQL créée
-   - Node 18+
+   - Node 20+
    - Build command / Output directory **vides**
 4. Teste `/health` une fois l’app up → doit répondre `ok`
 

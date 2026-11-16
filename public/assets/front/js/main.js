@@ -4,7 +4,7 @@
 	// meanmenu
 	$("#mobile-menu").meanmenu({
 		meanMenuContainer: ".mobile-menu",
-		meanScreenWidth: "992",
+		meanScreenWidth: "1199",
 	});
 
 	$(".side-info-close,.offcanvas-overlay").on("click", function () {
@@ -381,4 +381,4 @@
 			jQuery(this).html(countNumber);
 		});
 	});
-})(jQuery);
+})(jQuery);

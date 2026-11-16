@@ -47,6 +47,11 @@ module.exports = {
 		rccm: String(process.env.LEGAL_RCCM || '').trim(),
 		publisher: String(process.env.LEGAL_PUBLISHER || '').trim(),
 	},
+	// Codes de vérification Google Search Console / Bing Webmaster (balise meta), facultatifs.
+	seo: {
+		googleVerification: String(process.env.GOOGLE_SITE_VERIFICATION || '').trim(),
+		bingVerification: String(process.env.BING_SITE_VERIFICATION || '').trim(),
+	},
 	features: {
 		// Page Carrière masquée tant que CAREER_ENABLED n'est pas à true dans le .env.
 		career: String(process.env.CAREER_ENABLED || '').toLowerCase() === 'true',
