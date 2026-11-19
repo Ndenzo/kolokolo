@@ -1,0 +1,78 @@
+<%- include('../../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Facturation</p>
+		<h1><%= customer.name %></h1>
+		<p><%= customer.contact_name || 'Fiche client' %></p>
+	</div>
+	<div class="header-actions">
+		<a class="btn btn-ghost" href="/admin/billing/customers/<%= customer.id %>/edit">Modifier</a>
+		<a class="btn btn-primary" href="/admin/billing/quotes/new?customer=<%= customer.id %>">Nouveau devis</a>
+	</div>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Coordonnées</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Contact</span><strong><%= customer.contact_name || '—' %></strong></div>
+			<div class="info-row"><span>Email</span><strong><%= customer.email || '—' %></strong></div>
+			<div class="info-row"><span>Téléphone</span><strong><%= customer.phone || '—' %></strong></div>
+			<div class="info-row"><span>NINEA</span><strong><%= customer.ninea || '—' %></strong></div>
+			<div class="info-row"><span>Adresse</span><strong><%= customer.address || '—' %></strong></div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-title"><h2>Notes</h2></div>
+		<p class="pre-line"><%= customer.notes || 'Aucune note.' %></p>
+		<form class="form-actions" action="/admin/billing/customers/<%= customer.id %>/delete" method="post" data-confirm data-confirm-title="Supprimer le client" data-confirm-message="La fiche sera retirée. Un client déjà utilisé sur un devis ne peut pas être supprimé." data-confirm-ok="Supprimer">
+			<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+			<button class="btn btn-danger" type="submit">Supprimer</button>
+		</form>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-title"><h2>Devis</h2></div>
+	<% if (!quotes.length) { %>
+		<p class="muted">Aucun devis pour ce client.</p>
+	<% } else { %>
+		<div class="table-wrap">
+			<table class="table">
+				<thead><tr><th>Numéro</th><th>Objet</th><th>Statut</th><th>Date</th><th></th></tr></thead>
+				<tbody>
+					<% quotes.forEach((item) => { %>
+						<tr>
+							<td><strong><%= item.number %></strong></td>
+							<td><%= item.subject %></td>
+							<td><span class="badge badge-<%= item.status %>"><%= billingQuoteStatus[item.status] || item.status %></span></td>
+							<td><%= helpers.formatIsoDate(item.issued_on) %></td>
+							<td><a class="btn-icon" href="/admin/billing/quotes/<%= item.id %>" title="Ouvrir"><i class="fas fa-eye"></i></a></td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+	<% } %>
+</div>
+<div class="panel">
+	<div class="panel-title"><h2>Factures</h2></div>
+	<% if (!invoices.length) { %>
+		<p class="muted">Aucune facture pour ce client.</p>
+	<% } else { %>
+		<div class="table-wrap">
+			<table class="table">
+				<thead><tr><th>Numéro</th><th>Statut</th><th>Date</th><th></th></tr></thead>
+				<tbody>
+					<% invoices.forEach((item) => { %>
+						<tr>
+							<td><strong><%= item.number %></strong></td>
+							<td><span class="badge badge-<%= item.status %>"><%= billingInvoiceStatus[item.status] || item.status %></span></td>
+							<td><%= helpers.formatIsoDate(item.issued_on) %></td>
+							<td><a class="btn-icon" href="/admin/billing/invoices/<%= item.id %>" title="Ouvrir"><i class="fas fa-eye"></i></a></td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+	<% } %>
+</div>
+<%- include('../../partials/shell-end') %>

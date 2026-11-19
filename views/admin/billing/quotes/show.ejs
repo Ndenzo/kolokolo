@@ -1,0 +1,146 @@
+<%- include('../../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Facturation</p>
+		<h1><%= quote.number %></h1>
+		<p><%= quote.subject %></p>
+	</div>
+	<div class="header-actions">
+		<a class="btn btn-ghost" href="/admin/billing/quotes/<%= quote.id %>/pdf?v=<%= Date.now() %>" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+		<% if (quote.status !== 'facture') { %>
+			<a class="btn btn-ghost" href="/admin/billing/quotes/<%= quote.id %>/edit">Modifier</a>
+		<% } %>
+		<% if (invoice) { %>
+			<a class="btn btn-primary" href="/admin/billing/invoices/<%= invoice.id %>">Voir la facture</a>
+		<% } %>
+	</div>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Client</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Client</span><strong><a href="/admin/billing/customers/<%= quote.customer_id %>"><%= quote.customer_name %></a></strong></div>
+			<div class="info-row"><span>Contact</span><strong><%= quote.customer_contact || '—' %></strong></div>
+			<div class="info-row"><span>Email</span><strong><%= quote.customer_email || '—' %></strong></div>
+			<div class="info-row"><span>Émission</span><strong><%= helpers.formatIsoDate(quote.issued_on) %></strong></div>
+			<div class="info-row"><span>Validité</span><strong><%= helpers.formatIsoDate(quote.valid_until) %></strong></div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-title"><h2>Suivi</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Statut</span><strong><span class="badge badge-<%= quote.status %>"><%= billingQuoteStatus[quote.status] || quote.status %></span></strong></div>
+			<div class="info-row"><span>Total HT</span><strong><%= helpers.formatMoney(totals.ht) %></strong></div>
+			<div class="info-row"><span>TVA <%= totals.taxRate %> %</span><strong><%= helpers.formatMoney(totals.tax) %></strong></div>
+			<div class="info-row"><span>Total TTC</span><strong><%= helpers.formatMoney(totals.ttc) %></strong></div>
+		</div>
+		<% if (quote.status !== 'facture') { %>
+			<form class="form-actions" action="/admin/billing/quotes/<%= quote.id %>/status" method="post">
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+				<select class="admin-select select-inline" name="status">
+					<% Object.keys(billingQuoteStatus).filter((key) => key !== 'facture').forEach((key) => { %>
+						<option value="<%= key %>" <%= quote.status === key ? 'selected' : '' %>><%= billingQuoteStatus[key] %></option>
+					<% }) %>
+				</select>
+				<button class="btn btn-primary" type="submit">Mettre à jour</button>
+			</form>
+		<% } %>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-title"><h2>Prestations</h2></div>
+	<div class="table-wrap">
+		<table class="table">
+			<thead><tr><th>Désignation</th><th>Qté</th><th>Prix unitaire HT</th><th>Montant HT</th></tr></thead>
+			<tbody>
+				<% lines.forEach((line) => { %>
+					<tr>
+						<td>
+							<strong><%= line.label %></strong>
+							<% if (line.description) { %><div class="muted pre-line"><%= line.description %></div><% } %>
+						</td>
+						<td><%= Number(line.quantity) %></td>
+						<td><%= helpers.formatMoney(line.unit_price) %></td>
+						<td><%= helpers.formatMoney(Number(line.quantity) * Number(line.unit_price)) %></td>
+					</tr>
+				<% }) %>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Acompte</h2></div>
+		<% if (totals.depositPercent <= 0) { %>
+			<p class="muted">Aucun acompte n’est prévu sur ce devis.</p>
+		<% } else { %>
+			<div class="info-list">
+				<div class="info-row"><span><%= totals.depositPercent %> %</span><strong><%= helpers.formatMoney(totals.deposit) %></strong></div>
+				<div class="info-row"><span>Paiement</span><strong><%= quote.deposit_paid ? 'Payé' : 'Non payé' %></strong></div>
+				<% if (quote.deposit_paid) { %>
+					<div class="info-row"><span>Date</span><strong><%= helpers.formatIsoDate(quote.deposit_paid_on) %></strong></div>
+					<div class="info-row"><span>Mode</span><strong><%= methodLabel(quote.deposit_method) || '—' %></strong></div>
+					<div class="info-row"><span>Référence</span><strong><%= quote.deposit_reference || '—' %></strong></div>
+				<% } %>
+			</div>
+			<% if (quote.status !== 'facture') { %>
+				<form class="form-stack" action="/admin/billing/quotes/<%= quote.id %>/deposit" method="post">
+					<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+					<label class="switch">
+						<input type="checkbox" name="deposit_paid" value="1" <%= quote.deposit_paid ? 'checked' : '' %>>
+						<span class="switch-track"><span class="switch-thumb"></span></span>
+						<span>Acompte payé</span>
+					</label>
+					<div class="settings-grid">
+						<div class="field">
+							<label class="admin-label" for="deposit_paid_on">Date</label>
+							<input class="admin-input" id="deposit_paid_on" type="date" name="deposit_paid_on" value="<%= helpers.isoDate(quote.deposit_paid_on) %>">
+						</div>
+						<div class="field">
+							<label class="admin-label" for="deposit_method">Mode</label>
+							<select class="admin-select" id="deposit_method" name="deposit_method" data-placeholder="Choisir">
+								<option value=""></option>
+								<% paymentMethods.forEach((item) => { %>
+									<option value="<%= item.id %>" <%= quote.deposit_method === item.id ? 'selected' : '' %>><%= item.label %></option>
+								<% }) %>
+							</select>
+						</div>
+					</div>
+					<div class="field">
+						<label class="admin-label" for="deposit_reference">Référence</label>
+						<input class="admin-input" id="deposit_reference" name="deposit_reference" value="<%= quote.deposit_reference || '' %>">
+					</div>
+					<button class="btn btn-primary" type="submit">Enregistrer l’acompte</button>
+				</form>
+			<% } %>
+		<% } %>
+	</div>
+	<div class="panel">
+		<div class="panel-title"><h2>Facture</h2></div>
+		<% if (invoice) { %>
+			<p>Facture <strong><%= invoice.number %></strong> — <span class="badge badge-<%= invoice.status %>"><%= billingInvoiceStatus[invoice.status] || invoice.status %></span></p>
+			<a class="btn btn-primary" href="/admin/billing/invoices/<%= invoice.id %>">Ouvrir la facture</a>
+		<% } else if (quote.status === 'refuse' || quote.status === 'expire') { %>
+			<p class="muted">Un devis refusé ou expiré ne peut pas être facturé.</p>
+		<% } else { %>
+			<p>La facture reprend les prestations, le client et l’acompte déjà encaissé.</p>
+			<form action="/admin/billing/quotes/<%= quote.id %>/invoice" method="post" data-confirm data-confirm-title="Transformer en facture" data-confirm-message="Le devis sera figé et une facture sera créée." data-confirm-ok="Créer la facture">
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+				<button class="btn btn-primary" type="submit">Transformer en facture</button>
+			</form>
+		<% } %>
+		<% if (!invoice) { %>
+			<form class="form-actions" action="/admin/billing/quotes/<%= quote.id %>/delete" method="post" data-confirm data-confirm-ok="Supprimer">
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+				<button class="btn btn-danger" type="submit">Supprimer le devis</button>
+			</form>
+		<% } %>
+	</div>
+</div>
+<% if (quote.notes) { %>
+	<div class="panel">
+		<div class="panel-title"><h2>Conditions</h2></div>
+		<p class="pre-line"><%= quote.notes %></p>
+	</div>
+<% } %>
+<%- include('../../partials/shell-end') %>

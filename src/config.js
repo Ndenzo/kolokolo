@@ -47,6 +47,8 @@ module.exports = {
 		rccm: String(process.env.LEGAL_RCCM || '').trim(),
 		publisher: String(process.env.LEGAL_PUBLISHER || '').trim(),
 	},
+	// Téléphone imprimé sur les devis et les factures. Distinct du numéro affiché sur le site.
+	billingPhone: String(process.env.BILLING_PHONE || '+221 77 730 11 96').trim(),
 	// Codes de vérification Google Search Console / Bing Webmaster (balise meta), facultatifs.
 	seo: {
 		googleVerification: String(process.env.GOOGLE_SITE_VERIFICATION || '').trim(),

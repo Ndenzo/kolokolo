@@ -1,0 +1,60 @@
+<%- include('../../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Facturation</p>
+		<h1>Clients</h1>
+		<p>Chaque devis est rattaché à une fiche client.</p>
+	</div>
+	<a class="btn btn-primary" href="/admin/billing/customers/new"><i class="fas fa-plus"></i> Nouveau client</a>
+</div>
+<div class="panel" data-table>
+	<% if (!customers.length) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-user"></i></div>
+			<h3>Aucun client</h3>
+			<p>Créez une fiche avant d’établir un devis.</p>
+		</div>
+	<% } else { %>
+		<div class="table-toolbar">
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-sort>Client</th>
+						<th data-sort>Contact</th>
+						<th data-sort>Téléphone</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% customers.forEach((item) => { %>
+						<tr data-search="<%= item.name %> <%= item.contact_name %> <%= item.email %> <%= item.phone %>">
+							<td>
+								<strong><%= item.name %></strong>
+								<% if (item.ninea) { %><div class="muted">NINEA <%= item.ninea %></div><% } %>
+							</td>
+							<td>
+								<%= item.contact_name || '—' %>
+								<% if (item.email) { %><div class="muted"><%= item.email %></div><% } %>
+							</td>
+							<td><%= item.phone || '—' %></td>
+							<td>
+								<div class="row-actions">
+									<a class="btn-icon" href="/admin/billing/customers/<%= item.id %>" title="Consulter"><i class="fas fa-eye"></i></a>
+									<a class="btn-icon" href="/admin/billing/customers/<%= item.id %>/edit" title="Modifier"><i class="fas fa-pen"></i></a>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+	<% } %>
+</div>
+<%- include('../../partials/shell-end') %>

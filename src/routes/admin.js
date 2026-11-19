@@ -24,6 +24,8 @@ const DEFAULT_PORTFOLIO_CATEGORIES = [
 	'SEO & maintenance',
 ];
 
+const billingRoutes = require('./billing');
+
 const router = Router();
 const uploadDir = path.join(__dirname, '..', '..', 'public', 'uploads');
 
@@ -62,6 +64,7 @@ function parseActive(body) {
 }
 
 router.use(requireAuth);
+router.use('/billing', billingRoutes);
 
 router.get('/', async (_req, res) => {
 	const [jobs, testimonials, projects, clientLogos, quotes, newQuotes, contacts, newContacts, subscribers, activeSubscribers, campaigns] = await Promise.all([
@@ -570,11 +573,18 @@ router.get('/quotes/:id', async (req, res) => {
 		await db('quote_requests').where({ id: item.id }).update({ status: 'lu', updated_at: db.fn.now() });
 		item.status = 'lu';
 	}
+	let billingQuote = null;
+	try {
+		billingQuote = await db('quotes').where({ quote_request_id: item.id }).orderBy('id', 'desc').first();
+	} catch (err) {
+		billingQuote = null;
+	}
 	adminPage(res, 'admin/quotes/show', {
 		title: 'Demande de devis',
 		active: 'quotes',
 		item,
 		quoteStatusLabels,
+		billingQuote,
 	});
 });
 

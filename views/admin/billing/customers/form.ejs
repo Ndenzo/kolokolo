@@ -1,0 +1,58 @@
+<%- include('../../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Facturation</p>
+		<h1><%= customer.id ? 'Modifier le client' : 'Nouveau client' %></h1>
+		<p>Ces informations apparaissent sur le devis et la facture.</p>
+	</div>
+	<a class="btn btn-ghost" href="/admin/billing/customers">Retour</a>
+</div>
+<% if (errors.length) { %>
+	<div class="form-errors">
+		<% errors.forEach((error) => { %><p><%= error %></p><% }) %>
+	</div>
+<% } %>
+<form class="form-grid" action="<%= action %>" method="post" data-admin-form novalidate>
+	<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+	<div class="panel form-stack">
+		<div class="field" data-field>
+			<label class="admin-label" for="name">Nom ou raison sociale <abbr class="req" title="Obligatoire">*</abbr></label>
+			<input class="admin-input" id="name" name="name" value="<%= customer.name || '' %>" required data-validate="required">
+			<p class="field-error" data-error></p>
+		</div>
+		<div class="field" data-field>
+			<label class="admin-label" for="contact_name">Personne de contact</label>
+			<input class="admin-input" id="contact_name" name="contact_name" value="<%= customer.contact_name || '' %>">
+		</div>
+		<div class="settings-grid">
+			<div class="field" data-field>
+				<label class="admin-label" for="email">Email</label>
+				<input class="admin-input" id="email" type="email" name="email" value="<%= customer.email || '' %>" data-validate="email">
+				<p class="field-error" data-error></p>
+			</div>
+			<div class="field" data-field>
+				<label class="admin-label" for="phone">Téléphone</label>
+				<input class="admin-input" id="phone" name="phone" value="<%= customer.phone || '' %>">
+			</div>
+		</div>
+		<div class="field" data-field>
+			<label class="admin-label" for="address">Adresse</label>
+			<textarea class="admin-input" id="address" name="address" rows="3"><%= customer.address || '' %></textarea>
+		</div>
+		<div class="field" data-field>
+			<label class="admin-label" for="ninea">NINEA</label>
+			<input class="admin-input" id="ninea" name="ninea" value="<%= customer.ninea || '' %>">
+		</div>
+	</div>
+	<div class="form-stack">
+		<div class="panel form-stack">
+			<label class="admin-label" for="notes">Notes internes</label>
+			<textarea class="admin-input" id="notes" name="notes" rows="6"><%= customer.notes || '' %></textarea>
+		</div>
+		<div class="form-actions">
+			<a class="btn btn-ghost" href="/admin/billing/customers">Annuler</a>
+			<button class="btn btn-primary js-submit" type="submit">Enregistrer</button>
+		</div>
+	</div>
+</form>
+<%- include('../../partials/shell-end') %>

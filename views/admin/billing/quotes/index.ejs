@@ -1,0 +1,70 @@
+<%- include('../../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Facturation</p>
+		<h1>Devis</h1>
+		<p>Prestations, acompte et passage en facture. La numérotation commence à DEV-0050.</p>
+	</div>
+	<a class="btn btn-primary" href="/admin/billing/quotes/new"><i class="fas fa-plus"></i> Nouveau devis</a>
+</div>
+<div class="panel" data-table data-sort-index="5" data-sort-dir="desc">
+	<% if (!quotes.length) { %>
+		<div class="empty">
+			<div class="empty-icon"><i class="fas fa-file-invoice"></i></div>
+			<h3>Aucun devis</h3>
+			<p>Établissez un devis en le rattachant à un client.</p>
+		</div>
+	<% } else { %>
+		<div class="table-toolbar">
+			<div class="table-search">
+				<i class="fas fa-search"></i>
+				<input type="search" data-table-search placeholder="Rechercher" aria-label="Rechercher">
+			</div>
+			<div class="table-info" data-table-info></div>
+		</div>
+		<div class="table-wrap">
+			<table class="table">
+				<thead>
+					<tr>
+						<th data-sort>Numéro</th>
+						<th data-sort>Client</th>
+						<th data-sort>Objet</th>
+						<th data-sort>Total TTC</th>
+						<th data-sort>Acompte</th>
+						<th data-sort data-sort-dir="desc">Date</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% quotes.forEach((item) => { %>
+						<tr data-search="<%= item.number %> <%= item.customer_name %> <%= item.subject %> <%= billingQuoteStatus[item.status] %>">
+							<td>
+								<strong><%= item.number %></strong>
+								<div><span class="badge badge-<%= item.status %>"><%= billingQuoteStatus[item.status] || item.status %></span></div>
+							</td>
+							<td><%= item.customer_name %></td>
+							<td><%= item.subject %></td>
+							<td><%= helpers.formatMoney(item.totals.ttc) %></td>
+							<td>
+								<% if (item.totals.depositPercent > 0) { %>
+									<%= helpers.formatMoney(item.totals.deposit) %>
+									<div class="muted"><%= item.deposit_paid ? 'Payé' : 'Non payé' %></div>
+								<% } else { %>
+									<span class="muted">Aucun</span>
+								<% } %>
+							</td>
+							<td data-sort-value="<%= helpers.isoDate(item.issued_on) %>"><%= helpers.formatIsoDate(item.issued_on) %></td>
+							<td>
+								<div class="row-actions">
+									<a class="btn-icon" href="/admin/billing/quotes/<%= item.id %>" title="Consulter"><i class="fas fa-eye"></i></a>
+									<a class="btn-icon" href="/admin/billing/quotes/<%= item.id %>/pdf?v=<%= Date.now() %>" target="_blank" title="PDF"><i class="fas fa-file-pdf"></i></a>
+								</div>
+							</td>
+						</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</div>
+	<% } %>
+</div>
+<%- include('../../partials/shell-end') %>

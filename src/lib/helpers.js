@@ -102,6 +102,34 @@ function normalizeEmail(value) {
 	return String(value || '').trim().toLowerCase();
 }
 
+function isoDate(value) {
+	if (!value) return '';
+	if (value instanceof Date && !Number.isNaN(value.getTime())) {
+		const pad = (n) => String(n).padStart(2, '0');
+		return `${value.getFullYear()}-${pad(value.getMonth() + 1)}-${pad(value.getDate())}`;
+	}
+	const match = String(value).match(/^(\d{4}-\d{2}-\d{2})/);
+	return match ? match[1] : '';
+}
+
+function formatIsoDate(value) {
+	const iso = isoDate(value);
+	if (!iso) return '';
+	const [, year, month, day] = iso.match(/^(\d{4})-(\d{2})-(\d{2})/);
+	const months = MONTHS_LONG.fr;
+	return `${Number(day)} ${months[Number(month) - 1]} ${year}`;
+}
+
+function formatMoney(value) {
+	const n = Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+	if (!Number.isFinite(n)) return '0\u00a0F\u00a0CFA';
+	const negative = n < 0;
+	const [int, dec] = Math.abs(n).toFixed(2).split('.');
+	const grouped = int.replace(/\B(?=(\d{3})+(?!\d))/g, '\u00a0');
+	const body = dec === '00' ? grouped : `${grouped},${dec}`;
+	return `${negative ? '-' : ''}${body}\u00a0F\u00a0CFA`;
+}
+
 function contactPlace(settings) {
 	const region = String((settings && settings.region) || '').trim();
 	const address = String((settings && settings.address) || '').trim();
@@ -138,6 +166,9 @@ module.exports = {
 	formatMonthYear,
 	formatLongDate,
 	formatDateTime,
+	isoDate,
+	formatIsoDate,
+	formatMoney,
 	telHref,
 	splitTags,
 	coverFallback,

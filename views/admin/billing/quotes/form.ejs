@@ -1,0 +1,186 @@
+<%- include('../../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Facturation</p>
+		<h1><%= quote.id ? quote.number : 'Nouveau devis' %></h1>
+		<p>Prestation de service, en francs CFA. Le devis doit être rattaché à un client.</p>
+	</div>
+	<a class="btn btn-ghost" href="/admin/billing/quotes">Retour</a>
+</div>
+<% if (errors.length) { %>
+	<div class="form-errors">
+		<% errors.forEach((error) => { %><p><%= error %></p><% }) %>
+	</div>
+<% } %>
+<% if (!customers.length) { %>
+	<div class="panel empty">
+		<div class="empty-icon"><i class="fas fa-user"></i></div>
+		<h3>Aucun client</h3>
+		<p>Créez d’abord la fiche du client.</p>
+		<a class="btn btn-primary" href="/admin/billing/customers/new">Nouveau client</a>
+	</div>
+<% } else { %>
+<form class="form-stack" action="<%= quote.id ? '/admin/billing/quotes/' + quote.id : '/admin/billing/quotes' %>" method="post" id="quote-form">
+	<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+	<input type="hidden" name="quote_request_id" value="<%= quote.quote_request_id || '' %>">
+	<div class="form-grid">
+		<div class="panel form-stack">
+			<div class="field" data-field>
+				<label class="admin-label" for="customer_id">Client <abbr class="req" title="Obligatoire">*</abbr></label>
+				<select class="admin-select" id="customer_id" name="customer_id" required data-placeholder="Choisir un client">
+					<option value=""></option>
+					<% customers.forEach((item) => { %>
+						<option value="<%= item.id %>" <%= String(quote.customer_id) === String(item.id) ? 'selected' : '' %>><%= item.name %></option>
+					<% }) %>
+				</select>
+			</div>
+			<div class="field">
+				<label class="admin-label" for="subject">Objet de la prestation <abbr class="req" title="Obligatoire">*</abbr></label>
+				<input class="admin-input" id="subject" name="subject" value="<%= quote.subject || '' %>" required>
+			</div>
+			<div class="settings-grid">
+				<div class="field">
+					<label class="admin-label" for="issued_on">Date d’émission</label>
+					<input class="admin-input" id="issued_on" type="date" name="issued_on" value="<%= quote.issued_on || '' %>" required>
+				</div>
+				<div class="field">
+					<label class="admin-label" for="valid_until">Valable jusqu’au</label>
+					<input class="admin-input" id="valid_until" type="date" name="valid_until" value="<%= quote.valid_until || '' %>" required>
+				</div>
+			</div>
+			<div class="field">
+				<label class="admin-label" for="notes">Conditions</label>
+				<textarea class="admin-input" id="notes" name="notes" rows="7"><%= quote.notes || '' %></textarea>
+			</div>
+		</div>
+		<div class="form-stack">
+			<div class="panel form-stack">
+				<div class="field">
+					<label class="admin-label" for="status">Statut</label>
+					<select class="admin-select" id="status" name="status">
+						<% Object.keys(billingQuoteStatus).filter((key) => key !== 'facture').forEach((key) => { %>
+							<option value="<%= key %>" <%= quote.status === key ? 'selected' : '' %>><%= billingQuoteStatus[key] %></option>
+						<% }) %>
+					</select>
+				</div>
+				<div class="field">
+					<label class="admin-label" for="tax_rate">TVA (%)</label>
+					<input class="admin-input" id="tax_rate" name="tax_rate" inputmode="decimal" value="<%= quote.tax_rate %>" data-tax>
+					<p class="muted">Laissez 0 si la TVA ne s’applique pas.</p>
+				</div>
+				<div class="field">
+					<label class="admin-label" for="deposit_percent">Acompte (%)</label>
+					<input class="admin-input" id="deposit_percent" name="deposit_percent" inputmode="decimal" value="<%= quote.deposit_percent %>" data-deposit>
+				</div>
+				<label class="switch">
+					<input type="checkbox" name="deposit_paid" value="1" <%= quote.deposit_paid ? 'checked' : '' %>>
+					<span class="switch-track"><span class="switch-thumb"></span></span>
+					<span>Acompte payé</span>
+				</label>
+				<div class="field">
+					<label class="admin-label" for="deposit_paid_on">Date de paiement</label>
+					<input class="admin-input" id="deposit_paid_on" type="date" name="deposit_paid_on" value="<%= quote.deposit_paid_on || '' %>">
+				</div>
+				<div class="field">
+					<label class="admin-label" for="deposit_method">Mode de paiement</label>
+					<select class="admin-select" id="deposit_method" name="deposit_method" data-placeholder="Choisir">
+						<option value=""></option>
+						<% paymentMethods.forEach((item) => { %>
+							<option value="<%= item.id %>" <%= quote.deposit_method === item.id ? 'selected' : '' %>><%= item.label %></option>
+						<% }) %>
+					</select>
+				</div>
+				<div class="field">
+					<label class="admin-label" for="deposit_reference">Référence</label>
+					<input class="admin-input" id="deposit_reference" name="deposit_reference" value="<%= quote.deposit_reference || '' %>">
+				</div>
+			</div>
+			<div class="panel totals-box">
+				<div class="info-row"><span>Total HT</span><strong data-total="ht">0 F CFA</strong></div>
+				<div class="info-row"><span>TVA</span><strong data-total="tax">0 F CFA</strong></div>
+				<div class="info-row"><span>Total TTC</span><strong data-total="ttc">0 F CFA</strong></div>
+				<div class="info-row"><span>Acompte</span><strong data-total="deposit">0 F CFA</strong></div>
+			</div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-title">
+			<h2>Prestations</h2>
+			<button class="btn btn-ghost" type="button" id="add-line"><i class="fas fa-plus"></i> Ajouter</button>
+		</div>
+		<div class="bill-lines" id="lines">
+			<% lines.forEach((line) => { %>
+				<div class="bill-line" data-line>
+					<div class="bill-line-main">
+						<input class="admin-input" name="line_label" placeholder="Désignation" value="<%= line.label || '' %>" data-label>
+						<textarea class="admin-input" name="line_description" rows="2" placeholder="Détail, facultatif"><%= line.description || '' %></textarea>
+					</div>
+					<input class="admin-input" name="line_quantity" inputmode="decimal" placeholder="Qté" value="<%= line.quantity %>" data-qty>
+					<input class="admin-input" name="line_price" inputmode="decimal" placeholder="Prix unitaire HT" value="<%= line.unit_price %>" data-price>
+					<button class="btn-icon is-danger" type="button" data-remove-line title="Retirer"><i class="fas fa-times"></i></button>
+				</div>
+			<% }) %>
+		</div>
+	</div>
+	<div class="form-actions">
+		<a class="btn btn-ghost" href="/admin/billing/quotes">Annuler</a>
+		<button class="btn btn-primary" type="submit">Enregistrer le devis</button>
+	</div>
+</form>
+<template id="line-template">
+	<div class="bill-line" data-line>
+		<div class="bill-line-main">
+			<input class="admin-input" name="line_label" placeholder="Désignation" data-label>
+			<textarea class="admin-input" name="line_description" rows="2" placeholder="Détail, facultatif"></textarea>
+		</div>
+		<input class="admin-input" name="line_quantity" inputmode="decimal" placeholder="Qté" value="1" data-qty>
+		<input class="admin-input" name="line_price" inputmode="decimal" placeholder="Prix unitaire HT" data-price>
+		<button class="btn-icon is-danger" type="button" data-remove-line title="Retirer"><i class="fas fa-times"></i></button>
+	</div>
+</template>
+<script>
+	(function () {
+		const lines = document.getElementById('lines');
+		const template = document.getElementById('line-template');
+		const money = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 });
+		function num(value) {
+			const n = Number(String(value || '').replace(/\s/g, '').replace(',', '.'));
+			return Number.isFinite(n) ? n : 0;
+		}
+		function render() {
+			let ht = 0;
+			lines.querySelectorAll('[data-line]').forEach((row) => {
+				ht += num(row.querySelector('[data-qty]').value) * num(row.querySelector('[data-price]').value);
+			});
+			const taxRate = num(document.querySelector('[data-tax]').value);
+			const depositRate = num(document.querySelector('[data-deposit]').value);
+			const tax = ht * taxRate / 100;
+			const ttc = ht + tax;
+			const deposit = ttc * depositRate / 100;
+			const text = (value) => money.format(Math.round(value * 100) / 100) + ' F CFA';
+			document.querySelector('[data-total="ht"]').textContent = text(ht);
+			document.querySelector('[data-total="tax"]').textContent = text(tax);
+			document.querySelector('[data-total="ttc"]').textContent = text(ttc);
+			document.querySelector('[data-total="deposit"]').textContent = text(deposit);
+		}
+		document.getElementById('add-line').addEventListener('click', () => {
+			lines.appendChild(template.content.cloneNode(true));
+			render();
+		});
+		lines.addEventListener('click', (event) => {
+			const button = event.target.closest('[data-remove-line]');
+			if (!button) return;
+			const rows = lines.querySelectorAll('[data-line]');
+			if (rows.length === 1) {
+				rows[0].querySelectorAll('input, textarea').forEach((input) => { input.value = input.name === 'line_quantity' ? '1' : ''; });
+			} else {
+				button.closest('[data-line]').remove();
+			}
+			render();
+		});
+		document.getElementById('quote-form').addEventListener('input', render);
+		render();
+	}());
+</script>
+<% } %>
+<%- include('../../partials/shell-end') %>

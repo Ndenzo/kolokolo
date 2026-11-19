@@ -42,6 +42,14 @@
 	<p><strong>Services :</strong> <%= item.services %></p>
 	<p class="quote-message"><%= item.message %></p>
 	<div class="form-actions">
+		<% if (billingQuote) { %>
+			<a class="btn btn-primary" href="/admin/billing/quotes/<%= billingQuote.id %>">Ouvrir le devis <%= billingQuote.number %></a>
+		<% } else { %>
+			<form action="/admin/billing/quotes/from-request/<%= item.id %>" method="post">
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+				<button class="btn btn-primary" type="submit">Établir un devis</button>
+			</form>
+		<% } %>
 		<a class="btn btn-ghost" href="mailto:<%= item.email %>?subject=Votre demande de devis Kolokolo">Répondre par email</a>
 		<form action="/admin/quotes/<%= item.id %>/delete" method="post" data-confirm><input type="hidden" name="_csrf" value="<%= csrfToken %>">
 			<button class="btn btn-danger" type="submit">Supprimer</button>

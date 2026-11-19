@@ -1,0 +1,149 @@
+<%- include('../../partials/shell-start') %>
+<div class="admin-header">
+	<div>
+		<p class="page-kicker">Facturation</p>
+		<h1><%= invoice.number %></h1>
+		<p><%= invoice.customer_name %><% if (quote) { %> · devis <%= quote.number %><% } %></p>
+	</div>
+	<div class="header-actions">
+		<a class="btn btn-ghost" href="/admin/billing/invoices/<%= invoice.id %>/pdf?v=<%= Date.now() %>" target="_blank"><i class="fas fa-file-pdf"></i> PDF</a>
+		<% if (quote) { %><a class="btn btn-ghost" href="/admin/billing/quotes/<%= quote.id %>">Devis d’origine</a><% } %>
+	</div>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Montants</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Statut</span><strong><span class="badge badge-<%= invoice.status %>"><%= billingInvoiceStatus[invoice.status] || invoice.status %></span></strong></div>
+			<div class="info-row"><span>Émise le</span><strong><%= helpers.formatIsoDate(invoice.issued_on) %></strong></div>
+			<div class="info-row"><span>Échéance</span><strong><%= helpers.formatIsoDate(invoice.due_on) %></strong></div>
+			<div class="info-row"><span>Total HT</span><strong><%= helpers.formatMoney(totals.ht) %></strong></div>
+			<div class="info-row"><span>TVA <%= totals.taxRate %> %</span><strong><%= helpers.formatMoney(totals.tax) %></strong></div>
+			<div class="info-row"><span>Total TTC</span><strong><%= helpers.formatMoney(totals.ttc) %></strong></div>
+			<div class="info-row"><span>Déjà réglé</span><strong><%= helpers.formatMoney(paid) %></strong></div>
+			<div class="info-row"><span>Reste à payer</span><strong><%= helpers.formatMoney(remaining) %></strong></div>
+		</div>
+	</div>
+	<div class="panel">
+		<div class="panel-title"><h2>Client</h2></div>
+		<div class="info-list">
+			<div class="info-row"><span>Client</span><strong><a href="/admin/billing/customers/<%= invoice.customer_id %>"><%= invoice.customer_name %></a></strong></div>
+			<div class="info-row"><span>Contact</span><strong><%= invoice.customer_contact || '—' %></strong></div>
+			<div class="info-row"><span>Email</span><strong><%= invoice.customer_email || '—' %></strong></div>
+			<div class="info-row"><span>Téléphone</span><strong><%= invoice.customer_phone || '—' %></strong></div>
+			<div class="info-row"><span>Adresse</span><strong><%= invoice.customer_address || '—' %></strong></div>
+		</div>
+	</div>
+</div>
+<div class="panel">
+	<div class="panel-title"><h2>Prestations</h2></div>
+	<div class="table-wrap">
+		<table class="table">
+			<thead><tr><th>Désignation</th><th>Qté</th><th>Prix unitaire HT</th><th>Montant HT</th></tr></thead>
+			<tbody>
+				<% lines.forEach((line) => { %>
+					<tr>
+						<td>
+							<strong><%= line.label %></strong>
+							<% if (line.description) { %><div class="muted pre-line"><%= line.description %></div><% } %>
+						</td>
+						<td><%= Number(line.quantity) %></td>
+						<td><%= helpers.formatMoney(line.unit_price) %></td>
+						<td><%= helpers.formatMoney(Number(line.quantity) * Number(line.unit_price)) %></td>
+					</tr>
+				<% }) %>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div class="settings-grid">
+	<div class="panel">
+		<div class="panel-title"><h2>Règlements</h2></div>
+		<% if (!payments.length) { %>
+			<p class="muted">Aucun règlement enregistré.</p>
+		<% } else { %>
+			<div class="table-wrap">
+				<table class="table">
+					<thead><tr><th>Date</th><th>Type</th><th>Mode</th><th>Référence</th><th>Montant</th><th></th></tr></thead>
+					<tbody>
+						<% payments.forEach((payment) => { %>
+							<tr>
+								<td><%= helpers.formatIsoDate(payment.paid_on) %></td>
+								<td><%= payment.kind === 'acompte' ? 'Acompte' : 'Règlement' %></td>
+								<td><%= methodLabel(payment.method) || payment.method %></td>
+								<td><%= payment.reference || '—' %></td>
+								<td><%= helpers.formatMoney(payment.amount) %></td>
+								<td>
+									<% if (invoice.status !== 'annulee') { %>
+										<form action="/admin/billing/invoices/<%= invoice.id %>/payments/<%= payment.id %>/delete" method="post" data-confirm data-confirm-title="Supprimer le règlement" data-confirm-message="Le statut de la facture sera recalculé." data-confirm-ok="Supprimer">
+											<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+											<button class="btn-icon is-danger" type="submit" title="Supprimer"><i class="fas fa-trash-alt"></i></button>
+										</form>
+									<% } %>
+								</td>
+							</tr>
+						<% }) %>
+					</tbody>
+				</table>
+			</div>
+		<% } %>
+	</div>
+	<% if (invoice.status !== 'annulee' && remaining > 0) { %>
+		<div class="panel">
+			<div class="panel-title"><h2>Encaisser</h2></div>
+			<form class="form-stack" action="/admin/billing/invoices/<%= invoice.id %>/payments" method="post">
+				<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+				<div class="settings-grid">
+					<div class="field">
+						<label class="admin-label" for="amount">Montant</label>
+						<input class="admin-input" id="amount" name="amount" inputmode="decimal" required value="<%= remaining %>">
+					</div>
+					<div class="field">
+						<label class="admin-label" for="paid_on">Date</label>
+						<input class="admin-input" id="paid_on" type="date" name="paid_on" required value="<%= today %>">
+					</div>
+				</div>
+				<div class="settings-grid">
+					<div class="field">
+						<label class="admin-label" for="method">Mode</label>
+						<select class="admin-select" id="method" name="method" required>
+							<% paymentMethods.forEach((item) => { %>
+								<option value="<%= item.id %>"><%= item.label %></option>
+							<% }) %>
+						</select>
+					</div>
+					<div class="field">
+						<label class="admin-label" for="kind">Type</label>
+						<select class="admin-select" id="kind" name="kind">
+							<option value="reglement">Règlement</option>
+							<option value="acompte">Acompte</option>
+						</select>
+					</div>
+				</div>
+				<div class="field">
+					<label class="admin-label" for="reference">Référence</label>
+					<input class="admin-input" id="reference" name="reference">
+				</div>
+				<button class="btn btn-primary" type="submit">Enregistrer le paiement</button>
+			</form>
+		</div>
+	<% } else if (invoice.status === 'payee') { %>
+		<div class="panel">
+			<div class="panel-title"><h2>Solde</h2></div>
+			<p>Cette facture est payée intégralement.</p>
+		</div>
+	<% } %>
+</div>
+<% if (invoice.notes) { %>
+	<div class="panel">
+		<div class="panel-title"><h2>Conditions</h2></div>
+		<p class="pre-line"><%= invoice.notes %></p>
+	</div>
+<% } %>
+<% if (invoice.status !== 'annulee') { %>
+	<form action="/admin/billing/invoices/<%= invoice.id %>/cancel" method="post" data-confirm data-confirm-title="Annuler la facture" data-confirm-message="La facture restera consultable, avec le statut annulée." data-confirm-ok="Annuler la facture">
+		<input type="hidden" name="_csrf" value="<%= csrfToken %>">
+		<button class="btn btn-danger" type="submit">Annuler la facture</button>
+	</form>
+<% } %>
+<%- include('../../partials/shell-end') %>
